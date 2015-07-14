@@ -1,0 +1,32 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="moment_listitem_outter_wrapper">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/padding_medium</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="moment_user_name">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/event_blue</item>
+    </style>
+
+    <style name="moment_datetime">
+        <item name="android:textColor">@color/default_subtext</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="moment_body">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/default_text</item>
+        <item name="android:layout_marginTop">@dimen/padding_medium</item>
+    </style>
+</resources>
