@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64249</id>
+      <title><![CDATA[Facebook 首席安全官建议对 Flash 设定死亡日期 ]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64249/flash-deadline]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>刚刚被任命为 Facebook 首席安全官的 Alex Stamos 建议 Adobe 公司对 Flash 播放器<a target="_blank" href="http://www.theverge.com/2015/7/13/8948459/adobe-flash-insecure-says-facebook-cso" rel="nofollow"><span style="text-decoration:underline;">设定一个死亡日期</span></a>。 过去几天，Flash 接连爆出了多个 0day 漏洞，用户下载了一个补丁修了一个漏洞接着又被告知需要下载另一个补丁修复另一个漏洞。有 3 个 0day 漏洞来 自被窃取的 400GB Hacking Team 文件。Alex Stamos 没有建议 Adobe 立即杀死 Flash，而是留出一段时间从 Flash 迁移到更安全的 HTML5。</p> 
+<p>Alex Stamos 在推特上称现在桌面用户对 Flash 的依赖性已大幅下降，但安全问题仍然存在。而 Flash 是会导致 Mac 电脑死机的最大原因。<br></p> 
+<p>由于 Flash 最近接连爆出了多个 0day 漏洞，Firefox 方面也采取了行动！<br></p> 
+<p>Mozilla 在7月13日<a target="_blank" href="https://addons.mozilla.org/zh-CN/firefox/blocked/" rel="nofollow"><span style="text-decoration:underline;">更新了</span></a>它 的Firefox附加组件封锁名单， Flash Player Plugin on Linux 11.2.202.481 和 Flash Player Plugin 18.0.0.203 和 Flash Player Plugin 13.0.0.302 被加入到名单之中。插件加入黑名单的主要原因是它们会引发严重的安全性、稳定性或者性能问题。Mozilla在一份<a target="_blank" href="https://support.mozilla.org/en-US/kb/add-ons-cause-issues-are-on-blocklist" rel="nofollow"><span style="text-decoration:underline;">声明</span></a>中说，“在Adobe发布更新版本解决高位漏洞前所有版本的Flash Player plugin将默认没有激活。”Mozilla此举的主要原因是Flash最近接连爆出了多个0day漏洞。 <br></p> 
+<p><strong>via </strong><a target="_blank" href="http://www.solidot.org/" rel="nofollow"><strong>solidot.org</strong></a> </p>]]></body>
+      <commentCount>39</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 07:59:24</pubDate>
+	  <softwarelink><![CDATA[]]></softwarelink>
+	  <softwarename><![CDATA[]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[黑客发现 Adobe Flash 播放器第二个零日漏洞]]></rtitle>
+			<rurl>http://www.oschina.net/news/64182/hacker-adobe-flash-0-day</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Adobe Flash 再曝严重漏洞 专家建议卸载]]></rtitle>
+			<rurl>http://www.oschina.net/news/64048/adobe-flash-leak</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Infer —— Facebook 开源静态代码分析工具]]></rtitle>
+			<rurl>http://www.oschina.net/p/infer</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Chrome 将默认不播放非重要 Flash 内容]]></rtitle>
+			<rurl>http://www.oschina.net/news/63109/chrome-play-flash-content</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Nervana 开源深度学习软件，性能超 Facebook、Nvidia产品]]></rtitle>
+			<rurl>http://www.oschina.net/news/62228/nervana-opensource-neon</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring Social Facebook 2.0.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/61939/spring-social-facebook-2-0-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring Social Facebook 2.0.0.RELEASE 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/61583/spring-social-facebook-2-0-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring Social Facebook 2.0.0.RC1 发布，社交扩展框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/61295/spring-social-facebook-2-0-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Adobe Flash 这孩子彻底没救了]]></rtitle>
+			<rurl>http://www.oschina.net/news/61209/adobe-flash-over</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Facebook 宣布 Nuclide：基于 Atom 的开源集成开发环境]]></rtitle>
+			<rurl>http://www.oschina.net/news/60968/facebook-opensource-nuclide</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

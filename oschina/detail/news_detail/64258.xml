@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64258</id>
+      <title><![CDATA[Uncode-Schedule 0.3.0 发布，分布式任务调度组件]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64258/uncode-schedule-0-3-0]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="font-size:13.3333330154419px;line-height:21.3333320617676px;">Uncode-Schedule 是基于&nbsp;</span><a target="_blank" href="http://www.oschina.net/p/zookeeper" rel="nofollow">zookeeper</a><span style="font-size:13.3333330154419px;line-height:21.3333320617676px;">+quartz/spring task 的分布式任务调度组件，非常小巧，无需任何修改就可以使</span><span style="font-size:13.3333330154419px;line-height:21.3333320617676px;">quartz/spring task</span><span style="font-size:13.3333330154419px;line-height:21.3333320617676px;">具备分布式特性，确保所有任务在集群中不重复，不遗漏的执行。</span></p> 
+<p><span style="line-height:21px;">Uncode-Schedule 0.3.0 发布</span>，本次版本<span style="line-height:1.5;">更新内容如下：</span></p> 
+<ol> 
+ <li><p> 优化任务分配，使分配更加合理; </p></li> 
+ <li><p> 修复部分bug. </p></li> 
+</ol> 
+<p> 更多内容请查看<a href="https://git.oschina.net/uncode/uncode-schedule" target="_blank" rel="nofollow">Uncode-<span style="font-size:13.3333330154419px;line-height:21.3333320617676px;">Schedule</span></a>主页。</p>]]></body>
+      <commentCount>10</commentCount>
+      <author><![CDATA[uncode]]></author>
+      <authorid>99241</authorid>
+      <pubDate>2015-07-15 08:59:42</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/uncode-schedule]]></softwarelink>
+	  <softwarename><![CDATA[Uncode-Schedule]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Haka v0.2.3/v0.3.0 发布，网络监控软件]]></rtitle>
+			<rurl>http://www.oschina.net/news/63461/haka-0-2-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Visual Studio Code 0.3.0 发布，首次更新！]]></rtitle>
+			<rurl>http://www.oschina.net/news/63099/visual-studio-code-0-3-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Uncode-Schedule 0.2.0 发布，分布式任务调度组件]]></rtitle>
+			<rurl>http://www.oschina.net/news/62984/uncode-schedule-0-2-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PEP 0.3.0 发布，Web 统一事件系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/61758/announcing-pep-0-3-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[UltimateRecyclerView 0.3.0 发布，新型ListView控件]]></rtitle>
+			<rurl>http://www.oschina.net/news/61069/ultimaterecyclerview-0-3-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RegularJS v0.3.0 发布，JavaScript MVC 框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/59169/regularjs-0-3-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[kbengine 0.3.0 发布, 开源分布式游戏服务端引擎]]></rtitle>
+			<rurl>http://www.oschina.net/news/58656/kbengine-0-3-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Twidere 0.3.0 释出，Android上的Twitter客户端]]></rtitle>
+			<rurl>http://www.oschina.net/news/57966/twidere-0-3-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[form-binder v0.3.0 发布，微型数据绑定和校验框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/55212/form-binder-v0-3-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Julia v0.3.0 发布，动态编程语言]]></rtitle>
+			<rurl>http://www.oschina.net/news/54635/julia-v0-3-0-release</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

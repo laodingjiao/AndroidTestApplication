@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479285</id>
+		<title><![CDATA[Sonar-project.properties配置]]></title>
+		<url><![CDATA[http://my.oschina.net/jiangbianwanghai/blog/479285]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><pre class="brush:shell; toolbar: true; auto-links: false;">#required metadata
+#projectKey项目的唯一标识，不能重复
+sonar.projectKey=xjglxt
+sonar.projectName=xjglxt
+sonar.projectVersion=1.0 
+sonar.sourceEncoding=UTF-8
+sonar.modules=java-module,javascript-module,html-module
+
+# Java module
+java-module.sonar.projectName=Java Module
+java-module.sonar.language=java
+# .表示projectBaseDir指定的目录
+java-module.sonar.sources=.
+java-module.sonar.projectBaseDir=src
+sonar.binaries=classes
+
+# JavaScript module
+javascript-module.sonar.projectName=JavaScript Module
+javascript-module.sonar.language=js
+javascript-module.sonar.sources=js
+javascript-module.sonar.projectBaseDir=webRoot
+
+# Html module
+html-module.sonar.projectName=Html Module
+html-module.sonar.language=web
+html-module.sonar.sources=pages
+html-module.sonar.projectBaseDir=webRoot
+
+sonar.projectKey=org.codehaus.sonar:php-sonar-runner-unit-tests
+sonar.projectName=PHP project analyzed with the SonarQube Runner reusing PHPUnit reports
+sonar.projectVersion=1.0
+sonar.sources=src
+sonar.tests=tests
+sonar.language=php
+sonar.sourceEncoding=UTF-8
+# Reusing PHPUnit reports
+sonar.php.coverage.reportPath=reports/phpunit.coverage.xml
+sonar.php.tests.reportPath=reports/phpunit.xml&nbsp;</pre> 
+<p> <br> </p> 
+<p> <br> </p>]]></body>
+		<author><![CDATA[江边望海]]></author>
+		<authorid>199060</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 13:59:01</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

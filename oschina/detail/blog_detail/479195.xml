@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479195</id>
+		<title><![CDATA[Hoeffding Tree]]></title>
+		<url><![CDATA[http://my.oschina.net/supersonic/blog/479195]]></url>
+		<where><![CDATA[Machine_Learning]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="font-family: simsun; color: rgb(73, 73, 73);"></span></p> 
+<ul> 
+ <li><p>VFDT是一种基于Hoeffding不等式建立决策树的方法，透过不断地将叶节点替换为决策节点而生成，其中每个叶节点都保存有关于属性值的统计信息。</p></li> 
+ <li><p>当一个新样本到达后，在树的每个节点都进行划分测试(判断？)，根据不同的属性取值进入不同的分支最终到达树的叶节点。</p></li> 
+ <li><p>在数据到达叶节点后，节点上的统计信息会被更新，同时该节点基于属性的测试值将重新计算。</p></li> 
+ <li><p>Hoeffding Tree流程图：</p><p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0717/112738_LI98_1399748.jpg"><br></p></li>
+</ul> 
+<p><span style="font-family: simsun; color: rgb(73, 73, 73);"></span><br></p> 
+<p><span style="font-family: simsun; color: rgb(73, 73, 73);"><br></span></p> 
+<p><span style="font-family: simsun; color: rgb(73, 73, 73);">信息增益” （Information Gain）来衡量一个属性区分以上数据样本的能力。信息增益量越大，这个属性作为一棵树的根节点就能使这棵树更简洁，比如说一棵树可以这么读成，如果风力 弱，就去玩；风力强，再按天气、温度等分情况讨论，此时用风力作为这棵树的根节点就很有价值。如果说，风力弱，再又天气晴朗，就去玩；如果风力强，再又怎 么怎么分情况讨论，这棵树相比就不够简洁了。</span></p>]]></body>
+		<author><![CDATA[敏事慎言]]></author>
+		<authorid>1399748</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 10:56:33</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

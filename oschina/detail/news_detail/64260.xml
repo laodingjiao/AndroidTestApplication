@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64260</id>
+      <title><![CDATA[Adminers 1.1.1 正式发布，MySQL 管理客户端]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64260/adminers-1-1-1-released]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> Adminers 是二次开发轻便式数据库管理工具，目前支持 sqlite， mysql 两种引擎。</p> 
+<p> A: 单文件不再乱码<br>&nbsp; 容量增加了60KB, 移除所有的宽字节， 现在可以打开源代码并且修改了。 这跟adminer是完全进步了. 当然，我个人建议大家不要这样做.。</p> 
+<p> B: 连接端口提示<br>&nbsp; 端口号可以直接加在服务器地址后面，如127.0.0.1:3309类似, &nbsp;本地ip地址可以自动转换，放心使用.</p> 
+<p> C: 细节修复<br>&nbsp; 增加数据表下拉功能，表列表中上方增加刷新, 分页等。在线升级功能优化。 旧用户均可以一键升级至新版。</p> 
+<p> D: 运行要求.<br>&nbsp; 虽然我没能完全详细测试，但可以肯定的是ie8以下浏览器运行不佳， php 5.2 可能会致错。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0715/114834_5g9n_998019.jpg" alt=""></p>
+<p><br></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0715/114842_2Uqi_998019.jpg" alt=""><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0715/114849_fxXG_998019.jpg" alt=""></p>
+<p> 下载地址:</p> 
+<p> &nbsp;<a href="http://www.fenanr.com/index.php?ajax=source_download&amp;fid=198" rel="nofollow">http://www.fenanr.com/index.php?ajax=source_download&amp;fid=198</a><br></p> 
+<p>Adminers是一个类似于phpMyAdmin的MySQL管理客户端。整个程序只有一个PHP文件，易于使用和安装。Adminers支持多语言 （已自带11种翻译语言文件，可以按自己的需求翻译相应的语言）。支持PHP4.3+，MySQL 4.1+以上的版本。提供的功能包括： <br>1：创建，修改，删除索引/外键/视图/存储过程和函数。 <br>2：查询，合计，排序数据。 <br>3：新增/修改/删除记录。 <br>4：支持所有数据类型，包括大字段。 <br>5：能够批量执行SQL语句。 <br>6：支持将数据，表结构，视图导成SQL或CSV。 <br>7：能够外键关联打印数据库概要。 <br>8：能够查看进程和关闭进程。 <br>9：能够查看用户和权限并修改。 <br>10：管理事件和表格分区（MySQL5.1才支持）。<br><br>Adminers 源于 Adminer source code二次开发而来.本程序非官方发布版本,二次开发改动的位置许多,&nbsp;基本上修复了官方所有的bug, 兼容php 5.4+,&nbsp;html也更规范化. 同时放弃引用官方两个外部文件, 支持关闭左侧栏, 也支持接口调用. 是广大数据库管理员, 程序员管理db的最佳工具。</p>]]></body>
+      <commentCount>12</commentCount>
+      <author><![CDATA[Tuesday]]></author>
+      <authorid>998019</authorid>
+      <pubDate>2015-07-15 11:49:34</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/adminers]]></softwarelink>
+	  <softwarename><![CDATA[Adminers]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[WSTMall 更新至 V1.1.1_150711，大幅修改]]></rtitle>
+			<rurl>http://www.oschina.net/news/64202/wstmall-1-1-1_150711</rurl>
+		 </relative>
+		 		     	 		     	 		 <relative>
+			<rtitle><![CDATA[MariaDB 10.0.20 发布，MySQL 分支]]></rtitle>
+			<rurl>http://www.oschina.net/news/63521/mariadb-10-0-20</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[MySQL 5.5.44 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63049/mysql-5-5-44</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[MariaDB 10.1.4 发布，MySQL 衍生版]]></rtitle>
+			<rurl>http://www.oschina.net/news/62964/mariadb-10-1-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[MySQL Community Server 5.6.25 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/62891/mysql-5-6-25</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Adminers 1.1.0 正式发布，MySQL 管理客户端]]></rtitle>
+			<rurl>http://www.oschina.net/news/62831/adminers-1-1-0-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[MariaDB 10.0.19 发布，MySQL 分支版本]]></rtitle>
+			<rurl>http://www.oschina.net/news/62799/mariadb-10-0-19</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Hive 1.0.1/1.1.1 发布，数据仓库平台]]></rtitle>
+			<rurl>http://www.oschina.net/news/62682/apache-hive-1-0-1-1-1-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Adminers 1.0.9 正式发布，MySQL 管理客户端]]></rtitle>
+			<rurl>http://www.oschina.net/news/62615/adminers-1-0-9</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

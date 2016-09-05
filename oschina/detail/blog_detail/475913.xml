@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>475913</id>
+		<title><![CDATA[从npm tips到express插件机制设计]]></title>
+		<url><![CDATA[http://my.oschina.net/nodeonly/blog/475913]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>7</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>大部分时间，我们只用到npm的install，init，publish等功能，但它设计的非常好，有很多是我们不了解的</p> 
+<p>一起看一下</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fblog.rednode.cn%2Fcontent%2Fimages%2F2014%2FDec%2FScreen_Shot_2014_12_19_at_12_21_51_AM.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<h2>全局命令</h2> 
+<p>用nodejs来写cli工具是非常爽的，我干了不少这样的事儿</p> 
+<ul> 
+ <li>kp =<a href="https://github.com/i5ting/kp" rel="nofollow"> kill by port </a></li> 
+ <li>je = <a href="https://github.com/i5ting/je" rel="nofollow">json editor</a></li> 
+ <li>mh = <a href="https://github.com/i5ting/mh" rel="nofollow">start mongo here</a></li> 
+</ul> 
+<p>核心就是在package.json里配置</p> 
+<pre><code>"preferGlobal": "true",
+"bin": {
+  "mh": "index.js"
+},
+</code></pre> 
+<p>即可</p> 
+<p>它的原理很简单，就是把这些命令，丢到环境变量里,等于</p> 
+<pre><code>mh = node /npm_install_path/index.js
+</code></pre> 
+<p>如果我没猜错的话是软连接实现</p> 
+<pre><code>ln -s  /npm_install_path/index.js /bin/mh
+</code></pre> 
+<h2>npm link</h2> 
+<p>为什么会知道它的原理呢？因为每次写cli都要发布到npmjs，然后安装，然后测试是否正确，太麻烦，如果使用测试，路径等也比较麻烦</p> 
+<p>后来发现</p> 
+<pre><code>npm link
+</code></pre> 
+<p>会把开发代码直接在本地完成上面的事儿，爽死了</p> 
+<p>link之后，会有提示</p> 
+<p>/Users/sang/.nvm/v0.10.38/bin/nmm -&gt; /Users/sang/.nvm/v0.10.38/lib/node_modules/nmm/index.js<br> /Users/sang/.nvm/v0.10.38/lib/node_modules/nmm -&gt; /Users/sang/workspace/moa/nmm</p> 
+<p>如何确认它是软连接呢？</p> 
+<pre><code>➜  nmm git:(master) ls -alt /Users/sang/.nvm/v0.10.38/bin/nmm
+lrwxr-xr-x  1 sang  staff  32 Jul  7 15:38 /Users/sang/.nvm/v0.10.38/bin/nmm -&gt; ../lib/node_modules/nmm/index.js
+</code></pre> 
+<h2>常见的start，test</h2> 
+<p>一般我喜欢重写start和test命令，比如</p> 
+<pre><code>"scripts": {
+  "start": "nodemon ./bin/www",
+  "test": "mocha -u bdd"
+},
+</code></pre> 
+<p>通过<code>npm start</code>使用nodemon来启动express服务。</p> 
+<p>通过<code>npm test</code>来跑mocha测试。</p> 
+<p>无论从语义还是便利性上，都是不错的。</p> 
+<p>more see <a href="https://docs.npmjs.com/cli/start" rel="nofollow">https://docs.npmjs.com/cli/start</a></p> 
+<h2>npm run</h2> 
+<p>但是，npm支持命令就那么多，可能不够用，比如我要测试代码覆盖率</p> 
+<pre><code>"scripts": {
+  "start": "npm publish .",
+  "test": "./node_modules/.bin/gulp",
+  "mocha": "./node_modules/.bin/mocha -u bdd",
+  "cov":"./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec &amp;&amp; cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js &amp;&amp; rm -rf ./coverage"
+},
+</code></pre> 
+<p>很明显没有<code>npm cov</code>命令的，那么怎么办呢？不要急，可以通过<code>npm run-script</code>来搞定</p> 
+<p>上面的scripts定义，可以这样执行</p> 
+<pre><code>npm run cov
+</code></pre> 
+<p>对于自定义脚本，这样就可以解决这个问题，它的实现原理很简单，但却非常实用。</p> 
+<h2>pre-commit</h2> 
+<p>有的时候我们有这样的需求，在提交代码之前，做一下测试，如果</p> 
+<pre><code>npm test &amp;&amp; git push
+</code></pre> 
+<p>这样就太麻烦了，程序员还是应该更懒一点</p> 
+<p>有没有更简单的办法呢？<a href="https://github.com/observing/pre-commit" rel="nofollow">pre-commit</a></p> 
+<pre><code>npm install --save-dev pre-commit
+</code></pre> 
+<p>用法是在package.json里增加<code>pre-commit</code>字段，它一个数组</p> 
+<pre><code>{
+  "name": "437464d0899504fb6b7b",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: I SHOULD FAIL LOLOLOLOLOL \" &amp;&amp; exit 1",
+    "foo": "echo \"fooo\" &amp;&amp; exit 0",
+    "bar": "echo \"bar\" &amp;&amp; exit 0"
+  },
+  "pre-commit": [
+    "foo",
+    "bar",
+    "test"
+  ]
+}
+</code></pre> 
+<p>像上面的定义是在 <code>git push</code>之前按顺序执行foo,bar和test，也就是相当于</p> 
+<p>npm run foo<br> npm run bar<br> npm test<br> git push</p> 
+<h2>install</h2> 
+<p>我们最常用的npm install是把node模块里文件下载安装到node_modules里面，这个很好理解，那么如果我想要自定义安装呢？</p> 
+<p>以我们上面讲的https://github.com/observing/pre-commit，它是需要先安装pre-commit脚本，这个时候该怎么办呢？</p> 
+<p>实际上我们可以在scripts自定义install命令的</p> 
+<pre><code>"install": "node install.js",
+</code></pre> 
+<p>在<code>npm install pre-commit</code>的时候，它会下载代码，然后他会执行install脚本里的内容。也就是说在install.js里，它可以把想做的事儿做了，脚本也好，编译c扩展也好，都非常简单</p> 
+<h2>再论install</h2> 
+<p>我们一般写模块的时候，首先都是<code>npm init</code>的，然后加大量代码，比如你要加test，你可能还有examples，甚至放大量doc，这些东西，难道让装你这个npm的人都下载么？</p> 
+<p>想想就是件恐怖的事儿</p> 
+<p>npm的解决方案和git的方案一下，git是创建<code>.gitignore</code>，npm也照做</p> 
+<pre><code>touch .npmignore
+</code></pre> 
+<p>然后在里面放上想过滤的，不想用户安装时候下载的就好了</p> 
+<p>比较讨厌的是https://github.com/github/gitignore竟然没有</p> 
+<h2>循环引用</h2> 
+<p>循环引用在ios开发非常常见，即互相引用，导致无法引用计数归零，就没法清理内存，再扯就远了</p> 
+<p>看npm里，比如a模块依赖b模块，</p> 
+<pre><code>{
+  "name": "A"
+  "version": "0.1.2",
+  "dependencies": {
+    "B": "0.1.2"
+  }
+}
+</code></pre> 
+<p>安装完后</p> 
+<pre><code>├── node_modules
+│   └── B
+├── package.json
+└── README.md
+</code></pre> 
+<p>如果a和b都依赖c呢？</p> 
+<p>安装后</p> 
+<pre><code>├── node_modules
+│   ├── B
+│   │   ├── node_modules
+│   │   └── package.json
+│   └── C   
+├── package.json
+└── README.md
+</code></pre> 
+<p>这样b能引用c，c就不用安装了</p> 
+<p>这个问题是node_modules/B/package.json里</p> 
+<pre><code>{
+  "name": "B"
+  "version": "0.1.2",
+  "dependencies": {
+    "C": "0.0.1"
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/C make"
+  }
+}
+</code></pre> 
+<p>在安装b之后，不会执行c的安装了，主要是路径变量，做法很简单，判断路径即可</p> 
+<pre><code>// node_modules/B/runMe.js
+var deps = ['C'], index = 0;
+(function doWeHaveAllDeps() {
+  if(index === deps.length) {
+    var C = require('C');
+    C.make();
+    return;
+  } else if(isModuleExists(deps[index])) {
+    index += 1;
+    doWeHaveAllDeps();
+  } else {
+    setTimeout(doWeHaveAllDeps, 500);
+  }
+})();
+
+function isModuleExists( name ) {
+  try { return !!require.resolve(name); }
+  catch(e) { return false }
+}
+</code></pre> 
+<p>如果想试试，参考http://krasimirtsonev.com/blog/article/Fun-playing-with-npm-dependencies-and-postinstall-script</p> 
+<p>这个问题并不常见，比较少，但是<code>postinstall</code>确实让人脑洞打开的一个东西</p> 
+<h2>postinstall</h2> 
+<p>如果各位熟悉mongoose的hook，一定会知道pre和post是啥意思，一般来说pre是previos之前的意思，post是之后的意思。</p> 
+<p>那么postinstall从字面上解，即安装之后要执行的回调。</p> 
+<p>看一下文档</p> 
+<p><a href="https://docs.npmjs.com/misc/scripts" rel="nofollow">https://docs.npmjs.com/misc/scripts</a></p> 
+<p>它确确实实是安装后的回调，这意味着我们可以借助npm做的更多</p> 
+<p>先看一下npm还提供了那些回调</p> 
+<ul> 
+ <li>prepublish: Run BEFORE the package is published. (Also run on local npm install without any arguments.)</li> 
+ <li>publish, postpublish: Run AFTER the package is published.</li> 
+ <li>preinstall: Run BEFORE the package is installed</li> 
+ <li>install, postinstall: Run AFTER the package is installed.</li> 
+ <li>preuninstall, uninstall: Run BEFORE the package is uninstalled.</li> 
+ <li>postuninstall: Run AFTER the package is uninstalled.</li> 
+ <li>preversion, version: Run BEFORE bump the package version.</li> 
+ <li>postversion: Run AFTER bump the package version.</li> 
+ <li>pretest, test, posttest: Run by the npm test command.</li> 
+ <li>prestop, stop, poststop: Run by the npm stop command.</li> 
+ <li>prestart, start, poststart: Run by the npm start command.</li> 
+ <li>prerestart, restart, postrestart: Run by the npm restart command. Note: npm restart will run the stop and start scripts if no restart script is provided.</li> 
+</ul> 
+<p>擦，太牛逼了，这货考虑的真的太全了，那么下面我们就看看如何利用npm的回调干坏事吧</p> 
+<h2>express插件机制设计</h2> 
+<p>大家都知道express基于connect，有middleware中间件的概念，它本身遵循小而美的设计哲学，导致它非常精简</p> 
+<p>从express@generator来看，它就只能做点小打小闹的东西，如果要设计一个复杂的大系统，就免不了和代码结构，模块，组件等战斗</p> 
+<p>从我的角度讲，这些东西都可以理解成是业务插件，比如对于一个框架来说，用户管理就应该像ruby里的devise一样，以一个gem的形式存在，如果代码里引用，调用就好了。</p> 
+<p>gem + rails plugin机制可以做，那么express + npm也是可以的，但是我们缺少的plugin机制，本文先不讲plugin机制，先说利用npm的回调实现它的可能性</p> 
+<p>比如在一个boilerplate项目里，我们安装插件</p> 
+<pre><code>npm install --save moa-plugin-user
+</code></pre> 
+<p>安装完成之后，我们需要对项目里的文件或配置也好做一个插件登记，这些东西是否可以放到postinstall里呢？</p> 
+<p>剩下的就都是nodejs代码了，大家写就好了。</p> 
+<h2>如何学习</h2> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fwww.ctpxm.com%2FUploadFiles%2Fimages%2F66_%25E5%2589%25AF%25E6%259C%25AC.jpg" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p><a href="https://docs.npmjs.com/" rel="nofollow">https://docs.npmjs.com/</a></p> 
+<p>文档虽好，可是不好理解啊，而且有的时候用到了才会看</p> 
+<p>对于开发而言，代码在手，天下我有，尤其nodejs的模块都是完全开放得，您看不看它都在你的项目目录里，一丝不挂。</p> 
+<p>编码之外，看看node_modules目录，打开package.json看看，如果发现有不懂的就去查一下文档，这样效果是最好的。</p> 
+<p>看模块可以挑一些比较好，开源贡献比较多的模块</p> 
+<p>从别人的代码里学到东西，这应该是最强的学习能力，是长远的，与各位共勉。</p> 
+<p>全文完</p> 
+<p>欢迎关注我的公众号【node全栈】</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFtALxsauUkYDGdzcuA5y6BaIdUMC" alt="node全栈.png"></p>]]></body>
+		<author><![CDATA[i5ting]]></author>
+		<authorid>2269918</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-08 07:47:52</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

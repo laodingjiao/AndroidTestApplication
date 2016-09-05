@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479601</id>
+		<title><![CDATA[恩布企业IM PC端，服务端发布 1.16 版本]]></title>
+		<url><![CDATA[http://my.oschina.net/akee/blog/479601]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><strong>恩布企业IM PC端，服务端发布1.16版本，开源企业IM，免费企业即时通讯软件；主要版本更新内容：</strong></p> 
+<p></p> 
+<ul> 
+ <li><p><span style="color: rgb(255, 0, 0);">恩布服务端核心程序，增加进程守护保护机制，确保系统7*24持续稳定服务；</span></p></li> 
+ <li><p><span style="color: rgb(255, 0, 0);">服务端增加内存数据库同步机制，减少直接操作数据库，提高系统性能；</span></p></li> 
+ <li><p><span style="color: rgb(255, 0, 0);">PC客户端优化界面和操作体验，如增加联系人移到其他分组，完善在线人数显示等；</span></p></li> 
+ <li><p><span style="color: rgb(255, 0, 0);">完善数据回调同步机制，实现注册用户，修改密码和用户上下线数据同步，支持HTTPS连接和数据加密；</span></p></li> 
+ <li><p><span style="color: rgb(255, 0, 0);">增加部分REST API接口；解决已知BUG，提高系统性能；</span></p></li> 
+</ul> 
+<p><br></p> 
+<p><strong>最新1.16版本百度云盘下载地址</strong>：</p> 
+<p><a target="_self" href="http://pan.baidu.com/s/1hq8fhfI" rel="nofollow">http://pan.baidu.com/s/1hq8fhfI</a><br></p> 
+<p><br> </p> 
+<p><a target="_blank" href="http://www.entboost.com" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201412/08093006_usBl.jpg" alt=""></a> </p>
+<p><span style="color:#E53333;">10分钟，为企业安装一套即时通讯平台；</span>支持多种编程语言SDK；方便集成第三方应用；开放客户端源码；</p> 
+<p><a target="_blank" href="http://www.entboost.com" rel="nofollow"><strong>恩布互联网站</strong></a>：<a href="http://www.entboost.com" target="_blank" rel="nofollow">http://www.entboost.com</a> </p> 
+<p><strong>PC端开源项目</strong>：<a target="_blank" href="https://git.oschina.net/akee/entboost" rel="nofollow">https://git.oschina.net/akee/entboost</a> </p> 
+<p><strong>Android开源项目</strong>：<a href="https://git.oschina.net/akee/EntboostIM" target="_blank" rel="nofollow">https://git.oschina.net/akee/EntboostIM</a> </p> 
+<p><strong>IOS端开源项目</strong>：<a href="https://git.oschina.net/akee/EntboostChat" target="_blank" rel="nofollow">https://git.oschina.net/akee/EntboostChat</a> </p> 
+<p><br></p>]]></body>
+		<author><![CDATA[akee]]></author>
+		<authorid>67747</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-17 10:02:44</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

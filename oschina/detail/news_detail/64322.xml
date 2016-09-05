@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64322</id>
+      <title><![CDATA[Google 加入 OpenStack 基金会，向容器技术迈进]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64322/google-signs-on-as-openstack-sponsor]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>7月17日消息，一位最具重量级的新成员签约加入 OpenStack 基金会，这就是——Google！</p> 
+<p>双方的合作承将在例如 <a target="_blank" href="http://www.oschina.net/p/murano" rel="nofollow">Murano</a> 应用目录、<a target="_blank" href="http://www.oschina.net/p/magnum" rel="nofollow">Magnum</a> 容器流程管理服务等一系列开源项目持续贡献工程资源。这使得OpenStack在同一个 Dashboard中管理虚拟的、非虚拟的、以及容器应用成为可能。这对于所有的希望尝试云的企业来说绝对是个好消息，因为他们还没准备为云环境重写所有 应用，但又希望在投身云计算时有为云优化的、全新的应用。</p> 
+<p>&nbsp; &nbsp; <img src="http://192.168.79.254:8080/oschina/images/article/image/20150717/20150717070758_342.jpg" alt=""></p>
+<p>当然更为重要的是，Google的加入将确保Linux 容器及关联的容器管理技术——<a target="_blank" href="http://www.oschina.net/p/kubernetes" rel="nofollow">Kubernetes</a>（Google去年开始孵化与支持的项目），融入OpenStack平台并运行无虞，这对希望管理大量容器的大公司来说，相当具有吸引力。</p> 
+<p>OpenStack将自身视作一台集成引擎，OpenStack 首席运营官Mark Collier指出，”OpenStack是一个平台，能够确保用户运行最新的容器技术就像运行一个虚机一样。Google将无与伦比的容器及管理的软 件工程专业知识投入OpenStack社区，将有力的加速容器技术通过经过验证的业务流程引擎（例如Kubernetes）的部署。”</p> 
+<p>对于OpenStack的发展来说，Google的加盟是一剂恰到好处的“强心针”——业界普遍认同OpenStack不仅在运行与管理更加传统的虚拟化 计算任务行之有效，同样对于管理部署在裸机上的非虚拟化应用，以及崭露头角的容器技术也同样如此。Docker就允许开发者在多个数据库服务器的环境下生 成包，并在Linux上运行并使得整个容器可以在不同环境中迁移。</p> 
+<p>未来，企业面向互联网转型时的架构选择，应该才是Google加入OpenStack的最直接理由。——"OpenStack是强大的社区，并为企业服务 的IaaS开发了完整的堆栈。我们在展望未来的企业计算时发现，会有越来越多的企业在解决互联网规模经营时，会认同并有兴趣尝试云本机计算（Cloud native computing）的模式。“Google云平台产品经理 Craig McLuckie表示。这位仁兄刚刚在温哥华峰会上展示了OpenStack对容器的管理，还会在八月出现在OpenStack硅谷大会上。</p> 
+<p>Google 的加盟将会产生两个大影响：</p> 
+<p>第一，OpenStack 将成为混合云标准</p> 
+<p>——其实，很少企业有能力将其整个基础架构移至公有云，对于大多数企业而言，混合部署将成为常态，而OpenStack 逐渐成为混合部署的标准。EasyStack创始人&amp;CEO陈喜伦表示："谷歌的加入是OpenStack发展史上里程碑式的事件，标志着 OpenStack已经成为企业级市场和互联网巨头共同认可的开放云、混合云平台标准，将加速OpenStack的深入推广以及与GCE等公有云的互联互 通，最终实现基金会倡导的OpenStack Powered Planet愿景 。"</p> 
+<p>第二，OpenStack 向容器技术迈进</p> 
+<p>——为了解决在互联网规模下的运营问题，Google围绕容器技术、动态调度和微观服务的体系结构做了一系列努力也形成了大量专利，最近通过 Kubernetes开源项目，Google已经开始将这些专利投入社区之中，也将帮助OpenStack向容器技术融合。对此，EASYSTACK联合 创始人&amp;CTO刘国辉谈到，”Google加入OpenStack体现了对于数据中心控制平面的争夺已经结束，以容器为代表的应用形态与以虚拟化 为代表的系统形态将会完美融合于OpenStack之上，并与软件定义网络和软件定义存储一起统治下一代数据中心。“</p> 
+<p>显然，在十月末即将到来的OpenStack东京峰会上，OpenStack Magnum与容器技术将成为最重要的议题。数以千计的企业、电信和云用户将聚集一堂，讨论云计算，云应用和开源云生态系统的未来。</p> 
+<p>via <a target="_blank" href="http://techcrunch.com/2015/07/16/google-signs-on-as-openstack-sponsor-will-contribute-container-tech/" rel="nofollow">techcrunch.com</a> &nbsp;</p>]]></body>
+      <commentCount>3</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 08:21:47</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/openstack]]></softwarelink>
+	  <softwarename><![CDATA[OpenStack]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Google App Engine 对 Go 已经移除 Beta 标签]]></rtitle>
+			<rurl>http://www.oschina.net/news/64083/google-app-engine-for-go</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[MDL —— Google 开源的前端开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/p/mdl</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Google 的 Project Jacquard，裤子变触控板]]></rtitle>
+			<rurl>http://www.oschina.net/news/62896/google-project-jarquard</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[CentOS 推出官方 openstack 软件源]]></rtitle>
+			<rurl>http://www.oschina.net/news/62806/centos-openstack-source</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OpenStack 互操作性测试认证，首批14家厂商通过]]></rtitle>
+			<rurl>http://www.oschina.net/news/62589/openstack-interoperability-certification</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[安全专家披露 Google App Engine 漏洞]]></rtitle>
+			<rurl>http://www.oschina.net/news/62491/unpatched-vulnerabilities-in-google-app-engine-revealed</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Lovefield —— Google 的 IndexedDB 查询引擎]]></rtitle>
+			<rurl>http://www.oschina.net/p/lovefield</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Google 演示用 Dart 开发 Android 应用]]></rtitle>
+			<rurl>http://www.oschina.net/news/62094/googles-dart-language-on-android</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Google Chrome 对 HTTPS 的双重标准？]]></rtitle>
+			<rurl>http://www.oschina.net/news/61751/google-com-is-still-sha-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Intel® INDE for Google Android Studio ]]></rtitle>
+			<rurl>http://www.oschina.net/translate/intel-inde-for-google-android-studio</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

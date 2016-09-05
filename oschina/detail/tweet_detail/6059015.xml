@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+		  <tweet>
+    <id>6059015</id>
+	<body><![CDATA[
+		在 Uber 上 call 了个开奔驰的女司机        	]]></body>
+    <author><![CDATA[红薯]]></author>
+	<authorid>12</authorid>
+    <appclient>4</appclient>
+    <commentCount>7</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/0/12_50.jpg?t=1421200584000</portrait>
+    <pubDate>2015-07-16 17:14:15</pubDate>
+	<imgSmall>http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/171416_gpjd_12_thumb.jpg</imgSmall>
+	<imgBig>http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/171416_gpjd_12.jpg</imgBig>
+    <attach></attach>
+    
+    	<likeCount>2</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[dqzhangp]]></name>
+				<uid>2258003</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1129/2258003_50.jpg?t=1414069408000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[BaratSemet]]></name>
+				<uid>2340783</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1170/2340783_50.jpg?t=1434820226000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

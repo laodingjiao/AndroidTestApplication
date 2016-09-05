@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>470435</id>
+		<title><![CDATA[如何采用Yeoman + Grunt + Bower开发基于PhoneGap的Hybrid APP]]></title>
+		<url><![CDATA[http://my.oschina.net/zombiecat/blog/470435]]></url>
+		<where><![CDATA[日常记录]]></where>
+		<commentCount>6</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style>&nbsp; 
+<img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0624/222452_gSL1_859182.jpg" alt="">
+<br> 
+<strong></strong> 
+<br> 一直想开发手机应用，也跟着教程学做了两个iOS小应用，但开发思维上的转变需要一个长期的过程，而且iOS系统功能很强大，陌生的地方也很多，很多功能不知道该自己开发还是系统上已经存在，也不了解现在iOS开发的流程。所以对于没有任何移动平台客户端开发经验的开发人员来说，想要做一个产品级别的产品出来，如果直接采用原生开发，不知道有多少坑要填。幸好现在有Hybrid APP方式，一种介于Web APP和Native APP之间的解决方案。Web APP无需安装，但需要打开系统上的浏览器来运行，因为就是网页嘛，用户体验不太好，操作局限性大。Native APP是安装在系统上的应用，体验更好，但是开发难度不小，并且需要针对不同系统开发对应的版本，开发和维护成本太高。Hybrid APP综合了上述两种APP的优点，用户界面通过Web前端技术实现，使用JavaScript调用第三方库封装的系统API，这样一来，不同系统下应用的UI界面不再需要使用原生语言重新开发，只用调用对应的第三方库即可。 
+<br> 
+<br> 
+<ul> 
+ <li> <strong>为什么开发Hybrid APP</strong><br> Hybrid APP——混合APP，就是采用非原生APP的开发语言来制作APP的界面，调用第三方发布的APP中间件在各平台上运行，关于中间件的介绍请参考<a target="_blank" href="http://www.infoq.com/cn/articles/hybrid-app-development-combat" rel="nofollow">《Hybrid App开发实战》</a>。由此可见，因为有第三方中间件封装了各种平台的底层API，Hybrid APP可以实现跨平台开发，而且没有原生APP开发经验的开发人员也可以使用自己擅长的技术来开发APP。特别对于Web开发人员来讲，如果没有这种方式，转向去学习纯原生方式的开发，其成本和难度都不小。在前端方面，现在使用HTML5 + CSS3 + JavaScript可以快速开发出很强大的Web应用，所以能复用Web前端技术在APP开发上真是一件普大喜奔的好事。<br> <br> </li> 
+ <li> <strong>如何搭建一个基于PhoneGap的Hybrid APP</strong><br> 我采用的是<a target="_blank" href="http://phonegap.com/" rel="nofollow">PhoneGap</a>作为中间件，它采用命令行的方式来创建工程，所以需要先安装PhoneGap的命令行工具，并且这个命令行工具要用到<a target="_blank" href="https://www.npmjs.com/" rel="nofollow">npm</a>来安装，也就是<a target="_blank" href="https://nodejs.org/" rel="nofollow">Node.js</a>的包管理工具，所以在自己的开发环境里把Node.js安装好就可以使用npm了。<br> 安装妥当npm之后，全局条件下安装PhoneGap的命令行工具，在命令行界面输入如下命令，因为我的环境没能成功安装PhoneGap，所以采用<a target="_blank" href="http://cordova.apache.org/" rel="nofollow">cordova</a>代替。<br> <pre class="brush:shell; toolbar: true; auto-links: false;">$ sudo npm install -g phonegap
+我没有成功安装，于是安装的cordova
+$ sudo npm install -g cordova
+</pre> 安装完毕之后，就可以使用cordova来创建PhoneGap项目。cordova是从PhoneGap提取出来的一个开源项目，在我看来，除了名字不一样之外，二者没有什么区别。<br> 然后在常用的项目文件夹下运行命令：<br> <pre class="brush:shell; toolbar: true; auto-links: false;">$ cordova create hello com.example.hello "HelloWorld"
+Creating a new cordova project.
+$ ls
+hello
+</pre> create后面第一个参数hello是新建的项目文件夹名称，第二个参数com.example.hello是公司名称，第三个参数"HelloWorld"是项目名。在当前目录下可以看到多了一个文件夹hello。<br> 然后进到项目文件夹里，添加对iOS的支持<br> <pre class="brush:shell; toolbar: true; auto-links: false;">$ cd hello
+$ cordova platform add ios
+$ cordova prepare</pre> 至此，就完成了对基于PhoneGap的Hybrid APP项目的创建工作，接下来用XCode来打开这个项目，运行iOS模拟器来检验这个项目能否正常运行。<br> 启动Xcode，打开文件/hello/platforms/ios/HelloWorld.xcodeproj<br> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0622/162121_xC0c_859182.png" alt=""><br> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0622/162345_us2v_859182.png" alt=""><br> <br> 使用Xcode打开项目后，点击运行按钮后，稍等片刻，在模拟器中看到Cordova的界面，就表示成功运行。<br> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0622/163436_YZQi_859182.png" alt=""><br> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0622/163749_T4T1_859182.png" alt=""><br> <br> 创建其他平台的流程应该也是类似的，具体操作建议参考官方文档。<br> <br> </li>
+ <li> <strong>怎样加入Yeoman + Grunt + Bower开发流程</strong><br> 通过上面的过程，创建了一个基于PhoneGap的Hybrid APP工程，可是APP本身的开发流程还没有涉及到。我想采用当前Web前端流行的Yeoman + Grunt + Bower全明星组合，开发一款基于AngularJS的应用，然后将这个Web APP打包后放到PhoneGap的环境下，使用Xcode编译之后就可以部署到iOS上运行了。<br> <a target="_blank" href="http://yeoman.io/" rel="nofollow">Yeoman</a>是一个Web APP的脚手架程序，所谓脚手架程序，就是帮助开发者完成搭建一个Web项目时经常重复的项目初始设置的过程，换句话说，就是用一个命令就可以搞定一个项目的初始搭建工作。<br> <a target="_blank" href="http://gruntjs.com/" rel="nofollow">Grunt</a>是现在流行的Web前端自动化开源工具，并且有丰富的插件可以使用。可以完成单元测试，静态文件合并、缩小，还可以为前端运行一个简单的Web服务器等很多工作。<br> <a target="_blank" href="http://bower.io/" rel="nofollow">Bower</a>是Web前端的包管理工具，可以使用它来管理Web前端的各种第三方库，比如jQuery，Bootstrap，AngularJS等。<br> 以上三者也是通过npm来安装，既然上面已经安装过了，现在只需要输入安装这三个工具的命令，<br> <pre class="brush:shell; toolbar: true; auto-links: false;">$ npm install -g yo bower grunt-cli
+</pre> 这三个工具安装完毕之后，在之前创建的Hybrid APP项目文件夹下创建一个Web APP的目录，比如叫yo，然后安装用于创建基于angular的Web项目的自动生成器，并运行yeoman来创建一个Web APP项目。<br> <pre class="brush:shell; toolbar: true; auto-links: false;">$ mkdir yo
+$ cd yo
+$ npm install -g generator-angular
+$ yo angular
+</pre> 项目创建完成后，检查一下项目能否正常运行，在命令行输入<br> <pre class="brush:shell; toolbar: true; auto-links: false;">$ grunt serve</pre> 这样就启动了一个Web服务器来运行刚才创建的Web APP，顺利的话可以在浏览器上看到这个yeoman的实例页面。<br> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0623/220948_qQFQ_859182.png" alt=""><br> <br> 好了，现在看看怎么把yeoman创建的项目放到Hybrid APP里运行。<br> 把Hybrid APP根目录下的config.xml拷贝到yo/app目录下，然后修改yo下的Gruntfile.js。<br> 1，增加<span style="background-color:#DFC5A4;">xml</span>到copy-&gt;dist-&gt;files-&gt;src中<br> 2，在copy-&gt;dist-&gt;files中添加<br> <span style="background-color:#DFC5A4;">{</span><br> <span style="background-color:#DFC5A4;">&nbsp; expand: true,</span><br> <span style="background-color:#DFC5A4;">&nbsp; cwd: '../platforms/ios/www',</span><br> <span style="background-color:#DFC5A4;">&nbsp; dest: '&lt;%= yeoman.dist %&gt;/scripts',</span><br> <span style="background-color:#DFC5A4;">&nbsp; src: [</span><br> <span style="background-color:#DFC5A4;">&nbsp; 'plugins/**',</span><br> <span style="background-color:#DFC5A4;">&nbsp; 'cordova.js',</span><br> <span style="background-color:#DFC5A4;">&nbsp; 'cordova_plugins.js'</span><br> <span style="background-color:#DFC5A4;">&nbsp; ]</span><br> <span style="background-color:#DFC5A4;">}</span><br> 3，在clean中增加<span style="background-color:#DFC5A4;">options: {force: true}</span><br> <br> 修改后代码如下：<br> <pre class="brush:js; toolbar: true; auto-links: false;">// Copies remaining files to places other tasks can use
+copy: {
+  dist: {
+    files: [{
+      expand: true,
+      dot: true,
+      cwd: '&lt;%= yeoman.app %&gt;',
+      dest: '&lt;%= yeoman.dist %&gt;',
+      src: [
+        '*.{ico,png,txt,xml}',
+        '.htaccess',
+        '*.html',
+        'views/{,*/}*.html',
+        'images/{,*/}*.{webp}',
+        'styles/fonts/{,*/}*.*'
+      ]
+    }, {
+      expand: true,
+      cwd: '.tmp/images',
+      dest: '&lt;%= yeoman.dist %&gt;/images',
+      src: ['generated/*']
+    }, {
+      expand: true,
+      cwd: '../platforms/ios/www',
+      dest: '&lt;%= yeoman.dist %&gt;/scripts',
+      src: [
+      'plugins/**',
+      'cordova.js',
+      'cordova_plugins.js'
+      ]
+    }]
+  },
+  styles: {
+    expand: true,
+    cwd: '&lt;%= yeoman.app %&gt;/styles',
+    dest: '.tmp/styles/',
+    src: '{,*/}*.css'
+  }
+},
+
+// Empties folders to start fresh
+clean: {
+&nbsp; dist: {
+&nbsp;&nbsp;&nbsp; files: [{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dot: true,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; src: [
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '.tmp',
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '&lt;%= yeoman.dist %&gt;/{,*/}*',
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '!&lt;%= yeoman.dist %&gt;/.git{,*/}*'
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]
+&nbsp;&nbsp;&nbsp; }]
+&nbsp; },
+&nbsp; server: '.tmp',
+&nbsp; options: {
+&nbsp;&nbsp;&nbsp; force: true
+&nbsp; }
+},
+</pre> 4，修改index.html，在angular的引用之前添加对cordova.js的引用<br> <pre class="brush:html; toolbar: true; auto-links: false;">&lt;script type="text/javascript" src="scripts/cordova.js"&gt;&lt;/script&gt;</pre> 5，在命令行运行grunt build，打包整个Web APP项目，然后拷贝yo/dist下所有文件到Hybrid APP项目的www目录下<br> <pre class="brush:shell; toolbar: true; auto-links: false;">$ grunt build</pre> 6，来到Hybrid APP项目的根目录，在命令行运行cordova prepare<br> <pre class="brush:shell; toolbar: true; auto-links: false;">$ cordova prepare</pre> 7，用Xcode打开Hybrid APP项目，运行iOS模拟器，可以看到Web APP已经成功的在iOS上运行了。<br> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0624/000502_SaF5_859182.png" alt=""><br> <br> 步骤5，6在每次将Web APP部署到iOS上调试时都要做，纯属重复的手工操作，我写了一段shell脚本来运行<br> <pre class="brush:shell; toolbar: true; auto-links: false;">echo '### Sync APP to Platforms ###'
+
+echo 'Building web APP...'
+echo 'Please be patient, it may take several minutes'
+grunt build
+
+sourceDir="dist"
+targetDir="../www"
+allFiles="/*"
+
+if [ -d $sourceDir ]
+then
+	if [ ! -d $targetDir ]
+	then
+		mkdir -p $targetDir
+	fi
+	echo 'Copying source files to www/'
+	cp -r $sourceDir$allFiles $targetDir
+
+	echo 'Calling cordova prepare'
+	cd ..
+	cordova prepare
+	echo 'All done'
+else
+	echo 'Err: The source directory "dist" doesnot exist, use command "grunt build" to generate it firstly'
+fi</pre> <p> <br> </p> <p> 但想要开发高效率的应用，公认还是做原生开发更好，iOS原生应用开发入门教程推荐王寒的编纂的《<a target="_blank" href="http://zhuanlan.zhihu.com/kidscoding/19652676" rel="nofollow">从零开始学iOS7开发系列</a>》，教程写的非常生动易懂，文章里的例子也很有代表性，仔细学习和琢磨之后可以举一反三开发自己的应用。其实Hybrid APP开发早已经不限于移动平台了，我最早接触到的Hybrid APP是家用主机平台，在XBOX ONE上，微软也实现了供JavaScript调用的XBOX系统API，将Web APP通过Visual Studio打包后发布到主机上就可以运行。既然HTML5和CSS3在制作用户界面上巨大的潜力，采用Hybrid APP方式确实可以极大的帮助Web开发人员开发浏览器平台以外的应用。 </p> </li> 
+</ul> 
+<br> 
+<strong>参考</strong>： 
+<br> 
+<ul> 
+ <li> <a target="_blank" href="http://www.numediaweb.com/web-app-with-dream-team/756" rel="nofollow">Web App with dream team; AngularJS, Cordova, Yeoman &amp; Topcoat</a> </li> 
+ <li> <a target="_blank" href="http://www.portlandwebworks.com/blog/combining-yeoman-angularjs-and-cordova-mobile-development" rel="nofollow">Combining Yeoman, AngularJS, and Cordova for Mobile Development</a> </li> 
+ <li> <a target="_blank" href="https://en.wikipedia.org/wiki/PhoneGap" rel="nofollow">维基百科——PhoneGap(Cordova)</a> </li> 
+ <li> <a target="_blank" href="http://www.cnblogs.com/yexiaochai/p/3603389.html" rel="nofollow">【grunt整合版】30分钟学会使用grunt打包前端代码</a> </li> 
+</ul> 
+<p> <br> </p>]]></body>
+		<author><![CDATA[僵尸猫]]></author>
+		<authorid>859182</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-24 23:14:18</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

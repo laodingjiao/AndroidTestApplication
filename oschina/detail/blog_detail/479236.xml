@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479236</id>
+		<title><![CDATA[使用InputStream的markSupported、mark和reset]]></title>
+		<url><![CDATA[http://my.oschina.net/dubenju/blog/479236]]></url>
+		<where><![CDATA[Java基础]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>使用InputStream的markSupported、mark和reset</p> 
+<p><br></p> 
+<p>mark用于标记地方，以后再调用reset时就可以再回到这个mark过的地方。</p> 
+<p>mark方法有个整型参数，意思是，在读出这么多个字符之前，保持mark有效。</p> 
+<p>比如说mark(10)，那么在read()10个以内的字符时，reset（）操作后可以重新读取已经读出的数据，</p> 
+<p>如果已经读取的数据超过10个，那reset()操作后，就不能正确读取以前的数据了，因为此时mark标记已经失效。&nbsp;</p> 
+<p><br></p> 
+<p>Marks the current position in this input stream.</p> 
+<p>A subsequent call to the reset method repositions this stream at the last marked position so that subsequent reads re-read the same bytes.</p> 
+<p><br></p> 
+<p>The readlimit arguments tells this input stream to allow that many bytes to be read before the mark position gets invalidated.</p> 
+<p>The general contract of mark is that,&nbsp;</p> 
+<p>if the method markSupported returns true,&nbsp;</p> 
+<p>the stream somehow remembers all the bytes read after the call to mark and stands ready to supply those same bytes again if and whenever the method reset is called. &nbsp;</p> 
+<p>However, the stream is not required to remember any data at all if more than readlimit bytes are read from the stream before reset is called.</p> 
+<p><br></p> 
+<p>Marking a closed stream should not have any effect on the stream.</p> 
+<p><br></p> 
+<p>The mark method of InputStream does nothing.</p> 
+<p><br></p> 
+<p><a href="http://my.oschina.net/u/2303379" target="_blank" rel="nofollow">@param</a> &nbsp; readlimit &nbsp; the maximum limit of bytes that can be read before the mark position becomes invalid.</p> 
+<p><a href="http://my.oschina.net/weimingwei" target="_blank" rel="nofollow">@see</a> &nbsp; &nbsp; java.io.InputStream#reset()</p> 
+<p><br></p> 
+<p>&nbsp; &nbsp; public synchronized void mark(int readlimit) {}</p> 
+<p><br></p> 
+<p><br></p> 
+<p>Repositions this stream to the position at the time the mark method was last called on this input stream.</p> 
+<p><br></p> 
+<p>The general contract of reset is:</p> 
+<p><br></p> 
+<p>If the method markSupported returnstrue, then:</p> 
+<p><br></p> 
+<p>&nbsp; &nbsp; If the method mark has not been called since the stream was created, or the number of bytes read from the stream</p> 
+<p>&nbsp; &nbsp; since mark was last called is larger than the argument to mark at that last call, then an IOException might be thrown.</p> 
+<p><br></p> 
+<p>&nbsp; &nbsp; If such an IOException is not thrown, then the stream is reset to a state such that all the bytes read since the</p> 
+<p>&nbsp; &nbsp; most recent call to mark (or since the start of the file, if mark has not been called) will be resupplied</p> 
+<p>&nbsp; &nbsp; to subsequent callers of the read method, followed by any bytes that otherwise would have been the next input data as of</p> 
+<p>&nbsp; &nbsp; the time of the call to reset.</p> 
+<p><br></p> 
+<p>If the method markSupported returns false, then:</p> 
+<p><br></p> 
+<p>&nbsp; &nbsp; The call to reset may throw an IOException.</p> 
+<p><br></p> 
+<p>&nbsp; &nbsp; If an IOException is not thrown, then the stream</p> 
+<p>&nbsp; &nbsp; is reset to a fixed state that depends on the particular type of the</p> 
+<p>&nbsp; &nbsp; input stream and how it was created. The bytes that will be supplied</p> 
+<p>&nbsp; &nbsp; to subsequent callers of the read method depend on the</p> 
+<p>&nbsp; &nbsp; particular type of the input stream.</p> 
+<p><br></p> 
+<p>The method reset for class InputStream does nothing except throw an IOException.</p> 
+<p><a href="http://my.oschina.net/liangxuegao" target="_blank" rel="nofollow">@exception</a> &nbsp;IOException &nbsp;if this stream has not been marked or if the mark has been invalidated.</p> 
+<p><a href="http://my.oschina.net/weimingwei" target="_blank" rel="nofollow">@see</a> &nbsp; &nbsp; java.io.InputStream#mark(int)</p> 
+<p><a href="http://my.oschina.net/weimingwei" target="_blank" rel="nofollow">@see</a> &nbsp; &nbsp; java.io.IOException</p> 
+<p>&nbsp; &nbsp; public synchronized void reset() throws IOException {</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; throw new IOException("mark/reset not supported");</p> 
+<p>&nbsp; &nbsp; }</p> 
+<p><br></p> 
+<p><br></p> 
+<p>Tests if this input stream supports the mark and reset methods.&nbsp;</p> 
+<p>Whether or not mark and reset are supported is an invariant property of a particular input stream instance.&nbsp;</p> 
+<p>The markSupported methodof InputStream returns false.</p> 
+<p><br></p> 
+<p>@return &nbsp;true if this stream instance supports the mark and reset methods; false otherwise.</p> 
+<p>@see &nbsp; &nbsp; java.io.InputStream#mark(int)</p> 
+<p>@see &nbsp; &nbsp; java.io.InputStream#reset()</p> 
+<p>&nbsp; &nbsp; public boolean markSupported() {</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; return false;</p> 
+<p>&nbsp; &nbsp; }</p> 
+<p><br></p>]]></body>
+		<author><![CDATA[茶壶]]></author>
+		<authorid>660460</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 11:47:29</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

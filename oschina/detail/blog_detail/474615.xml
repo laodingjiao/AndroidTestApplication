@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>474615</id>
+		<title><![CDATA[avalonjs 实现简单购物车]]></title>
+		<url><![CDATA[http://my.oschina.net/tearlight/blog/474615]]></url>
+		<where><![CDATA[javascript]]></where>
+		<commentCount>1</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> &nbsp; &nbsp; 因为最近有在做购物车，然后我们是用avalon来实现一些模块的，所以顺其自然的用avalon来实现购物车，目前发现avalon还是比较强大的，大大的节约了代码量。 </p> 
+<p> &nbsp; &nbsp; 购物车一般具备的功能是加减数量、选择商品、删除商品和计算金额，因为avalon具有双向绑定功能，所以杜绝了dom的操作，只需要完成功能的逻辑即可，可以分下面几个步骤实现。 </p> 
+<p> &nbsp; &nbsp; runjs:&nbsp;<a href="http://runjs.cn/detail/1dnkgxom" target="_blank" rel="nofollow">http://runjs.cn/detail/1dnkgxom</a> </p> 
+<h3> &nbsp; &nbsp; 1、页面的Html结构 </h3> 
+<p> &nbsp; &nbsp; 这里不考虑好的效果，所以直接用最简单的html来实现了，主要包含控制器，列表循环，金额显示，简单代码结构如下 </p> 
+<pre class="brush:html; toolbar: true; auto-links: false;">&lt;body ms-controller="test"&gt;
+        &lt;ul ms-visible="arr.length"&gt;
+            &lt;li&gt;&lt;input type="checkbox" ms-click="checkAll" ms-duplex-checked="checkAllbool"/&gt;全选&lt;/li&gt;
+            &lt;li ms-repeat="arr" &gt;
+                &lt;input type="checkbox" ms-attr-value="el.id" ms-duplex="selected" /&gt;
+                {{el.text}}
+                &lt;input type="text" name="" ms-attr-value="el.num" ms-on-input="changeNum(el)"&gt;
+                &lt;a href="javascript:;" ms-click="plus(el)"&gt;加&lt;/a&gt;
+                &lt;a href="javascript:;" ms-click="minus(el)"&gt;减&lt;/a&gt;
+                &lt;a href="javascript:;" ms-click="del(el)"&gt;删除&lt;/a&gt;
+                &lt;p&gt;单价：{{el.price | currency}}&lt;/p&gt;
+                &lt;p&gt;金额：{{el.num*el.price | currency}}&lt;/p&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p&gt;总金额：{{total | currency}}&lt;/p&gt;
+    &lt;/body&gt;</pre> &nbsp;&nbsp; &nbsp; 这里有全选、加减、删除几个功能事件，金额用了过滤器currency。 
+<p> <br> </p> 
+<h3> &nbsp;&nbsp;&nbsp;&nbsp;2、引入avalon.js,定义模型 </h3> 
+<p> &nbsp; &nbsp; 引入js是必须的，那么引入avalon.js后可以定义了 </p> 
+<pre class="brush:js; toolbar: true; auto-links: false;">var vm = avalon.define({
+                $id: "test"
+});</pre> &nbsp; &nbsp; 这样就定义了一个简单的模型，$id传入的是控制器的值，本文例子的控制器是写在body，如果不理解可以去看看官网。 
+<p> <br> </p> 
+<h3> &nbsp;&nbsp;&nbsp;&nbsp;3、定义购物车里面的商品 </h3> 
+<p> &nbsp; &nbsp; 实际项目中，这个肯定是通过后台获取到的，这里为了演示就直接定义了，从第一点的html结构可以看出来，这里购物车的商品用的是arr，所以接着定义的就是arr，可以这样定义 </p> 
+<pre class="brush:js; toolbar: true; auto-links: false;">arr : [
+  {
+    id:1,
+    num:1,
+    price:45.5,
+    text:'商品1'
+  },
+  {
+    id:2,
+    num:1,
+    price:8.8,
+    text:'商品2'
+  }<span style="font-size:9pt;line-height:1.5;">]</span></pre> 
+<p> &nbsp; &nbsp; 这里就定义两个用来测试，那么还需要一个值来保存选中的商品id,这里给模型增加一个selected属性，类型为数组 </p> 
+<pre class="brush:js; toolbar: true; auto-links: false;">selected:[]</pre> 
+<p> <br> </p> 
+<h3> &nbsp;&nbsp;&nbsp;&nbsp;4、定义全选的模型和方法 </h3> 
+<p> &nbsp; &nbsp; 购物车里面一般都有全选的功能的，只是表现的形式不一样，那么可以这么定义 </p> 
+<pre class="brush:js; toolbar: true; auto-links: false;">checkAllbool : false,
+checkAll : function() {
+      if (this.checked) {
+            var _arr = [];
+            avalon.each(vm.arr,function(index,item){
+                 _arr[index] = item.id+'';
+            });
+            vm.selected = _arr;
+      } else {
+           vm.selected=[];
+      }
+}</pre> 
+<p> &nbsp; &nbsp; 通过checkAllbool属性来实现和判断是否选中“全选”，通过checkAll来实现选中全部或者取消选中全部，其实就是修改模型里面的selected属性，如果selected为空数组则没有一个是选中的，如果那个需要选中只需要把对应的值放到selected数组中即可，因为在html中checkbox<span>使用 ms-duplex 进行绑定的，而绑定的是 selected属性。<span></span></span> </p> 
+<p> <span><span> </span></span> </p> 
+<h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4、定义加、减、删除的方法 </h3> 
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 加减主要是数量上的变化，而删除则是需要把该商品直接从arr(前面定义的属性)中删除 </p> 
+<pre class="brush:js; toolbar: true; auto-links: false;">plus: function(el){
+   el.num++;
+   vm.cal();
+ },
+minus: function(el){
+   if(el.num&gt;1){
+       el.num--;
+       vm.cal();
+   }
+},
+del: function(el){
+    vm.arr.remove(el);
+},
+changeNum: function(el){
+    var _value = this.value,
+        _reg = /^[1-9]\d?$/
+    ;
+    if(!_reg.test(_value)){
+        this.value = 1;
+        el.num = 1;
+    }else{
+        el.num = _value;
+    }
+
+    vm.cal();
+}</pre> &nbsp; &nbsp; 这里还有一个是当输入框改变时执行的方法，这里通过出入对象来进行操作，可以看看第一步中的html代码，就明白了，无论是改变还是加减都最后要执行 vm.cal，vm.cal是计算总金额的，将在下面讲解。 
+<p> &nbsp; &nbsp; 加减的方法都很简单主要是修改num属性即可，changeNum则增加了正则判断，判断输入的是否为数字。 </p> 
+<p> <br> </p> 
+<h3> &nbsp;&nbsp;&nbsp;&nbsp;5、定义计算总金额 </h3> 
+<p> &nbsp; &nbsp; 计算总金额的方法很简单，就是把所有选中的商品的数量乘以单价再加起来，但是这里面涉及到另一个方法，那就是通过商品的id来找出对应的商品，这样才能计算该商品的金额。 </p> 
+<pre class="brush:js; toolbar: true; auto-links: false;">total:0,
+cal: function(){
+    var _arr = this.arr,
+        _selected = this.selected,
+        i = 0,
+        _obj = '',
+        _prcie = 0
+    ;
+    if(_selected.length){
+        for(;i&lt;_selected.length;i++){
+            _obj = this.findById(_selected[i]) ||{};
+            if(_obj.price &amp;&amp;  _obj.num){
+                  _prcie = _prcie + _obj.price * _obj.num;
+            }
+        }
+    }
+                    
+    this.total = _prcie;
+
+},
+findById: function(id){
+    if(!id) return '';
+        var i=0,
+            _arr = this.arr,
+            _obj = '',
+            _id = parseInt(id,10)
+        ;
+
+        for(;i&lt;_arr.length;i++){
+             if(_arr[i].id === _id){
+                 _obj = _arr[i];
+             }
+        }
+
+        return _obj;
+}</pre> &nbsp; &nbsp; 这里面主要用的是循环，找到商品的对象然后计算商品的金额再相加，代码略长。 
+<p> <br> </p> 
+<h3> &nbsp;&nbsp;&nbsp;&nbsp;6、监听属性 </h3> 
+<p> &nbsp; &nbsp; 需要监听两个属性，那就是&nbsp;selected 和&nbsp;arr，监听 selected是为了随时了解商品有没有全选中，主要通过监听Length。监听arr是判断商品有没有被删除，如果arr的length改变，则表示商品有被删除，需要重新计算总金额。 </p> 
+<pre class="brush:js; toolbar: true; auto-links: false;">vm.selected.$watch("length", function(n) {
+   vm.checkAllbool = n === vm.arr.size()
+   vm.cal();
+});
+vm.arr.$watch("length", function(n) {
+   vm.cal();
+});</pre> 
+<p> <span></span> </p> 
+<p> &nbsp; &nbsp; 通过上面的步骤分析，可以了解了大概的实现流程，下面是完整的代码。 </p> 
+<pre class="brush:html; toolbar: true; auto-links: false;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;购物车&lt;/title&gt;
+        &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+        &lt;meta http-equiv="X-UA-Compatible" content="IE=edge" /&gt; 
+        &lt;script src="../avalon.js" &gt;&lt;/script&gt;
+        &lt;script&gt;
+            var vm = avalon.define({
+                $id: "test",
+                arr : [
+                    {
+                        id:1,
+                        num:1,
+                        price:45.5,
+                        text:'商品1'
+                    },
+                    {
+                        id:2,
+                        num:1,
+                        price:8.8,
+                        text:'商品2'
+                    }
+                ],
+                selected : ["1"],
+                checkAllbool : false,
+                checkAll : function() {
+                    if (this.checked) {
+                        var _arr = [];
+                        avalon.each(vm.arr,function(index,item){
+                            _arr[index] = item.id+'';
+                        });
+                        vm.selected = _arr;
+                    } else {
+                        vm.selected=[];
+                    }
+                },
+                plus: function(el){
+                    el.num++;
+                    vm.cal();
+                },
+                minus: function(el){
+                    if(el.num&gt;1){
+                        el.num--;
+                        vm.cal();
+                    }
+                },
+                del: function(el){
+                    vm.arr.remove(el);
+                },
+                changeNum: function(el){
+                    var _value = this.value,
+                        _reg = /^[1-9]\d?$/
+                    ;
+                    if(!_reg.test(_value)){
+                        this.value = 1;
+                        el.num = 1;
+                    }else{
+                        el.num = _value;
+                    }
+
+                    vm.cal();
+                },
+                total:0,
+                cal: function(){
+                    var _arr = this.arr,
+                        _selected = this.selected,
+                        i = 0,
+                        _obj = '',
+                        _prcie = 0
+                    ;
+                    if(_selected.length){
+                        for(;i&lt;_selected.length;i++){
+                            _obj = this.findById(_selected[i]) ||{};
+
+                            if(_obj.price &amp;&amp;  _obj.num){
+                                _prcie = _prcie + _obj.price * _obj.num;
+                            }
+                        }
+                    }
+                    
+                    this.total = _prcie;
+
+                },
+                findById: function(id){
+                    if(!id) return '';
+                    var i=0,
+                        _arr = this.arr,
+                        _obj = '',
+                        _id = parseInt(id,10)
+                    ;
+
+                    for(;i&lt;_arr.length;i++){
+                        if(_arr[i].id === _id){
+                            _obj = _arr[i];
+                        }
+                    }
+
+                    return _obj;
+                }
+            });
+            vm.selected.$watch("length", function(n) {
+                vm.checkAllbool = n === vm.arr.size()
+                vm.cal();
+            });
+            vm.arr.$watch("length", function(n) {
+                vm.cal();
+            });
+            vm.cal();
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body ms-controller="test"&gt;
+        &lt;ul ms-visible="arr.length"&gt;
+            &lt;li&gt;&lt;input type="checkbox" ms-click="checkAll" ms-duplex-checked="checkAllbool"/&gt;全选&lt;/li&gt;
+            &lt;li ms-repeat="arr" &gt;
+                &lt;input type="checkbox" ms-attr-value="el.id" ms-duplex="selected" /&gt;
+                {{el.text}}
+                &lt;input type="text" name="" ms-attr-value="el.num" ms-on-input="changeNum(el)"&gt;
+                &lt;a href="javascript:;" ms-click="plus(el)"&gt;加&lt;/a&gt;
+                &lt;a href="javascript:;" ms-click="minus(el)"&gt;减&lt;/a&gt;
+                &lt;a href="javascript:;" ms-click="del(el)"&gt;删除&lt;/a&gt;
+                &lt;p&gt;单价：{{el.price | currency}}&lt;/p&gt;
+                &lt;p&gt;金额：{{el.num*el.price | currency}}&lt;/p&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p&gt;总金额：{{total | currency}}&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</pre> 
+<p> <br> </p> 
+<p> &nbsp; &nbsp; 用avalon时间还不久，一步步来，希望能更深入了解mvvm框架，在后面的日子里应用更多的场景。 </p> 
+<p> &nbsp; &nbsp; 本文同时发布在我的个人博客&nbsp;<a href="http://www.subying.com/archives/131.html" target="_blank" rel="nofollow">http://www.subying.com/archives/131.html</a> </p>]]></body>
+		<author><![CDATA[subying]]></author>
+		<authorid>143411</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-04 18:10:26</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

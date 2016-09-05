@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6065955</id>
+	<body><![CDATA[
+		私有静态内部类为 外部类提供工具 这样理解对吧 比如String 类的CaseInsensitiveComparator        	]]></body>
+    <author><![CDATA[Kevin_von]]></author>
+	<authorid>1538403</authorid>
+    <appclient>1</appclient>
+    <commentCount>0</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/769/1538403_50.jpg?t=1408683990000</portrait>
+    <pubDate>2015-07-17 13:28:21</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>0</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+					</likeList>
+  </tweet>
+</oschina>	

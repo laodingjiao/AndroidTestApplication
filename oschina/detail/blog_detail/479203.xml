@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479203</id>
+		<title><![CDATA[centos7 kvm 安装win7 virtio 等等]]></title>
+		<url><![CDATA[http://my.oschina.net/mingyuejingque/blog/479203]]></url>
+		<where><![CDATA[开源]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><pre class="brush:cpp;toolbar: true; auto-links: false;">#yum&nbsp;-y&nbsp;install&nbsp;qemu-kvm&nbsp;libvirt&nbsp;virt-install&nbsp;bridge-utils
+#lsmod&nbsp;|&nbsp;grep&nbsp;kvm&nbsp;&nbsp;#&nbsp;make&nbsp;sure&nbsp;modules&nbsp;are&nbsp;loaded
+#systemctl&nbsp;start&nbsp;libvirtd
+#systemctl&nbsp;enable&nbsp;libvirtd</pre> 
+<p><br></p> 
+<p>算了，http://libvirt.org/formatdomain.html#elementsNICS 这里提到可以直接direct模式，这不是挺爽的嘛，O(∩_∩)O哈哈~</p> 
+<p><br></p> 
+<p>kvm-linux官方的win7安装教程http://www.linux-kvm.org/page/Windows7Install里面提到直接安装需要12 hours 吓到了，赶紧下载virtio driver， 小菜先遵守qemu-kvm、selinux规则，<span style="color: rgb(192, 0, 0);">把这些iso放到/var/lib/libvirt/images/ 目录下</span>， 一定要放在这里！！</p> 
+<p><br></p> 
+<p>为了在vnc view里看win7的安装过程，在防火墙里加上vnc的端口：</p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">firewall-cmd&nbsp;--permanent&nbsp;--zone=public&nbsp;--add-port=5910/tcp
+firewall-cmd&nbsp;-reload&nbsp;
+
+配置完重新加载</pre> 
+<p><br></p> 
+<p>然后就创建一个文件来当做虚拟机的硬盘：</p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">#qemu-img&nbsp;create&nbsp;-f&nbsp;qcow2&nbsp;/d/virtual-machine/win7.img&nbsp;40G&nbsp;
+virt-install&nbsp;--connect&nbsp;qemu:///system&nbsp;--name=win7&nbsp;--os-variant=win7&nbsp;--ram=1024&nbsp;--vcpus=2&nbsp;--disk&nbsp;path=/d/virtual-machine/win7.img,format=qcow2,size=40,bus=virtio&nbsp;&nbsp;--accelerate&nbsp;--vnc&nbsp;--vncport=5910&nbsp;--vnclisten=0.0.0.0&nbsp;--network&nbsp;bridge=br0,model=virtio&nbsp;--noautoconsole&nbsp;--cdrom=/dev/sr0</pre> 
+<p>这样安装一直失败，报错：could not open disk image /dev/sr0: Driver 'host_cdrom' is not whitelisted 不用计较了，redhat说有问题，它已经把驱动拿了，反正老衲折腾过好久没搞定，以后再来理会。<br></p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">virt-install&nbsp;--connect&nbsp;qemu:///system&nbsp;--name=win7&nbsp;--os-variant=win7&nbsp;--ram=1024&nbsp;--vcpus=2&nbsp;--disk&nbsp;path=/d/virtual-machine/win7.img,format=qcow2,size=40,bus=virtio&nbsp;&nbsp;--accelerate&nbsp;--vnc&nbsp;--vncport=5910&nbsp;--vnclisten=0.0.0.0&nbsp;--network&nbsp;bridge=br0,model=virtio&nbsp;--noautoconsole&nbsp;--cdrom=/var/lib/libvirt/images/micrsoft-win7.iso</pre> 
+<p><span style="color: rgb(0, 176, 80);"></span><br></p> 
+<p>这样就ok了，</p> 
+<p>#virsh start win7 &nbsp;虚拟机起来了， 在其他地方用vnc view 连上去吧，装系统吧，O(∩_∩)O哈哈~<br></p> 
+<p>可是到了选择安装磁盘这里却是空的， 卧槽，上面明明分配了40G的硬盘给它了嘛，难道嫌少？原来是害怕安装12 hours 所以指定了virtio driver， 得先安装这个驱动吧。&nbsp;</p> 
+<p><span style="color: rgb(192, 0, 0);">驱动的安装iso文件也得放到/var/lib/libvirt/images 目录下。</span></p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">#&nbsp;virsh&nbsp;attach-device&nbsp;win7&nbsp;/var/lib/libvirt/images/virtio-win-0.1-81.iso&nbsp;hdc&nbsp;--type&nbsp;cdrom</pre> 
+<p>暂时先把cdrom替换成这个了。 然后在vnc 里win7的安装界面刷新一下，点击下方的安装驱动，装完再刷新一下就可以看到硬盘了， 还得把cdrom替换回去继续安装win7呗：</p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">#&nbsp;virsh&nbsp;attach-device&nbsp;win7&nbsp;/var/lib/libvirt/images/
+micrsoft-
+win7.iso
+&nbsp;hdc&nbsp;--type&nbsp;cdrom</pre> 
+<p><br></p> 
+<p>剩下的都很顺利安装完了。但是却不能上网，因为tplink这个usb 网卡居然一直都桥接失败， 那就改改配置吧：</p> 
+<p>#virsh edit win7 &nbsp;把网络设备改成：</p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;interface&nbsp;type='direct'&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;mac&nbsp;address='52:54:00:b5:bd:ab'/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;source&nbsp;dev='enp0s26u1u4'&nbsp;mode='vepa'/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;model&nbsp;type='virtio'/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;address&nbsp;type='pci'&nbsp;domain='0x0000'&nbsp;bus='0x00'&nbsp;slot='0x03'&nbsp;function='0x0'/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/interface&gt;</pre> 
+<p><br></p> 
+<p>里面的dev=‘enp0s26u1u4’ 是这部机器上的设备，其他机器的不一定相同。 在win7里可能还会看到几个设备不能识别，继续把下载的virtio 驱动盘virtio-win-0.1-81.iso挂接上去安装就行了。</p> 
+<p><br></p>]]></body>
+		<author><![CDATA[明月惊鹊]]></author>
+		<authorid>104197</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 11:00:20</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

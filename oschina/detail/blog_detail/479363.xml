@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479363</id>
+		<title><![CDATA[为工程添加组件+改写JSP页面为HTML文件]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2411768/blog/479363]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>主要代码</p> 
+<p><strong>一 &nbsp; 配置文件——追加配置项</strong></p> 
+<p><strong>springMVC-servlet.xml</strong></p> 
+<p>&lt;!-- thymeleaf的视图解析器 --&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;bean id="templateResolver"</p> 
+<p><span style="white-space:pre"> </span>class="org.thymeleaf.templateresolver.ServletContextTemplateResolver"&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;property name="prefix" value="/WEB-INF/<strong><span style="text-decoration: underline;">html</span>/</strong>" /&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;property name="suffix" value=".html" /&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;property name="templateMode" value="HTML5" /&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;/bean&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine"&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;property name="templateResolver" ref="templateResolver" /&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;/bean&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;bean id="viewResolverThymeleaf" class="<strong><span style="text-decoration: underline;">org.thymeleaf.spring4.view.ThymeleafViewResolver</span></strong>"&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;property name="templateEngine" ref="templateEngine" /&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;property name="characterEncoding" value="UTF-8"/&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;property name="order" value="0"/&gt;</p> 
+<p><span style="white-space:pre"> </span>&lt;/bean&gt;</p> 
+<p><strong>二 &nbsp;将例子改写成HTML</strong><br></p> 
+<p><strong>helloWorld.html</strong></p> 
+<p>&lt;html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"&gt;</p> 
+<p>&lt;form action="init" th:object="${UserBean}" method="post"&gt;</p> 
+<p>&lt;button type="submit" name="login"&gt;检索&lt;/button&gt;</p> 
+<p>&lt;/form&gt;</p> 
+<p><br></p> 
+<p><strong>login.html</strong></p> 
+<p><span style="line-height: 22.5px;">&lt;html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"&gt;</span></p> 
+<p>&lt;body&gt;</p> 
+<p>&lt;div th:each="user,status:${list}"&gt;</p> 
+<p>&lt;table&gt;</p> 
+<p>&lt;tr&gt;</p> 
+<p>&lt;td&gt;ID:&lt;a th:href="@{delete?(userId=${user.userId})}"&gt;&lt;span th:text="${user.userId}"&gt;12&lt;/span&gt;&lt;/a&gt;&lt;/td&gt;</p> 
+<p>&lt;td&gt;用户名：&lt;span th:text="${user.userName}"&gt;123 &lt;/span&gt;&lt;/td&gt;</p> 
+<p>&lt;/tr&gt;</p> 
+<p>&lt;/table&gt;</p> 
+<p>&lt;/div&gt;</p> 
+<p>&lt;/body&gt;</p> 
+<p><br></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[my_only]]></author>
+		<authorid>2411768</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 16:11:47</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

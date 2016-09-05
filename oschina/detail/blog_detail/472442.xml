@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>472442</id>
+		<title><![CDATA[Redis3.0与Jedis2.7.2 客户端与Spring整合]]></title>
+		<url><![CDATA[http://my.oschina.net/91jason/blog/472442]]></url>
+		<where><![CDATA[redis]]></where>
+		<commentCount>8</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>网上一堆jedis2.1.0的配置教程，说实话看到都觉得太老了，而且非常不方便，一般都不做jedis资源的分配和管理，这里公布下我的，可以兼容redis3.0！！！！！！！！！！！！！！！！！！！</p> 
+<p>1.下载相关jar包，并引入工程：</p> 
+<p>jedis-2.7.2.jar</p> 
+<p>commons-pool2-2.0.jar</p> 
+<p>2.将以下XML配置引入spring</p> 
+<pre class="brush:xml;toolbar:true">&lt;bean&nbsp;id="shardedJedisPool"&nbsp;class="redis.clients.jedis.ShardedJedisPool"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;constructor-arg&nbsp;index="0"&nbsp;ref="jedisPoolConfig"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;constructor-arg&nbsp;index="1"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;list&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;bean&nbsp;name="slaver"&nbsp;class="redis.clients.jedis.JedisShardInfo"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;constructor-arg&nbsp;index="0"&nbsp;value="${redis.slaver.host}"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;constructor-arg&nbsp;index="1"&nbsp;value="${redis.slaver.port}"&nbsp;type="int"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/bean&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;bean&nbsp;name="master"&nbsp;class="redis.clients.jedis.JedisShardInfo"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;constructor-arg&nbsp;index="0"&nbsp;value="${redis.master.host}"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;constructor-arg&nbsp;index="1"&nbsp;value="${redis.master.port}"&nbsp;type="int"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/bean&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/list&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/constructor-arg&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/bean&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;bean&nbsp;id="jedisPoolConfig"&nbsp;class="redis.clients.jedis.JedisPoolConfig"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="maxTotal"&nbsp;value="2048"&nbsp;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="maxIdle"&nbsp;value="200"&nbsp;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="numTestsPerEvictionRun"&nbsp;value="1024"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="timeBetweenEvictionRunsMillis"&nbsp;value="30000"&nbsp;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="minEvictableIdleTimeMillis"&nbsp;value="-1"&nbsp;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="softMinEvictableIdleTimeMillis"&nbsp;value="10000"&nbsp;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="maxWaitMillis"&nbsp;value="1500"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="testOnBorrow"&nbsp;value="true"&nbsp;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="testWhileIdle"&nbsp;value="true"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="testOnReturn"&nbsp;value="false"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="jmxEnabled"&nbsp;value="true"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="jmxNamePrefix"&nbsp;value="youyuan"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name="blockWhenExhausted"&nbsp;value="false"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/bean&gt;</pre> 
+<p>3:properties配置文件：</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">#数据库jdbc
+device.jdbc.url=jdbc:postgresql://127.0.0.1:5432/postgres?charSet=utf-8
+device.jdbc.driver=org.postgresql.Driver
+device.jdbc.username=postgres
+device.jdbc.password=root
+
+#redis缓存配置
+redis.slaver.host=127.0.0.1&nbsp;&nbsp;
+redis.slaver.port=6379&nbsp;&nbsp;
+&nbsp;
+redis.master.host=127.0.0.2&nbsp;&nbsp;
+redis.master.port=6379</pre> 
+<p>4.将<span style="font-family: monospace; font-size: 1em; line-height: 1.5; background-color: #fafafa;">shardedJedisPool注入相关的类中即可使用</span></p> 
+<p>&nbsp;</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">package&nbsp;com.redisUtil;
+
+import&nbsp;java.util.ArrayList;
+import&nbsp;java.util.List;
+import&nbsp;java.util.Map;
+import&nbsp;java.util.Set;
+
+import&nbsp;javax.annotation.Resource;
+
+import&nbsp;org.slf4j.Logger;
+import&nbsp;org.slf4j.LoggerFactory;
+
+import&nbsp;redis.clients.jedis.Jedis;
+import&nbsp;redis.clients.jedis.ScanParams;
+import&nbsp;redis.clients.jedis.ScanResult;
+import&nbsp;redis.clients.jedis.ShardedJedis;
+import&nbsp;redis.clients.jedis.ShardedJedisPool;
+
+public&nbsp;class&nbsp;JedisUtil&nbsp;{
+	private&nbsp;static&nbsp;Logger&nbsp;logger&nbsp;=&nbsp;LoggerFactory.getLogger(JedisUtil.class);
+
+	@Resource
+	private&nbsp;ShardedJedisPool&nbsp;shardedJedisPool;
+
+	/**
+	&nbsp;*&nbsp;设置一个key的过期时间（单位：秒）
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key值
+	&nbsp;*&nbsp;@param&nbsp;seconds
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;多少秒后过期
+	&nbsp;*&nbsp;@return&nbsp;1：设置了过期时间&nbsp;0：没有设置过期时间/不能设置过期时间
+	&nbsp;*/
+	public&nbsp;long&nbsp;expire(String&nbsp;key,&nbsp;int&nbsp;seconds)&nbsp;{
+		if&nbsp;(key&nbsp;==&nbsp;null&nbsp;||&nbsp;key.equals(""))&nbsp;{
+			return&nbsp;0;
+		}
+
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.expire(key,&nbsp;seconds);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("EXPIRE&nbsp;error[key="&nbsp;+&nbsp;key&nbsp;+&nbsp;"&nbsp;seconds="&nbsp;+&nbsp;seconds
+					+&nbsp;"]"&nbsp;+&nbsp;ex.getMessage(),&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;0;
+	}
+
+	/**
+	&nbsp;*&nbsp;设置一个key在某个时间点过期
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key值
+	&nbsp;*&nbsp;@param&nbsp;unixTimestamp
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unix时间戳，从1970-01-01&nbsp;00:00:00开始到现在的秒数
+	&nbsp;*&nbsp;@return&nbsp;1：设置了过期时间&nbsp;0：没有设置过期时间/不能设置过期时间
+	&nbsp;*/
+	public&nbsp;long&nbsp;expireAt(String&nbsp;key,&nbsp;int&nbsp;unixTimestamp)&nbsp;{
+		if&nbsp;(key&nbsp;==&nbsp;null&nbsp;||&nbsp;key.equals(""))&nbsp;{
+			return&nbsp;0;
+		}
+
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.expireAt(key,&nbsp;unixTimestamp);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("EXPIRE&nbsp;error[key="&nbsp;+&nbsp;key&nbsp;+&nbsp;"&nbsp;unixTimestamp="
+					+&nbsp;unixTimestamp&nbsp;+&nbsp;"]"&nbsp;+&nbsp;ex.getMessage(),&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;0;
+	}
+
+	/**
+	&nbsp;*&nbsp;截断一个List
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;列表key
+	&nbsp;*&nbsp;@param&nbsp;start
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开始位置&nbsp;从0开始
+	&nbsp;*&nbsp;@param&nbsp;end
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结束位置
+	&nbsp;*&nbsp;@return&nbsp;状态码
+	&nbsp;*/
+	public&nbsp;String&nbsp;trimList(String&nbsp;key,&nbsp;long&nbsp;start,&nbsp;long&nbsp;end)&nbsp;{
+		if&nbsp;(key&nbsp;==&nbsp;null&nbsp;||&nbsp;key.equals(""))&nbsp;{
+			return&nbsp;"-";
+		}
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.ltrim(key,&nbsp;start,&nbsp;end);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("LTRIM&nbsp;出错[key="&nbsp;+&nbsp;key&nbsp;+&nbsp;"&nbsp;start="&nbsp;+&nbsp;start&nbsp;+&nbsp;"&nbsp;end="
+					+&nbsp;end&nbsp;+&nbsp;"]"&nbsp;+&nbsp;ex.getMessage(),&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;"-";
+	}
+
+	/**
+	&nbsp;*&nbsp;检查Set长度
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;long&nbsp;countSet(String&nbsp;key)&nbsp;{
+		if&nbsp;(key&nbsp;==&nbsp;null)&nbsp;{
+			return&nbsp;0;
+		}
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.scard(key);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("countSet&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;0;
+	}
+
+	/**
+	&nbsp;*&nbsp;添加到Set中（同时设置过期时间）
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key值
+	&nbsp;*&nbsp;@param&nbsp;seconds
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;过期时间&nbsp;单位s
+	&nbsp;*&nbsp;@param&nbsp;value
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;boolean&nbsp;addSet(String&nbsp;key,&nbsp;int&nbsp;seconds,&nbsp;String...&nbsp;value)&nbsp;{
+		boolean&nbsp;result&nbsp;=&nbsp;addSet(key,&nbsp;value);
+		if&nbsp;(result)&nbsp;{
+			long&nbsp;i&nbsp;=&nbsp;expire(key,&nbsp;seconds);
+			return&nbsp;i&nbsp;==&nbsp;1;
+		}
+		return&nbsp;false;
+	}
+
+	/**
+	&nbsp;*&nbsp;添加到Set中
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;value
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;boolean&nbsp;addSet(String&nbsp;key,&nbsp;String...&nbsp;value)&nbsp;{
+		if&nbsp;(key&nbsp;==&nbsp;null&nbsp;||&nbsp;value&nbsp;==&nbsp;null)&nbsp;{
+			return&nbsp;false;
+		}
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			shardedJedis.sadd(key,&nbsp;value);
+			return&nbsp;true;
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("setList&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;false;
+	}
+
+	/**
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;value
+	&nbsp;*&nbsp;@return&nbsp;判断值是否包含在set中
+	&nbsp;*/
+	public&nbsp;boolean&nbsp;containsInSet(String&nbsp;key,&nbsp;String&nbsp;value)&nbsp;{
+		if&nbsp;(key&nbsp;==&nbsp;null&nbsp;||&nbsp;value&nbsp;==&nbsp;null)&nbsp;{
+			return&nbsp;false;
+		}
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.sismember(key,&nbsp;value);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("setList&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;false;
+	}
+
+	/**
+	&nbsp;*&nbsp;获取Set
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;Set&lt;String&gt;&nbsp;getSet(String&nbsp;key)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.smembers(key);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("getList&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;null;
+	}
+
+	/**
+	&nbsp;*&nbsp;从set中删除value
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;boolean&nbsp;removeSetValue(String&nbsp;key,&nbsp;String...&nbsp;value)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			shardedJedis.srem(key,&nbsp;value);
+			return&nbsp;true;
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("getList&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;false;
+	}
+
+	/**
+	&nbsp;*&nbsp;从list中删除value&nbsp;默认count&nbsp;1
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;values
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;值list
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;int&nbsp;removeListValue(String&nbsp;key,&nbsp;List&lt;String&gt;&nbsp;values)&nbsp;{
+		return&nbsp;removeListValue(key,&nbsp;1,&nbsp;values);
+	}
+
+	/**
+	&nbsp;*&nbsp;从list中删除value
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;count
+	&nbsp;*&nbsp;@param&nbsp;values
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;值list
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;int&nbsp;removeListValue(String&nbsp;key,&nbsp;long&nbsp;count,&nbsp;List&lt;String&gt;&nbsp;values)&nbsp;{
+		int&nbsp;result&nbsp;=&nbsp;0;
+		if&nbsp;(values&nbsp;!=&nbsp;null&nbsp;&amp;&amp;&nbsp;values.size()&nbsp;&gt;&nbsp;0)&nbsp;{
+			for&nbsp;(String&nbsp;value&nbsp;:&nbsp;values)&nbsp;{
+				if&nbsp;(removeListValue(key,&nbsp;count,&nbsp;value))&nbsp;{
+					result++;
+				}
+			}
+		}
+		return&nbsp;result;
+	}
+
+	/**
+	&nbsp;*&nbsp;从list中删除value
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;count
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要删除个数
+	&nbsp;*&nbsp;@param&nbsp;value
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;boolean&nbsp;removeListValue(String&nbsp;key,&nbsp;long&nbsp;count,&nbsp;String&nbsp;value)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			shardedJedis.lrem(key,&nbsp;count,&nbsp;value);
+			return&nbsp;true;
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("getList&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;false;
+	}
+
+	/**
+	&nbsp;*&nbsp;截取List
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;start
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;起始位置
+	&nbsp;*&nbsp;@param&nbsp;end
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结束位置
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;List&lt;String&gt;&nbsp;rangeList(String&nbsp;key,&nbsp;long&nbsp;start,&nbsp;long&nbsp;end)&nbsp;{
+		if&nbsp;(key&nbsp;==&nbsp;null&nbsp;||&nbsp;key.equals(""))&nbsp;{
+			return&nbsp;null;
+		}
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.lrange(key,&nbsp;start,&nbsp;end);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("rangeList&nbsp;出错[key="&nbsp;+&nbsp;key&nbsp;+&nbsp;"&nbsp;start="&nbsp;+&nbsp;start
+					+&nbsp;"&nbsp;end="&nbsp;+&nbsp;end&nbsp;+&nbsp;"]"&nbsp;+&nbsp;ex.getMessage(),&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;null;
+	}
+
+	/**
+	&nbsp;*&nbsp;检查List长度
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;long&nbsp;countList(String&nbsp;key)&nbsp;{
+		if&nbsp;(key&nbsp;==&nbsp;null)&nbsp;{
+			return&nbsp;0;
+		}
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.llen(key);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("countList&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;0;
+	}
+
+	/**
+	&nbsp;*&nbsp;添加到List中（同时设置过期时间）
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key值
+	&nbsp;*&nbsp;@param&nbsp;seconds
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;过期时间&nbsp;单位s
+	&nbsp;*&nbsp;@param&nbsp;value
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;boolean&nbsp;addList(String&nbsp;key,&nbsp;int&nbsp;seconds,&nbsp;String...&nbsp;value)&nbsp;{
+		boolean&nbsp;result&nbsp;=&nbsp;addList(key,&nbsp;value);
+		if&nbsp;(result)&nbsp;{
+			long&nbsp;i&nbsp;=&nbsp;expire(key,&nbsp;seconds);
+			return&nbsp;i&nbsp;==&nbsp;1;
+		}
+		return&nbsp;false;
+	}
+
+	/**
+	&nbsp;*&nbsp;添加到List
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;value
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;boolean&nbsp;addList(String&nbsp;key,&nbsp;String...&nbsp;value)&nbsp;{
+		if&nbsp;(key&nbsp;==&nbsp;null&nbsp;||&nbsp;value&nbsp;==&nbsp;null)&nbsp;{
+			return&nbsp;false;
+		}
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			shardedJedis.lpush(key,&nbsp;value);
+			return&nbsp;true;
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("setList&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;false;
+	}
+
+	/**
+	&nbsp;*&nbsp;添加到List(只新增)
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;value
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;boolean&nbsp;addList(String&nbsp;key,&nbsp;List&lt;String&gt;&nbsp;list)&nbsp;{
+		if&nbsp;(key&nbsp;==&nbsp;null&nbsp;||&nbsp;list&nbsp;==&nbsp;null&nbsp;||&nbsp;list.size()&nbsp;==&nbsp;0)&nbsp;{
+			return&nbsp;false;
+		}
+		for&nbsp;(String&nbsp;value&nbsp;:&nbsp;list)&nbsp;{
+			addList(key,&nbsp;value);
+		}
+		return&nbsp;true;
+	}
+
+	/**
+	&nbsp;*&nbsp;获取List
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;List&lt;String&gt;&nbsp;getList(String&nbsp;key)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.lrange(key,&nbsp;0,&nbsp;-1);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("getList&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;null;
+	}
+
+	/**
+	&nbsp;*&nbsp;设置HashSet对象
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;domain
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;域名
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;键值
+	&nbsp;*&nbsp;@param&nbsp;value
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Json&nbsp;String&nbsp;or&nbsp;String&nbsp;value
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;boolean&nbsp;setHSet(String&nbsp;domain,&nbsp;String&nbsp;key,&nbsp;String&nbsp;value)&nbsp;{
+		if&nbsp;(value&nbsp;==&nbsp;null)
+			return&nbsp;false;
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			shardedJedis.hset(domain,&nbsp;key,&nbsp;value);
+			return&nbsp;true;
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("setHSet&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;false;
+	}
+
+	/**
+	&nbsp;*&nbsp;获得HashSet对象
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;domain
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;域名
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;键值
+	&nbsp;*&nbsp;@return&nbsp;Json&nbsp;String&nbsp;or&nbsp;String&nbsp;value
+	&nbsp;*/
+	public&nbsp;String&nbsp;getHSet(String&nbsp;domain,&nbsp;String&nbsp;key)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.hget(domain,&nbsp;key);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("getHSet&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;null;
+	}
+
+	/**
+	&nbsp;*&nbsp;删除HashSet对象
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;domain
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;域名
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;键值
+	&nbsp;*&nbsp;@return&nbsp;删除的记录数
+	&nbsp;*/
+	public&nbsp;long&nbsp;delHSet(String&nbsp;domain,&nbsp;String&nbsp;key)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		long&nbsp;count&nbsp;=&nbsp;0;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			count&nbsp;=&nbsp;shardedJedis.hdel(domain,&nbsp;key);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("delHSet&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;count;
+	}
+
+	/**
+	&nbsp;*&nbsp;删除HashSet对象
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;domain
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;域名
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;键值
+	&nbsp;*&nbsp;@return&nbsp;删除的记录数
+	&nbsp;*/
+	public&nbsp;long&nbsp;delHSet(String&nbsp;domain,&nbsp;String...&nbsp;key)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		long&nbsp;count&nbsp;=&nbsp;0;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			count&nbsp;=&nbsp;shardedJedis.hdel(domain,&nbsp;key);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("delHSet&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;count;
+	}
+
+	/**
+	&nbsp;*&nbsp;判断key是否存在
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;domain
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;域名
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;键值
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;boolean&nbsp;existsHSet(String&nbsp;domain,&nbsp;String&nbsp;key)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		boolean&nbsp;isExist&nbsp;=&nbsp;false;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			isExist&nbsp;=&nbsp;shardedJedis.hexists(domain,&nbsp;key);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("existsHSet&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;isExist;
+	}
+
+	/**
+	&nbsp;*&nbsp;全局扫描hset
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;match
+	&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;field匹配模式
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;List&lt;Map.Entry&lt;String,&nbsp;String&gt;&gt;&nbsp;scanHSet(String&nbsp;domain,&nbsp;String&nbsp;match)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			int&nbsp;cursor&nbsp;=&nbsp;0;
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			ScanParams&nbsp;scanParams&nbsp;=&nbsp;new&nbsp;ScanParams();
+			scanParams.match(match);
+			Jedis&nbsp;jedis&nbsp;=&nbsp;shardedJedis.getShard(domain);
+			ScanResult&lt;Map.Entry&lt;String,&nbsp;String&gt;&gt;&nbsp;scanResult;
+			List&lt;Map.Entry&lt;String,&nbsp;String&gt;&gt;&nbsp;list&nbsp;=&nbsp;new&nbsp;ArrayList&lt;Map.Entry&lt;String,&nbsp;String&gt;&gt;();
+			do&nbsp;{
+				scanResult&nbsp;=&nbsp;jedis.hscan(domain,&nbsp;String.valueOf(cursor),
+						scanParams);
+				list.addAll(scanResult.getResult());
+				cursor&nbsp;=&nbsp;Integer.parseInt(scanResult.getStringCursor());
+			}&nbsp;while&nbsp;(cursor&nbsp;&gt;&nbsp;0);
+			return&nbsp;list;
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("scanHSet&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;null;
+	}
+
+	/**
+	&nbsp;*&nbsp;返回&nbsp;domain&nbsp;指定的哈希集中所有字段的value值
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;domain
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+
+	public&nbsp;List&lt;String&gt;&nbsp;hvals(String&nbsp;domain)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		List&lt;String&gt;&nbsp;retList&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			retList&nbsp;=&nbsp;shardedJedis.hvals(domain);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("hvals&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;retList;
+	}
+
+	/**
+	&nbsp;*&nbsp;返回&nbsp;domain&nbsp;指定的哈希集中所有字段的key值
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;domain
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+
+	public&nbsp;Set&lt;String&gt;&nbsp;hkeys(String&nbsp;domain)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		Set&lt;String&gt;&nbsp;retList&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			retList&nbsp;=&nbsp;shardedJedis.hkeys(domain);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("hkeys&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;retList;
+	}
+
+	/**
+	&nbsp;*&nbsp;返回&nbsp;domain&nbsp;指定的哈希key值总数
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;domain
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;long&nbsp;lenHset(String&nbsp;domain)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		long&nbsp;retList&nbsp;=&nbsp;0;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			retList&nbsp;=&nbsp;shardedJedis.hlen(domain);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("hkeys&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;retList;
+	}
+
+	/**
+	&nbsp;*&nbsp;设置排序集合
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;score
+	&nbsp;*&nbsp;@param&nbsp;value
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;boolean&nbsp;setSortedSet(String&nbsp;key,&nbsp;long&nbsp;score,&nbsp;String&nbsp;value)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			shardedJedis.zadd(key,&nbsp;score,&nbsp;value);
+			return&nbsp;true;
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("setSortedSet&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;false;
+	}
+
+	/**
+	&nbsp;*&nbsp;获得排序集合
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;startScore
+	&nbsp;*&nbsp;@param&nbsp;endScore
+	&nbsp;*&nbsp;@param&nbsp;orderByDesc
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;Set&lt;String&gt;&nbsp;getSoredSet(String&nbsp;key,&nbsp;long&nbsp;startScore,&nbsp;long&nbsp;endScore,
+			boolean&nbsp;orderByDesc)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			if&nbsp;(orderByDesc)&nbsp;{
+				return&nbsp;shardedJedis.zrevrangeByScore(key,&nbsp;endScore,&nbsp;startScore);
+			}&nbsp;else&nbsp;{
+				return&nbsp;shardedJedis.zrangeByScore(key,&nbsp;startScore,&nbsp;endScore);
+			}
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("getSoredSet&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;null;
+	}
+
+	/**
+	&nbsp;*&nbsp;计算排序长度
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;startScore
+	&nbsp;*&nbsp;@param&nbsp;endScore
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;long&nbsp;countSoredSet(String&nbsp;key,&nbsp;long&nbsp;startScore,&nbsp;long&nbsp;endScore)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			Long&nbsp;count&nbsp;=&nbsp;shardedJedis.zcount(key,&nbsp;startScore,&nbsp;endScore);
+			return&nbsp;count&nbsp;==&nbsp;null&nbsp;?&nbsp;0L&nbsp;:&nbsp;count;
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("countSoredSet&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;0L;
+	}
+
+	/**
+	&nbsp;*&nbsp;删除排序集合
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;value
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;boolean&nbsp;delSortedSet(String&nbsp;key,&nbsp;String&nbsp;value)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			long&nbsp;count&nbsp;=&nbsp;shardedJedis.zrem(key,&nbsp;value);
+			return&nbsp;count&nbsp;&gt;&nbsp;0;
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("delSortedSet&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;false;
+	}
+
+	/**
+	&nbsp;*&nbsp;获得排序集合
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@param&nbsp;startRange
+	&nbsp;*&nbsp;@param&nbsp;endRange
+	&nbsp;*&nbsp;@param&nbsp;orderByDesc
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;Set&lt;String&gt;&nbsp;getSoredSetByRange(String&nbsp;key,&nbsp;int&nbsp;startRange,
+			int&nbsp;endRange,&nbsp;boolean&nbsp;orderByDesc)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			if&nbsp;(orderByDesc)&nbsp;{
+				return&nbsp;shardedJedis.zrevrange(key,&nbsp;startRange,&nbsp;endRange);
+			}&nbsp;else&nbsp;{
+				return&nbsp;shardedJedis.zrange(key,&nbsp;startRange,&nbsp;endRange);
+			}
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("getSoredSetByRange&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;null;
+	}
+
+	/**
+	&nbsp;*&nbsp;获得排序打分
+	&nbsp;*&nbsp;
+	&nbsp;*&nbsp;@param&nbsp;key
+	&nbsp;*&nbsp;@return
+	&nbsp;*/
+	public&nbsp;Double&nbsp;getScore(String&nbsp;key,&nbsp;String&nbsp;member)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.zscore(key,&nbsp;member);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("getSoredSet&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;null;
+	}
+
+	public&nbsp;boolean&nbsp;set(String&nbsp;key,&nbsp;String&nbsp;value,&nbsp;int&nbsp;second)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			shardedJedis.setex(key,&nbsp;second,&nbsp;value);
+			return&nbsp;true;
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("set&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;false;
+	}
+
+	public&nbsp;boolean&nbsp;set(String&nbsp;key,&nbsp;String&nbsp;value)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			shardedJedis.set(key,&nbsp;value);
+			return&nbsp;true;
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("set&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;false;
+	}
+
+	public&nbsp;String&nbsp;get(String&nbsp;key,&nbsp;String&nbsp;defaultValue)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.get(key)&nbsp;==&nbsp;null&nbsp;?&nbsp;defaultValue&nbsp;:&nbsp;shardedJedis
+					.get(key);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("get&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;defaultValue;
+	}
+
+	public&nbsp;boolean&nbsp;del(String&nbsp;key)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			shardedJedis.del(key);
+			return&nbsp;true;
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("del&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;false;
+	}
+
+	public&nbsp;long&nbsp;incr(String&nbsp;key)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.incr(key);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("incr&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;0;
+	}
+
+	public&nbsp;long&nbsp;decr(String&nbsp;key)&nbsp;{
+		ShardedJedis&nbsp;shardedJedis&nbsp;=&nbsp;null;
+		try&nbsp;{
+			shardedJedis&nbsp;=&nbsp;shardedJedisPool.getResource();
+			return&nbsp;shardedJedis.decr(key);
+		}&nbsp;catch&nbsp;(Exception&nbsp;ex)&nbsp;{
+			logger.error("incr&nbsp;error.",&nbsp;ex);
+			returnBrokenResource(shardedJedis);
+		}&nbsp;finally&nbsp;{
+			returnResource(shardedJedis);
+		}
+		return&nbsp;0;
+	}
+
+	private&nbsp;void&nbsp;returnBrokenResource(ShardedJedis&nbsp;shardedJedis)&nbsp;{
+		try&nbsp;{
+			shardedJedisPool.returnBrokenResource(shardedJedis);
+		}&nbsp;catch&nbsp;(Exception&nbsp;e)&nbsp;{
+			logger.error("returnBrokenResource&nbsp;error.",&nbsp;e);
+		}
+	}
+
+	private&nbsp;void&nbsp;returnResource(ShardedJedis&nbsp;shardedJedis)&nbsp;{
+		try&nbsp;{
+			shardedJedisPool.returnResource(shardedJedis);
+		}&nbsp;catch&nbsp;(Exception&nbsp;e)&nbsp;{
+			logger.error("returnResource&nbsp;error.",&nbsp;e);
+		}
+	}
+
+}</pre> 
+<p><br></p>]]></body>
+		<author><![CDATA[明舞]]></author>
+		<authorid>567296</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-30 13:10:25</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

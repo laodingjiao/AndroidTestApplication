@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64330</id>
+      <title><![CDATA[WeX5 跨端移动开发框架 V3.2 预览版发布]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64330/wex5-3-2]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>WeX5企业快速开发平台 V3.2 预览版（2015-7-17）&nbsp;<a href="http://wex5.com/cn/downloads/" target="_blank" rel="nofollow">开发版及视频下载</a></p> 
+<p><strong>新增特性：</strong><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;1.&nbsp;&nbsp;提供Mac OS X 版本<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;2.&nbsp;&nbsp;Windows版内置Android打包服务器<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;3.&nbsp;&nbsp;升级增强浏览器（Crosswalk），更好的兼容性<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;4.&nbsp;&nbsp;App支持安装后的介绍页能力<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;5.&nbsp;&nbsp;App新建和编辑向导提供图标和启动图片选择，并自动生成对应分辨率的图片<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;6.&nbsp;&nbsp;WeX5提供基于BAAS的向导<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;7.&nbsp;&nbsp;Mobile的时间选择器年支持无限滚动加载<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;8. 新增Cordova插件。包括：documenthandler,nfcplugin,unionpay,appavailablity,nativepagetransitions,spinnerDialog,insomnia,launchmyapp,socialsharing<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;9. SQLite支持data增删改查的案例<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;10. 修改页面后即使刷新浏览器（livereload）<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;11. 新增listTable、numberSelect组件<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;12. data列的扩展类型，目前默认实现布尔（sys.boolean）、邮件（sys.email）, 后续会实现更多扩展类型<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;13. attachmentSimple支持多选文件上传的能力<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;14. 发送ajax请求时提供类似chrome的头部进度条<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;15. 手机数字输入默认弹出数字键盘<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;16.&nbsp;提供justep.Number提供的高精度计算的API&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=73766" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=73766</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<br><strong>基于V3.1.2正式版发布(2015-6-1)修正如下问题：</strong><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;1.&nbsp;&nbsp;dataTables支持scrollview&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74783&amp;extra=page%3D2" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php ... 4783&amp;extra=page%3D2</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;2.&nbsp;&nbsp;data的toJson函数建议增加两个参数：包含列，排除列&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74777" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74777</a>&nbsp; &nbsp;<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;3.&nbsp;&nbsp;在设计器中删除dataTables有警告信息&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74770" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74770</a>&nbsp; &nbsp;&nbsp; &nbsp;<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;4.&nbsp;&nbsp;checkbox设置bind-disable不起作用&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74680" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74680</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;5. A.w集成B.w B.w继承C.w,在B上编辑的data的规则,在A上在编辑data的规则会把rule上的xid改变了，再打开A设计中就是空白的&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74424" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74424</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;6. iframe的事件bind-onload和bind-unload都不响应&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74223" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74223</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;7. 手段端和PC端，切换页面或者加载数据的时候，当网络不好时或者数据量比较大的时候。页面出现假死没有没有任何提示，很不友好，希望能给一个loading提示&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74196" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74196</a>&nbsp;&nbsp;<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;8. ios&nbsp;&nbsp;在微信中长按按钮松开会报错&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74117" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74117</a>&nbsp;&nbsp;<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;9. contents组件的onActiveChange事件的参数不一致&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74116" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=74116</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;10. 发现在contents下动态的添加content，iphone真机和ipad真机对contents下面包含的content个数室友限制的&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=post&amp;action=edit&amp;fid=75&amp;tid=72915" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php ... it&amp;fid=75&amp;tid=72915</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;11. 在.w里写&lt;script&gt;标签会导致设计时异常&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=70853&amp;extra=page%3D2" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php ... 0853&amp;extra=page%3D2</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;12. 将popMenu的direction属性设置成left-top时，这个弹出菜单是以被点击按钮的左下角为原点显示的，应该是左上角&nbsp;<a href="http://bbs.justep.com/thread-68732-1-1.html" target="_blank" rel="nofollow">http://bbs.justep.com/thread-68732-1-1.html</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;13. PC端chrome浏览器设置为手机模式，选择iPhone5、iPhone6、iPhone6 plusclick事件都不执行，滑动的可以执行&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=73885" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=73885</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;14. select设置readonly和disabled属性都为true。可是页面还是可以选择值，并且变更<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=73634" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=73634</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;15. justep.Portal.openWindow()打开集成echarts的.w第二次打开页面的时候echarts的宽度变的很小<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=73583" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=73583</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;16. list嵌套放到scrollView中下拉刷新会报错&nbsp;<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=72738" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=72738</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;17. data的数据没有加载，checkboxGroup处于全选中的状态，应该改为非选中状态<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=72851" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=72851</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;18. 不稳定重现的.W state Information Unchecked! Please restart your browser!<a href="http://wex5.com/cn/bbs/search.php?mod=forum&amp;searchid=467&amp;orderby=lastpost&amp;ascdesc=desc&amp;searchsubmit=yes&amp;kw=information+unchecked" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/search.ph ... formation+unchecked</a><br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;19. APP中页面内容多，input靠下的是，焦点移动到input会弹出输入法，但是把组件挡上了<a href="http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=72778" target="_blank" rel="nofollow">http://wex5.com/cn/bbs/forum.php?mod=viewthread&amp;tid=72778</a><br></p> 
+<p>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;20. 其它积累缺陷&nbsp;</p> 
+<p></p> 
+<p><strong>WeX5对跨平台多前端应用开发的支持极好，一次开发，多平台运行</strong>。Apache开源，免费开放所有代码。并欢迎充分利用WeX5生态圈中的各种资源，同样免费！</p> 
+<ul> 
+ <li><p>定位：开发面向消费者和公众的开放应用系统</p></li> 
+ <li><p>适用：一般app、电商app、客服app、会员app、微店微商等</p></li> 
+ <li><p>前端：安卓app/苹果app/微信服务号/PC web app/百度直达号轻应用</p></li> 
+ <li><p>后端：后端数据处理组件，对接各主流技术平台</p></li> 
+ <li><p>费用：完全开源，彻底免费，无任何限制</p></li> 
+</ul> 
+<p>&nbsp;<a href="http://static.oschina.net/uploads/img/201501/15123830_xoy0.png" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201501/15123830_xoy0.png"></a></p>
+<p><a href="http://static.oschina.net/uploads/img/201501/15123830_ANpb.png" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201501/15123830_ANpb.png" alt=""></a></p>
+<p><strong>在线实例</strong></p> 
+<p>外卖：<a href="http://x5.justep.com/x5/UI2/takeout/index.w" target="_blank" rel="nofollow">http://x5.justep.com/x5/UI2/takeout/index.w</a></p> 
+<p>综合应用：<a href="http://x5.justep.com/x5/UI2/portal/sample/index.w" target="_blank" rel="nofollow">http://x5.justep.com/x5/UI2/portal/sample/index.w</a><span style="line-height:1.5;font-family:'sans serif', tahoma, verdana, helvetica;font-size:10pt;"></span></p>]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[muyu]]></author>
+      <authorid>582606</authorid>
+      <pubDate>2015-07-17 09:28:38</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/x5]]></softwarelink>
+	  <softwarename><![CDATA[WeX5]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[WeX5 V3.1.2 正式版发布，跨端移动开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/62952/wex5-3-1-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WeX5 V3.1.1 正式版发布，跨端移动开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/62542/wex5-3-11</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WeX5 跨端移动开发框架 V3.1 正式版]]></rtitle>
+			<rurl>http://www.oschina.net/news/61753/wex5-3-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WeX5 V3.1 预发布版，跨端移动开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/60348/wex5-3-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[渴切-响应 css 框架发布 v3.2 版本]]></rtitle>
+			<rurl>http://www.oschina.net/news/43649/keqie-css-3-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WebMIS v3.2发布，PHP底层开发系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/42559/webmis-3-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[QUI 框架 V3.2 版本正式发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/41978/qui-3-2-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[G4Studio v3.2 发布，开源快速开发平台]]></rtitle>
+			<rurl>http://www.oschina.net/news/32294/g4studio-3-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[JQuery Tree插件——zTree v3.2 正式版发布 ]]></rtitle>
+			<rurl>http://www.oschina.net/news/28929/ztree-v3-2</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

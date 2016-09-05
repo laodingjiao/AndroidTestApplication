@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479335</id>
+		<title><![CDATA[方法对头，报表模板维护其实很简单]]></title>
+		<url><![CDATA[http://my.oschina.net/jiuyuenihao/blog/479335]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="padding: 0px; margin: 0px; font-family: 宋体;">经常我们会遇到这样的一种情况，别人做的一张很复杂的报表模板，我们拿到后需要修改，但是却不知道该如何下手，不知道他原来在哪里写了什么东西</span>……<span style="padding: 0px; margin: 0px; font-family: 宋体;">一个一个查看十分的麻烦</span>……</p> 
+<p><span style="padding: 0px; margin: 0px; font-family: 宋体;">那么我们就可以利用</span>FineReport<span style="padding: 0px; margin: 0px; font-family: 宋体;">提供的数据集插件来丰富我们的报表模板，方便维护。</span></p> 
+<p><span style="padding: 0px; margin: 0px; font-family: 宋体;">先看个简单的例子：这个例子我只对模板的</span>JS<span style="padding: 0px; margin: 0px; font-family: 宋体;">做维护，并且提供模板的备注功能，这样当我们做报表模板时，就可以把自己做这张模板时一些不容易理解的功能点备注下来，方便后面维护。</span></p> 
+<p><br></p> 
+<p><br></p> 
+<p><a href="http://s3.51cto.com/wyfs02/M00/6F/C2/wKiom1WnUmOSXpgyAATUW0V5Dsw329.jpg" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16151307_iccU.jpg" title="2.png" alt="wKiom1WnUmOSXpgyAATUW0V5Dsw329.jpg"></a></p>
+<p><br></p> 
+<p><a href="http://s3.51cto.com/wyfs02/M01/6F/BF/wKioL1WnVEDDGj95AAH9A3eJGR4388.jpg" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16151314_QYqD.jpg" title="3.png" alt="wKioL1WnVEDDGj95AAH9A3eJGR4388.jpg"></a></p>
+<p><br></p> 
+<p><a href="http://s3.51cto.com/wyfs02/M01/6F/C2/wKiom1WnUmWDDjAOAAFWIrqxiUE901.jpg" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16151316_T46d.jpg" title="4.png" alt="wKiom1WnUmWDDjAOAAFWIrqxiUE901.jpg"></a></p>
+<p><br></p> 
+<p><a href="http://s3.51cto.com/wyfs02/M02/6F/BF/wKioL1WnVELzuUPKAAFb8hspAvA101.jpg" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16151317_LZax.jpg" title="5.png" alt="wKioL1WnVELzuUPKAAFb8hspAvA101.jpg"></a></p>
+<p><span>JS</span><span>的新建功能还没有做进来</span><span>……</span><span>主要是还没想到合适的添加</span><span>JS</span><span>的方法</span><span>……</span><span style="padding: 0px; margin: 0px; color: rgb(68, 68, 68); line-height: 21px; font-family: 'Microsoft yahei', serif;"><br></span><span>当然还可以做很多我们自己想加入的维护工具，比如图表维护，单元格属性维护，等等。所有在设计器上能直接操作的部分我们在设计器里都是可以获取到的。</span></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[九月你好123]]></author>
+		<authorid>2365939</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 15:13:16</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

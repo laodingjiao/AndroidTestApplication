@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479095</id>
+		<title><![CDATA[使用netty4.x 编写UDP服务器遇到的狗血问题]]></title>
+		<url><![CDATA[http://my.oschina.net/u/261246/blog/479095]]></url>
+		<where><![CDATA[Java]]></where>
+		<commentCount>9</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>项目需要,需要编写协议转发服务器,和机顶盒通讯使用udp协议</p> 
+<p>流程:</p> 
+<p>接收协议-&gt;解析-&gt;路由-&gt;写入log-&gt;转发到指定设备.</p> 
+<p>之前有研究过netty框架,觉得比较轻便,就打算用这个框架来实现,参考官方的simple写了一个测试用例;</p> 
+<p>发现程序中udp数据怎么都接收不到.</p> 
+<p>用tcpdump -X udp port 7887听了下包,机器是收到的;</p> 
+<p>开始找问题.....</p> 
+<p>bla..bla...bla....</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">import&nbsp;io.netty.channel.ChannelHandlerContext;
+import&nbsp;io.netty.channel.SimpleChannelInboundHandler;
+import&nbsp;java.net.DatagramPacket;
+
+/**
+&nbsp;*&nbsp;Created&nbsp;by&nbsp;konbluesky
+&nbsp;*&nbsp;Date&nbsp;:&nbsp;15/7/16&nbsp;上午12:37
+&nbsp;*/
+public&nbsp;class&nbsp;UDPServerHandler&nbsp;extends&nbsp;SimpleChannelInboundHandler&lt;DatagramPacket&gt;&nbsp;{
+
+&nbsp;&nbsp;&nbsp;&nbsp;@Override
+&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;channelRegistered(ChannelHandlerContext&nbsp;ctx)&nbsp;throws&nbsp;Exception&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super.channelRegistered(ctx);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("连接创建");
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+&nbsp;&nbsp;&nbsp;&nbsp;@Override
+&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;void&nbsp;channelRead0(ChannelHandlerContext&nbsp;ctx,&nbsp;DatagramPacket&nbsp;msg)&nbsp;throws&nbsp;Exception&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.writeAndFlush(msg);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("数据读取");
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}</pre> 
+<p></p> 
+<p><span style="line-height: 22.5px;"><span style="line-height: 22.5px;">怎么比对代码都没有错误,最后逐行查看发现;</span></span></p> 
+<p><span style="line-height: 22.5px;">import包错了,import部分又正好被ide隐藏了....这种狗血的问题..太让人崩溃了...还是不够仔细啊!!!!!!!!</span></p> 
+<p><span style="line-height: 22.5px;"></span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">//正确
+import&nbsp;io.netty.channel.socket.DatagramPacket;
+//错误
+//import&nbsp;java.net.DatagramPacket;</pre> 
+<p></p> 
+<p><span style="line-height: 22.5px;"></span><br></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[铂金蛋蛋]]></author>
+		<authorid>261246</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 02:29:23</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>471271</id>
+		<title><![CDATA[聊聊实时 Node 应用性能监测的实现]]></title>
+		<url><![CDATA[http://my.oschina.net/turingou/blog/471271]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>近年来，由于 JavaScript 在服务端的兴起，使用 Node.js (以下简称 Node) 或 io.js 编写 Web 应用服务的初创团队和产品日益增多。由于 JavaScript 其天生的 Web 通用性设计，导致编写 Node 应用极易上手，开发效率高，但随着 Node 的火热发展，使用 Node 和其相关技术作为技术框架的应用，也存在不少 debug 与性能方面的问题。</p> 
+<p>Node 由于其 libuv 多线程池模拟异步 IO 的设计，能够很高效的解决单位资源下高并发的业务场景，而为很多程序员所钟爱。但当我们编写完成 Node 应用，将之部署到生产环境后，经常会发现诸如「CPU占用率过高」或「不同应用实例间负载不均衡」之类的性能问题，这些问题有时出在单元模块的编码缺陷，比如某些 IO 的等待触发回调时间过长，或不同服务间的通信导致了较高的 IO 延迟，导致轮询事件堆积，引发性能问题；有时出在调用远程 API 请求的时间过长，或某项操作使用了阻塞主执行线程的技术方案而导致。</p> 
+<p>这些性能问题，有时可以在单元测试或者压力测试中看出端倪，但更多时候，是随着生产环境服务的外部压力增大后，缓慢呈现出来的一种不确定性状态，加之 Node 应用的架构设计多采用 SOA，不同服务之间的通信状态存在不确定性，使得此种性能问题的排查存在相当的难度。</p> 
+<p>实时应用性能检测需求的产生，加速了 Applicaiton Performance Management 平台的发展速度，在国外，我们可以使用 New Relic 来进行实时的应用性能检测，查看应用间通信的拓扑图，跟踪和预警不同业务层面的压力情况与负载，从而进行科学的资源调度和弹性服务部署。<br>将线上业务的性能问题可视化，透明化，尽量在问题发生之前或将要发生时思考解决对策，这也是此类平台不同于一般的实时统计平台的一大特征之一。</p> 
+<p>在这篇文章中，我们将要通过从 Node 应用的业务逻辑分析、部署 Node APM 探针实战这几个简单的步骤，理解如何对 Node 应用进行性能监测，找出问题，并优化程序的整个过程。</p> 
+<p>让我们思考一种常用的 Web 应用业务逻辑。在这个 Web 应用中，用户请求某个资源列表，我们的服务通过查询不同的数据库或外部服务，在返回资源的同时记录用户的查询日志，在触发最大查询量之后警告用户，并在一段时间后自然释放<br>继续正确返回用户所需的资源列表。在这个应用场景中，我们需要对数据库进行简单的读写操作，可能还涉及与其他服务的网络 IO，当然，在这个过程中，我们还需要对用户进行鉴权，可能需要进行哈希运算，并且将用户常用数据，如查询次数与 token 存放在<br>更高效的内存数据库中，且对此类数据进行持久化操作。在这个案例中，我们不会实现所有业务逻辑的范例，但我们可以理解如何从性能分析角度去思考对于一个通用的 Web 业务，哪些关键点需要关注执行效率，哪些单元需要实时监测 IO 延迟。</p> 
+<h2>搭建一个范例 Node 项目</h2> 
+<p>在 Web 业务场景中，我们处理最多的逻辑是触发异步 IO，等待执行回调。有一种简单的方法可以将每次 IO 的时间可视化，就是为每个 callback 添加带有自动打印时间戳功能的 debug 标签（可以参考 npm 上的 <code>debug</code> 模块）但对于一个多实例，甚至分布式业务<br>，此类记录日志的方法还涉及到本文不会讨论的日志集中分析与处理的相应逻辑。对于一个初创产品或团队，使用这样的方法可以很直观的可视化单元模块的请求与等待时间，但很难可视化一个项目或整个应用服务系统的性能数据，因此略有不足。</p> 
+<p>我们可以使用 <code>Connect</code> 或 <code>Express</code> 快速搭建一个符合此场景的 Node 项目，为了节省时间，也为了更多地关注在业务逻辑上，在这里我们采用一个 Express 框架的包装，<code>express-scaffold</code> 来构建这个范例项目，为了节省编码，我们使用了部分 ES6 的写法书写范例代码：</p> 
+<pre><code>import server from 'express-scaffold'
+
+// 创建一个服务实例
+new server({
+  name: 'My very first App',
+  database: {
+    name: 'appdb'
+  }
+})
+// 创建数据表
+.models((db, Schema) =&gt; {
+  const userModel = new Schema({
+    name: String,
+    created: Date,
+  })
+  
+  return {
+    user: db.model('user', userModel)
+  }
+})
+// 抽象控制器
+.ctrlers((models, Ctrler) =&gt; {
+  return {
+    user: new Ctrler(models.user)
+  }
+})
+.routes((app, ctrlers) =&gt; {
+  console.log(`${ app.locals.site.name } is running`)
+  
+  // 范例路由
+  app.get('/', (req, res, next) =&gt; res.send('ok'))
+  
+  // 查询数据表的范例路由
+  app.get('/users', (req, res, next) =&gt; {
+	 	var query = req.query 
+	
+    ctrlers.user.find(query, function(err, users) {
+      if (err) 
+		  	return next(err)
+	  
+      res.json(users)
+    })
+  })
+})
+.run();
+</code></pre> 
+<p>以上代码基于 MongoDB 和 Express 模块搭建了一个简单的 MVC 项目，在 app 实例中，我们可以使用注入的相关依赖，比如控制器，来操作对数据库的读写。在接下来的代码中，我们会主要关注在路由的设计和相关的业务逻辑上。</p> 
+<p>一个简单的例子是，当我们需要对用户的请求进行鉴权，可能涉及到一些哈希计算，和获取文件中的读写操作。</p> 
+<pre><code>app.get('/resources/:type', (req, res, next) =&gt; {
+  if (!req.query.token)
+    return next(new Error('token required'))
+  
+  // 通过计算鉴权
+  if (!checkHash(req.query.token, configs.get('token')))
+    return next(new Error('token invalid')
+  
+  try {  
+    const data = fs.readFilySync(`resources-${ req.params.type }`)
+    return res.send(data)
+  } catch (err) {
+    return next(err)
+  }
+})
+</code></pre> 
+<p>在这段代码中可能存在两个性能问题，如果我们不对这些问题进行实时跟踪，单凭单元测试中反馈的计算和 IO 延时，我们可能无法对整个应用的性能做出可靠的评测。通常来说，Node 应用程序虽然会有诸多 <code>child_process</code> 实例，但无论对于哪个实例，其 JavaScript 执行线程，也就是主线程都不应当进行太多同步计算操作。从某种意义上来说，JavaScript 可能并不擅长进行同步计算。在这里，我们可能会很容易忽视一个 hash 计算带来的延时，所以，我们可以为这个计算先后加上 debug 标签，但更好的监控方式，我们会在下面的范例中提到。</p> 
+<p>另外一个问题在于，文件 API 的同步读写操作很可能会带来额外的风险，因此，最好的方式就是，不在任何 Node 项目中使用同步 API 来处理数据，以免产生难以定位的由多种因素导致的性能问题。</p> 
+<h2>植入听云 Node 探针</h2> 
+<p>![](<a href="http://ww3.sinaimg.cn/large/61ff0de3gw1etfc1g2xfej20o907wgmm.jpg" rel="nofollow">http://ww3.sinaimg.cn/large/61ff0de3gw1etfc1g2xfej20o907wgmm.jpg</a>)</p> 
+<p>对于 Node 应用服务，APM 探针是如何在系统中运作，从而保证了对几乎每个层面的 IO 都能监控并且不干扰正常的业务逻辑呢？这也是我一直以来比较好奇的一个问题。在这篇文章里，我们使用国内比较有名的 APM 服务之一，听云的 Node 探针来研究，如何通过一个不影响业务的探针模块，来实现对基于所有 IO 的跟踪和实时监测。</p> 
+<p>简单来说，听云 Node 探针是以 require hook 的方式，在服务的启动脚本上初始化，通过挂载在 module load 事件的方式对大多数发起网络 IO 的库进行包装，从而能够在服务的各个层面监测到应用的网络 IO 延时，以及应用宿主机上的 CPU 负载，内存占用情况等相应的系统数据。</p> 
+<p>为了研究探针的工作原理，理解为什么探针可以有效的监测上述常用耗时的计算过程或异步 IO，我们先需要下载探针模块。</p> 
+<h3>新建听云账户，获取 License Key，并下载 Node 探针</h3> 
+<p>![](<a href="http://ww2.sinaimg.cn/large/61ff0de3gw1etfc1yqw5yj20sn06q3z1.jpg" rel="nofollow">http://ww2.sinaimg.cn/large/61ff0de3gw1etfc1yqw5yj20sn06q3z1.jpg</a>)</p> 
+<p>首先，我们需要在听云官网上注册一个可用的账户。在新建应用界面中，我们可以得到一个 License Key，同时，下载听云 Node 探针的压缩包文件，解压这个压缩包文件之后，就能看到听云 Node 探针的目录结构。实际上，这个探针是一个 Node module。接下来，在需要进行配置的项目目录中，执行指令 <code>npm install tingyun-agent-nodejs-latest.tar.gz</code> 就可以将这个压缩包作为一个 Node 模块解压并安装到 <code>node_modules</code> 文件夹中，并安装相应的依赖模块，以供 require 调用。</p> 
+<p>![](<a href="http://ww2.sinaimg.cn/large/61ff0de3gw1etfc2ppp8cj20mb0he0tn.jpg" rel="nofollow">http://ww2.sinaimg.cn/large/61ff0de3gw1etfc2ppp8cj20mb0he0tn.jpg</a>)</p> 
+<h3>修改 Node 探针配置文件</h3> 
+<p>在同目录执行指令 <code>cp node_modules/tingyun/tingyun.js ./</code> 以便将听云 Node 探针中的 <code>tingyun.js</code> 也就是探针配置文件复制到项目目录中。我们打开这个探针配置文件，可以看到：</p> 
+<pre><code>// 听云代理用户配置项
+exports.config = {
+  // 应用名
+  app_name : ['nodetest'],
+  // 授权序号
+  licenseKey : '1231232132131',
+  // 日志级别
+  // debug" &gt; "verbose" &gt; "info" &gt; "warning" &gt; "error" &gt; "critical"
+  agent_log_level : 'info'
+};
+</code></pre> 
+<p>探针配置文件非常简单，只需要配置之前得到的 License Key 并输入正确的 app 名称，即可完成配置。</p> 
+<h3>添加 require hook，重启应用</h3> 
+<p>最后一步，也是最重要的一步配置操作，就是将听云 Node 探针 require 到 Node 服务的启动文件当中，以便于听云 Node 探针对相应的 IO 库进行包装。在 Node 服务的启动脚本最上方添加:</p> 
+<pre><code>// 首先植入探针
+require('tingyun')
+// 处理剩余应用初始化与启动逻辑 ...
+</code></pre> 
+<p>即可完成全部的探针配置，此时重启服务，几分钟后，就可在听云的管理面板上看到探针上传的实时性能监测日志。</p> 
+<p>![](<a href="http://ww4.sinaimg.cn/large/61ff0de3gw1etfc4eyp8jj211z0kjag3.jpg" rel="nofollow">http://ww4.sinaimg.cn/large/61ff0de3gw1etfc4eyp8jj211z0kjag3.jpg</a>)</p> 
+<p>上图即为我们的范例程序执行几分钟后得到的综合图表结果，可以看出，听云探针除了可以分析出应用程序的总体相应时间和阻塞延迟，还支持细分显示出 NoSql 数据库如 MongoDB 的响应时间，同时可以在 dashboard 中的最耗时Web应用过程（Web Action）图表看出具体路由的响应时间差别。当然，除此之外，也能监测常规的宿主机内存和 CPU 占用情况。</p> 
+<p>如果我们打开性能拓扑视图，可以更清楚的看清应用程序实例与数据库间 IO 延迟情况，在这个简单的范例中，我们只连接一个 MongoDB 实例进行查询，所以整个项目的拓扑图清晰可辨</p> 
+<p>![](<a href="http://ww4.sinaimg.cn/large/61ff0de3gw1etfc5fdaxmj20un0aeq3r.jpg" rel="nofollow">http://ww4.sinaimg.cn/large/61ff0de3gw1etfc5fdaxmj20un0aeq3r.jpg</a>)</p> 
+<p>对大部分程序来说，性能瓶颈主要归结为数据库 IO 延迟过高，NoSQL 性能分析功能则可以将这个拓扑图放大，着重分析后端数据库的耗时查询具体对应何种查询条件，在这个简单的项目中，我们可以看到如下的 NoSQL 总耗时结果分析</p> 
+<p>![](<a href="http://ww2.sinaimg.cn/large/61ff0de3gw1etfc6mqcn3j211t0e10v7.jpg" rel="nofollow">http://ww2.sinaimg.cn/large/61ff0de3gw1etfc6mqcn3j211t0e10v7.jpg</a>)<br>![](<a href="http://ww2.sinaimg.cn/large/61ff0de3gw1etfc6wswczj20pa0jhjts.jpg" rel="nofollow">http://ww2.sinaimg.cn/large/61ff0de3gw1etfc6wswczj20pa0jhjts.jpg</a>)</p> 
+<p>不过，为什么通过简单的探针模块，可以得出这种通用性的分析结果呢？我们不妨仔细研究一下听云的这个探针模块是如何运作的。​</p> 
+<h2>听云 Node 探针分析</h2> 
+<p>上述简单的植入教程已经大致提到，听云 Node 探针是如何在项目文件中挂载的。如果我们仔细研究听云 Node 探针的代码结构，可以看到 <code>parsers</code> 文件夹中列出了所有支持的包装，包括 Node 核心组件 <code>http</code>，和我们常用的两个 Web frame: <code>Connect</code> 与 <code>Express</code>，同样地，它也支持跟踪 <code>MySQL</code>, <code>Mongodb</code>, <code>Redis</code> 甚至最近非常活跃的数据库 <code>Cassandra</code>。</p> 
+<p>![](<a href="http://ww3.sinaimg.cn/large/61ff0de3gw1etfc7oiv9pj205m09sgm2.jpg" rel="nofollow">http://ww3.sinaimg.cn/large/61ff0de3gw1etfc7oiv9pj205m09sgm2.jpg</a>)</p> 
+<p>植入探针的过程，实际上是 require 听云探针模块的触发的操作，在 require(‘tingyun’) 被执行之后，探针目录下的 index.js 入口文件进行探针初始化，在这个过程中，对应配置文件被读取后，探针新建了一个 agent 实例对象，并使用 shimmer 函数库完成了相关初始化操作，其中，shimmer.patchModule 操作将会对 IO 库进行包装:</p> 
+<pre><code>patchModule : function patchModule(agent) {
+  logger.debug("Wrapping module loader.");
+  var Module = require('module');
+
+  shimmer.wrapMethod(Module, 'Module', '_load', function cb_wrapMethod(load) {
+    return function cls_wrapMethod(file) {
+      return _postLoad(agent, load.apply(this, arguments), file);
+    };
+  });
+}
+</code></pre> 
+<p>在这个函数中，require(‘module’) 一段引入了 Node 的模块系统库，module 模块，实现了 Node 中所有对模块的定义，引入，输出的相关操作，听云探针通过对 module 模块的包装，也就是 shimmer.wrapMethod 函数，当任何模块加载事件触发时，触发相应的跟踪回调。让我们仔细阅读 wrapMethod 函数与回调函数 _postLoad 的实现：</p> 
+<pre><code>wrapMethod : function wrapMethod(nodule, noduleName, methods, wrapper) {
+  if (!methods) return;
+  if (!noduleName) noduleName = '[unknown]';
+  if (!Array.isArray(methods)) methods = [methods];
+
+  methods.forEach(function cb_forEach(method) {
+    var method_name = noduleName + '.' + method;
+
+    if (!nodule) return;
+    if (!wrapper) return logger.verbose("Can't wrap %s, no wrapper.", method_name);
+    var original = nodule[method];
+
+    if (!original) return logger.debug("%s not defined, skip wrapping.", method_name);
+    if (original.__TY_unwrap) return logger.verbose("%s already wrapped.", method_name);
+
+    var wrapped = wrapper(original);
+    wrapped.__TY_original = original;
+    wrapped.__TY_unwrap = function __TY_unwrap() {
+      nodule[method] = original;
+      logger.debug("Removed instrumentation from %s.", method_name);
+    };
+
+    nodule[method] = wrapped;
+    if (shimmer.debug) instrumented.push(wrapped);
+  });
+}
+</code></pre> 
+<p>通过阅读 wrapMethod 函数的实现可以看到，在 <code>shimmer.wrapMethod</code> 中回调函数包装中的 <code>load</code> 函数，在这里，就是 <code>require('module')._load()</code> 方法。而通过包装后返回的函数 <code>cls_wrapMethod</code>，在后续的代码中，又会替换掉 <code>require('module')._load()</code>，读到这里，我们就能大概理解探针是如何不影响业务逻辑而得以跟踪所有模块的原因。</p> 
+<pre><code>function _postLoad(agent, nodule, name) {
+  var base = path.basename(name);
+  var wrapper_module = (name === 'pg.js') ? 'pg': base;
+  
+  if (WRAPPERS.indexOf(wrapper_module) !== -1) {
+    logger.debug('wrap %s.', base);
+    var filename = path.join(__dirname, '../parsers/wrappers', wrapper_module + '.js');
+    instrument(agent, base, filename, nodule);
+  }
+  
+  return nodule;
+}
+</code></pre> 
+<p>在 <code>_postLoad</code> 函数中，我们可以看到，听过对当前初始化的模块的判断，听云 Node 探针会所有在 <code>WRAPPERS</code> 数组中的模块都进行了包装，相关的包装应当定义了对应的回调函数，并执行了 <code>instrument</code> 函数，这个函数实际上是起到了 <code>require</code> 包装模块的作用，而这部分包装是放置在 <code>../parsers/wrappers</code> 文件夹中，以模块名作为索引区分。我们查看这个文件中的 <code>WRAPPERS</code> 数组，可以看到听云 Node 探针目前已经支持以下几个模块的实时性能跟踪：</p> 
+<pre><code>var WRAPPERS = [
+  'connect',
+  'express',
+  'generic-pool',
+  'hapi',
+  'memcached',
+  'mongodb',
+  'mysql',
+  'node-cassandra-cql',
+  'pg',
+  'redis',
+  'restify',
+  'thrift'
+];
+</code></pre> 
+<p>跟踪到这里，我们已经能理解听云 Node 探针的大致工作原理，剩下的事情，就交给各位感兴趣的读者，以 Express 为例，仔细阅读 <code>../parsers/wrappers/express.js</code> 中类似 wrapRender、wrapMatchRequest 的实现，以及探针是如何使用 shimmer 模块对 Express 中的具体函数方法进行重复包装的过程，如果你对 Node 实时性能监测感兴趣，不妨也可以模仿这里的实现，自己写一个探针模块喔~</p>]]></body>
+		<author><![CDATA[郭宇GuoYu]]></author>
+		<authorid>1040404</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-26 15:42:07</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

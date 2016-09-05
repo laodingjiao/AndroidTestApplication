@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64304</id>
+      <title><![CDATA[Teiid 8.11.1 发布，数据虚拟化系统]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64304/teiid-8-11-1]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Teiid 8.11.1 发布，这次有5项重要的改进：</p> 
+<ul> 
+ <li><p>[<a href="https://issues.jboss.org/browse/TEIID-3502" rel="nofollow">TEIID-3502</a>] - Teiid returns integer/long overflow values</p></li> 
+ <li><p>[<a href="https://issues.jboss.org/browse/TEIID-3556" rel="nofollow">TEIID-3556</a>] - BufferManager reserve memory variable is decremented twice</p></li> 
+ <li><p>[<a href="https://issues.jboss.org/browse/TEIID-3557" rel="nofollow">TEIID-3557</a>] - Can't reload VDB in domain mode</p></li> 
+ <li><p>[<a href="https://issues.jboss.org/browse/TEIID-3558" rel="nofollow">TEIID-3558</a>] - Duplicate records being for formed for Internal Materialized View cluster</p></li> 
+ <li><p>[<a href="https://issues.jboss.org/browse/TEIID-3563" rel="nofollow">TEIID-3563</a>] - Problems with capabilities initialization</p></li> 
+</ul> 
+<p><span style="color: #333333; font-family: Arial, sans-serif;"><span style="font-size: 14px; line-height: 20px;">此外，预计 <span style="color: #333333; font-family: Arial, sans-serif;"><span style="font-size: 14px; line-height: 20px;">8.12 Alpha2</span></span> 将会在下周发布。</span></span></p> 
+<p><span style="color: #333333; font-family: Arial, sans-serif;"><span style="font-size: 14px; line-height: 20px;">详细内容请查看<a target="_blank" href="http://teiid.blogspot.jp/2015/07/teiid-8111-released.html" rel="nofollow">发行说明</a>。</span></span></p> 
+<p><span style="color: #333333; font-family: Arial, sans-serif;"><span style="font-size: 14px; line-height: 20px;"></span></span></p> 
+<p>Teiid是一个数据虚拟化系统，让应用程序使用来自多个异构数据存储的数据。</p> 
+<p>Teiid由一堆工具，组件和创建和执行双向数据的服务所组成。通过抽象和联合、数据存取和集成的实时分布式数据源，无需进行复制或以其他方式移动数据系统的纪录。</p> 
+<p>简而言之：Teiid 可以让你用 JDBC + SQL 来访问企业的任何数据，并可对这些不同源的数据进行联合查询。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/200906/12092710_rMu3.png" alt=""><br></p>
+<p><br></p>]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 07:25:35</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/teiid]]></softwarelink>
+	  <softwarename><![CDATA[Teiid]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Teiid Designer 9.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64126/teiid-designer-9-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Teiid 8.12 Alpha1 发布，数据虚拟化系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/64085/teiid-8-12-alpha1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Teiid 8.11 Final 发布，支持 OData V4/SAP HANA]]></rtitle>
+			<rurl>http://www.oschina.net/news/63541/teiid-8-11-final</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Teiid 8.11 CR1 发布，数据虚拟化系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63235/teiid-8-11-cr1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Teiid 8.11 Beta3 发布，数据虚拟化系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/62966/teiid-8-11-beta3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Teiid 8.11 Beta2 发布，数据虚拟化系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/62487/teiid-8-11-beta2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Teiid 8.11 Beta1 和 8.10.1 发布，数据虚拟化]]></rtitle>
+			<rurl>http://www.oschina.net/news/61951/teiid-8-11-beta1-and-8-10-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Teiid 8.11 Alpha2 发布，数据虚拟化系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/61476/teiid-8-11-alpha2-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Teiid 8.11 Alpha1 发布，数据虚拟化系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/60942/teiid-8-11-alpha1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Teiid 8.10 Final 发布，异构数据存储系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/60154/teiid-8-10-final</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

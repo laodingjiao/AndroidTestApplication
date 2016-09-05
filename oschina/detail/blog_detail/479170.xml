@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479170</id>
+		<title><![CDATA[thinkphp开启GZIP压缩]]></title>
+		<url><![CDATA[http://my.oschina.net/weiwenfeng/blog/479170]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> 在项目的入口文件index.php添加 </p> 
+<pre class="brush:php; toolbar: true; auto-links: false;">define ( "GZIP_ENABLE", function_exists ( 'ob_gzhandler' ) );
+ob_start ( GZIP_ENABLE ? 'ob_gzhandler' : null );</pre> 
+<p></p> 
+<p> 就可以实现了&nbsp;&nbsp; 如下图 </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/102726_eEmd_877901.png" alt=""> </p>
+<p> <br> </p>]]></body>
+		<author><![CDATA[晓自由]]></author>
+		<authorid>877901</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 10:28:53</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

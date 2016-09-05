@@ -1,0 +1,1476 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>476676</id>
+		<title><![CDATA[上传自己的构件(Jar)到Maven中央仓库]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2335754/blog/476676]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>7</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><div> 
+ <b><span style="font-size: 14pt;">背景：</span></b> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">用了Maven之后，你有没有这样的想法，自己一直在使用别人贡献的代码，自己能不能把自己觉得好的代码也贡献出来让大家方便。</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 还有如果你也是一名程序员，你会不会觉得要是把自己积累起来日常常用的代码工具组件放到Maven的中央仓库之后，很方便维护和升级，</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp; 可以做到&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">一次发布，到处使用 。</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">不用交给云盘和代码托管系统来管理，只需要知道 构件的坐标 + Maven之类的构建工具就能获取想要的构件。</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size: 10.5pt; line-height: 1.5;"><b><span style="font-size: 14pt;">预备知识：</span></b></span> 
+ <br> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 1.Java&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><a href="http://www.oracle.com/technetwork/cn/java/javase/downloads/index.html" rel="nofollow">http://www.oracle.com/technetwork/cn/java/javase/downloads/index.html</a> </span> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 2.Maven</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <a href="https://maven.apache.org/" rel="nofollow">https://maven.apache.org/</a> 
+</div> 
+<div>   
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 3.Git</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <a href="https://git-scm.com/" rel="nofollow">https://git-scm.com/</a> 
+</div> 
+<div>   
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 4.</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp;GnuGPG(gpg4win)</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <a href="http://gpg4win.org/" rel="nofollow">http://gpg4win.org/</a> 
+</div> 
+<div>   
+ <span style="font-size: 10.5pt; line-height: 1.5; font-family: 'Microsoft YaHei UI';">&nbsp;&nbsp;&nbsp;</span> 
+ <span style="font-size: 10.5pt; line-height: 1.5; font-family: 'Microsoft YaHei UI';">&nbsp; &nbsp;&nbsp;</span> &nbsp; &nbsp;&nbsp; 
+</div> 
+<div> &nbsp; &nbsp; 5.Github 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> https://github.com/
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 6.Sonatype公司提供的</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; <a href="https://issues.sonatype.org" rel="nofollow">https://issues.sonatype.org</a> </span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <a href="https://issues.sonatype.org" rel="nofollow">https://oss.sonatype.org</a> 
+ <br> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp; 7.大概结构图 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163640_QyiP.png" border="0" alt="">
+ <br> 
+</div>  
+<div> &nbsp; &nbsp;&nbsp; 
+ <br> 
+</div> 
+<div> 
+ <span style="font-size: 14pt;"><b><span style="font-size: 16pt;">准备工作：</span></b></span> 
+</div> 
+<div> &nbsp; &nbsp; 1.JDK安装配置 
+ <br> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp; 2 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">.</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">Maven安装配置</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp; 3 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">.</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">Git安装配置(可选)</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp; 4 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">.</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">OpenGPG安装配置</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp; 这四步完成之后的结果： 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163640_W9q1.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp; 5.到&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><a href="https://github.com/网站注册一个账号" rel="nofollow">https://github.com/</a>&nbsp;网站注册一个账号</span> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp; 6.到&nbsp; 
+ <a href="https://issues.sonatype.org" rel="nofollow">https://issues.sonatype.org</a>&nbsp;网站注册一个账号 
+ <br> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> 
+ <span style="font-size: 14pt;"><b>动手实验：</b></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <br> 
+</div> 
+<div> 
+ <b>&nbsp; &nbsp; (1)<span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp;在&nbsp;</span><a href="https://github.com/网站注册一个账号" rel="nofollow">https://github.com/</a>&nbsp;网站创建一个仓库</b> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图1-1：登陆</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163640_rWdG.png" border="0" alt="">
+ <br> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图1-2：点击 “+” 好创建一个新的仓库</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163640_zWpX.jpg" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图1-3：仓库的信息填写，这里的必填项是仓库的名称Respository name</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163640_HTjE.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图1-4：找到刚刚创建的仓库，获取仓库的https连接地址和ssh连接地址</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163640_HaU3.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163641_ulrh.png" border="0" alt="">
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; HTTPS地址：</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">https://github.com/zhangguangyong/codes.git</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; SSH地址：</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">git@github.com:zhangguangyong/codes.git</span> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <b>&nbsp; &nbsp; (2) 在&nbsp;<a href="https://issues.sonatype.org" rel="nofollow">https://issues.sonatype.org</a>&nbsp;网站创建一个issues——创建的issues需要等待审核</b> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图2-1：登陆</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163641_r1KY.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图2-2：创建issues</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163641_prBo.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图2-3：Issues的信息填写</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163641_pnaL.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">Description 和 Attachment 不需要填写</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163641_dfFK.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-size: 10.5pt; line-height: 1.5; font-family: 'Microsoft YaHei UI';">&nbsp;&nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163641_EBln.png" border="0" alt="">
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 点击Issues菜单，选择刚刚创建Issues,等待管理员的审批</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-size: 10.5pt; line-height: 1.5; font-family: 'Microsoft YaHei UI';">&nbsp;</span> 
+ <span style="font-size: 10.5pt; line-height: 1.5; font-family: 'Microsoft YaHei UI';">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163641_btE3.png" border="0" alt="">
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 审批通过之后，会看到这样的回复：</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163641_erJw.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> 
+ <b>&nbsp; &nbsp; (3) 通过<span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">GnuGPG来创建一个公钥</span></b> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 参考：</span> http://my.oschina.net/huangyong/blog/226738 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163642_d0A2.png" border="0" alt="">
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp; (4) 创建一个Maven项目 —— 配置 settings.xml、pom.xml、发布到&nbsp; 
+ <a href="https://issues.sonatype.org" rel="nofollow">https://oss.sonatype.org</a>&nbsp;仓库 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图4-1：配置maven安装目录下 conf/settings.xml 文件</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163642_eA10.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; settings.xml文件的内容：</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="color: rgb(0, 128, 128); font-family: Consolas; font-size: 12pt; line-height: 1.5;">&lt;?</span> 
+ <span style="font-family: Consolas; font-size: 12pt; line-height: 1.5; color: rgb(63, 127, 127);">xml<span style="color:WindowText;">&nbsp;<span style="color:#7f007f;">version<span style="color:WindowText;">=<span style="font-style:italic;color:#2a00ff;">"1.0"</span></span></span>&nbsp;<span style="color:#7f007f;">encoding<span style="color:WindowText;">=<span style="font-style:italic;color:#2a00ff;">"UTF-8"</span></span></span></span></span> 
+ <span style="color: rgb(0, 128, 128); font-family: Consolas; font-size: 12pt; line-height: 1.5;">?&gt;</span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&lt;!--&nbsp;Licensed&nbsp;to&nbsp;the&nbsp;Apache&nbsp;Software&nbsp;Foundation&nbsp;(ASF)&nbsp;under&nbsp;one&nbsp;or&nbsp;more&nbsp;contributor&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;license&nbsp;agreements.&nbsp;See&nbsp;the&nbsp;NOTICE&nbsp;file&nbsp;distributed&nbsp;with&nbsp;this&nbsp;work&nbsp;for&nbsp;additional&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;information&nbsp;regarding&nbsp;copyright&nbsp;ownership.&nbsp;The&nbsp;ASF&nbsp;licenses&nbsp;this&nbsp;file&nbsp;to&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;you&nbsp;under&nbsp;the&nbsp;Apache&nbsp;License,&nbsp;Version&nbsp;2.0&nbsp;(the&nbsp;"License");&nbsp;you&nbsp;may&nbsp;not&nbsp;use&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;file&nbsp;except&nbsp;in&nbsp;compliance&nbsp;with&nbsp;the&nbsp;License.&nbsp;You&nbsp;may&nbsp;obtain&nbsp;a&nbsp;copy&nbsp;of&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;License&nbsp;at&nbsp;http://www.apache.org/licenses/LICENSE-2.0&nbsp;Unless&nbsp;required&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;by&nbsp;applicable&nbsp;law&nbsp;or&nbsp;agreed&nbsp;to&nbsp;in&nbsp;writing,&nbsp;software&nbsp;distributed&nbsp;under&nbsp;the&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;License&nbsp;is&nbsp;distributed&nbsp;on&nbsp;an&nbsp;"AS&nbsp;IS"&nbsp;BASIS,&nbsp;WITHOUT&nbsp;WARRANTIES&nbsp;OR&nbsp;CONDITIONS&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;OF&nbsp;ANY&nbsp;KIND,&nbsp;either&nbsp;express&nbsp;or&nbsp;implied.&nbsp;See&nbsp;the&nbsp;License&nbsp;for&nbsp;the&nbsp;specific&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;language&nbsp;governing&nbsp;permissions&nbsp;and&nbsp;limitations&nbsp;under&nbsp;the&nbsp;License.&nbsp;--&gt;</span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&lt;!--&nbsp;|&nbsp;This&nbsp;is&nbsp;the&nbsp;configuration&nbsp;file&nbsp;for&nbsp;<span style="text-decoration:underline;">Maven</span>.&nbsp;It&nbsp;can&nbsp;be&nbsp;specified&nbsp;at&nbsp;two&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;levels:&nbsp;|&nbsp;|&nbsp;1.&nbsp;User&nbsp;Level.&nbsp;This&nbsp;settings.xml&nbsp;file&nbsp;provides&nbsp;configuration&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;a&nbsp;single&nbsp;user,&nbsp;|&nbsp;and&nbsp;is&nbsp;normally&nbsp;provided&nbsp;in&nbsp;${user.home}/.m2/settings.xml.&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;|&nbsp;NOTE:&nbsp;This&nbsp;location&nbsp;can&nbsp;be&nbsp;overridden&nbsp;with&nbsp;the&nbsp;CLI&nbsp;option:&nbsp;|&nbsp;|&nbsp;-s&nbsp;/path/to/user/settings.xml&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;|&nbsp;2.&nbsp;Global&nbsp;Level.&nbsp;This&nbsp;settings.xml&nbsp;file&nbsp;provides&nbsp;configuration&nbsp;for&nbsp;all&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="text-decoration:underline;">Maven</span>&nbsp;|&nbsp;users&nbsp;on&nbsp;a&nbsp;machine&nbsp;(assuming&nbsp;they're&nbsp;all&nbsp;using&nbsp;the&nbsp;same&nbsp;<span style="text-decoration:underline;">Maven</span>&nbsp;|&nbsp;installation).&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;It's&nbsp;normally&nbsp;provided&nbsp;in&nbsp;|&nbsp;${maven.home}/<span style="text-decoration:underline;">conf</span>/settings.xml.&nbsp;|&nbsp;|&nbsp;NOTE:&nbsp;This&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;location&nbsp;can&nbsp;be&nbsp;overridden&nbsp;with&nbsp;the&nbsp;CLI&nbsp;option:&nbsp;|&nbsp;|&nbsp;-<span style="text-decoration:underline;">gs</span>&nbsp;/path/to/global/settings.xml&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;|&nbsp;The&nbsp;sections&nbsp;in&nbsp;this&nbsp;sample&nbsp;file&nbsp;are&nbsp;intended&nbsp;to&nbsp;give&nbsp;you&nbsp;a&nbsp;running&nbsp;start&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;at&nbsp;|&nbsp;getting&nbsp;the&nbsp;most&nbsp;out&nbsp;of&nbsp;your&nbsp;<span style="text-decoration:underline;">Maven</span>&nbsp;installation.&nbsp;Where&nbsp;appropriate,&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;default&nbsp;|&nbsp;values&nbsp;(values&nbsp;used&nbsp;when&nbsp;the&nbsp;setting&nbsp;is&nbsp;not&nbsp;specified)&nbsp;are&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;provided.&nbsp;|&nbsp;|&nbsp;--&gt;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#008080;font-family:'Consolas';">&lt;<span style="color:#3f7f7f;">settings<span style="color:WindowText;">&nbsp;<span style="color:#7f007f;">xmlns<span style="color:WindowText;">=<span style="font-style:italic;color:#2a00ff;">"http://maven.apache.org/SETTINGS/1.0.0"</span></span></span></span></span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7f007f;">xmlns:xsi<span style="color:WindowText;">=<span style="font-style:italic;color:#2a00ff;">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7f007f;">xsi:schemaLocation<span style="color:WindowText;">=<span style="font-style:italic;color:#2a00ff;">"http://maven.apache.org/SETTINGS/1.0.0&nbsp;http://maven.apache.org/xsd/settings-1.0.0.xsd"<span style="font-style:normal;color:#008080;">&gt;</span></span></span></span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;localRepository&nbsp;|&nbsp;The&nbsp;path&nbsp;to&nbsp;the&nbsp;local&nbsp;repository&nbsp;<span style="text-decoration:underline;">maven</span>&nbsp;will&nbsp;use&nbsp;to&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;store&nbsp;artifacts.&nbsp;|&nbsp;|&nbsp;Default:&nbsp;${user.home}/.m2/repository&nbsp;&lt;localRepository&gt;/path/to/local/<span style="text-decoration:underline;">repo</span>&lt;/localRepository&gt;&nbsp;--&gt;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">localRepository</span>&gt;</span>D:/<span style="text-decoration:underline;">Dev</span>/<span style="text-decoration:underline;">Repos</span>/<span style="text-decoration:underline;">Maven<span style="text-decoration:none;color:#008080;">&lt;/<span style="color:#3f7f7f;">localRepository</span>&gt;</span></span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;interactiveMode&nbsp;|&nbsp;This&nbsp;will&nbsp;determine&nbsp;whether&nbsp;<span style="text-decoration:underline;">maven</span>&nbsp;prompts&nbsp;you&nbsp;when&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it&nbsp;needs&nbsp;input.&nbsp;If&nbsp;set&nbsp;to&nbsp;false,&nbsp;|&nbsp;<span style="text-decoration:underline;">maven</span>&nbsp;will&nbsp;use&nbsp;a&nbsp;sensible&nbsp;default&nbsp;value,&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perhaps&nbsp;based&nbsp;on&nbsp;some&nbsp;other&nbsp;setting,&nbsp;for&nbsp;|&nbsp;the&nbsp;parameter&nbsp;in&nbsp;question.&nbsp;|&nbsp;|&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default:&nbsp;true&nbsp;&lt;interactiveMode&gt;true&lt;/interactiveMode&gt;&nbsp;--&gt;</span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;offline&nbsp;|&nbsp;Determines&nbsp;whether&nbsp;<span style="text-decoration:underline;">maven</span>&nbsp;should&nbsp;attempt&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;network&nbsp;when&nbsp;executing&nbsp;a&nbsp;build.&nbsp;|&nbsp;This&nbsp;will&nbsp;have&nbsp;an&nbsp;effect&nbsp;on&nbsp;artifact&nbsp;downloads,&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;artifact&nbsp;deployment,&nbsp;and&nbsp;others.&nbsp;|&nbsp;|&nbsp;Default:&nbsp;false&nbsp;&lt;offline&gt;false&lt;/offline&gt;&nbsp;--&gt;</span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;pluginGroups&nbsp;|&nbsp;This&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;additional&nbsp;group&nbsp;identifiers&nbsp;that&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;be&nbsp;searched&nbsp;when&nbsp;resolving&nbsp;<span style="text-decoration:underline;">plugins</span>&nbsp;by&nbsp;their&nbsp;prefix,&nbsp;i.e.&nbsp;|&nbsp;when&nbsp;invoking&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;command&nbsp;line&nbsp;like&nbsp;"<span style="text-decoration:underline;">mvn</span>&nbsp;prefix:goal".&nbsp;<span style="text-decoration:underline;">Maven</span>&nbsp;will&nbsp;automatically&nbsp;add&nbsp;the&nbsp;group&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;identifiers&nbsp;|&nbsp;"org.apache.maven.plugins"&nbsp;and&nbsp;"org.codehaus.mojo"&nbsp;if&nbsp;these&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;not&nbsp;already&nbsp;contained&nbsp;in&nbsp;the&nbsp;list.&nbsp;|&nbsp;--&gt;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">pluginGroups</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;pluginGroup&nbsp;|&nbsp;Specifies&nbsp;a&nbsp;further&nbsp;group&nbsp;identifier&nbsp;to&nbsp;use&nbsp;for&nbsp;<span style="text-decoration:underline;">plugin</span>&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lookup.&nbsp;&lt;pluginGroup&gt;com.your.plugins&lt;/pluginGroup&gt;&nbsp;--&gt;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">pluginGroups</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;<span style="text-decoration:underline;">proxies</span>&nbsp;|&nbsp;This&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;<span style="text-decoration:underline;">proxies</span>&nbsp;which&nbsp;can&nbsp;be&nbsp;used&nbsp;on&nbsp;this&nbsp;machine&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;connect&nbsp;to&nbsp;the&nbsp;network.&nbsp;|&nbsp;Unless&nbsp;otherwise&nbsp;specified&nbsp;(by&nbsp;system&nbsp;property&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;command-line&nbsp;switch),&nbsp;the&nbsp;first&nbsp;<span style="text-decoration:underline;">proxy</span>&nbsp;|&nbsp;specification&nbsp;in&nbsp;this&nbsp;list&nbsp;marked&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;as&nbsp;active&nbsp;will&nbsp;be&nbsp;used.&nbsp;|&nbsp;--&gt;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">proxies</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;<span style="text-decoration:underline;">proxy</span>&nbsp;|&nbsp;Specification&nbsp;for&nbsp;one&nbsp;<span style="text-decoration:underline;">proxy</span>,&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;connecting&nbsp;to&nbsp;the&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;network.&nbsp;|&nbsp;<span style="text-decoration:underline;">&lt;proxy&gt;</span>&nbsp;&lt;id&gt;optional&lt;/id&gt;&nbsp;&lt;active&gt;true&lt;/active&gt;&nbsp;&lt;protocol&gt;<span style="text-decoration:underline;">http</span>&lt;/protocol&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="text-decoration:underline;">&lt;username&gt;proxyuser&lt;/username&gt;</span>&nbsp;&lt;password&gt;<span style="text-decoration:underline;">proxypass</span>&lt;/password&gt;&nbsp;&lt;host&gt;proxy.host.net&lt;/host&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;port&gt;80&lt;/port&gt;&nbsp;&lt;nonProxyHosts&gt;local.net|some.host.com&lt;/nonProxyHosts&gt;&nbsp;<span style="text-decoration:underline;">&lt;/proxy&gt;</span>&nbsp;--&gt;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">proxies</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;servers&nbsp;|&nbsp;This&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;authentication&nbsp;profiles,&nbsp;keyed&nbsp;by&nbsp;the&nbsp;server-id&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;within&nbsp;the&nbsp;system.&nbsp;|&nbsp;Authentication&nbsp;profiles&nbsp;can&nbsp;be&nbsp;used&nbsp;whenever&nbsp;<span style="text-decoration:underline;">maven</span>&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;must&nbsp;make&nbsp;a&nbsp;connection&nbsp;to&nbsp;a&nbsp;remote&nbsp;server.&nbsp;|&nbsp;--&gt;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">servers</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;server&nbsp;|&nbsp;Specifies&nbsp;the&nbsp;authentication&nbsp;information&nbsp;to&nbsp;use&nbsp;when&nbsp;connecting&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;a&nbsp;particular&nbsp;server,&nbsp;identified&nbsp;by&nbsp;|&nbsp;a&nbsp;unique&nbsp;name&nbsp;within&nbsp;the&nbsp;system&nbsp;(referred&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;by&nbsp;the&nbsp;'id'&nbsp;attribute&nbsp;below).&nbsp;|&nbsp;|&nbsp;NOTE:&nbsp;You&nbsp;should&nbsp;either&nbsp;specify&nbsp;<span style="text-decoration:underline;">username</span>/password&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;privateKey/<span style="text-decoration:underline;">passphrase</span>,&nbsp;since&nbsp;these&nbsp;pairings&nbsp;are&nbsp;|&nbsp;used&nbsp;together.&nbsp;|&nbsp;&lt;server&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;id&gt;deploymentRepo&lt;/id&gt;&nbsp;<span style="text-decoration:underline;">&lt;username&gt;repouser&lt;/username&gt;</span>&nbsp;&lt;password&gt;<span style="text-decoration:underline;">repopwd</span>&lt;/password&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/server&gt;&nbsp;--&gt;</span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;Another&nbsp;sample,&nbsp;using&nbsp;keys&nbsp;to&nbsp;authenticate.&nbsp;&lt;server&gt;&nbsp;&lt;id&gt;siteServer&lt;/id&gt;&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;privateKey&gt;/path/to/private/key&lt;/privateKey&gt;&nbsp;<span style="text-decoration:underline;">&lt;passphrase&gt;</span>optional;&nbsp;leave&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;empty&nbsp;if&nbsp;not&nbsp;used.<span style="text-decoration:underline;">&lt;/passphrase&gt;</span>&nbsp;&lt;/server&gt;&nbsp;--&gt;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">server</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">id</span>&gt;<span style="text-decoration:underline;color:WindowText;">oss</span>&lt;/<span style="color:#3f7f7f;">id</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">username</span>&gt;<span style="text-decoration:underline;color:WindowText;">zhanggy</span>&lt;/<span style="color:#3f7f7f;">username</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">password</span>&gt;xxxxxxxx&lt;/<span style="color:#3f7f7f;">password</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">server</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">servers</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;mirrors&nbsp;|&nbsp;This&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;mirrors&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;downloading&nbsp;artifacts&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;remote&nbsp;repositories.&nbsp;|&nbsp;|&nbsp;It&nbsp;works&nbsp;like&nbsp;this:&nbsp;a&nbsp;POM&nbsp;may&nbsp;declare&nbsp;a&nbsp;repository&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;use&nbsp;in&nbsp;resolving&nbsp;certain&nbsp;artifacts.&nbsp;|&nbsp;However,&nbsp;this&nbsp;repository&nbsp;may&nbsp;have&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;problems&nbsp;with&nbsp;heavy&nbsp;traffic&nbsp;at&nbsp;times,&nbsp;so&nbsp;people&nbsp;have&nbsp;mirrored&nbsp;|&nbsp;it&nbsp;to&nbsp;several&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;places.&nbsp;|&nbsp;|&nbsp;That&nbsp;repository&nbsp;definition&nbsp;will&nbsp;have&nbsp;a&nbsp;unique&nbsp;id,&nbsp;so&nbsp;we&nbsp;can&nbsp;create&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;mirror&nbsp;reference&nbsp;for&nbsp;that&nbsp;|&nbsp;repository,&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;an&nbsp;alternate&nbsp;download&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;site.&nbsp;The&nbsp;mirror&nbsp;site&nbsp;will&nbsp;be&nbsp;the&nbsp;preferred&nbsp;|&nbsp;server&nbsp;for&nbsp;that&nbsp;repository.&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;--&gt;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">mirrors</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;mirror&nbsp;|&nbsp;Specifies&nbsp;a&nbsp;repository&nbsp;mirror&nbsp;site&nbsp;to&nbsp;use&nbsp;instead&nbsp;of&nbsp;a&nbsp;given&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repository.&nbsp;The&nbsp;repository&nbsp;that&nbsp;|&nbsp;this&nbsp;mirror&nbsp;serves&nbsp;has&nbsp;an&nbsp;ID&nbsp;that&nbsp;matches&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;mirrorOf&nbsp;element&nbsp;of&nbsp;this&nbsp;mirror.&nbsp;IDs&nbsp;are&nbsp;used&nbsp;|&nbsp;for&nbsp;inheritance&nbsp;and&nbsp;direct&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lookup&nbsp;purposes,&nbsp;and&nbsp;must&nbsp;be&nbsp;unique&nbsp;across&nbsp;the&nbsp;set&nbsp;of&nbsp;mirrors.&nbsp;|&nbsp;&lt;mirror&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;id&gt;mirrorId&lt;/id&gt;&nbsp;&lt;mirrorOf&gt;repositoryId&lt;/mirrorOf&gt;&nbsp;&lt;name&gt;Human&nbsp;Readable&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;for&nbsp;this&nbsp;Mirror.&lt;/name&gt;&nbsp;<span style="text-decoration:underline;">&lt;url&gt;</span>http://my.repository.com/repo/path&lt;/url&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/mirror&gt;&nbsp;--&gt;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">mirrors</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;profiles&nbsp;|&nbsp;This&nbsp;is&nbsp;a&nbsp;list&nbsp;of&nbsp;profiles&nbsp;which&nbsp;can&nbsp;be&nbsp;activated&nbsp;in&nbsp;a&nbsp;variety&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;ways,&nbsp;and&nbsp;which&nbsp;can&nbsp;modify&nbsp;|&nbsp;the&nbsp;build&nbsp;process.&nbsp;Profiles&nbsp;provided&nbsp;in&nbsp;the&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;settings.xml&nbsp;are&nbsp;intended&nbsp;to&nbsp;provide&nbsp;local&nbsp;machine-&nbsp;|&nbsp;specific&nbsp;paths&nbsp;and&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repository&nbsp;locations&nbsp;which&nbsp;allow&nbsp;the&nbsp;build&nbsp;to&nbsp;work&nbsp;in&nbsp;the&nbsp;local&nbsp;environment.&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;|&nbsp;For&nbsp;example,&nbsp;if&nbsp;you&nbsp;have&nbsp;an&nbsp;integration&nbsp;testing&nbsp;<span style="text-decoration:underline;">plugin</span>&nbsp;-&nbsp;like&nbsp;cactus&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;that&nbsp;needs&nbsp;to&nbsp;know&nbsp;where&nbsp;|&nbsp;your&nbsp;<span style="text-decoration:underline;">Tomcat</span>&nbsp;instance&nbsp;is&nbsp;installed,&nbsp;you&nbsp;can&nbsp;provide&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;variable&nbsp;here&nbsp;such&nbsp;that&nbsp;the&nbsp;variable&nbsp;is&nbsp;|&nbsp;dereferenced&nbsp;during&nbsp;the&nbsp;build&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process&nbsp;to&nbsp;configure&nbsp;the&nbsp;cactus&nbsp;<span style="text-decoration:underline;">plugin</span>.&nbsp;|&nbsp;|&nbsp;As&nbsp;noted&nbsp;above,&nbsp;profiles&nbsp;can&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;activated&nbsp;in&nbsp;a&nbsp;variety&nbsp;of&nbsp;ways.&nbsp;One&nbsp;way&nbsp;-&nbsp;the&nbsp;activeProfiles&nbsp;|&nbsp;section&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;this&nbsp;document&nbsp;(settings.xml)&nbsp;-&nbsp;will&nbsp;be&nbsp;discussed&nbsp;later.&nbsp;Another&nbsp;way&nbsp;essentially&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;relies&nbsp;on&nbsp;the&nbsp;detection&nbsp;of&nbsp;a&nbsp;system&nbsp;property,&nbsp;either&nbsp;matching&nbsp;a&nbsp;particular&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;for&nbsp;the&nbsp;property,&nbsp;|&nbsp;or&nbsp;merely&nbsp;testing&nbsp;its&nbsp;existence.&nbsp;Profiles&nbsp;can&nbsp;also&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;activated&nbsp;by&nbsp;JDK&nbsp;version&nbsp;prefix,&nbsp;where&nbsp;a&nbsp;|&nbsp;value&nbsp;of&nbsp;'1.4'&nbsp;might&nbsp;activate&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;profile&nbsp;when&nbsp;the&nbsp;build&nbsp;is&nbsp;executed&nbsp;on&nbsp;a&nbsp;JDK&nbsp;version&nbsp;of&nbsp;'1.4.2_07'.&nbsp;|&nbsp;Finally,&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;list&nbsp;of&nbsp;active&nbsp;profiles&nbsp;can&nbsp;be&nbsp;specified&nbsp;directly&nbsp;from&nbsp;the&nbsp;command&nbsp;line.&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;|&nbsp;NOTE:&nbsp;For&nbsp;profiles&nbsp;defined&nbsp;in&nbsp;the&nbsp;settings.xml,&nbsp;you&nbsp;are&nbsp;restricted&nbsp;to&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;specifying&nbsp;only&nbsp;artifact&nbsp;|&nbsp;repositories,&nbsp;<span style="text-decoration:underline;">plugin</span>&nbsp;repositories,&nbsp;and&nbsp;free-form&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;properties&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;configuration&nbsp;|&nbsp;variables&nbsp;for&nbsp;<span style="text-decoration:underline;">plugins</span>&nbsp;in&nbsp;the&nbsp;POM.&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;|&nbsp;--&gt;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">profiles</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;profile&nbsp;|&nbsp;Specifies&nbsp;a&nbsp;set&nbsp;of&nbsp;introductions&nbsp;to&nbsp;the&nbsp;build&nbsp;process,&nbsp;to&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;activated&nbsp;using&nbsp;one&nbsp;or&nbsp;more&nbsp;of&nbsp;the&nbsp;|&nbsp;mechanisms&nbsp;described&nbsp;above.&nbsp;For&nbsp;inheritance&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;purposes,&nbsp;and&nbsp;to&nbsp;activate&nbsp;profiles&nbsp;via&nbsp;&lt;activatedProfiles/&gt;&nbsp;|&nbsp;or&nbsp;the&nbsp;command&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line,&nbsp;profiles&nbsp;have&nbsp;to&nbsp;have&nbsp;an&nbsp;ID&nbsp;that&nbsp;is&nbsp;unique.&nbsp;|&nbsp;|&nbsp;An&nbsp;encouraged&nbsp;best&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;practice&nbsp;for&nbsp;profile&nbsp;identification&nbsp;is&nbsp;to&nbsp;use&nbsp;a&nbsp;consistent&nbsp;naming&nbsp;convention&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;for&nbsp;profiles,&nbsp;such&nbsp;as&nbsp;'<span style="text-decoration:underline;">env</span>-<span style="text-decoration:underline;">dev</span>',&nbsp;'<span style="text-decoration:underline;">env</span>-test',&nbsp;'<span style="text-decoration:underline;">env</span>-production',&nbsp;'user-<span style="text-decoration:underline;">jdcasey</span>',&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'user-<span style="text-decoration:underline;">brett</span>',&nbsp;etc.&nbsp;|&nbsp;This&nbsp;will&nbsp;make&nbsp;it&nbsp;more&nbsp;intuitive&nbsp;to&nbsp;understand&nbsp;what&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;set&nbsp;of&nbsp;introduced&nbsp;profiles&nbsp;is&nbsp;attempting&nbsp;|&nbsp;to&nbsp;accomplish,&nbsp;particularly&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;you&nbsp;only&nbsp;have&nbsp;a&nbsp;list&nbsp;of&nbsp;profile&nbsp;id's&nbsp;for&nbsp;debug.&nbsp;|&nbsp;|&nbsp;This&nbsp;profile&nbsp;example&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uses&nbsp;the&nbsp;JDK&nbsp;version&nbsp;to&nbsp;trigger&nbsp;activation,&nbsp;and&nbsp;provides&nbsp;a&nbsp;JDK-specific&nbsp;<span style="text-decoration:underline;">repo</span>.&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;profile&gt;&nbsp;&lt;id&gt;<span style="text-decoration:underline;">jdk</span>-1.4&lt;/id&gt;&nbsp;&lt;activation&gt;&nbsp;<span style="text-decoration:underline;">&lt;jdk&gt;</span>1.4<span style="text-decoration:underline;">&lt;/jdk&gt;</span>&nbsp;&lt;/activation&gt;&nbsp;&lt;repositories&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;repository&gt;&nbsp;&lt;id&gt;jdk14&lt;/id&gt;&nbsp;&lt;name&gt;Repository&nbsp;for&nbsp;JDK&nbsp;1.4&nbsp;builds&lt;/name&gt;&nbsp;<span style="text-decoration:underline;">&lt;url&gt;</span>http://www.myhost.com/maven/jdk14&lt;/url&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;layout&gt;default&lt;/layout&gt;&nbsp;&lt;snapshotPolicy&gt;always&lt;/snapshotPolicy&gt;&nbsp;&lt;/repository&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/repositories&gt;&nbsp;&lt;/profile&gt;&nbsp;--&gt;</span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;|&nbsp;Here&nbsp;is&nbsp;another&nbsp;profile,&nbsp;activated&nbsp;by&nbsp;the&nbsp;system&nbsp;property&nbsp;'target-<span style="text-decoration:underline;">env</span>'&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;a&nbsp;value&nbsp;of&nbsp;'<span style="text-decoration:underline;">dev</span>',&nbsp;|&nbsp;which&nbsp;provides&nbsp;a&nbsp;specific&nbsp;path&nbsp;to&nbsp;the&nbsp;<span style="text-decoration:underline;">Tomcat</span>&nbsp;instance.&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;use&nbsp;this,&nbsp;your&nbsp;<span style="text-decoration:underline;">plugin</span>&nbsp;configuration&nbsp;|&nbsp;might&nbsp;hypothetically&nbsp;look&nbsp;like:&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;|&nbsp;...&nbsp;|&nbsp;<span style="text-decoration:underline;">&lt;plugin&gt;</span>&nbsp;|&nbsp;&lt;groupId&gt;org.myco.myplugins&lt;/groupId&gt;&nbsp;|&nbsp;&lt;artifactId&gt;<span style="text-decoration:underline;">myplugin</span>&lt;/artifactId&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;|&nbsp;&lt;configuration&gt;&nbsp;|&nbsp;&lt;tomcatLocation&gt;${tomcatPath}&lt;/tomcatLocation&gt;&nbsp;|&nbsp;&lt;/configuration&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;<span style="text-decoration:underline;">&lt;/plugin&gt;</span>&nbsp;|&nbsp;...&nbsp;|&nbsp;|&nbsp;NOTE:&nbsp;If&nbsp;you&nbsp;just&nbsp;wanted&nbsp;to&nbsp;inject&nbsp;this&nbsp;configuration&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;whenever&nbsp;someone&nbsp;set&nbsp;'target-<span style="text-decoration:underline;">env</span>'&nbsp;to&nbsp;|&nbsp;anything,&nbsp;you&nbsp;could&nbsp;just&nbsp;leave&nbsp;off&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;&lt;value/&gt;&nbsp;inside&nbsp;the&nbsp;activation-property.&nbsp;|&nbsp;&lt;profile&gt;&nbsp;&lt;id&gt;<span style="text-decoration:underline;">env</span>-<span style="text-decoration:underline;">dev</span>&lt;/id&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;activation&gt;&nbsp;&lt;property&gt;&nbsp;&lt;name&gt;target-<span style="text-decoration:underline;">env</span>&lt;/name&gt;&nbsp;&lt;value&gt;<span style="text-decoration:underline;">dev</span>&lt;/value&gt;&nbsp;&lt;/property&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/activation&gt;&nbsp;&lt;properties&gt;&nbsp;&lt;tomcatPath&gt;/path/to/<span style="text-decoration:underline;">tomcat</span>/instance&lt;/tomcatPath&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/properties&gt;&nbsp;&lt;/profile&gt;&nbsp;--&gt;</span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">profiles</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;activeProfiles&nbsp;|&nbsp;List&nbsp;of&nbsp;profiles&nbsp;that&nbsp;are&nbsp;active&nbsp;for&nbsp;all&nbsp;builds.&nbsp;|&nbsp;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;activeProfiles&gt;&nbsp;&lt;activeProfile&gt;alwaysActiveProfile&lt;/activeProfile&gt;&nbsp;&lt;activeProfile&gt;anotherAlwaysActiveProfile&lt;/activeProfile&gt;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:#3f5fbf;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/activeProfiles&gt;&nbsp;--&gt;</span> 
+</div> 
+<div></div> 
+<div></div> 
+<div> 
+ <span style="color: rgb(0, 128, 128); font-family: Consolas; font-size: 12pt; line-height: 1.5;">&lt;/</span> 
+ <span style="font-family: Consolas; font-size: 12pt; line-height: 1.5; color: rgb(63, 127, 127);">settings</span> 
+ <span style="color: rgb(0, 128, 128); font-family: Consolas; font-size: 12pt; line-height: 1.5;">&gt;</span> &nbsp; &nbsp;&nbsp; 
+ <span style="font-size: 10.5pt; line-height: 1.5; font-family: 'Microsoft YaHei UI';">&nbsp; &nbsp;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图4-2：配置项目的pom.xml</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 项目的目录结构(这里是在eclipse中创建的,也可以自己手动创建)：</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163642_HYGs.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; pom.xml 文件的内容：</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp;</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="color: rgb(0, 128, 128); font-family: Consolas; font-size: 12pt; line-height: 1.5;">&lt;</span> 
+ <span style="font-family: Consolas; font-size: 12pt; line-height: 1.5; color: rgb(63, 127, 127);">project<span style="color:WindowText;">&nbsp;<span style="color:#7f007f;">xmlns<span style="color:WindowText;">=<span style="font-style:italic;color:#2a00ff;">"http://maven.apache.org/POM/4.0.0"</span></span></span>&nbsp;<span style="color:#7f007f;">xmlns:xsi<span style="color:WindowText;">=<span style="font-style:italic;color:#2a00ff;">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span></span></span> 
+ <br> 
+</div> 
+<div> 
+ <span style="font-size:12pt;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7f007f;">xsi:schemaLocation<span style="color:WindowText;">=<span style="font-style:italic;color:#2a00ff;">"http://maven.apache.org/POM/4.0.0&nbsp;http://maven.apache.org/xsd/maven-4.0.0.xsd"<span style="font-style:normal;color:#008080;">&gt;</span></span></span></span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">modelVersion</span>&gt;</span>4.0.0<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">modelVersion</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">groupId</span>&gt;</span>com.github.zhangguangyong<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">groupId</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">artifactId</span>&gt;</span>codes-common<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">artifactId</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">version</span>&gt;</span>0.0.1<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">version</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">packaging</span>&gt;</span>jar<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">packaging</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">name</span>&gt;</span>codes-common<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">name</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">url</span>&gt;</span>https://github.com/zhangguangyong/codes<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">url</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">description</span>&gt;</span>Code&nbsp;<span style="text-decoration:underline;">Reponsitory<span style="text-decoration:none;color:#008080;">&lt;/<span style="color:#3f7f7f;">description</span>&gt;</span></span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">licenses</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">license</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">name</span>&gt;</span>The&nbsp;Apache&nbsp;Software&nbsp;License,&nbsp;Version&nbsp;2.0<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">name</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">url</span>&gt;</span>http://www.apache.org/licenses/LICENSE-2.0.txt<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">url</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">license</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">licenses</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">developers</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">developer</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">name</span>&gt;<span style="text-decoration:underline;color:WindowText;">zhangguangyong</span>&lt;/<span style="color:#3f7f7f;">name</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">email</span>&gt;</span>1243610991<span style="text-decoration:underline;">@qq.com<span style="text-decoration:none;color:#008080;">&lt;/<span style="color:#3f7f7f;">email</span>&gt;</span></span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">developer</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">developers</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">scm</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">connection</span>&gt;</span>scm:git<span style="text-decoration:underline;">@github.com:zhangguangyong</span>/codes.git<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">connection</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">developerConnection</span>&gt;</span>scm:git<span style="text-decoration:underline;">@github.com:zhangguangyong</span>/codes.git<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">developerConnection</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">url</span>&gt;</span>https://github.com/zhangguangyong/codes<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">url</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">scm</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">properties</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">project.build.sourceEncoding</span>&gt;</span>UTF-8<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">project.build.sourceEncoding</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">properties</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">dependencies</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">dependency</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">groupId</span>&gt;<span style="text-decoration:underline;color:WindowText;">junit</span>&lt;/<span style="color:#3f7f7f;">groupId</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">artifactId</span>&gt;<span style="text-decoration:underline;color:WindowText;">junit</span>&lt;/<span style="color:#3f7f7f;">artifactId</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">version</span>&gt;</span>3.8.1<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">version</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">scope</span>&gt;</span>test<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">scope</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">dependency</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">dependencies</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">profiles</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">profile</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">id</span>&gt;</span>release<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">id</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">build</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">plugins</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;Source&nbsp;--&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">plugin</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">groupId</span>&gt;</span>org.apache.maven.plugins<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">groupId</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">artifactId</span>&gt;<span style="text-decoration:underline;color:WindowText;">maven</span></span>-source-<span style="text-decoration:underline;">plugin<span style="text-decoration:none;color:#008080;">&lt;/<span style="color:#3f7f7f;">artifactId</span>&gt;</span></span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">version</span>&gt;</span>2.2.1<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">version</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">executions</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">execution</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">phase</span>&gt;</span>package<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">phase</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">goals</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">goal</span>&gt;</span>jar-no-fork<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">goal</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">goals</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">execution</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">executions</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">plugin</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;<span style="text-decoration:underline;">Javadoc</span>&nbsp;--&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">plugin</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">groupId</span>&gt;</span>org.apache.maven.plugins<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">groupId</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">artifactId</span>&gt;<span style="text-decoration:underline;color:WindowText;">maven</span></span>-<span style="text-decoration:underline;">javadoc</span>-<span style="text-decoration:underline;">plugin<span style="text-decoration:none;color:#008080;">&lt;/<span style="color:#3f7f7f;">artifactId</span>&gt;</span></span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">version</span>&gt;</span>2.9.1<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">version</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">executions</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">execution</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">phase</span>&gt;</span>package<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">phase</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">goals</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">goal</span>&gt;</span>jar<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">goal</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">goals</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">execution</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">executions</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">plugin</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3f5fbf;">&lt;!--&nbsp;GPG&nbsp;--&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">plugin</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">groupId</span>&gt;</span>org.apache.maven.plugins<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">groupId</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">artifactId</span>&gt;<span style="text-decoration:underline;color:WindowText;">maven</span></span>-<span style="text-decoration:underline;">gpg</span>-<span style="text-decoration:underline;">plugin<span style="text-decoration:none;color:#008080;">&lt;/<span style="color:#3f7f7f;">artifactId</span>&gt;</span></span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">version</span>&gt;</span>1.5<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">version</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">executions</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">execution</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">phase</span>&gt;</span>verify<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">phase</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">goals</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">goal</span>&gt;</span>sign<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">goal</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">goals</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">execution</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">executions</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">plugin</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">plugins</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">build</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">distributionManagement</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">snapshotRepository</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">id</span>&gt;<span style="text-decoration:underline;color:WindowText;">oss</span>&lt;/<span style="color:#3f7f7f;">id</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">url</span>&gt;</span>https://oss.sonatype.org/content/repositories/snapshots/<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">url</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">snapshotRepository</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">repository</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">id</span>&gt;<span style="text-decoration:underline;color:WindowText;">oss</span>&lt;/<span style="color:#3f7f7f;">id</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;<span style="color:#3f7f7f;">url</span>&gt;</span>https://oss.sonatype.org/service/local/staging/deploy/maven2/<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">url</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">repository</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">distributionManagement</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">profile</span>&gt;</span></span> 
+</div> 
+<div> 
+ <span style="font-size:12pt;color:WindowText;font-family:'Consolas';">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">&lt;/<span style="color:#3f7f7f;">profiles</span>&gt;</span></span> 
+</div> 
+<div></div> 
+<div> 
+ <span style="font-size:12pt;color:#008080;font-family:'Consolas';">&lt;/<span style="color:#3f7f7f;">project</span>&gt;</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> &nbsp; &nbsp;&nbsp; 
+ <span style="font-size: 10.5pt; line-height: 1.5; font-family: 'Microsoft YaHei UI';">&nbsp; &nbsp;&nbsp;</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 注意事项：settings.xml文件节点&lt;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">sever</span>
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&gt; 下的 &lt;id&gt; 节点 需要与 pom.xml 文件 节点 &lt;snapshotRepository&gt; 和 节点 &lt;repository&gt; 下的 &lt;id&gt; 节点保持一致</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;图4-3：发布项目到 <a href="https://oss.sonatype.org" rel="nofollow">https://oss.sonatype.org</a>&nbsp;仓库</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp;使用命令cmd到项目的根路径</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163642_VRgr.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 执行命令：mvn clean deploy -P release</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163642_Yf2M.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 命令执行完之后，就可以到&nbsp;</span> 
+ <a href="https://issues.sonatype.org" rel="nofollow">https://oss.sonatype.org</a>&nbsp;下查看自己刚刚发布的构件了 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <b>&nbsp; &nbsp; (5) 到&nbsp;<a href="https://issues.sonatype.org" rel="nofollow">https://oss.sonatype.org</a>&nbsp;仓库 操作自己发布的构件(刚刚用maven发布的)——1.关闭，2.发布( 需要等到第(2)步的issues审核通过才能发布 )</b> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <b><br></b> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图5-1：进入&nbsp;</span> 
+ <a href="https://issues.sonatype.org" rel="nofollow">https://oss.sonatype.org</a>&nbsp;查看自己发布的构件 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163643_xIRl.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163643_YpgE.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163643_xei5.png" border="0" alt="">
+ <br> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 找到自己发布的构建，点击关闭 ( 找组名是：com.github.xxx 开头的，我们刚刚在pom.xml里面填写的组件就是 com.github.zhangguangyong)</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163643_ORiy.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-size: 10.5pt; line-height: 1.5; font-family: 'Microsoft YaHei UI';">关闭之后需要等待审批，审批成功之后，大概是这个样子：</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163643_0OYv.png" border="0" alt="">
+ <span style="font-size: 10.5pt; line-height: 1.5; font-family: 'Microsoft YaHei UI';"><br></span> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 关闭的审核通过之后，可进行发布了（在发布前需要确保之前创建Issues已经审批通过了，不然会报错没有权限）</span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163643_Rq2t.png" border="0" alt=""> &nbsp; &nbsp;&nbsp;
+ <span style="font-size: 10.5pt; line-height: 1.5; font-family: 'Microsoft YaHei UI';">&nbsp; &nbsp;&nbsp;</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-size: 10.5pt; line-height: 1.5; font-family: 'Microsoft YaHei UI';"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 这里报错的可能：</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 1. 刚刚创建的Issues还没有审批通过</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 2. 项目的pom.xml里面的&lt;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">groupId</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&gt; 与 创建Issues时候填写的 group Id 不一致</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163643_wX14.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> &nbsp;&nbsp; 
+ <span style="font-size: 10.5pt; line-height: 1.5; font-family: 'Microsoft YaHei UI';">&nbsp; &nbsp;&nbsp;</span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <br> 
+</div> 
+<div> 
+ <b>&nbsp; &nbsp; (6) 在&nbsp;<a href="https://issues.sonatype.org" rel="nofollow">https://oss.sonatype.org</a>&nbsp;发布成功之后，再去&nbsp;<a href="https://issues.sonatype.org" rel="nofollow">https://issues.sonatype.org</a>&nbsp;给管理员一个反馈，说: "你的<span style="font-size: 10.5pt; line-height: 1.5;">构件已经发布成功了</span><span style="font-size: 10.5pt; line-height: 1.5;">".</span></b> 
+</div> 
+<div> 
+ <b>&nbsp; &nbsp;&nbsp;<span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span>&nbsp;在&nbsp;<a href="https://issues.sonatype.org" rel="nofollow">https://issues.sonatype.org</a><span style="font-size: 10.5pt; line-height: 1.5;">&nbsp;等待管理员的审核，通过之后，就可以在&nbsp;</span><a href="http://search.maven.org/" rel="nofollow">http://search.maven.org/</a><span style="font-size: 10.5pt; line-height: 1.5;">&nbsp; 上面所搜你发布的构件了&nbsp;</span></b> 
+ <span style="font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图6-1：通知Issues的管理员，你的构件在 &nbsp;<a href="https://oss.sonatype.org" rel="nofollow">https://oss.sonatype.org</a>&nbsp;上成功发布</span> 
+ <span style="font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163643_BGh1.png" border="0" alt="">
+ <span style="font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图6-2：Issues管理员的反馈如果是这样的那恭喜你，你的构件就能够在maven中央仓库中搜索到了：&nbsp;</span> 
+ <a href="http://search.maven.org/" rel="nofollow">http://search.maven.org/</a>&nbsp;  
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163644_Zm11.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 图6-3：在&nbsp;</span> 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><a href="http://search.maven.org/" rel="nofollow">http://search.maven.org/</a>&nbsp;上搜索自己的构件&nbsp;</span> 
+ <br> 
+</div> 
+<div> &nbsp; &nbsp;&nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09163644_mPHT.png" border="0" alt="">
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span> 
+</div> 
+<div> &nbsp; &nbsp; 
+ <span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp;</span> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  参考： 
+ <div> 
+  <a href="http://my.oschina.net/huangyong/blog/226738" rel="nofollow">http://my.oschina.net/huangyong/blog/226738</a> 
+ </div> 
+ <div> 
+  <a href="http://www.trinea.cn/dev-tools/upload-java-jar-or-android-aar-to-maven-center-repository/" rel="nofollow">http://www.trinea.cn/dev-tools/upload-java-jar-or-android-aar-to-maven-center-repository</a> 
+ </div> 
+ <div> 
+  <br> 
+ </div> 
+ <div> 
+  <br> 
+ </div> 
+</div> 
+<br> 
+<br> 
+<div> 
+ <a href="http://www.wiz.cn/i/5849dedb" rel="nofollow">来自为知笔记(Wiz)</a> 
+</div> 
+<br> 
+<br>]]></body>
+		<author><![CDATA[zhangguangyong]]></author>
+		<authorid>2335754</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-09 16:36:43</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

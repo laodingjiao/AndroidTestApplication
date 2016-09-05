@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6044569</id>
+	<body><![CDATA[
+		还在聊优衣库啊，没完了？        	]]></body>
+    <author><![CDATA[红薯]]></author>
+	<authorid>12</authorid>
+    <appclient>4</appclient>
+    <commentCount>1</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/0/12_50.jpg?t=1421200584000</portrait>
+    <pubDate>2015-07-15 11:32:59</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>3</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[金三胖]]></name>
+				<uid>252582</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/126/252582_50.jpg?t=1405668482000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[首席撸破皮]]></name>
+				<uid>1456141</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/728/1456141_50.png?t=1434634205000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[开源中国心理科主任]]></name>
+				<uid>261847</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/130/261847_50.jpg?t=1431411225000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

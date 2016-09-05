@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64315</id>
+      <title><![CDATA[RethinkDB 2.1 beta 发布，分布式数据库]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64315/rethinkdb-2-1-beta]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>RethinkDB 2.1 beta 发布，这是个测试版本，有一些已知的 bug ，所以请不要在生产环境使用。这个版本更新内容如下：</p> 
+<ul> 
+ <li><p>Automatic failover using a Raft-based protocol</p></li> 
+ <li><p>More flexible administration for servers and tables</p></li> 
+ <li><p>Advanced recovery features</p></li> 
+</ul> 
+<p>更多详细介绍请查看<a target="_blank" href="http://rethinkdb.com/blog/rethinkdb-2.1-beta/" rel="nofollow">这里</a>。<br></p> 
+<p>下载请点这里：<a target="_blank" href="https://github.com/rethinkdb/rethinkdb/releases/tag/v2.1.0-0BETA1" rel="nofollow">Download</a>。</p> 
+<p><br></p> 
+<p>RethinkDB 设计用来存储 JSON 文档的分布式数据库，可通过简单操作实现多机分布式存储。支持表的联合和分组查询。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2013/0517/055202_YsVb_12.png" alt=""></p>]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 08:04:31</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/rethinkdb]]></softwarelink>
+	  <softwarename><![CDATA[RethinkDB]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[OrientDB 2.1-rc5 发布，文档数据库]]></rtitle>
+			<rurl>http://www.oschina.net/news/63912/orientdb-2-1-rc5</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OpenMediaVault 2.1 发布，NAS 解决方案]]></rtitle>
+			<rurl>http://www.oschina.net/news/63799/openmediavault-2-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[YouBBS for VPS v2.1 发布（增加搜索等功能）]]></rtitle>
+			<rurl>http://www.oschina.net/news/63743/youbbs-for-vps-2-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OrientDB 2.1-rc4 发布，文档数据库]]></rtitle>
+			<rurl>http://www.oschina.net/news/63459/orientdb-2-1-rc4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OmniFaces 2.1 发布，JSF2 工具库]]></rtitle>
+			<rurl>http://www.oschina.net/news/63062/omnifaces-2-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RethinkDB 2.0.2 发布，分布式数据库]]></rtitle>
+			<rurl>http://www.oschina.net/news/62749/rethinkdb-2-0-2-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OrientDB 2.1 rc3 发布，文档数据库]]></rtitle>
+			<rurl>http://www.oschina.net/news/62676/orientdb-2-1-rc3-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[SonarQube Fortify 2.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/62410/sonarqube-fortify-2-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OrientDB 2.1-rc1 发布，文档数据库]]></rtitle>
+			<rurl>http://www.oschina.net/news/61631/orientdb-2-1-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RethinkDB 2.0.1 发布，分布式数据库]]></rtitle>
+			<rurl>http://www.oschina.net/news/61622/rethinkdb-2-0-1-released</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

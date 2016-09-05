@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <pagesize>20</pagesize>
+  <blogs>
+  					<blog>
+		<id>477523</id>
+		<title><![CDATA[业务系统压测实践建议]]></title>
+        <body><![CDATA[原创文章，转载请注明出处：http://my.oschina.net/feichexia/blog/4775...]]></body>
+		<url><![CDATA[http://my.oschina.net/feichexia/blog/477523]]></url>
+        <pubDate>2015-07-12 12:18:48</pubDate>
+        <authoruid>111708</authoruid>
+        <authorname><![CDATA[优雅先生]]></authorname>
+        <commentCount>4</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477515</id>
+		<title><![CDATA[使用Swift读取Cookie内容]]></title>
+        <body><![CDATA[前言 一个http请求中，我们经常会涉及到Get请求的URL Param，POST请求的...]]></body>
+		<url><![CDATA[http://my.oschina.net/lijialong/blog/477515]]></url>
+        <pubDate>2015-07-12 11:37:32</pubDate>
+        <authoruid>108780</authoruid>
+        <authorname><![CDATA[DragonFK]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477487</id>
+		<title><![CDATA[Scala Functions vs Methods]]></title>
+        <body><![CDATA[写在开头，今年不经意间接触到了scala语言，以前一直在使用java语言，现...]]></body>
+		<url><![CDATA[http://my.oschina.net/OpenSourceBO/blog/477487]]></url>
+        <pubDate>2015-07-12 10:16:04</pubDate>
+        <authoruid>1023607</authoruid>
+        <authorname><![CDATA[-悟空-]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>476792</id>
+		<title><![CDATA[无插件纯Web 3D机房，HTML5+WebGL倾力打造]]></title>
+        <body><![CDATA[前言 最近项目开发任务告一段落，刚好有时间整理这大半年的一些成果。使...]]></body>
+		<url><![CDATA[http://my.oschina.net/monolog/blog/476792]]></url>
+        <pubDate>2015-07-09 21:13:38</pubDate>
+        <authoruid>2351800</authoruid>
+        <authorname><![CDATA[MonoLog]]></authorname>
+        <commentCount>109</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>476784</id>
+		<title><![CDATA[Swift调用sha1算法]]></title>
+        <body><![CDATA[在Swift中通过调用OC的CommonCrypto库可以很方便的实现String字符串转换...]]></body>
+		<url><![CDATA[http://my.oschina.net/lijialong/blog/476784]]></url>
+        <pubDate>2015-07-09 20:37:47</pubDate>
+        <authoruid>108780</authoruid>
+        <authorname><![CDATA[DragonFK]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>476676</id>
+		<title><![CDATA[上传自己的构件(Jar)到Maven中央仓库]]></title>
+        <body><![CDATA[背景：             用了Maven之后，你有没有这样的想法，自己...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2335754/blog/476676]]></url>
+        <pubDate>2015-07-09 16:36:43</pubDate>
+        <authoruid>2335754</authoruid>
+        <authorname><![CDATA[zhangguangyong]]></authorname>
+        <commentCount>7</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>476460</id>
+		<title><![CDATA[Ossim下的安全合规管理]]></title>
+        <body><![CDATA[OSSIM下合规性管理      通过对收集的各种设备日志和安全事件进行深入...]]></body>
+		<url><![CDATA[http://my.oschina.net/chenguang/blog/476460]]></url>
+        <pubDate>2015-07-09 10:31:18</pubDate>
+        <authoruid>71229</authoruid>
+        <authorname><![CDATA[晨光Linux]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>476444</id>
+		<title><![CDATA[POI之PPT-元素操纵]]></title>
+        <body><![CDATA[POI之PPT-元素操纵 最近笔者在调研POI API操纵PPT方面的内容，主要目的在...]]></body>
+		<url><![CDATA[http://my.oschina.net/angerbaby/blog/476444]]></url>
+        <pubDate>2015-07-09 10:01:52</pubDate>
+        <authoruid>992498</authoruid>
+        <authorname><![CDATA[Angerbaby]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>476349</id>
+		<title><![CDATA[tornado 源码初识]]></title>
+        <body><![CDATA[序言 最近闲暇无事,阅读了一下tornado的源码,对整体的结构有了初步认识,...]]></body>
+		<url><![CDATA[http://my.oschina.net/abc2001x/blog/476349]]></url>
+        <pubDate>2015-07-08 21:39:44</pubDate>
+        <authoruid>874613</authoruid>
+        <authorname><![CDATA[国夫君]]></authorname>
+        <commentCount>7</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>476199</id>
+		<title><![CDATA[CCBPM工作流引擎的消息机制与设计]]></title>
+        <body><![CDATA[CCBPM工作流引擎的消息机制与设计 关键字：ccflow jflow 消息机制 流程引...]]></body>
+		<url><![CDATA[http://my.oschina.net/ccflow/blog/476199]]></url>
+        <pubDate>2015-07-08 15:48:54</pubDate>
+        <authoruid>10897</authoruid>
+        <authorname><![CDATA[ccflow]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>476192</id>
+		<title><![CDATA[spark1.4 Windows local调试环境搭建总结]]></title>
+        <body><![CDATA[spark1.4 Windows local调试环境搭建总结 1.scala版本 scala-2.10.4 官方...]]></body>
+		<url><![CDATA[http://my.oschina.net/itnms/blog/476192]]></url>
+        <pubDate>2015-07-08 15:39:22</pubDate>
+        <authoruid>914149</authoruid>
+        <authorname><![CDATA[北京起航]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>476122</id>
+		<title><![CDATA[SublimeText2编辑器和它的插件小结一下]]></title>
+        <body><![CDATA[1：安装下下载SublimeText2编辑器，去官方网站下载，我是下载的win64的绿...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/1163141/blog/476122]]></url>
+        <pubDate>2015-07-08 13:59:17</pubDate>
+        <authoruid>1163141</authoruid>
+        <authorname><![CDATA[wjlmgqs]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>475950</id>
+		<title><![CDATA[使用Maven开发Hadoop]]></title>
+        <body><![CDATA[环境为Hadoop2.5.2（如何搭建环境教程），在pom.xml中加入以下配置文件。...]]></body>
+		<url><![CDATA[http://my.oschina.net/zhmlvft/blog/475950]]></url>
+        <pubDate>2015-07-08 10:00:24</pubDate>
+        <authoruid>925404</authoruid>
+        <authorname><![CDATA[爱兔一生]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>475913</id>
+		<title><![CDATA[从npm tips到express插件机制设计]]></title>
+        <body><![CDATA[大部分时间，我们只用到npm的install，init，publish等功能，但它设计的...]]></body>
+		<url><![CDATA[http://my.oschina.net/nodeonly/blog/475913]]></url>
+        <pubDate>2015-07-08 07:47:52</pubDate>
+        <authoruid>2269918</authoruid>
+        <authorname><![CDATA[i5ting]]></authorname>
+        <commentCount>7</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>475740</id>
+		<title><![CDATA[为什么JSP会比Beetl慢]]></title>
+        <body><![CDATA[   许多人都不相信这个事实，作为前端常用渲染技术，JSP比Beetl慢。如...]]></body>
+		<url><![CDATA[http://my.oschina.net/xiandafu/blog/475740]]></url>
+        <pubDate>2015-07-07 16:16:03</pubDate>
+        <authoruid>567839</authoruid>
+        <authorname><![CDATA[闲.大赋]]></authorname>
+        <commentCount>74</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>475171</id>
+		<title><![CDATA[log4j直接输出日志到flume]]></title>
+        <body><![CDATA[log4j直接输出日志到flume         此jar是由Cloudera的CDH发行...]]></body>
+		<url><![CDATA[http://my.oschina.net/cloudcoder/blog/475171]]></url>
+        <pubDate>2015-07-06 14:55:57</pubDate>
+        <authoruid>1410765</authoruid>
+        <authorname><![CDATA[cloud-coder]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>475070</id>
+		<title><![CDATA[OSSIM 4.1安装详解]]></title>
+        <body><![CDATA[OSSIM 4.1安装详解         在今年出版的畅销书《Unix/Linux网络日...]]></body>
+		<url><![CDATA[http://my.oschina.net/chenguang/blog/475070]]></url>
+        <pubDate>2015-07-06 11:22:32</pubDate>
+        <authoruid>71229</authoruid>
+        <authorname><![CDATA[晨光Linux]]></authorname>
+        <commentCount>5</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>475066</id>
+		<title><![CDATA[利用Karma、Jasmine 做前端单元测试]]></title>
+        <body><![CDATA[&lt;一&gt; 使用技术 karma jasmine karma-coverage &lt;二&gt; 安装插件 1.nodejs 2...]]></body>
+		<url><![CDATA[http://my.oschina.net/pingjiangyetan/blog/475066]]></url>
+        <pubDate>2015-07-06 11:17:53</pubDate>
+        <authoruid>583145</authoruid>
+        <authorname><![CDATA[平江夜弹]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>475063</id>
+		<title><![CDATA[BeagleBone Black教程之BeagleBone Black设备的连接]]></title>
+        <body><![CDATA[BeagleBone Black教程之BeagleBone Black设备的连接 BeagleBone Black开...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/1585857/blog/475063]]></url>
+        <pubDate>2015-07-06 11:14:38</pubDate>
+        <authoruid>1585857</authoruid>
+        <authorname><![CDATA[大学霸]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>475062</id>
+		<title><![CDATA[图解Javascript上下文与作用域]]></title>
+        <body><![CDATA[本文尝试阐述Javascript中的上下文与作用域背后的机制，主要涉及到执行上...]]></body>
+		<url><![CDATA[http://my.oschina.net/rainyear/blog/475062]]></url>
+        <pubDate>2015-07-06 11:13:28</pubDate>
+        <authoruid>2326500</authoruid>
+        <authorname><![CDATA[rainyear]]></authorname>
+        <commentCount>4</commentCount>
+		<documentType>1</documentType>
+	</blog>
+		    </blogs>
+</oschina>	

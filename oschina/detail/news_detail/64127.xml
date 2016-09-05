@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64127</id>
+      <title><![CDATA[PHP 7.0.0 Beta 1 发布，功能完善阶段]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64127/php-7-beta-1]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>PHP 7.0.0 Beta 1 发布，此版本属于功能完善阶段，从现在开始不会发生根本性改变。此版本包括超过 200 个 commits，解决了 25 个报告的 bug，还有一些安全性，稳定性方面的改进。比计划中晚了一天发布，主要是为了 OpenSSL 的最新版本。</p> 
+<p>PHP 7.0.0 包含最新版本的 Zend Engine，包括以下特性：</p> 
+<ul> 
+ <li><p>提升性能：PHP 7 速度是 PHP 5.6 的两倍</p></li> 
+ <li><p>支持 64 位</p></li> 
+ <li><p>许多重大错误可以进行异常处理</p></li> 
+ <li><p>移除了旧的和不支持的 SAPIs 和扩展</p></li> 
+ <li><p>null 合并操作符(??)</p></li> 
+ <li><p>结合比较运算符 (&lt;=&gt;)</p></li> 
+ <li><p>标量类型声明</p></li> 
+ <li><p>匿名类</p></li> 
+</ul> 
+<p>更多内容请看 <a target="_blank" href="https://github.com/php/php-src/blob/php-7.0.0beta1/NEWS" rel="nofollow">NEWS file</a> 或者 <a target="_blank" href="https://github.com/php/php-src/blob/php-7.0.0beta1/UPGRADING" rel="nofollow">UPGRADING file</a>。<br></p> 
+<p>PHP 7.0.0 Beta 1 源代码<a target="_blank" href="https://downloads.php.net/ab/" rel="nofollow">下载</a>，Windows 平台源代码和二进制提供在 <a href="http://windows.php.net/qa/" rel="nofollow">windows.php.net/qa/</a>。</p> 
+<p>下一个版本是 PHP Beta 2，计划在 7 月 23 日发布。</p> 
+<p>今天同时还发布了 PHP 5.6.11，PHP 5.5.27 和 PHP 5.4.43，这三个版本主要是 CVE-2015-3152 安全修复。下载和详细改进请看<a target="_blank" href="http://php.net/archive/2015.php#id2015-07-10-4" rel="nofollow">发行说明</a>。</p>]]></body>
+      <commentCount>85</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-11 07:22:50</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/php]]></softwarelink>
+	  <softwarename><![CDATA[PHP]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[CakePHP 2.6.9 发布，PHP 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/64290/cakephp-2-6-9</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[CakePHP 2.7.0 发布，PHP 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/64184/cakephp-2-7-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PhpStorm 9.0 发布， PHP 集成开发环境]]></rtitle>
+			<rurl>http://www.oschina.net/news/64077/phpstorm-9-0-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[CakePHP 2.6.8 发布，PHP 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63797/cakephp-2-6-8</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[CakePHP 3.0.8 发布，PHP 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63750/cakephp-3-0-8</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Hprose PHP 扩展 1.5.5 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63686/hprose-php-1-5-5</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PHP 7.0.0 Alpha 2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63668/php-7-alpha-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Wicket 7.0.0-M6 发布，Web 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63629/wicket-7-0-0-m6</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Smarty 3.1.27 发布，PHP 模板引擎]]></rtitle>
+			<rurl>http://www.oschina.net/news/63556/smarty-3-1-27</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[让你的 PHP 7 更快 (GCC PGO)]]></rtitle>
+			<rurl>http://www.oschina.net/news/63532/make-php-7-faster</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64198</id>
+      <title><![CDATA[2015年7月TIOBE编程语言排行榜：C++ 的复兴]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64198/2015-7-tiobe]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>2015年7月TIOBE编程语言排行榜：C++ 的复兴<br></p> 
+<p>C++是2015年上半年同比增长最快的编程语言。具体为C++ 增长3.1%，Java 增长2.0%，C#增长1.6%，Python增长1.6%。C++大幅度增长的原因可能是引入了新的C++11标准。这使得C++被大范围的接受。C++ 11标准为C++带来了很多新的特性和提升。而且现在 C++的工具 GCC ，EDG都支持了C++的最高标准。C++正在风风火火的流行。</p> 
+<p>前20名：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/13082050_QO4D.jpg"></p>
+<p>前50名：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/13082051_KHUf.jpg"></p>
+<p></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/13082051_q718.jpg"></p>
+<p>#51 - #100 排名编程语言：</p> 
+<ul> 
+ <li><p> 4th Dimension/4D, ABC, Alice, Apex, APL, AutoLISP, Automator, Bourne shell, C shell, Caml, CL (OS/400), Clojure, Common Lisp, Eiffel, Emacs Lisp, Etoys, EXEC, Forth, GNU Octave, Go, Haxe, Icon, IDL, Inform, Io, Ioke, J, JADE, Korn shell, Magic, Mathematica, Modula-2, MQL4, MUMPS, NATURAL, NXT-G, OCaml, OpenCL, Oz, PL/I, PostScript, PowerShell, Rust, Smalltalk, SPSS, Standard ML, Stata, Tcl, Verilog, Z shell</p></li> 
+</ul> 
+<p>10 个编程语言这几年的变动：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0713/083043_sLJp_865233.jpg"></p>
+<p>年度语言：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0713/083103_Ic62_865233.jpg"></p>]]></body>
+      <commentCount>86</commentCount>
+      <author><![CDATA[会飞的螃蟹]]></author>
+      <authorid>729516</authorid>
+      <pubDate>2015-07-13 08:13:02</pubDate>
+	  <softwarelink><![CDATA[]]></softwarelink>
+	  <softwarename><![CDATA[]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[GCC 5.2 发布，C/C++ 编译器]]></rtitle>
+			<rurl>http://www.oschina.net/news/64302/gcc-5-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Android Studio 1.3 RC1 发布，Android NDK 支持预览]]></rtitle>
+			<rurl>http://www.oschina.net/news/64123/android-studio-1-3-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[JavaCPP —— Java 高效调用本地 C++ 方法]]></rtitle>
+			<rurl>http://www.oschina.net/p/javacpp</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OGLplus 0.63.0 发布，OpenGL 的 C++ 封装库]]></rtitle>
+			<rurl>http://www.oschina.net/news/63705/oglplus-0-63-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[basicpp —— 让 C++ 像以前的 BASIC 那么简单]]></rtitle>
+			<rurl>http://www.oschina.net/p/basicpp</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— Go 和 C++ 的双向通讯]]></rtitle>
+			<rurl>http://git.oschina.net/chenfeng8742/goback</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OGLplus 0.62.0 发布，OpenGL 的 C++ 封装库]]></rtitle>
+			<rurl>http://www.oschina.net/news/63288/oglplus-0-61-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Dlib 18.16 发布，跨平台 C++ 通用库]]></rtitle>
+			<rurl>http://www.oschina.net/news/63152/dlib-18-16</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[C++ 能否成为你新的脚本语言？]]></rtitle>
+			<rurl>http://www.oschina.net/translate/cpp-new-scripting-language</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[使用 C++/Qt 开发的 2048 游戏（源码下载）]]></rtitle>
+			<rurl>http://www.oschina.net/p/qt-2048</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

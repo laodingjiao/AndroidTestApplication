@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479364</id>
+		<title><![CDATA[Spring MVC请求处理流程及源码分析]]></title>
+		<url><![CDATA[http://my.oschina.net/lilloo/blog/479364]]></url>
+		<where><![CDATA[Java]]></where>
+		<commentCount>1</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> 从接受请求到返回响应，Spring MVC框架的众多组件都伸胳膊挽袖子行动起来，各司其职，有条不紊地完成份内的工作。在整个框架中，DispatcherServlet处于核心的位置，它负责协调和组织不同组件，共同完成请求响应的工作。和大多数Web MVC框架一样，Spring MVC通过一个前端Servlet处理器接收所有的请求，并将具体工作委托给其它组件进行具体的处理，DispatcherServlet就是 Spring MVC的前端Servlet处理器。下面我们对Spring MVC处理请求的整体过程做一下高空俯瞰： </p> 
+<p> ① 整个过程开始于客户端发送一个HTTP请求； </p> 
+<p> ② DispatcherServlet接收这个请求后，并将请求的处理工作委托给具体的处理器（Handler），后者负责处理请求执行相应的业务逻辑。在这之前，DispatcherServlet必须能够凭借请求信息（URL或请求参数等）按照某种机制找到请求对应的处理器，DispatcherServlet是通过垂询HandlerMapping完成这一工作的； </p> 
+<p> ③ 当DispatcherServlet从HandlerMapping中得到当前请求对应的处理器后，它就将请求分派给这个处理器。处理器根据请求的信息执行相应的业务逻辑，一个设计良好的处理器应该通过调用Service层的业务对象完成业务处理，而非自己越俎代庖。 </p> 
+<p> <br> ④ 处理器完成业务逻辑的处理后将返回一个ModelAndView给DispatcherServlet，ModelAndView包含了视图逻辑名和渲染视图时需要用到的模型数据对象； </p> 
+<p> ⑤ 由于ModelAndView中包含的是视图逻辑名，DispatcherServlet必须知道这个逻辑名对应的真实视图对象，这项视图解析的工作通过调用ViewResolver来完成； </p> 
+<p> ⑥ 当得到真实的视图对象后，DispatcherServlet将请求分派给这个View对象，由其完成Model数据的渲染工作； </p> 
+<p> ⑦ 最终客户端得到返回的响应，这可能是一个普通的HTML页面，也可能是一个Excel电子表格、甚至是一个PDF文档等不一而足的视图形式，Spring的视图类型是异常丰富和灵活的 </p>]]></body>
+		<author><![CDATA[傳_奇]]></author>
+		<authorid>2416687</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 16:15:21</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>243301</id>
+      <title><![CDATA[GIT提交失败 ，终止合并 以后，文件全部消失]]></title>
+      <url><![CDATA[http://www.oschina.net/question/1993919_243301]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/996/1993919_50.jpg?t=1417924212000</portrait>
+      <event>
+			  </event>
+      <body>
+		<![CDATA[
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+					</style>
+				<p> 这个还没提交 到远程仓库 ，就消失了，莫名其妙的，这1天 弄的东西 全没了。 </p> 
+<p> 哎，求教怎么解决这个问题？ </p> 
+<p> 关键的问题是 ：版本回溯里面 根本就 没有我提交的这个版本的任何信息！ </p> 
+<p> <br> </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0715/170610_H9GU_1993919.png" alt=""> </p>
+<p> <br> </p> 
+<p> <span style="color:#E53333;"><strong>警察叔叔，就是上面这个 东西 害的！还有 办法补救吗？我点了终止合并出了这个鬼东西。</strong></span> </p> 
+<p> <span style="color:#E53333;"><strong>因为我当时提交失败了就随便点了很多地方。&nbsp;</strong></span> </p> 
+<p> <span style="color:#E53333;"><strong><span style="font-size:13.3333330154419px;">@zoker 事情是这样的，其实 我有2台电脑，公司 办公的电脑和 家里的电脑的git的版本是不一样的。</span><br> </strong></span> </p> 
+<p> 补充：其实我有2台电脑，这2台电脑中，家里的电脑提交了一个新的版本，但是 ：我公司的电脑 却没有在 本地提交一个新的版本，我只是把代码同步到 本地而已，从远程仓库，下面是 我家里的提交记录。但是 大家注意，最上面一条提交记录的话，在公司是没有的！！！ </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0715/173341_PDai_1993919.png" alt=""> </p>
+<p> 也就是说，7-15日我并没有提交任何东西！在公司的电脑上，我是在家里提交的。 </p> 
+<p> 所以点了复位的话，其实是复位到了7.14日下班的时候提交的结果。（注意：上面的是公司的提交结果）。 </p> 
+<p> 这个算不算GIT的一个BUG呢？ </p>						]]>
+	  </body>
+      <author><![CDATA[KMSFan]]></author>
+      <authorid>1993919</authorid>
+      <answerCount>6</answerCount>
+      <viewCount>164</viewCount>
+      <pubDate>2015-07-15 16:27:22</pubDate>
+	  <favorite>0</favorite>
+	  		<tags>
+		            <tag><![CDATA[Git]]></tag>
+		        </tags>
+	    </post>
+</oschina>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>477515</id>
+		<title><![CDATA[使用Swift读取Cookie内容]]></title>
+		<url><![CDATA[http://my.oschina.net/lijialong/blog/477515]]></url>
+		<where><![CDATA[IOS开发]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h3> 前言 </h3> 
+<p> 一个http请求中，我们经常会涉及到Get请求的URL Param，POST请求的HTTP Body，Response Json，这些都是一个标准REST API标配的元素。 </p> 
+<p> 在一些安全验证的API中，通常会涉及到Cookie。当用户成功登陆后，服务器会在Response Header中写入一个Set-Cookie字段，用来标识用户已经登陆（授权）成功，客户端浏览器接收后会把这个Cookie字段保存在客户端本地。当客户端再次请求API时，就会在Request Header中带上这个Cookie值，告诉服务器：嗨，我已经授权过咯，我的cookie值是xxx，我现在要读取一些信息，请放行～ </p> 
+<h3> IOS中的网络请求 </h3> 
+<p> 一个完整的网络请求，需要先确定Request URL，带上参数，然后发送Request，然后接收Response，处理Response Data。 </p> 
+<p> 在IOS中，分别对应如下： </p> 
+<pre class="brush:cpp;">//Request URL
+NSURL
+
+//一个完整的Request对象
+NSURLRequest
+
+//发送请求连接的主要操作者
+NSURLConnection
+
+//包含返回数据的Response
+NSURLResponse</pre> 
+<p> 下面是一个简单的GET请求代码： </p> 
+<pre class="brush:cpp;">let request = NSURLRequest(URL: NSURL(string: "http://devonios.com")!)
+ NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) { (response, nsData, error) -&gt; Void in
+            //处理返回数据nsData
+}</pre> 
+<h3> 使用Paw程序观察HTTP请求中的Cookie </h3> 
+<p> Paw是一个OS X系统下非常棒的测试HTTP REST API的程序。我们用它来看看一个Request和Response中的Cookie是如何表现的。 </p> 
+<p> Response中的Cookie： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12113927_XpkA.png" alt=""> </p>
+<p> Paw程序也是非常的智能的，当一个Response中包含了Cookie，会自动保存到默认的Cookie Jar中。 </p> 
+<p> 可以在这里看到Paw保存的Cookie： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12113927_Zune.png" alt=""> </p>
+<p> 保存的Cookie数据： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12113927_rRd7.png" alt=""> </p>
+<p> Cookie已经保存下来了，那么当我们再次发送一个Request时，就会自动带上Cookie： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12113927_4MMg.png" alt=""> </p>
+<h3> Cookie在哪里 </h3> 
+<p> 你可能会发现，在NSURLRequest和NSURLResponse中并没有Cookie相关的方法或者属性。 </p> 
+<p> 不用纳闷。因为IOS为我们设计了一个独立的专门用来管理Cookie数据的类：<strong>NSHTTPCookieStorage</strong>，其中一个Cookie数据对应一个<strong>NSHTTPCookie</strong>类。 </p> 
+<p> NSHTTPCookie是对一个Cookie数据的封装，以便我们读取Cookie内容。 </p> 
+<p> 其实默认情况下，我们可以不用管Cookie的，如果Response中带有Cookie，IOS会自动调用NSHTTPCookieStorage，把Cookie数据保存下来。当有新的请求时，NSURLRequest会自动带上相应的Cookie数据。 </p> 
+<p> 但是，重点来了，我想读取下Cookie呢，我想判断下Cookie值呢？我该如何手动在Request中插入一个Cookie呢？ </p> 
+<blockquote>
+  IOS安全因素，不同APP之间是无法共享Cookie的。 
+</blockquote> 
+<h3> NSHTTPCookieStorage读取Cookie </h3> 
+<p> 首先我们要先获取存放Cookie数据的Storage： </p> 
+<pre class="brush:cpp;">public class func GetCookieStorage()-&gt;NSHTTPCookieStorage{
+       return NSHTTPCookieStorage.sharedHTTPCookieStorage()
+ }</pre> 
+<p> 有了Storage获取Cookie就很简单了： </p> 
+<pre class="brush:cpp;">public class func GetCookieArray()-&gt;[NSHTTPCookie]{
+    
+    let cookieStorage = GetCookieStorage()
+    let cookieArray = cookieStorage.cookies
+    if let arr = cookieArray{
+        return cookieArray as! [NSHTTPCookie]
+    }
+    else{
+        return []
+    }
+}</pre> 
+<p> <br> </p> 
+<p> 在这个func中，我们通过使用NSHTTPCookieStorage的cookie对象来获取所有Cookie，类型是一个包含NSHTTPCookie的Array。 </p> 
+<p> 暂停下，NSHTTPCookie是什么鬼？它有哪些属性和方法，我读Cookie值该怎么写？别害怕，这时该是我们的Dash大神上场啦！ </p> 
+<p> <a href="http://devonios.com/?s=dash" target="_blank" rel="nofollow">查看关于Dash介绍的文章</a> </p> 
+<p> 打开我们的Dash，在左上角输入NSHTTPCookie，接着就是这样了： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12113927_gPat.png" alt=""> </p>
+<p> 完全没有难度： </p> 
+<pre class="brush:cpp;">/// 获取Cookie值
+public class func GetCookieByName(let cookieName:String)-&gt;String?
+{
+    let cookieArray:[NSHTTPCookie] = GetCookieArray()
+    var value:String?
+    if cookieArray.count &gt; 0
+    {
+        for cookie in cookieArray
+        {
+            if cookie.name == cookieName
+            {
+                value = cookie.value
+                break
+            }
+        }
+    }
+    return value
+}</pre> 这个func中，我们通过传一个cookie名称，便可以拿到对应的值。 
+<p> 关于IOS中怎么读cookie就这样结束啦，非常的简单把。 </p> 
+<h3> 参考资料 </h3> 
+<p> <a href="http://stackoverflow.com/questions/2053568/managing-http-cookies-on-iphone" target="_blank" rel="nofollow"><span style="font-family:'sans serif', tahoma, verdana, helvetica;font-size:12px;line-height:18px;">http://stackoverflow.com/questions/2053568/managing-http-cookies-on-iphone</span></a> </p> 
+<p> tips： </p> 
+<p> <em>本文由</em><a href="http://devonios.com/wp2osc.html" target="_blank" rel="nofollow"><em>wp2osc</em></a><em>导入，原文链接：<a href="http://devonios.com/get-cookie.html" target="_blank" rel="nofollow">http://devonios.com/get-cookie.html</a></em> </p> 
+<p> <em>由于OSChina的OpenAPI在处理content参数时会自动过滤img标签，所以无法显示图片，</em><a href="http://www.oschina.net/question/108780_241820" target="_blank" rel="nofollow"><em>详见</em></a><em>。</em> </p>]]></body>
+		<author><![CDATA[DragonFK]]></author>
+		<authorid>108780</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-12 11:37:32</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

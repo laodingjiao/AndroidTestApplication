@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6077511</id>
+	<body><![CDATA[
+		尊敬的客户，截至19日02时10分，您当月已用流量2474.95M，剩余1671.05M        	]]></body>
+    <author><![CDATA[红薯]]></author>
+	<authorid>12</authorid>
+    <appclient>4</appclient>
+    <commentCount>4</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/0/12_50.jpg?t=1421200584000</portrait>
+    <pubDate>2015-07-19 08:14:14</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>4</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[天空冰雨]]></name>
+				<uid>931519</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/465/931519_50.png?t=1427858868000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[astone2007]]></name>
+				<uid>930588</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/465/930588_50.jpg?t=1367887269000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[火龙战士]]></name>
+				<uid>563338</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/281/563338_50.jpg?t=1385120893000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[小杨阿哥哥]]></name>
+				<uid>2765</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1/2765_50.jpg?t=1347066616000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

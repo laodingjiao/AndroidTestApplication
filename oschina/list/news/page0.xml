@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <catalog>1</catalog>
+  <newsCount>0</newsCount>
+  <pagesize>20</pagesize>
+  <newslist>
+						    <news>
+      	  	        <id>64331</id>
+      <title><![CDATA[Elasticsearch 1.7.0/1.6.1 发布，分布式搜索引擎]]></title>
+	        <body><![CDATA[Elasticsearch 1.7.0 正式发布，基于 Lucene 4.10.4。同时还发布了 Elas...]]></body>
+      <commentCount>2</commentCount>
+      <author><![CDATA[淡漠悠然]]></author>
+	  <authorid>2305107</authorid>
+      <pubDate>2015-07-17 09:48:05</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>2305107</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64330</id>
+      <title><![CDATA[WeX5 跨端移动开发框架 V3.2 预览版发布]]></title>
+	        <body><![CDATA[WeX5企业快速开发平台 V3.2 预览版（2015-7-17） 开发版及视频下载 新增...]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[muyu]]></author>
+	  <authorid>582606</authorid>
+      <pubDate>2015-07-17 09:28:38</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>582606</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64329</id>
+      <title><![CDATA[恩布企业 IM iOS端 1.1 发布，开源手机 IM]]></title>
+	        <body><![CDATA[恩布企业IM的 iOS 苹果开源手机客户端 EntboostChat 发布 1.1 开发版本;...]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[akee]]></author>
+	  <authorid>67747</authorid>
+      <pubDate>2015-07-17 09:05:17</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>67747</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64328</id>
+      <title><![CDATA[seci-log 1.09 发布 增加了多个报表和功能点]]></title>
+	        <body><![CDATA[日志分析软件 seci-log 1.09发布，增加了多个报表和功能点。上篇文章htt...]]></body>
+      <commentCount>4</commentCount>
+      <author><![CDATA[赛克蓝德]]></author>
+	  <authorid>247205</authorid>
+      <pubDate>2015-07-17 08:50:03</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>247205</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+									    <news>
+      	        
+      	  															        
+	        <id>64327</id>
+      <title><![CDATA[【J+】互联网沙龙——大数据安全与行业实战分享]]></title>
+	        <body><![CDATA[大数据经过几年的沉淀，已经从概念落地开花，不再是一小部分研究者尝鲜的...]]></body>
+      <commentCount>20</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:36:13</pubDate>
+      <url>http://www.oschina.net/question/122189_243094</url>
+	  <newstype>
+	    <type>2</type>
+	    <attachment>243094</attachment>		<authoruid2>122189</authoruid2>
+				<eventurl>http://city.oschina.net/jinan/event/243094</eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64326</id>
+      <title><![CDATA[Jetty 9.3.1.v20150714 发布，支持 HTTP/2]]></title>
+	        <body><![CDATA[Jetty 9.3.1.v20150714 发布，这是 9.3.x 维护版本，支持HTTP/2，更新内...]]></body>
+      <commentCount>2</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:30:18</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64325</id>
+      <title><![CDATA[小码哥有活推荐：想跟马云学金融，请往这里看。]]></title>
+	        <body><![CDATA[hello，几天不见，小码哥甚是想念大家，上一期我们推荐了位于深圳的研发...]]></body>
+      <commentCount>17</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:26:24</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64324</id>
+      <title><![CDATA[OpenELEC 6.0 Beta 3 发布，嵌入式操作系统]]></title>
+	        <body><![CDATA[OpenELEC 6.0 Beta 3 发布，主要更新内容如下： update to dvb-firmware...]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:23:50</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+											    <news>
+      	  	        <id>64323</id>
+      <title><![CDATA[Git@OSC 项目推荐 —— 动态异步引入css/js文件]]></title>
+	        <body><![CDATA[ipt.js 可以动态异步引入 css 和 js 文件  可以控制引入的先后顺序 以少...]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:23:24</pubDate>
+      <url>https://git.oschina.net/diqye/ipt.js</url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64322</id>
+      <title><![CDATA[Google 加入 OpenStack 基金会，向容器技术迈进]]></title>
+	        <body><![CDATA[7月17日消息，一位最具重量级的新成员签约加入 OpenStack 基金会，这就是...]]></body>
+      <commentCount>3</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:21:47</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+									    <news>
+      	              <id>64321</id>
+      <title><![CDATA[OSChina 周五乱弹 —— 大自然的搬砖工]]></title>
+	        <body><![CDATA[本来今天可以消停会，可没想到优衣库还是那么火。这破事闹了两天了，没见...]]></body>
+      <commentCount>20</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:19:51</pubDate>
+      <url>http://my.oschina.net/xxiaobian/blog/479557</url>
+	  <newstype>
+	    <type>3</type>
+	    <attachment>479557</attachment>		<authoruid2>1428332</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+									    <news>
+      	              <id>64320</id>
+      <title><![CDATA[【每日一博】员工激励机制剖析]]></title>
+	        <body><![CDATA[俗话说 “水不激不扬，人不激不奋” 是我国古代典型的激励思想。中国古代...]]></body>
+      <commentCount>21</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:12:09</pubDate>
+      <url>http://my.oschina.net/neochen/blog/479169</url>
+	  <newstype>
+	    <type>3</type>
+	    <attachment>479169</attachment>		<authoruid2>725072</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64319</id>
+      <title><![CDATA[针对 HTTPS 的理论攻击正变得实用]]></title>
+	        <body><![CDATA[计算机科学家警告，利用弱点破解加密Web连接的技术正日益变得实用。而针...]]></body>
+      <commentCount>6</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:11:05</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64318</id>
+      <title><![CDATA[Zabbix 2.2.10 rc1 发布，分布式系统监视]]></title>
+	        <body><![CDATA[Zabbix 2.2.10 rc1 发布，该版本修复了 2.2.x 系列已知的一些问题，并且...]]></body>
+      <commentCount>2</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:10:22</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+											    <news>
+      	  	        <id>64317</id>
+      <title><![CDATA[《Apache Spark 设计与实现》]]></title>
+	        <body><![CDATA[本文主要讨论 Apache Spark 的设计与实现，重点关注其设计思想、运行原理...]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:09:36</pubDate>
+      <url>http://www.oschina.net/p/sparkinternals</url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64316</id>
+      <title><![CDATA[Apache Whirr 因长时间未更新遭下课]]></title>
+	        <body><![CDATA[Apache Whirr 因长时间更新而被退出 Apache Attic 项目。 Apache Whirr...]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:08:20</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64315</id>
+      <title><![CDATA[RethinkDB 2.1 beta 发布，分布式数据库]]></title>
+	        <body><![CDATA[RethinkDB 2.1 beta 发布，这是个测试版本，有一些已知的 bug ，所以请不...]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 08:04:31</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64313</id>
+      <title><![CDATA[Pholcus 0.5.0 发布，Go 爬虫软件]]></title>
+	        <body><![CDATA[Pholcus 0.5.0 发布，新增支持图片、视频等文件下载功能。 更多内容请查...]]></body>
+      <commentCount>2</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 07:57:50</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64312</id>
+      <title><![CDATA[云时代的分布式数据库：阿里分布式数据库服务 DRDS]]></title>
+	        <body><![CDATA[随着互联网时代的到来，计算机要管理的数据量呈指数级别地飞速上涨，而我...]]></body>
+      <commentCount>7</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 07:56:31</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64311</id>
+      <title><![CDATA[XWiki 7.2 Milestone 1 发布，Java 的 Wiki 系统]]></title>
+	        <body><![CDATA[XWiki 7.2 Milestone 1 发布，这次主要更新是 XWiki's UI 对 Nested Doc...]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 07:55:09</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+		  </newslist>	
+</oschina>

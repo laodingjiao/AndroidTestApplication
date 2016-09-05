@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64282</id>
+      <title><![CDATA[ECharts 2.2.6 发布，JavaScript 图表库]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64282/echarts-2-2-6]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>ECharts 2.2.6 发布，更新内容如下：</p> 
+<ul> 
+ <li><p>【+】新增热力图。示例查看 <a href="http://echarts.baidu.com/doc/example/heatmap.html" rel="nofollow">热力图</a></p></li> 
+ <li><p>【+】新增<a href="http://echarts.baidu.com/doc/option.html" rel="nofollow">Option 查找工具</a>。</p></li> 
+ <li><p>【+】新增<a href="http://echarts.baidu.com/doc/spreadsheet.html" rel="nofollow">表格数据转换工具</a>。</p></li> 
+ <li><p>[^] 事件河流图布局优化</p></li> 
+ <li><p>[^] 修复 2.2.5 中 tooltip 联动 bug</p></li> 
+ <li><p>[?] 依赖升级，<a href="http://ecomfe.github.io/zrender/" target="_blank" rel="nofollow">ZRender</a> 2.1.1+</p></li> 
+</ul> 
+<p>更能多内容请查看<a target="_blank" href="http://echarts.baidu.com/doc/changelog.html" rel="nofollow">更新日志</a>。</p> 
+<p>该版本下载请点：<a target="_blank" href="https://github.com/ecomfe/echarts/archive/2.2.6.zip" rel="nofollow"><strong>Source code</strong> (zip)</a><br></p> 
+<p>ECharts开源来自百度商业前端数据可视化团队，基于html5 Canvas，是一个纯Javascript图表库，提供直观，生动，可交互，可个性化定制的数据可视化图表。创新的拖拽重计算、数据视图、值域漫游等特 性大大增强了用户体验，赋予了用户对数据进行挖掘、整合的能力。</p> 
+<h1>ECharts (Enterprise Charts 商业产品图表库)</h1> 
+<p>提供商业产品常用图表，底层基于<a href="http://ecomfe.github.io/zrender/" target="_blank" rel="nofollow">ZRender</a>（一个全新的轻量级canvas类库），创建了坐标系，图例，提示，工具箱等基础组件，并在此上构建出折线图（区域图）、柱状图（条状图）、散点图（气泡图）、饼图（环形图）、K线图、地图、力导向布局图以及和弦图，同时支持任意维度的堆积和多图表混合展现。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201410/10134756_IFOl.png" alt=""></p>]]></body>
+      <commentCount>12</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 08:07:15</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/echarts]]></softwarelink>
+	  <softwarename><![CDATA[ECharts]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[ECharts-Java 类库 2.2.6 版本发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64299/echarts-java-2-2-6</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Vue.js —— 轻量级 JavaScript 框架（国人开发）]]></rtitle>
+			<rurl>http://www.oschina.net/p/vue-js</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Riot.js 2.2.2 beta 发布，JavaScript 的 MVP 框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/64019/riot-js-2-2-2-beta</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Brython 3.2.0 发布，Python 替代 JavaScript]]></rtitle>
+			<rurl>http://www.oschina.net/news/63851/brython-3-2-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ECharts-Java 类库 2.2.4 版本发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63792/echarts-java-2-2-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ECharts 2.2.5 发布，JavaScript 图表库]]></rtitle>
+			<rurl>http://www.oschina.net/news/63776/echarts-2-2-5</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Riot.js 2.2.1 发布，JavaScript 的 MVP 框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63748/riot-js-2-2-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Riot.js 2.2.0 发布，JavaScript 的 MVP 框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63720/riot-js-2-2-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[T3js 1.4.1 发布，JavaScript 框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63654/t3-js-1-4-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[在 Microsoft Edge 提供快速的 JavaScript 性能]]></rtitle>
+			<rurl>http://www.oschina.net/translate/delivering-fast-javascript-performance-in-microsoft-edge</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

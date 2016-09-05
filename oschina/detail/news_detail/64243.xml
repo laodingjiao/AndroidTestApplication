@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64243</id>
+      <title><![CDATA[彻底裸奔：微软终止 Windows XP 安全防护]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64243/windows-xp-end-of-life]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Windows XP已经在2014年4月8日结束了生命周期，不过微软还是很厚道的，XP版的安全软件Microsoft Security Essentials(MSE)一直在维护更新，直到现在。</p> 
+<p><strong>当地时间7月14日，微软在发布7月份安全和更新补丁的同时，也将最后一次为XP MSE提供更新维护，再往后就彻底不闻不问了。</strong></p> 
+<p>对于企业用户而言，XP版本的System Center Endpoint Protection、Forefront Client Security、Forefront Endpoint Protection、Microsoft Intune等等也都不再更新。</p> 
+<p>如果你还要继续使用Windows XP，请一定记得安装第三方安全软件，好在此类工具还是很多的，而且不少都免费，国外有avast、AVG，国内有……你愿意就用吧。</p> 
+<p>当然了，即便装着安全软件的Windows XP也是漏洞百出，毕竟已经不再有任何安全补丁，所以有条件的还是尽量升级吧。</p> 
+<p>目前，Windows XP在全球还有大约12％的份额，相比15个月前下降了14个百分点。</p> 
+<p>稿源：<a target="_blank" href="http://news.mydrivers.com/1/438/438649.htm" rel="nofollow">驱动之家</a><br></p>]]></body>
+      <commentCount>31</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 07:18:05</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/windows]]></softwarelink>
+	  <softwarename><![CDATA[Windows]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[微软给安全环境恶劣的 XP 用户再补上一刀]]></rtitle>
+			<rurl>http://www.oschina.net/news/64308/windows-xp-virus-killer-no-sign</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[AeroGear 在 Windows 10 方面的新特性]]></rtitle>
+			<rurl>http://www.oschina.net/news/63916/aerogear-on-windows-10</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Qt 5.5 正式发布，完全支持 Windows 10]]></rtitle>
+			<rurl>http://www.oschina.net/news/63835/qt-5-5</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Windows 10 移动版 10149 发布！]]></rtitle>
+			<rurl>http://www.oschina.net/news/63659/windows-10-10149</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Seafile windows 客户端 4.2.5 版本发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63635/seafile-client-4-2-5</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[坚持用 XP 的代价：美国海军付给微软上千万]]></rtitle>
+			<rurl>http://www.oschina.net/news/63614/navy-re-ups-with-microsoft-for-more-windows-xp-support</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RSyslog Windows Agent 3.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63035/rsyslog-windows-agent-3-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[开源版本 Windows Live Writer 即将推出]]></rtitle>
+			<rurl>http://www.oschina.net/news/62912/windows-live-writer-will-opensource</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Windows 10 Build 10130 发布，优化图标]]></rtitle>
+			<rurl>http://www.oschina.net/news/62905/windows-10-build-10130</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OpenResty 在 Windows 的移植版本，来自 360]]></rtitle>
+			<rurl>http://www.oschina.net/p/nginx-windows</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

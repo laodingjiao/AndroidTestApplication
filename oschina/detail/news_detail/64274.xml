@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64274</id>
+      <title><![CDATA[Spring Framework 4.2 RC3 发布]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64274/spring-4-2rc3]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Spring Framework 4.2 RC3 发布，这次更新有50项目修复和提升，其中 bug 修复如下：</p> 
+<h2>Bug</h2> 
+<ul> 
+ <li><p>[<a href="https://jira.spring.io/browse/SPR-13096" rel="nofollow">SPR-13096</a>] - Binary data in POST multipart request is unmarshalled incorrectly</p></li> 
+ <li><p>[<a href="https://jira.spring.io/browse/SPR-13180" rel="nofollow">SPR-13180</a>] - BEFORE_* modes in @DirtiesContext cause context to be closed before test</p></li> 
+ <li><p>[<a href="https://jira.spring.io/browse/SPR-13185" rel="nofollow">SPR-13185</a>] - ConcurrentModificationException when calling SimpMessagingTemplate.convertAndSend</p></li> 
+ <li><p>[<a href="https://jira.spring.io/browse/SPR-13190" rel="nofollow">SPR-13190</a>] - STOMP CONNECT ignored ("No session for...") when using &lt;websocket:decorator-factories&gt;</p></li> 
+ <li><p>[<a href="https://jira.spring.io/browse/SPR-13194" rel="nofollow">SPR-13194</a>] - Wrong assertion message in ShallowEtagHeaderFilter</p></li> 
+ <li><p>[<a href="https://jira.spring.io/browse/SPR-13204" rel="nofollow">SPR-13204</a>] - NullPointerException possible in DefaultSubscriptionRegistry</p></li> 
+ <li><p>[<a href="https://jira.spring.io/browse/SPR-13205" rel="nofollow">SPR-13205</a>] - NullPointerException in DefaultSubscriptionRegistry.removeSubscription</p></li> 
+ <li><p>[<a href="https://jira.spring.io/browse/SPR-13207" rel="nofollow">SPR-13207</a>] - WebContentGenerator not backwards compatible</p></li> 
+ <li><p>[<a href="https://jira.spring.io/browse/SPR-13217" rel="nofollow">SPR-13217</a>] - Populate RequestAttributes before invoking FilterChain in MockMvc</p></li> 
+ <li><p>[<a href="https://jira.spring.io/browse/SPR-13223" rel="nofollow">SPR-13223</a>] - ResponseBodyEmitter skips same messages during initialization</p></li> 
+ <li><p>[<a href="https://jira.spring.io/browse/SPR-13224" rel="nofollow">SPR-13224</a>] - SseEmitter is not thread safe</p></li> 
+</ul> 
+<p>详细更新内容请查看<a target="_blank" href="https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10000&amp;version=14954" rel="nofollow">发行日志</a>。<br></p> 
+<p>该版本目前已提供下载：<a target="_blank" href="http://repo.spring.io" rel="nofollow">repo.spring.io</a></p> 
+<p><strong>Spring Framework</strong> 是一个开源的Java/Java EE全功能栈（full-stack）的应用程序框架，以Apache许可证形式发布，也有.NET平台上的<a href="http://www.oschina.net/p/spring.net" rel="nofollow">移植版本</a>。 该框架基于 Expert One-on-One Java EE Design and Development（ISBN 0-7645-4385-7）一书中的代码，最初由 Rod Johnson 和 Juergen Hoeller等开发。Spring Framework 提供了一个简易的开发方式，这种开发方式，将避免那些可能致使底层代码变得繁杂混乱的大量的属性文件和帮助类。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2013/0414/214124_rYSe_12.jpg" alt=""></p>]]></body>
+      <commentCount>3</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 07:43:16</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/spring]]></softwarelink>
+	  <softwarename><![CDATA[Spring]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Spring IO Platform 1.1.3 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64216/spring-io-platform-1-1-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Linux Kernel 4.2-RC2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64179/linux kernel-4-2-rc2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring Integration 4.2 M2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64040/spring-integration-4-2-m2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Linux Kernel 4.2 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63970/linux-kernel-4-2-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring Boot 1.2.5 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63883/spring-boot-1-2-5</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring Tool Suite 3.7.0 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63819/spring-tool-suite-3-7-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring Framework 4.1.7 & 3.2.14 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63818/spring-4-1-7</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring XD 1.2 GA/1.1.3 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63637/spring-xd-1-2-ga</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring Integration Kafka 1.2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63528/spring-integration-kafka-1-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Mybatis-spring 1.2.3 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63520/mybatis-spring-1-2-3</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

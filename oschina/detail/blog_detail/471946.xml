@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>471946</id>
+		<title><![CDATA[React-Native入门指南(三) ——CSS和UI布局]]></title>
+		<url><![CDATA[http://my.oschina.net/vczero/blog/471946]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h1>React-Native入门指南</h1> 
+<h2>github:<a href="https://github.com/vczero/react-native-lession" target="_blank" rel="nofollow">https://github.com/vczero/react-native-lession</a></h2> 
+<p><span style="color: #3366ff;"><strong>React-Native:用JavaScript开发你的原生应用，释放Native的UI体验，体验 Hybird开发效率。</strong></span></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29130954_Y74x.png" alt=""></p>
+<p>最近一个星期写的文章如下，链接是github page的，其实也可以在系列博客找到相应文章：</p> 
+<ul> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC1%E7%AF%87hello%20react-native.html" rel="nofollow">Lession1: Hello React-Native</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC2%E7%AF%87%E8%AE%A4%E8%AF%86%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84.html" rel="nofollow">Lession2: 认识代码结构</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC3%E7%AF%87css%E5%92%8C%E5%B8%83%E5%B1%80.html" rel="nofollow">Lession3: css和布局</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC4%E7%AF%87%E5%AD%A6%E4%BC%9Areact-native%E5%B8%83%E5%B1%80.html" rel="nofollow">Lession4: 学会React-Native布局（一）</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC4%E7%AF%87react-native%E5%B8%83%E5%B1%80%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%8C%EF%BC%89.html" rel="nofollow">Lession5: 学会React-Native布局(二)</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC5%E7%AF%87ui%E7%BB%84%E4%BB%B6.html" rel="nofollow">Lession6: UI组件</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC6%E7%AF%87jsx%E5%9C%A8react-native%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8.html" rel="nofollow">Lession7: JSX在React-Native中的应用</a></li> 
+</ul> 
+<p>还有几篇会时刻更新：</p> 
+<ul> 
+ <li><a href="https://github.com/vczero/react-native-lession/blob/master" rel="nofollow">Lession8: 自己动手写组件</a></li> 
+ <li><a href="https://github.com/vczero/react-native-lession/blob/master" rel="nofollow">Lession9: 模块化开发</a></li> 
+ <li><a href="https://github.com/vczero/react-native-lession/blob/master" rel="nofollow">Lession10: 搭建项目架构</a></li> 
+ <li><a href="https://github.com/vczero/react-native-lession/blob/master" rel="nofollow">Lession11: 源码分析</a></li> 
+ <li></li> 
+</ul> 
+<p><span style="font-size: 1.5em; line-height: 1.5;">第3篇CSS和UI布局</span></p> 
+<h3>一、了解React-Native组件</h3> 
+<pre><code>作为开发者都知道，UI组件对于一个应用的重要性。也许，在一款应用中，你还没有完整的，有体系的构建UI组件，但是你一定或多或少有种想把组件抽出来的冲动，就像有些冲动是人类的本能一样....这是作为一个开发者的本能。那么组件的复用和统一话是十分必要的。常见的组件有：日历、下来列表（常在应用中表现为下拉刷新）、导航栏、头部、底部、选项卡等等。React-Native就提供了一套iOS原生的组件，这样就不用HTML5去模拟组件了。React-Native使用css来构建页面布局，使用Native iOS Components给我们提供强大的组件功能。目前已有组件如下图：
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29130954_l6vt.png" alt="组件列表"></p>
+<h3>二、使用CSS样式 &amp; Flexbox布局</h3> 
+<pre><code>第一篇，已经知道了如何构建工程。这里同样创建一个HelloWorld工程。默认启动界面如下图：
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29130955_kd2N.png" alt="默认界面"></p>
+<pre><code>1、基本样式
+这里使用View和Text组件作为演示对象，首先，修改index.ios.js里面的代码，这里只需要关注StyleSheet和render里面的模板。修改后的代码如下：
+/**
+* Sample React Native App
+* https://github.com/facebook/react-native
+*/
+'use strict';
+
+var React = require('react-native');
+var {
+    AppRegistry,
+    StyleSheet,
+    Text,
+    View,
+} = React;
+
+var HelloWorld = React.createClass({
+    render: function() {
+        return (
+            &lt;View&gt;
+                &lt;View&gt;&lt;/View&gt;
+            &lt;/View&gt;
+        );
+    }
+});
+
+var styles = StyleSheet.create({
+});
+
+AppRegistry.registerComponent('HelloWorld', () =&gt; HelloWorld);
+这时候，你cmd + R刷新模拟器应该看到是空白的界面。现在，是展现css魅力的时候了。React-native使用的css 表达是一个JS自面量对象，并且严格区分该对象属性的类型，所以要遵循对象的写法，而不能使用以前css的写法，这个需要自己熟悉了。
+（1）增加一个带边框的矩形，红色边框
+    直接在组件上添加样式是这样的：style={{height:40, borderWidth: 1, borderColor: 'red'}}style是组件的一个自有属性，第一个{}JS执行环境或者说是模板，第二个{}只是css样式对象的括号而已(慢慢体会,不难理解)。这样修改后的代码如下：
+    render: function() {
+        return (
+            &lt;View&gt;
+                &lt;View style={{height:40, borderWidth: 1, borderColor: 'red'}}&gt;
+
+                &lt;/View&gt;
+            &lt;/View&gt;
+        );
+    }
+    cmd ＋ R刷新模拟器，结果如下：
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29130956_Ro3G.png" alt="基本css"></p>
+<pre><code>    (2)如何知道该组件支持哪些样式呢？
+    上面的已经很简单了，作为web开发者用脚趾头都能闭眼写出来。如果我们需要知道该组件又哪些样式，又不用查手册，一个最为简单的方法是，在样式表里写错一个属性，比如我写一个没有的属性“border”。但是该属性必须写到样式的创建中去，而不能写为内联样式。写成内联样式，你是看不到报错提示的。我门改写成样式表创建类里面：
+    var HelloWorld = React.createClass({
+        render: function() {
+                return (
+                    &lt;View&gt;
+                        &lt;View style={styles.style_1}&gt;
+
+                        &lt;/View&gt;
+                    &lt;/View&gt;
+                );
+        }
+    });
+
+    var styles = StyleSheet.create({
+        style_1:{
+            border: '1px solid red',
+            height:40, 
+            borderWidth: 1,  
+            borderColor: 'red',
+        }
+    });
+     这个时候你就能齐刷刷的看到样式表的报错和提示有哪些样式了，如下图所示：
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29130957_VKsd.png" alt="样式列表"></p>
+<pre><code>    （3）独立样式类
+    其实上面已经展示了独立样式类了，那么样式类创建很简单，我们只需要使用React.StyleSheet来创建类。其实创建的类就是一个js对象而已。那么在组件上引用是这样的&lt;View style={{对象名称.对象属性}}&gt;&lt;/View&gt;，就跟上面（2）的代码一样。
+
+    2、说说Flexbox布局
+    其实，这样的css样式，作为web开发这一用就会，那么说说布局的事儿。除去margin, padding, position等大家熟悉的web布局的话，最为重要的就是flexbox，目前支持的属性如下,有6个：
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29130958_zRs2.png" alt="flexbox"></p>
+<pre><code>     (1)先说flex属性，上一段代码
+        var HelloWorld = React.createClass({
+            render: function() {
+                return (
+                    &lt;View style={styles.style_0}&gt;
+                        &lt;View style={styles.style_1}&gt;&lt;/View&gt;
+                        &lt;View style={styles.style_1}&gt;&lt;/View&gt;
+                        &lt;View style={{flex:10}}&gt;&lt;/View&gt;
+                    &lt;/View&gt;
+                );
+            }
+        });
+
+        var styles = StyleSheet.create({
+            style_0:{
+                flex:1,
+            },
+            style_1:{
+                flex: 5,
+                height:40, 
+                borderWidth: 1,  
+                borderColor: 'red',
+            }
+        });
+        当一个(元素)组件，定义了flex属性时，表示改元素是可伸缩的。当然flex的属性值是大于0的时候才伸缩，其他小于和等于0的时候不伸缩，例如：flex:0, flex:-1等。上面的代码，最外层的view是可伸缩的，因为没有兄弟节点和他抢占空间。里层是3个view,可以看到三个view的flex属性加起来是5+5+10=20,所以第一个view和第二个view分别占1／4伸缩空间， 最后一个view占据1／2空间，具体如下图：
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29130958_dOio.png" alt="flex"></p>
+<pre><code>    (2) flexDirection
+    flexDirection在React-Native中只有两个属性，一个是row(横向伸缩)和column(纵向伸缩)。具体的想过可见如下代码：
+    var HelloWorld = React.createClass({
+        render: function() {
+            return (
+                &lt;View style={styles.style_0}&gt;
+                    &lt;View style={styles.style_1}&gt;
+                    &lt;Text style={{marginTop:40, fontSize:25}}&gt;1／4高&lt;/Text&gt;
+                    &lt;Text style={{marginTop:40, fontSize:25}}&gt;1／4高&lt;/Text&gt;
+                &lt;/View&gt;
+                &lt;View style={[styles.style_1, {flexDirection: 'column'}]}&gt;
+                    &lt;Text style={{marginTop:40, fontSize:25}}&gt;1／4高&lt;/Text&gt;
+                    &lt;Text style={{marginTop:40, fontSize:25}}&gt;1／4高&lt;/Text&gt;
+                &lt;/View&gt;
+                &lt;View style={{flex:10, borderWidth: 1, borderColor: 'red',}}&gt;
+                    &lt;Text style={{marginTop:40, fontSize:25}}&gt;1／2高&lt;/Text&gt;
+                    &lt;/View&gt;
+                &lt;/View&gt;
+            );
+        }
+    });
+
+    var styles = StyleSheet.create({
+        style_0:{
+            flex:1,
+        },
+        style_1:{
+            flex: 5,
+            flexDirection: 'row',
+            height:40, 
+            borderWidth: 1,  
+            borderColor: 'red',
+        }
+    });
+    具体的效果如下：
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29130959_kFzb.png" alt="flex"></p>
+<pre><code>    (3)alignSelf:对齐方式
+    alignSelf的对齐方式主要有四种：flex-start、 flex-end、 center、  auto、 stretch。看看代码，应该就很清楚了：
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29130959_UuwU.png" alt="flex"></p>
+<pre><code>    效果如下图
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131001_DJ85.png" alt="flex"></p>
+<pre><code>    （4）水平垂直居中
+    alignItems是alignSelf的变种，跟alignSelf的功能类似，可用于水平居中；justifyContent用于垂直居中，属性较多，可以了解下。
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131002_3Bjg.png" alt="flex"></p>
+<pre><code>    效果如下图
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131003_gQpM.png" alt="flex"></p>]]></body>
+		<author><![CDATA[vczero]]></author>
+		<authorid>2401036</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-29 13:10:03</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

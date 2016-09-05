@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479481</id>
+		<title><![CDATA[linux 系统防火墙知识学习]]></title>
+		<url><![CDATA[http://my.oschina.net/u/202475/blog/479481]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="font-size: 12.5px;">防火墙分为硬件的或者软件的防火墙两种。无论是在哪个网络中，工作于网络的边缘。我们的任务就是需要去定义到底防火墙安全策略、规则，以达到让它对出入网络的IP、数据进行检测。常见的有3、4层的防火墙，叫网络层的防火墙，还有7层的防火墙，其实是代理层的网关。</span><br></p> 
+<p>1、iptables的工作机制</p> 
+<p>这五个位置也被称为五个钩子函数（hook functions）,也叫五个规则链。</p> 
+<p><span style="white-space:pre"> </span>1.PREROUTING (路由前)</p> 
+<p><span style="white-space:pre"> </span>2.INPUT (数据包流入口)</p> 
+<p><span style="white-space:pre"> </span>3.FORWARD (转发管卡)</p> 
+<p><span style="white-space:pre"> </span>4.OUTPUT(数据包出口)</p> 
+<p><span style="white-space:pre"> </span>5.POSTROUTING（路由后）</p> 
+<p>这是NetFilter规定的五个规则链，任何一个数据包，只要经过本机，必将经过这五个链中的其中一个链。</p> 
+<p>2、防火墙的策略</p> 
+<p>防火墙策略一般分为两种，一种叫“通”策略，一种叫“堵”策略，</p> 
+<p>通策略，默认门是关着的，必须要定义谁能进。</p> 
+<p>堵策略则是，大门是洞开的，但是你必须有身份认证，否则不能进。</p> 
+<p>所以通，是要全通，而堵，则是要选择。当我们定义的策略的时候，要分别定义多条功能，其中：定义数据包中允许或者不允许的策略，filter过滤的功能，而定义地址转换的功能的则是nat选项。为了让这些功能交替工作，我们制定出了“表”这个定义，来定义、区分各种不同的工作功能和处理方式。</p> 
+<p>我们现在用的比较多个功能有3个：</p> 
+<p><span style="white-space:pre"> </span>1.filter 定义允许或者不允许的</p> 
+<p><span style="white-space:pre"> </span>2.nat 定义地址转换的&nbsp;</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3.mangle功能:修改报文原数据</p> 
+<p>我们修改报文原数据就是来修改TTL的。能够实现将数据包的元数据拆开，在里面做标记/修改内容的。而防火墙标记，其实就是靠mangle来实现的。</p> 
+<p>对于filter来讲一般只能做在3个链上：INPUT ，FORWARD ，OUTPUT</p> 
+<p>对于nat来讲一般也只能做在3个链上：PREROUTING ，OUTPUT ，POSTROUTING</p> 
+<p>而mangle则是5个链都可以做：PREROUTING，INPUT，FORWARD，OUTPUT，POSTROUTING</p> 
+<p><br></p> 
+<p>注意 规则的次序非常关键，谁的规则越严格，应该放的越靠前，而检查规则的时候，是按照从上往下的方式进行检查的。</p> 
+<p>3、规则的写法</p> 
+<p>格式：iptables [-t table] COMMAND chain CRETIRIA -j ACTION</p> 
+<p>比如：不允许172.16.0.0/24的进行访问。</p> 
+<p>iptables -t filter -A INPUT -s 172.16.0.0/16 -p udp --dport 53 -j DROP</p> 
+<p>当然你如果想拒绝的更彻底：</p> 
+<p>iptables -t filter -R INPUT 1 -s 172.16.0.0/16 -p udp --dport 53 -j REJECT</p> 
+<p><br></p> 
+<p>iptables -L -n -v<span style="white-space:pre"> </span>#查看定义规则的详细信息</p> 
+<p>3.1、详解COMMAND</p> 
+<p>3.1.1、链管理命令（这都是立即生效的）</p> 
+<p><span style="white-space:pre"> </span>-P :设置默认策略的（设定默认门是关着的还是开着的）</p> 
+<p><span style="white-space:pre"> </span>默认策略一般只有两种</p> 
+<p><span style="white-space:pre"> </span>iptables -P INPUT (DROP|ACCEPT) &nbsp;默认是关的/默认是开的</p> 
+<p><span style="white-space:pre"> </span>比如：</p> 
+<p><span style="white-space:pre"> </span>iptables -P INPUT DROP 这就把默认规则给拒绝了。并且没有定义哪个动作，所以关于外界连接的所有规则包括Xshell连接之类的，远程连接都被拒绝了。</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; -F: FLASH，清空规则链的(注意每个链的管理权限)</p> 
+<p><span style="white-space:pre"> </span> &nbsp; &nbsp;iptables -t nat -F PREROUTING</p> 
+<p><span style="white-space:pre"> </span> &nbsp; &nbsp;iptables -t nat -F 清空nat表的所有链</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; -N:NEW 支持用户新建一个链</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; iptables -N inbound_tcp_web 表示附在tcp表上用于检查web的。</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; -X: 用于删除用户自定义的空链</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 使用方法跟-N相同，但是在删除之前必须要将里面的链给清空昂了</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; -E：用来Rename chain主要是用来给用户自定义的链重命名</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -E oldname newname</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-Z：清空链，及链中默认规则的计数器的（有两个计数器，被匹配到多少个数据包，多少个字节）</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; iptables -Z :清空</p> 
+<p>3.1.2、规则管理命令</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-A：追加，在当前链的最后新增一个规则</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-I num : 插入，把当前规则插入为第几条。</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -I 3 :插入为第三条</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-R num：Replays替换/修改第几条规则</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 格式：iptables -R 3 …………</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-D num：删除，明确指定删除第几条规则</p> 
+<p>3.1.3、查看管理命令 “-L”</p> 
+<p><span style="white-space:pre"> </span> 附加子命令</p> 
+<p><span style="white-space:pre"> </span> -n：以数字的方式显示ip，它会将ip直接显示出来，如果不加-n，则会将ip反向解析成主机名。</p> 
+<p><span style="white-space:pre"> </span> -v：显示详细信息</p> 
+<p><span style="white-space:pre"> </span> -vv 、-vvv :越多越详细</p> 
+<p><span style="white-space:pre"> </span> -x：在计数器上显示精确值，不做单位换算</p> 
+<p><span style="white-space:pre"> </span> --line-numbers : 显示规则的行号</p> 
+<p>3.1.4、详解匹配标准</p> 
+<p><span style="white-space:pre"> </span> -s：指定作为源地址匹配，这里不能指定主机名称，必须是IP</p> 
+<p><span style="white-space:pre"> </span> -d：表示匹配目标地址</p> 
+<p><span style="white-space:pre"> </span> -p：用于匹配协议的（这里的协议通常有3种，TCP/UDP/ICMP）</p> 
+<p><span style="white-space:pre"> </span> -i eth0：从这块网卡流入的数据 流入一般用在INPUT和PREROUTING上</p> 
+<p><span style="white-space:pre"> </span> -o eth0：从这块网卡流出的数据 流出一般在OUTPUT和POSTROUTING上</p> 
+<p>3.1.5、扩展匹配</p> 
+<p><br></p> 
+<p><span style="white-space:pre"> </span>-p tcp :TCP协议的扩展。一般有三种扩展</p> 
+<p><span style="white-space:pre"> </span>--dport XX-XX：指定目标端口,不能指定多个非连续端口,只能指定单个端口，比如</p> 
+<p><span style="white-space:pre"> </span>--dport 21 &nbsp;或者 --dport 21-23 (此时表示21,22,23)</p> 
+<p><span style="white-space:pre"> </span>--sport：指定源端口</p> 
+<p><span style="white-space:pre"> </span>--tcp-fiags：TCP的标志位（SYN,ACK，FIN,PSH，RST,URG）</p> 
+<p><span style="white-space:pre"> </span> &nbsp; &nbsp;对于它，一般要跟两个参数：</p> 
+<p><span style="white-space:pre"> </span>1.检查的标志位</p> 
+<p><span style="white-space:pre"> </span>2.必须为1的标志位</p> 
+<p><span style="white-space:pre"> </span>--tcpflags syn,ack,fin,rst syn &nbsp; = &nbsp; &nbsp;--syn</p> 
+<p><span style="white-space:pre"> </span>表示检查这4个位，这4个位中syn必须为1，其他的必须为0。所以这个意思就是用于检测三次握手的第一次包的。对于这种专门匹配第一包的SYN为1的包，还有一种简写方式，叫做--syn</p> 
+<p><span style="white-space:pre"> </span>-p udp：UDP协议的扩展</p> 
+<p><span style="white-space:pre"> </span>--dport</p> 
+<p><span style="white-space:pre"> </span>--sport</p> 
+<p><span style="white-space:pre"> </span>-p icmp：icmp数据报文的扩展</p> 
+<p><span style="white-space:pre"> </span>--icmp-type：</p> 
+<p><span style="white-space:pre"> </span>echo-request(请求回显)，一般用8 来表示</p> 
+<p><span style="white-space:pre"> </span>所以 --icmp-type 8 匹配请求回显数据包</p> 
+<p><span style="white-space:pre"> </span>echo-reply （响应的数据包）一般用0来表示</p> 
+<p><span style="white-space:pre"> </span>-m multiport：表示启用多端口扩展</p> 
+<p><span style="white-space: pre;"> </span>之后我们就可以启用比如 --dports 21,23,80</p> 
+<p>linux防火墙学习笔记~</p>]]></body>
+		<author><![CDATA[leicc]]></author>
+		<authorid>202475</authorid>
+		<documentType>0</documentType>
+        <pubDate>2015-07-16 20:00:33</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

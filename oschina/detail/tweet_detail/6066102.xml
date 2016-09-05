@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6066102</id>
+	<body><![CDATA[
+		使用sqlite真烦人，只能运行的时候才能知道里面有什么数据，想测试个语句都费劲~        	]]></body>
+    <author><![CDATA[感觉太煽情]]></author>
+	<authorid>2008084</authorid>
+    <appclient>1</appclient>
+    <commentCount>10</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1004/2008084_50.jpg?t=1431506806000</portrait>
+    <pubDate>2015-07-17 13:41:06</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>0</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+					</likeList>
+  </tweet>
+</oschina>	

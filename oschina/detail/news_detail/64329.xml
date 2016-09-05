@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64329</id>
+      <title><![CDATA[恩布企业 IM iOS端 1.1 发布，开源手机 IM]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64329/entboostchat-ios-1-1]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> 恩布企业IM的 iOS 苹果开源手机客户端 EntboostChat 发布 1.1 开发版本;</p> 
+<p> 主要更新内容：</p> 
+<p></p> 
+<ul> 
+ <li><p><span style="color:#EE33EE;">录界面增加自定义LOGO显示</span></p></li> 
+ <li><p><span style="color:#EE33EE;">持部门、群组、联系人(好友)在线人数显示</span></p></li> 
+ <li><p><span style="color:#EE33EE;">加联系人(好友)在线状态显示</span></p></li> 
+ <li><p><span style="color:#EE33EE;">部门、群组、联系人(好友)按在线状态及名称排序</span></p></li> 
+ <li><p><span style="color:#EE33EE;">户注销登录后，自动解绑离线消息推送功能</span></p></li> 
+ <li><p><span style="color:#EE33EE;">持在文件目录浏览界面点击打开常见类型的文件</span></p></li> 
+ <li><p><span style="color:#EE33EE;">修复已知问题，增强应用稳定性，界面调整优化</span></p></li> 
+</ul> 
+<p></p> 
+<p> 苹果应用商店1.0正式版本下载地址：</p> 
+<p><a href="https://itunes.apple.com/cn/app/en-bu-hu-lian/id993654513?mt=8" target="_blank" rel="nofollow">https://itunes.apple.com/cn/app/en-bu-hu-lian/id993654513?mt=8</a></p> 
+<p> 对应最新服务端1.16版本下载地址：</p> 
+<p><a href="http://pan.baidu.com/s/1hq8fhfI" target="_blank" rel="nofollow">http://pan.baidu.com/s/1hq8fhfI</a></p> 
+<p><a href="http://www.entboost.com" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201412/08094749_4LZW.jpg" alt=""></a></p>
+<p> 10分钟，为企业安装一套即时通讯平台；恩布互联entboost是跨平台、跨应用的企业即时通讯平台；恩布网络致力于帮助开发者、软件公司和企业，组建企业级的即时通讯运营平台；提供跨平台、跨终端、跨应用的实时消息互通解决方案；</p> 
+<p> Android开源项目：<a href="https://git.oschina.net/akee/EntboostIM" target="_blank" rel="nofollow">https://git.oschina.net/akee/EntboostIM</a></p> 
+<p> IOS端开源项目：<a href="https://git.oschina.net/akee/EntboostChat" target="_blank" rel="nofollow">https://git.oschina.net/akee/EntboostChat</a></p>]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[akee]]></author>
+      <authorid>67747</authorid>
+      <pubDate>2015-07-17 09:05:17</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/entboostchat]]></softwarelink>
+	  <softwarename><![CDATA[EntboostChat]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[gevent 1.1 alpha2 发布，支持 Python 3]]></rtitle>
+			<rurl>http://www.oschina.net/news/64240/gevent-1-1-alpha2-with-python3-supported</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Hasor 1.1 发布，轻量化 Java 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/64078/hasor-1-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Exact Audio Copy 1.1 发布，音轨抓轨软件]]></rtitle>
+			<rurl>http://www.oschina.net/news/63877/eac-1-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Rust 1.1 /1.2 Beta 发布，Mozilla 编程语言]]></rtitle>
+			<rurl>http://www.oschina.net/news/63671/rust-1-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[antiX 15 RC1.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63570/antix-15-rc1-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[恩布企业 IM 安卓端 1.4 发布, 开源手机 IM]]></rtitle>
+			<rurl>http://www.oschina.net/news/63513/entboostim-1-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[iOS 流式布局 UI 框架 CocoaUI 开源了!]]></rtitle>
+			<rurl>http://www.oschina.net/news/63449/cocoaui-opensource</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[切图全景 JS 发布 v1.1 版本]]></rtitle>
+			<rurl>http://www.oschina.net/news/63365/qietuscener-1-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spark IM 2.7.1 发布，IM 客户端]]></rtitle>
+			<rurl>http://www.oschina.net/news/63337/spark-im-2-7-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[SonarQube Jazz RTC 1.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63226/sonarqube-jazz-rtc-1-1</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

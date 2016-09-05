@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>480265</id>
+		<title><![CDATA[FLV rtmp 里存在B帧的情况下，time stamp 时间戳应该怎么玩]]></title>
+		<url><![CDATA[http://my.oschina.net/mingyuejingque/blog/480265]]></url>
+		<where><![CDATA[流媒体]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>FLV&nbsp;&nbsp;rtmp 里存在B帧的情况下，time stamp 应该怎么玩 ？<br><br>先来引用stackoverflow的一篇文章：<br><strong>CompositionTime Composition time offset</strong><br>See ISO 14496-12, 8.15.3 for an explanation of composition times. The offset in an FLV file is always in milliseconds<br><br><br>provides the offset between decoding time and composition time. Since decoding time must be less than the composition time, the offsets are expressed as unsigned numbers such that&nbsp;<strong>CT(n) = DT(n) + CTTS(n) where CTTS(n)&nbsp;</strong>is the (uncompressed) table entry for sample n.<br><br></p> 
+<p>For MPEG-4 H.246 transcoders that deliver I-frame, P-frame, and B-frame NALUs inside an MPEG-2 transport, the resulting packetized elementary streams (PES) are timestamped with presentation time stamps (PTS) and decoder timestamps (DTS) in time units of 1/90000 of a second.</p> 
+<p>The NALUs come in DTS timestamp order in a repeating pattern like</p> 
+<p>I P B B B P B B B ...&nbsp;&nbsp;</p> 
+<p>where the intended playback rendering is</p> 
+<p>I B B B P B B B P ...</p> 
+<p>(This transport strategy ensures that both frames that the B-frame bridges are in the decoder before the B-frame is processed.)</p> 
+<p>For FLV, the Timestamp (FLV spec p.69) tells when the frame should be fed to the decoder in milliseconds, which is</p> 
+<p>timestamp = DTS / 90.0</p> 
+<p>The CompositionTime (FLV spec p.72) tells the renderer when to perform ("compose") the video frame on the display device in milliseconds after it enters the decoder; thus it is</p> 
+<p>compositionTime = (PTS - DTS) / 90.0</p> 
+<p>(Because the PTS &gt;= DTS, this delta is never negative.)</p> 
+<p><br></p> 
+<p>大概知道什么意思了没？再来帖 一张图，从flv的标准文档里扣的：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/19085337_KURH.jpg"></p>
+<p>就是给它赋值 compostionTime即可。</p> 
+<p><br></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/19085337_NUK2.jpg"></p>
+<p><br></p> 
+<p>代码是老衲写的，说明技术细节所用，不得转载。 也不准跟老衲索要代码，会假装不在线的。</p> 
+<p><br></p>]]></body>
+		<author><![CDATA[明月惊鹊]]></author>
+		<authorid>104197</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-19 08:53:37</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <blogsCount>2</blogsCount>
+  <pagesize>2</pagesize>
+  <blogs>
+  					<blog>
+		<id>480296</id>
+		<title><![CDATA[Android属性动画(详解)]]></title>
+		<url><![CDATA[http://my.oschina.net/u/993896/blog/480296]]></url>
+        <pubDate>2015-07-19 12:16:41</pubDate>
+        <authoruid>993896</authoruid>
+        <authorname><![CDATA[itheima]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>480294</id>
+		<title><![CDATA[反编译Android应用源码成java文件, 保留资源id]]></title>
+		<url><![CDATA[http://my.oschina.net/u/993896/blog/480294]]></url>
+        <pubDate>2015-07-19 12:13:59</pubDate>
+        <authoruid>993896</authoruid>
+        <authorname><![CDATA[itheima]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+		    </blogs>
+</oschina>	

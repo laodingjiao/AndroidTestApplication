@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6064618</id>
+	<body><![CDATA[
+		有必要找个女朋友了，但是不知道怎么找啊        	]]></body>
+    <author><![CDATA[kay_L_J_Y]]></author>
+	<authorid>2283246</authorid>
+    <appclient>1</appclient>
+    <commentCount>10</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1141/2283246_50.jpg?t=1417512921000</portrait>
+    <pubDate>2015-07-17 11:19:09</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>2</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[Hycomer]]></name>
+				<uid>56833</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/28/56833_50.jpg?t=1425879192000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[xwtdroid]]></name>
+				<uid>2355291</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1177/2355291_50.jpg?t=1431436035000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

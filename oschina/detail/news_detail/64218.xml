@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64218</id>
+      <title><![CDATA[2015年需要了解的前端框架和语言]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64218/2015-frameworkds-need-to-learn]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h3>语言/平台</h3> 
+<p><a href="http://7u2qrr.com1.z0.glb.clouddn.com/blog_2015_new%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-07-09%20%E4%B8%8A%E5%8D%887.34.52.png?imageView2/2/w/600" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/blog_2015_new%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-07-09%20%E4%B8%8A%E5%8D%887.34.52.png?imageView2/2/w/600" alt=""></a></p>
+<p>Node.js 第一，PHP 第二，JavaScript 第三。因为Node.js的社区很多，所以这个结果你也不用太意外。如果你知道JavaScript,你已经一只脚踏进了用Node.js来构建Web APP的可能。<br></p> 
+<h3>框架</h3> 
+<p><a href="http://7u2qrr.com1.z0.glb.clouddn.com/blog_2015_new%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-07-09%20%E4%B8%8A%E5%8D%887.35.00.png?imageView2/2/w/600" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/blog_2015_new%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-07-09%20%E4%B8%8A%E5%8D%887.35.00.png?imageView2/2/w/600" alt=""></a></p>
+<p><a target="_blank" href="http://www.oschina.net/p/angularjs" rel="nofollow">AngularJS</a> 处于框架的领导地位。大量的公司和企业已经采用 Angular，这就要求开发者更多的具备使用这个框架的技能。主要还是因为有 Google 里最好的工程师支持。</p> 
+<h3>2015你应该学习的</h3> 
+<p>很多的库和框架产生和消亡，对于把有限的精力投入到最有价值的事情上是有挑战的。下面是我们的一些关于语言和框架的建议，这些都是我们认为很有意义去学习的。它们都很流行，有活跃的社区，并且有大量的就业机会。</p> 
+<h3>1. 无所不在的 JavaScript</h3> 
+<p><a href="http://7u2qrr.com1.z0.glb.clouddn.com/blog_2015_new674862A7-CF67-44B6-A62B-2B968F7A6281.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/blog_2015_new674862A7-CF67-44B6-A62B-2B968F7A6281.jpg" alt=""></a></p>
+<p>如果你做 web 的开发，Javascript 是你必须知道的，不管你写后台用的何种语言。现在你可以用JS在浏览器、服务器、手机应用甚至是可编程的硬件。<a href="https://github.com/lukehoban/es6features" target="_blank" rel="nofollow">ES6</a> 将会提高并让这个语言更加强大。学习<a target="_blank" href="http://www.oschina.net/p/bower" rel="nofollow"> Bower</a> 和 <a target="_blank" href="http://www.oschina.net/p/npm" rel="nofollow">npm</a>工具是很有必要的，也包括<a target="_blank" href="http://www.oschina.net/p/jshint" rel="nofollow"> jshint</a> 和 <a target="_blank" href="http://www.oschina.net/p/node-jscs" rel="nofollow">jscs</a> 这种代码样式和代码检测。</p> 
+<h3>2. AngularJS</h3> 
+<p><a href="http://7u2qrr.com1.z0.glb.clouddn.com/blog_2015_newA2DACE7E-9AAC-4FAC-82DD-1EE1CAB462AE.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/blog_2015_newA2DACE7E-9AAC-4FAC-82DD-1EE1CAB462AE.jpg" alt=""></a></p>
+<p><a target="_blank" href="http://www.oschina.net/p/angularjs" rel="nofollow">AngularJS</a>是 一个Google发明的JavaScript框架，它能快速的构建企业级的web应用。快速的需求增长要求程序员有这个框架的使用经验，很多时候，你会看 到招聘工作的时候会涉及这个框架的使用。但是别太着急。它将会有一个大的重写，在它的2.0版本发布后再学习是个更好的方式。可以查看学习指南<a href="http://tutorialzine.com/2013/08/learn-angularjs-5-examples/" target="_blank" rel="nofollow"> angularjs examples</a>.</p> 
+<h3>3. React</h3> 
+<p><a href="http://7u2qrr.com1.z0.glb.clouddn.com/blog_2015_newC9E2EA70-F356-4960-9FC9-1EC873FA7BE1.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/blog_2015_newC9E2EA70-F356-4960-9FC9-1EC873FA7BE1.jpg" alt=""></a></p>
+<p><a target="_blank" href="http://www.oschina.net/p/facebook-react" rel="nofollow">React</a> 是新的竞争者，但它是可提供复用的web组件。这个库是Facebook开发并实现了非常快的虚拟DOM，并能很简单的接入到现有项目中去。它也有非常活跃的社区来提供开发组件<a href="http://react-components.com/" target="_blank" rel="nofollow">all kinds of components</a>.在我们看来，Reacts是非常有潜力的并值得在2015年关注的。查看我们的学习指南<a href="http://tutorialzine.com/2014/07/5-practical-examples-for-learning-facebooks-react-framework/" target="_blank" rel="nofollow">react tutorial</a>.</p> 
+<h3>4. Node.js</h3> 
+<p><a href="http://7u2qrr.com1.z0.glb.clouddn.com/blog_2015_new54EBC058-5C63-461F-86B7-EFB66C424BE1.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/blog_2015_new54EBC058-5C63-461F-86B7-EFB66C424BE1.jpg" alt=""></a></p>
+<p>用Node.js你可以用JavaScript来实现服务端的应用。它可以很简单的实现后台，像这些框架<a href="http://expressjs.com/" target="_blank" rel="nofollow">Express</a>, <a href="https://github.com/restify/node-restify" target="_blank" rel="nofollow">API endpoints</a>, <a href="http://socket.io/" target="_blank" rel="nofollow">websocket</a>甚至<a href="https://github.com/mafintosh/peerflix" target="_blank" rel="nofollow">torrent clients</a>. Node有令人难以置信的活跃的社区超越任何其他一种语言在这一年实现的模块。如果你是个初学者，我们推荐你尝试下<a href="http://nodeschool.io/" target="_blank" rel="nofollow">NodeSchool</a>.</p> 
+<h3>5. NoSQL databases</h3> 
+<p><a href="http://7u2qrr.com1.z0.glb.clouddn.com/blog_2015_new176957D5-2F71-48AA-A431-D78AEB6D4A2D.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/blog_2015_new176957D5-2F71-48AA-A431-D78AEB6D4A2D.jpg" alt=""></a></p>
+<p>既不是关系型也不是 SQL 查询型的数据库是对今天的web开发者更有价值的，我们相信这样的数据库将会在未来更加的流行。有两个值得关注的是 <a target="_blank" href="http://www.oschina.net/p/mongodb" rel="nofollow">Mongodb</a> 和 <a target="_blank" href="http://www.oschina.net/p/redis" rel="nofollow">Redis</a>。很容易使用它们中得任意一个比起MySQL和Postgres.但是别傻傻的认为NoSQL数据库就是完美的取代—有的情况，那些经典的关系型数据库还是会让你的开发更简单。</p> 
+<h3>6. Less/Sass/Stylus</h3> 
+<p><a href="http://7u2qrr.com1.z0.glb.clouddn.com/blog_2015_newDA563D03-FCEC-4396-9D09-74912604DE08.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/blog_2015_newDA563D03-FCEC-4396-9D09-74912604DE08.jpg" alt=""></a></p>
+<p>有很多人不喜欢CSS.它很容易就达到了1000行的css文件并且不容易被定位和修改。为了解决这些问题，有些语言像<a href="http://lesscss.org/" target="_blank" rel="nofollow">Less</a>, <a href="http://sass-lang.com/" target="_blank" rel="nofollow">Sass</a> 和 <a target="_blank" href="http://www.oschina.net/p/stylus" rel="nofollow">Stylus</a>可以编译成CSS文件，并可以使用变量、宏和其它的方式来提高你的编码。你可以一下午就搞定它们中的一种。</p> 
+<h3>7. 令人兴奋的框架</h3> 
+<p><a href="http://7u2qrr.com1.z0.glb.clouddn.com/blog_2015_new0C2E7743-8AD2-41B6-B536-31BC41FF2EF6.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/blog_2015_new0C2E7743-8AD2-41B6-B536-31BC41FF2EF6.jpg" alt=""></a></p>
+<p><a target="_blank" href="http://www.oschina.net/p/meteor" rel="nofollow">Meteor</a> 是一个全新的web应用开发方式，它模糊了前端和后端的边界。它允许你书写实施的应用，并且有迅速成长的社区来提供各种包模块。<a href="http://hood.ie/" target="_blank" rel="nofollow">Hood.ie</a> 是一个小得竞争者，但是提供新颖的方式。它能为你处理后台，所以你可以集中精力来做你应用的前台。</p> 
+<h3>8. 令人兴奋的语言</h3> 
+<p><a href="http://7u2qrr.com1.z0.glb.clouddn.com/blog_2015_new15945E83-0B58-4D69-A168-BEFCDB6DB026.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/blog_2015_new15945E83-0B58-4D69-A168-BEFCDB6DB026.jpg" alt=""></a></p>
+<p>对于一些编程语言迷来说，这又一些东西。<a href="https://golang.org/" target="_blank" rel="nofollow">Golang</a>, <a href="http://www.rust-lang.org/" target="_blank" rel="nofollow">Rust</a> and <a href="http://elixir-lang.org/" target="_blank" rel="nofollow">Elixir</a>增长的势头很强，被用在一些对性能要求很高的情况下。我们不推荐转移你的编程方向到这些语言中，但是你可能会在要求与其它的网站交互时会用到。</p> 
+<h3>9. 经典的全栈式框架</h3> 
+<p><a href="http://7u2qrr.com1.z0.glb.clouddn.com/blog_2015_new26644D60-E2F5-4145-AD5A-A174FE314ACA.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/blog_2015_new26644D60-E2F5-4145-AD5A-A174FE314ACA.jpg" alt=""></a></p>
+<p>尽管那些单页面应用增长迅速，但还是有大量的使用服务端的web应用。<a href="http://rubyonrails.org/" target="_blank" rel="nofollow">on Rails</a>, <a target="_blank" href="http://www.oschina.net/p/django" rel="nofollow">Django</a>, <a target="_blank" href="http://www.oschina.net/p/laravel" rel="nofollow">Laravel</a>, <a target="_blank" href="http://www.oschina.net/p/play-framework" rel="nofollow">Play</a>, <a href="http://www.asp.net/" target="_blank" rel="nofollow">ASP.NET</a>是这排名靠前的几个框架。花点时间学习任何的MVC框架都会让你获益良多。</p> 
+<p>Via：<a target="_blank" href="http://ljinkai.github.io/2015/07/06/2015-frameworkds-need-to-learn/" rel="nofollow">ljinkai</a></p>]]></body>
+      <commentCount>39</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-14 07:43:57</pubDate>
+	  <softwarelink><![CDATA[]]></softwarelink>
+	  <softwarename><![CDATA[]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[2015年7月TIOBE编程语言排行榜：C++ 的复兴]]></rtitle>
+			<rurl>http://www.oschina.net/news/64198/2015-7-tiobe</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[2015 年 6 月 RedMonk 编程语言排行榜]]></rtitle>
+			<rurl>http://www.oschina.net/news/63983/redmonk-2015-june</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[2015 年你不得不知的 7 个开源故事（截止到现在）]]></rtitle>
+			<rurl>http://www.oschina.net/translate/open-source-helping-communities-2015</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[谁是 2015 年推动开源技术的十大领军人物？]]></rtitle>
+			<rurl>http://www.oschina.net/news/63923/2015-opensource-top-persons</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[2015 年五大移动端设计趋势]]></rtitle>
+			<rurl>http://www.oschina.net/translate/5-big-mobile-design-trends-of-2015</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[TIOBE 2015年6月编程语言排行榜 Objective-C 下跌]]></rtitle>
+			<rurl>http://www.oschina.net/news/63168/tiobe-2015-6</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[2015年 30 个新的网页和图形设计字体（免费）]]></rtitle>
+			<rurl>http://www.oschina.net/news/63041/30-best-free-fonts-for-2015-web-and-graphic-designs</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[谷歌在 2015 年 I/O 大会上要讲的应该就是这些]]></rtitle>
+			<rurl>http://www.oschina.net/news/62683/what-google-talking-about-in-2015-io-conference</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[2015 年 15 个超棒的免费 Joomla 模板]]></rtitle>
+			<rurl>http://www.oschina.net/news/62630/free-joomla-templates-2015</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[2015年5月 TIOBE 编程语言排行榜单]]></rtitle>
+			<rurl>http://www.oschina.net/news/62430/tiobe-2015-5</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

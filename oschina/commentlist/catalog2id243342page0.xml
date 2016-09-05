@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+    <allCount>4</allCount>
+    <pagesize>4</pagesize>
+    <comments>
+                                                                    <comment>
+                <id>982379</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/126/253900_50.jpeg?t=1422505979000</portrait>
+                <author><![CDATA[火蚁]]></author>
+                <authorid>253900</authorid>
+                <content><![CDATA[解决问题的感觉是不是好爽]]></content>
+                <pubDate>2015-07-16 17:11:25</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>982354</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1144/2288818_50.jpg?t=1436932951000</portrait>
+                <author><![CDATA[亲爱的叛逆]]></author>
+                <authorid>2288818</authorid>
+                <content><![CDATA[@火蚁 找到错误原因了:源码是final CommonDialog dialog = DialogHelper.getPinterestDialogCancelable(getActivity()); 源码里继承的是BaseFragment,我继承的Activity,所以最后那里改成 this.getApplicationContext()了.这样不行,所以改成  MyActivity.this 了,然后就行了,这是为什么呀?这两个获取的context不一样么?]]></content>
+                <pubDate>2015-07-16 16:43:09</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[刘禹星]]></rauthor>
+                                <rpubDate>2015-07-16 18:13:41</rpubDate>
+                                <rcontent><![CDATA[你 Activity.this表示当前这个窗体的引用。 而getApplicationContext()表示当前应用程序, 而Dialog只有传入Activity的引用才会有效果，而传入Context则是不会生效的。 这个问题我以前也遇到过。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>982097</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/126/253900_50.jpeg?t=1422505979000</portrait>
+                <author><![CDATA[火蚁]]></author>
+                <authorid>253900</authorid>
+                <content><![CDATA[那个parent你可以引用自己项目里面的就好了]]></content>
+                <pubDate>2015-07-16 11:18:20</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[亲爱的叛逆]]></rauthor>
+                                <rpubDate>2015-07-16 16:05:31</rpubDate>
+                                <rcontent><![CDATA[引用到项目里了.但是dialog.show() 的时候还是会卡死..不知道是不是因为那些style的问题..我还在检查..无头绪..]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>982072</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/432/865233_50.jpg?t=1436794387000</portrait>
+                <author><![CDATA[OSCReims]]></author>
+                <authorid>865233</authorid>
+                <content><![CDATA[@火蚁]]></content>
+                <pubDate>2015-07-16 10:41:37</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+            </comments>
+    </oschina>

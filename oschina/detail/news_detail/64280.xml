@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64280</id>
+      <title><![CDATA[Smack 4.1.3 发布，XMPP 开发包]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64280/smack-4-1-3]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Smack 4.1.3 发布，这是一个 bug 修复版本，可以作为任何 Smack 4.1 版本简易替换版本。鼓励用户更新，因为 Smack 4.1.2 在 Roster API 引入了一项内存泄露，已被 4.13 修复。更新内容如下：</p> 
+<h2>Bug</h2> 
+<ul> 
+ <li><p>[<a href="https://igniterealtime.org/issues/browse/SMACK-679" rel="nofollow">SMACK-679</a>] - &nbsp; &nbsp; &nbsp; &nbsp; Memory leak in Socks5BytestreamManager. Should use weak map for 'managers'</p></li> 
+ <li><p>[<a href="https://igniterealtime.org/issues/browse/SMACK-680" rel="nofollow">SMACK-680</a>] - &nbsp; &nbsp; &nbsp; &nbsp; XHTML bodies are un-escaped after parsing</p></li> 
+ <li><p>[<a href="https://igniterealtime.org/issues/browse/SMACK-681" rel="nofollow">SMACK-681</a>] - &nbsp; &nbsp; &nbsp; &nbsp; Roster presence callbacks may not be invoked right after login</p></li> 
+</ul> 
+<p>更多内容请查看<a target="_self" href="http://www.igniterealtime.org/builds/smack/docs/latest/changelog.html" rel="nofollow">更新日志</a>，或者 <a href="http://www.igniterealtime.org/projects/smack" rel="nofollow">Smack website</a>。</p> 
+<p>Smack是一个开源，易于使用的XMPP（jabber）的 Java 客户端类库。<br></p>]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 08:03:15</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/smack]]></softwarelink>
+	  <softwarename><![CDATA[Smack]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Whack 2.0 发布，XMPP 即时通讯组件]]></rtitle>
+			<rurl>http://www.oschina.net/news/63583/whack-xmpp-2-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Smack 4.1.1 发布，XMPP 开发包]]></rtitle>
+			<rurl>http://www.oschina.net/news/62421/smack-4-1-1-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring AMQP 1.4.4/Spring Integration 3.0.7/4.0.7/4.1.3 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/61316/spring-amqp-1-4-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Smack 4.1.0 发布，XMPP 开发包]]></rtitle>
+			<rurl>http://www.oschina.net/news/60999/smack-4-1-0-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Seafile 4.1.3 发布，开源文件云存储]]></rtitle>
+			<rurl>http://www.oschina.net/news/60798/seafile-4-1-3-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Hibernate OGM 4.1.3/4.2 Beta1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/60618/hibernate-ogm-4-1-3-and-4-2-beta1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Smack 4.1.0 RC3/Smack 4.2.0 Alpha 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/60383/smack-4-1-0-rc3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Smack 4.0.7 发布，XMPP 开发包]]></rtitle>
+			<rurl>http://www.oschina.net/news/59905/smack-4-0-7</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Smack 4.1.0-rc1 发布，XMPP 开发包]]></rtitle>
+			<rurl>http://www.oschina.net/news/59733/smack-4-1-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Smack 4.1.0-beta2 发布，XMPP 开发包]]></rtitle>
+			<rurl>http://www.oschina.net/news/59383/smack-4-1-0-beta2</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>475070</id>
+		<title><![CDATA[OSSIM 4.1安装详解]]></title>
+		<url><![CDATA[http://my.oschina.net/chenguang/blog/475070]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>5</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><strong><span style="FONT-SIZE: 20px">OSSIM 4.1安装详解</span></strong></p> 
+<p>&nbsp;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在今年出版的畅销书《Unix/Linux网络日志分析与流量监控》一书中主要为大家介绍了开源安全运维利器-OSSIM，很多同行对Ossim表示了极大关注,纷纷来信咨询如何部署和使用这套系统。下面就4.1版的安装方法进行详细说明，具体ossim的组成原理大家可参看教程。在安装之前首先确保网络环境能够连接互联（系统会向debian.pool.ntp.org站点同步时钟）注意要选择自定义，以下步骤也就是按自定义方式安装来讲解。</p> 
+<p>选择语言、配置键盘</p> 
+<p>探测并挂载光盘</p> 
+<p>装载debconf预配置文件</p> 
+<p>从光盘加载按安装程序组件</p> 
+<p>探测网卡（包括有线和无线网卡）</p> 
+<p>配置网络，这里只能选配置静态IP地址，设定网关和DNS地址</p> 
+<p>配置主机名、域名信息，设置root密码</p> 
+<p>同步时钟设置，选择时区。</p> 
+<p>探测磁盘、磁盘分区（建议使用Debian系统自带的自动分区设置为LVM方式，尽量不要手动分区）</p> 
+<p>格式化分区（ext3格式），安装基本系统，配置软件包管理器</p> 
+<p>将当前网卡设置为混杂模式</p> 
+<p>设定监控网段（支持CIDR格式）</p> 
+<p>配置Postfix邮件系统（设置SMTP等，以后系统发送报警邮件会用到。）</p> 
+<p>安装GRUB到硬盘</p> 
+<p>选择检测插件 （如果实在物理服务器上安装，到这一步就会光驱，下面开始系统自动设置工作）</p> 
+<p>保存日志、结束安装进程</p> 
+<p>以上十几个步骤看似和其它Linux的安全没有什么区别，为了正常应用OSSIM系统，有些问题需要单独说明，在服务器先不要急于给磁盘做RAID，而且在分区是使用系统的自动分区，也不要手动分区。</p> 
+<p>1）.硬件选择</p> 
+<p>安装OSSIM和普通Linux发行版没有什么区别，即可选择品牌服务器也支持虚拟化服务器，不过配置要注意。硬件选择方面我们部署OSSIM需要独立的一台高性能服务器（内存呢至少8G以上且配备了多处理器，硬盘空间不低于500GB，实验阶段也可适当降低要求），如果读者在台式机或笔记本上做实验，那么建议配上不小于8G内存和一块128GB的固态硬盘式比较好的(对于Ossim4.1而言)。然后在机器上挂一块大容量的USB3.0接口的移动硬盘即可。</p> 
+<p>2).时区问题</p> 
+<p>以安装OSSIM 4.1为例，为了有准确的时钟，首先选择国家，在“请选择您的位置”界面选择“其它”，然后选取“亚洲”和“中国”选项。如果选择其它国家那么时区就会发生改变。</p> 
+<p>3).实现软RAID设置</p> 
+<p>如果没有硬件Raid，OSSIM系统也支持软Raid。本实验在Vmware 10下完成，首先在虚拟机下准备好个虚拟磁盘文件，大小为20GB。在安装时我们能看到如图中所显示的sda、sdb两个大小为20GB的虚拟磁盘</p> 
+<p><br></p> 
+<p><img title="1.jpg" alt="wKioL1WXMIbC7ekeAAG-9XjXFR0222.jpg" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06112232_UkTZ.jpg"></p>
+<p>图 1 磁盘分区</p> 
+<p>然后，选择继续将显示如图所示，这时我们需要选择“Manual”选项代表手工分区，下一步选择“Configure software RAID”配置软RAID。操作关键截图见图 所示。</p> 
+<p><a href="http://s3.51cto.com/wyfs02/M02/6F/4A/wKiom1WXLyLRYovKAAFIc1ELxcs831.jpg" target="_blank" rel="nofollow"><img title="2.jpg" alt="wKiom1WXLyLRYovKAAFIc1ELxcs831.jpg" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06112232_YoqE.jpg"></a></p>
+<p>图2选择手工分区</p> 
+<p>&nbsp;<a href="http://s3.51cto.com/wyfs02/M01/6F/4A/wKiom1WXQKKR_2EVAAGAM76H3p0871.jpg" target="_blank" rel="nofollow"><img title="3.jpg" alt="wKiom1WXQKKR_2EVAAGAM76H3p0871.jpg" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06112232_dANl.jpg"></a></p>
+<p>&nbsp;</p> 
+<p>图3配置RAID</p> 
+<p>选择如果是新建RAID，首先要创建MD设备，如果所示，然后选择RAID0，如图所示。</p> 
+<p><a href="http://s3.51cto.com/wyfs02/M00/6F/4A/wKiom1WXQZ_Aw1suAAExWby7ptA594.jpg" target="_blank" rel="nofollow"><img title="4.jpg" alt="wKiom1WXQZ_Aw1suAAExWby7ptA594.jpg" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06112232_Eurr.jpg"></a></p>
+<p>&nbsp;图4 创建MD设备</p> 
+<p><a href="http://s3.51cto.com/wyfs02/M00/6F/48/wKioL1WXQ5SgH2tqAAC-CBo2BCE278.jpg" target="_blank" rel="nofollow"><img title="5.jpg" alt="wKioL1WXQ5SgH2tqAAC-CBo2BCE278.jpg" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06112232_TipL.jpg"></a> </p>
+<p>&nbsp;图5 选择Raid 0</p> 
+<p>我们同时选取两块磁盘，两块设置完RAID0后总容量为40G，当然有5～8%的损耗。图中显示为38.6GB，但设置好软RAID后就开始后续格式化等过程安装了。</p> 
+<p><a href="http://s3.51cto.com/wyfs02/M01/6F/48/wKioL1WXQ_rTCIqvAAERVvFs9vQ428.jpg" target="_blank" rel="nofollow"><img title="6.jpg" alt="wKioL1WXQ_rTCIqvAAERVvFs9vQ428.jpg" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06112232_5fZr.jpg"></a></p>
+<p>图6选取用于创建Raid 0的 2块磁盘</p> 
+<p><a rel="nofollow"></a>&nbsp;<a href="http://s3.51cto.com/wyfs02/M01/6F/4A/wKiom1WXQoGD4l3SAAE4CQ373Bg714.jpg" target="_blank" rel="nofollow"><img title="7.jpg" alt="wKiom1WXQoGD4l3SAAE4CQ373Bg714.jpg" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06112232_icr4.jpg"></a> </p>
+<p>图7Raid0创建完毕</p> 
+<p>接下来就是格式化，当全部格式化完成就会立即挂接，开始安装基本系统。就是不断的完成解包，安装，配置这三个过程直至基本系统安装完成。具体安装了哪些包可以用</p> 
+<p>#dpkg –l查看。</p> 
+<p>4).安装组件问题</p> 
+<p>一般首次安装时，建议大家使用自定义安装，如图8所示。</p> 
+<p><a href="http://s3.51cto.com/wyfs02/M01/6F/48/wKioL1WXR-ChfuH7AAD7lVhTwps210.jpg" target="_blank" rel="nofollow"><img title="8.jpg" alt="wKioL1WXR-ChfuH7AAD7lVhTwps210.jpg" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06112232_Tcsp.jpg"></a></p>
+<p><br></p> 
+<p>图8 选择所有框架</p> 
+<p>关键是要将图中Server、Sensor、Framework和Database全部选中。</p> 
+<p>通常用在分布式安装的情况，如果选择了Server关联引擎，不需要在每个探头处安装数据库，他们只需将日志统一发到后台数据库。那么安装时，只安装ossim-mysql-client而不安装数据库，所以其它OSSIM在和数据库通讯就需要密码，我们用下面命令查到数据库密码：</p> 
+<p>#cat /etc/ossim/ossim_setup.conf |grep pass</p> 
+<p>或者#cat /etc/ossim/framework/ossim.conf|grep ossim_pass</p> 
+<p>Pass=后面就是数据库密码。</p> 
+<p>其实这个密码和/etc/ossim/framework/ossim.conf配置文件中的ossim_pass=选项后面的密码相同，打开哪一个配置文件查找都可以。看看下面案例：一台主服务器再加上两个探针（一个探针IP为192.168.150.212，另一个为192.168.150.217），在OSSIM服务器上输入以下命令，以便在安装探针时候正确连接主服务器的MySQL数据库。</p> 
+<table cellspacing="0" cellpadding="0"> 
+ <tbody> 
+  <tr> 
+   <td> 
+    <table cellspacing="0" cellpadding="0"> 
+     <tbody> 
+      <tr> 
+       <td><p>Mysql&gt;use mysql;</p></td> 
+      </tr> 
+     </tbody> 
+    </table></td> 
+  </tr> 
+ </tbody> 
+</table> 
+<p><br></p> 
+<p>经过上述命令以后，再连接Serve时就可以输入IP地址和数据库口令了，如图9、图10所示。这里要特意强调一下MySQL的权限问题，MySQL相关权限信息主要存储在mysql.User、mysql.db、mysql.Host、mysql_table_priv几个表中。由于存储权限信息量很很小，但访问频繁，所以MySQL在启动时就会将所有的权限信息都加载到内存中保存在几个特定的结构中，故我们可以手动修改权限相关的表后，都需要通过执行"FLUSH PRIVILEGES" 命令重新加载MySQL的权限信息。我们也可以通过GRANT、REVOKE或者DROP USER命令所做的修改权限后也会同时更新到内存结构中的权限信息。后面讲的远程连接和监控数据库都需要用到这方面知识，请读者通过实验来仔细体会。</p> 
+<p><a href="http://s3.51cto.com/wyfs02/M00/6F/4A/wKiom1WXRvPz96CoAACx7vMP6A4640.jpg" target="_blank" rel="nofollow"><img title="9.jpg" alt="wKiom1WXRvPz96CoAACx7vMP6A4640.jpg" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06112232_CAo9.jpg"></a></p>
+<p>图9 指定数据库服务器IP</p> 
+<p><a href="http://s3.51cto.com/wyfs02/M01/6F/48/wKioL1WXSNXj8ZZgAACjf5U9Aj4499.jpg" target="_blank" rel="nofollow"><img title="10.jpg" alt="wKioL1WXSNXj8ZZgAACjf5U9Aj4499.jpg" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06112232_5Sg0.jpg"></a></p>
+<p><br></p> 
+<p>&nbsp;</p> 
+<p>&nbsp;图10输入MySQL数据库密码</p> 
+<p>注意：如果连接不上数据库，用Ctrl+Alt+F4回到控制台(此方法适用于OSSIM 4.2之前的系统)，发现出现了以下错误：</p> 
+<p>ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)</p> 
+<p>为了寻找原因，我们输入以下命令查看一下数据库。</p> 
+<p>Mysql&gt;Use mysql;</p> 
+<p>Mysql&gt;Select user,host from user;</p> 
+<p>Root用户只能用从IP127.0.0.1登录。这时解决办法可以将这限制暂时放开。</p> 
+<p>具体解决方法在本章远程访问MySQL 一节会给出。如果设置正确，输入密码后下一步就会出现选择嗅探网卡一般是eth0。如果设置不对则反复输入数据库的root口令。</p> 
+<p>5) 设定监控网段</p> 
+<p>有关设置传感器监控范围是，一定注意不要选择默认选项，要按照实际情况的网络信息设置。</p> 
+<p>真机下安装Ossim4.1过程大家可参考：http://www.tudou.com/programs/view/9AdkVcTgf60/ 这段视频。</p> 
+<p>&nbsp;</p> 
+<p><strong>安装多台OSSIM</strong></p> 
+<p>在分布式部署时，需要安装多个OSSIM系统只不过角色不同，有的是Server有的是Sensor有的是Agent，如果你在某网段安装嗅探器，那么安装时，Framwork 就不用安装，设置在继续安装时系统会连接到Framwork Server，这时只需要输入它的IP地址即可。其它两个组件也相同。</p> 
+<p>如果装多个Sensor，那么在Server端需要手工添加，如图11所示。当新装的Sensor连接到Server并从新启动后，Server端的Sensors管理界面就会提示，这时选择“Insert”按钮，而不能使用选择“New”手工输入IP地址的方法。</p> 
+<p>&nbsp;<a href="http://s3.51cto.com/wyfs02/M01/6F/4A/wKiom1WXR_XzSfHAAAD6jFUV4mo121.jpg" target="_blank" rel="nofollow"><img title="11.jpg" alt="wKiom1WXR_XzSfHAAAD6jFUV4mo121.jpg" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06112232_Exin.jpg"></a></p>
+<p>图11添加多个传感器</p> 
+<p>注意，在OSSIM4.6以上系统，添加Sensor时需要输入管理员密码，这样提高了分布式系统的安全性。</p> 
+<p>在安装时系统会提示“Please enter the IP address of the AlienVault box running the Framework profile (Web Interface).”，以及“Please enter the IP address of the AlienVault box running the Server profile”。</p> 
+<p>这种情况下安装好了OSSIM系统怎么登录？当然Web界面要输入Server profile端地址。在进行漏洞扫描（Analysis→Vulnerabilities）和流量监测（Situational Awareness→Profiles）时就会显示多个Sensor可以收集不同网段的信息。如图12所示，大家可以参考这段安装视频<a href="http://www.tudou.com/programs/view/Tyw7VyuMiXE/" target="_blank" rel="nofollow">http://www.tudou.com/programs/view/Tyw7VyuMiXE/</a></p> 
+<p>&nbsp;</p> 
+<p>图12多传感器选择</p> 
+<p>&nbsp;</p> 
+<ul> 
+ <li><p>&nbsp;<a href="http://pan.baidu.com/s/1i3l9COH" target="_self" rel="nofollow">（下载实验环境）</a><br></p></li> 
+</ul>]]></body>
+		<author><![CDATA[晨光Linux]]></author>
+		<authorid>71229</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-06 11:22:32</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64283</id>
+      <title><![CDATA[自由软件的精神以及现实的碰撞]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64283/debian]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Debian 邮件列表正在热烈讨论一个<a target="_blank" href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=786909" rel="nofollow"><span style="text-decoration:underline;">现实问题</span></a>：自由软件的精神与现实的碰撞。Chromium 浏览器前不久被发现会静默下载一个二进制文件（Debian bug编号 <a target="_blank" href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=786909" rel="nofollow"><span style="text-decoration:underline;">#786909</span></a>），Google 没有公开这个监听语音命令的文件源代码。这件事其实就是现实的一个反映：普通人不可能像 FSF 主席 RMS 那样高严格的捍卫软件自由，他们必须与现实作出一 些妥协。在一些人看来，Google 的做法是严重侵犯用户隐私，但另一些人眼里与非自由软件的谨慎妥协是现实生活的一部分。使用浏览器浏览网页你根本无法避免被跟踪。有人曾做了个<a target="_blank" href="https://lists.debian.org/debian-devel/2015/07/msg00250.html" rel="nofollow"><span style="text-decoration:underline;">简单的研究</span></a>： 浏览器运行在安全浏览模式下，用 <a target="_blank" href="http://www.oschina.net/p/wireshark" rel="nofollow">Wireshark</a> 抓包观察流量，发现即使不做任何事情浏览器仍然不断的访问一个远程服务器，而这个主机为搜索巨人所有，计算机在根本没有询问用户的情况 下就向对热衷收集数据的 Google 发送了大量信息。</p>]]></body>
+      <commentCount>31</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 08:08:01</pubDate>
+	  <softwarelink><![CDATA[]]></softwarelink>
+	  <softwarename><![CDATA[]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Qt 5.6 发布计划以及新特性预览]]></rtitle>
+			<rurl>http://www.oschina.net/news/64075/qt-5-6-plan</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OSChina 周三乱弹 —— 打醒精神去瞌睡]]></rtitle>
+			<rurl>http://my.oschina.net/xxiaobian/blog/475907</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[360 的开源软件使用以及开源文化构建经验]]></rtitle>
+			<rurl>http://www.oschina.net/news/63868/360-open-source-software-and-culture-build-experience</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[【每日一博】Nodejs 负载均衡：haproxy，slb以及node-slb]]></rtitle>
+			<rurl>http://my.oschina.net/nodeonly/blog/472432</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ubuntu 软件中心因推广非自由软件被批评]]></rtitle>
+			<rurl>http://www.oschina.net/news/63158/ubuntu_software_center_proprietary_and_free_software_mixed</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 入门以及 Dockerfile （视频+Git 代码）]]></rtitle>
+			<rurl>http://www.oschina.net/news/63125/csphere-docker-training-end</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[谷歌字体库重现互联网早期精神]]></rtitle>
+			<rurl>http://www.oschina.net/news/63106/google-fonts-find-early-internet-spirit</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Vala 编程语言以及相关的开源软件]]></rtitle>
+			<rurl>http://www.oschina.net/news/61383/vala-opensource</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RMS 谈自由软件运动和后门]]></rtitle>
+			<rurl>http://www.oschina.net/news/60864/rms-freesoftware</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[什么是开源以及我的开源经验 ]]></rtitle>
+			<rurl>http://www.oschina.net/news/60718/what-is-open-source-and-my-open-source-experience</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

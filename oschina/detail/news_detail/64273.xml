@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64273</id>
+      <title><![CDATA[TeamCity 9.1 发布，持续集成工具]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64273/teamcity-9-1]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>TeamCity 9.1 发布，尽管这是一个小更新，但还是带来了一系列主要提升，包括改进版本化设置，增强 .NET 支持，安全升级等等。更多详细更新内容请查看<a target="_blank" href="https://www.jetbrains.com/teamcity/whatsnew/?rss" rel="nofollow">这里</a>。</p> 
+<p>该版本下载请点：<a target="_blank" href="https://www.jetbrains.com/teamcity/download/" rel="nofollow">download</a>。<br></p> 
+<p><br></p> 
+<p>TeamCity是一款功能强大的持续集成（Continue Integration）工具，包括服务器端和客户端，目前支持Java，.Net项目开发。 TeamCity提供一系列特性可以让团队快速实现持续继承：IDE工具集成、各种消息通知、各种报表、项目的管理、分布式的编译等等，所有的这些，都是 让你的团队快速享有持续继承带来的效率提升、高质量的软件保障。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201008/31231426_JWaw.jpg" alt=""><br></p>
+<br>]]></body>
+      <commentCount>3</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 07:37:43</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/teamcity]]></softwarelink>
+	  <softwarename><![CDATA[TeamCity]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Teiid Designer 9.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64126/teiid-designer-9-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[TeamCity 9 发布，7*24 小时的构建工程师]]></rtitle>
+			<rurl>http://www.oschina.net/news/57846/teamcity-9</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[4MLinux 9.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/54730/4mlinux-9-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[TheSSS 9.1 发布，轻量级服务器套件]]></rtitle>
+			<rurl>http://www.oschina.net/news/54460/thesss-9-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[4MLinux 9.1 Server Edition BETA 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/54377/4mlinux-9-1-server-edition-beta-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[使用 Docker 简化 TeamCity 安装 ]]></rtitle>
+			<rurl>http://www.oschina.net/translate/easy-teamcity-installation-with-docker</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[4MLinux 9.1 Rescue BETA 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/53794/4mlinux-9-1-rescue-beta</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[LinkChecker 9.1 发布，网页链接检查]]></rtitle>
+			<rurl>http://www.oschina.net/news/50267/linkchecker-9-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[TeamCity 8.1 发布，持续集成工具]]></rtitle>
+			<rurl>http://www.oschina.net/news/48796/teamcity-8-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[TeamCity 8 发布，持续集成工具]]></rtitle>
+			<rurl>http://www.oschina.net/news/41610/teamcity-8-released</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

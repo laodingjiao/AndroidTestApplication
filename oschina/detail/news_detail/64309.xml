@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64309</id>
+      <title><![CDATA[Groovy 加入 Apache 基金会发布 2.4.4 版本]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64309/apache-groovy-2-4-4]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Groovy 发布了 2.4.4 版本，这是 Groovy 加入 Apache 基金会，处于孵化阶段时发布的首个版本。</p> 
+<p>该版本改进内容包括：</p> 
+<h2>Bug</h2> 
+<ul> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7018" rel="nofollow">GROOVY-7018</a>] - GroovyClassLoader addClasspath RegexPattern issue</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7022" rel="nofollow">GROOVY-7022</a>] - invoking scripts using full path broken in cygwin</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7097" rel="nofollow">GROOVY-7097</a>] - ScriptBase class can't be resolved if not in current directory even if CompilerConf classpath is set</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7127" rel="nofollow">GROOVY-7127</a>] - Dates.isJsonDate only recognizes Javascript Date's toJSON() Format</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7159" rel="nofollow">GROOVY-7159</a>] - STC claims non-existent Diamond in Anonymous Inner Class with Generics</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7338" rel="nofollow">GROOVY-7338</a>] - URL getText(requestProperties) Map doesn't accept a GString</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7365" rel="nofollow">GROOVY-7365</a>] - Compiler crash in the static type checker</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7366" rel="nofollow">GROOVY-7366</a>] - Static imports are missing in generated stubs</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7377" rel="nofollow">GROOVY-7377</a>] - Interpolated variable followed by asterisk in slashy-string causes compiler error</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7381" rel="nofollow">GROOVY-7381</a>] - Setters with non-void return type fail at runtime when statically compiled</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7386" rel="nofollow">GROOVY-7386</a>] - Packed Maven pom.xml reference commons-cli instead of groovy-all</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7391" rel="nofollow">GROOVY-7391</a>] - Indy ignores custom invoker in meta class</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7392" rel="nofollow">GROOVY-7392</a>] - JsonSlurper Fails on Valid JSON</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7416" rel="nofollow">GROOVY-7416</a>] - Problem With CompileStatic And Interface Methods In Abstract Subclass</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7424" rel="nofollow">GROOVY-7424</a>] - NPE in SecureASTCustomizer for interface method declarations</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7448" rel="nofollow">GROOVY-7448</a>] - AbstractConcurrentMap performing rehash() on every insert</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7453" rel="nofollow">GROOVY-7453</a>] - CompileStatic annotation should not support package target</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7456" rel="nofollow">GROOVY-7456</a>] - Builders don't work in Traits</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7461" rel="nofollow">GROOVY-7461</a>] - Groovy doesn't write BOM if UTF-16 alias is used</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7462" rel="nofollow">GROOVY-7462</a>] - groovy.json.internal.Dates instantiates objects without explicitly specifying the miliseconds parameter</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7474" rel="nofollow">GROOVY-7474</a>] - Difference between junit3 and junit 4 shouldFail {...} not described in docs</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7476" rel="nofollow">GROOVY-7476</a>] - JsonSlurper sometimes does not parse escaped double quotes on parsing with JsonParsingUsingCharacterSource</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7477" rel="nofollow">GROOVY-7477</a>] - CompileStatic-related "BUG! exception in phase 'instruction selection'"</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7485" rel="nofollow">GROOVY-7485</a>] - BUG! exception in phase 'semantic analysis'... when trying to call instance method as default for a constructor parameter</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7495" rel="nofollow">GROOVY-7495</a>] - Diamond inheritance of interfaces makes method return type incompatible</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7504" rel="nofollow">GROOVY-7504</a>] - [CVE-2015-3253] Potential remote code execution</p></li> 
+</ul> 
+<p><a rel="nofollow"></a></p> 
+<h2>Improvement</h2> 
+<ul> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7425" rel="nofollow">GROOVY-7425</a>] - Add 'getBytes(Map parameters)' method to the URL class</p></li> 
+</ul> 
+<p><a rel="nofollow"></a></p> 
+<h2>Sub-task</h2> 
+<ul> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-4421" rel="nofollow">GROOVY-4421</a>] - Casts should have higher precedence than mathematical operators</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-5185" rel="nofollow">GROOVY-5185</a>] - Cast operator precedence is incorrect</p></li> 
+</ul> 
+<p><a rel="nofollow"></a></p> 
+<h2>Task</h2> 
+<ul> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-6268" rel="nofollow">GROOVY-6268</a>] - New documentation</p></li> 
+ <li><p>[<a href="https://issues.apache.org/jira/browse/GROOVY-7470" rel="nofollow">GROOVY-7470</a>] - Change license for adoc (guide) files to ASLv2</p></li> 
+</ul>]]></body>
+      <commentCount>4</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 07:47:48</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/groovy]]></softwarelink>
+	  <softwarename><![CDATA[Groovy]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Apache 2.4.16 发布，改进 HTTP ]]></rtitle>
+			<rurl>http://www.oschina.net/news/64268/apache-2-4-16</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— Groovy 的 POI 扩展]]></rtitle>
+			<rurl>http://git.oschina.net/styushao/dsl_poi</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Ignite vs Apache Spark ]]></rtitle>
+			<rurl>http://www.oschina.net/translate/apache-ignite-vs-apache-spark</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Grails 3.0 发布，Groovy 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/61099/grails-3-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Grails 2.5.0 发布了，Groovy 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/60995/grails-2-5-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Groovy 2.4.3 发布，JVM 动态脚本语言]]></rtitle>
+			<rurl>http://www.oschina.net/news/60826/groovy-2-4-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[SonarQube Groovy 1.1 发布，代码质量管理系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/60769/sonarqube-groovy-1-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Groovy 2.4.2/2.3.11 发布，JVM 动态脚本语言]]></rtitle>
+			<rurl>http://www.oschina.net/news/60702/groovy-2-4-2-and-2-3-11</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Groovy 即将加入 Apache 软件基金会]]></rtitle>
+			<rurl>http://www.oschina.net/news/60347/groovy-move-to-apache-software-foundation-in-sight</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Zabbix 2.4.4 正式发布，分布式系统监视]]></rtitle>
+			<rurl>http://www.oschina.net/news/59904/zabbix-2-4-4</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

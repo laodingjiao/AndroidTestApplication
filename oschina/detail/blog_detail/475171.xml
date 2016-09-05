@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>475171</id>
+		<title><![CDATA[log4j直接输出日志到flume]]></title>
+		<url><![CDATA[http://my.oschina.net/cloudcoder/blog/475171]]></url>
+		<where><![CDATA[search]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h1>log4j直接输出日志到flume</h1> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此jar是由Cloudera的CDH发行版提供的一个工具类，通过配置，可以将log4j的日志直接输出到flume，方便日志的采集。</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在CDH5.3.0版本中是：flume-ng-log4jappender-1.5.0-cdh5.3.0-jar-with-dependencies.jar</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所在目录是：/opt/cloudera/parcels/CDH/lib/flume-ng/tools/</p> 
+<h1>具体使用示例</h1> 
+<h2>log4j配置（log4j.properties)</h2> 
+<pre class="brush:java;toolbar: true; auto-links: false;">log4j.category.com.xxx=INFO,console,flume
+log4j.appender.console=org.apache.log4j.ConsoleAppender
+log4j.appender.console.target=System.out
+log4j.appender.console.layout=org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern="%d{yyyy-MM-dd&nbsp;HH:mm:ss}&nbsp;%p&nbsp;[%c:%L]&nbsp;-&nbsp;%m%n
+
+log4j.appender.flume&nbsp;=&nbsp;org.apache.flume.clients.log4jappender.Log4jAppender
+log4j.appender.flume.Hostname&nbsp;=&nbsp;localhost
+log4j.appender.flume.Port&nbsp;=&nbsp;4444
+log4j.appender.flume.UnsafeMode&nbsp;=&nbsp;true
+log4j.appender.flume.layout=org.apache.log4j.PatternLayout
+log4j.appender.flume.layout.ConversionPattern=%d{yyyy-MM-dd&nbsp;HH:mm:ss}&nbsp;%p&nbsp;[%c:%L]&nbsp;-&nbsp;%m%n</pre> 
+<h2>配置classpath</h2> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在classpath中要包含log4j.properties和<span style="line-height: 22.5px;">flume-ng-log4jappender-1.5.0-cdh5.3.0-jar-with-dependencies.jar</span></p> 
+<h2>编写JAVA测试类并导出为test.jar&nbsp;</h2> 
+<pre class="brush:java;toolbar: true; auto-links: false;">import&nbsp;java.util.Date;
+
+import&nbsp;org.apache.commons.logging.Log;
+import&nbsp;org.apache.commons.logging.LogFactory;
+
+
+public&nbsp;class&nbsp;WriteLog&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;static&nbsp;final&nbsp;Log&nbsp;logger&nbsp;=&nbsp;LogFactory.getLog(WriteLog.class);
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;void&nbsp;main(String[]&nbsp;args)&nbsp;throws&nbsp;InterruptedException&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;TODO&nbsp;Auto-generated&nbsp;method&nbsp;stub
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(true)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;每隔两秒log输出一下当前系统时间戳
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logger.info(new&nbsp;Date().getTime());
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thread.sleep(2000);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw&nbsp;new&nbsp;Exception("exception&nbsp;msg");
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catch&nbsp;(Exception&nbsp;e)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logger.error("error:"&nbsp;+&nbsp;e.getMessage());
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}</pre> 
+<h2>编写flume agent配置文件<br></h2> 
+<pre class="brush:java;toolbar: true; auto-links: false;">a1.sources&nbsp;=&nbsp;r1
+a1.sinks&nbsp;=&nbsp;k1
+a1.channels&nbsp;=&nbsp;c1
+&nbsp;
+#&nbsp;Describe/configure&nbsp;the&nbsp;source
+a1.sources.r1.type&nbsp;=&nbsp;avro
+a1.sources.r1.bind&nbsp;=&nbsp;localhost
+a1.sources.r1.port&nbsp;=&nbsp;4444
+&nbsp;
+#&nbsp;Describe&nbsp;the&nbsp;sink
+a1.sinks.k1.type&nbsp;=&nbsp;file_roll
+a1.sinks.k1.sink.directory&nbsp;=&nbsp;/data/soft/flume/tmp
+a1.sinks.k1.sink.rollInterval=86400
+a1.sinks.k1.sink.batchSize=100
+a1.sinks.k1.sink.serializer=text
+a1.sinks.k1.sink.serializer.appendNewline&nbsp;=&nbsp;false
+&nbsp;
+#&nbsp;Use&nbsp;a&nbsp;channel&nbsp;which&nbsp;buffers&nbsp;events&nbsp;in&nbsp;memory
+a1.channels.c1.type&nbsp;=&nbsp;memory
+a1.channels.c1.capacity&nbsp;=&nbsp;1000
+a1.channels.c1.transactionCapacity&nbsp;=&nbsp;1000
+&nbsp;
+#&nbsp;Bind&nbsp;the&nbsp;source&nbsp;and&nbsp;sink&nbsp;to&nbsp;the&nbsp;channel
+a1.sources.r1.channels&nbsp;=&nbsp;c1
+a1.sinks.k1.channel&nbsp;=&nbsp;c1</pre> 
+<h2>运行程序</h2> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将相关程序上传到服务器，并先启动agent<br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;进入flume安装目录后，执行<br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 176, 80);"><span style="display: none; line-height: 0px;">‍</span>&nbsp;&nbsp;bin/flume-ng agent -c conf -f conf/avro.conf --name a1 -Dflume.root.logger=INFO,console</span><span style="display: none; line-height: 0px;">‍</span></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;执行测试程序<br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 176, 80);">java -classpath ./:flume-ng-log4jappender-1.5.0-cdh5.3.0-jar-with-dependencies.jar:test.jar com.xxx.WriteLog</span></p> 
+<h2>检查运行结果</h2> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tail -f /data/soft/flume/tmp/1436164166461-1&nbsp;</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">2015-07-06&nbsp;14:51:36&nbsp;ERROR&nbsp;[com.xxx.WriteLog:27]&nbsp;-&nbsp;error:exception&nbsp;msg
+2015-07-06&nbsp;14:51:36&nbsp;ERROR&nbsp;[com.xxx.WriteLog:28]&nbsp;-&nbsp;error:stack
+2015-07-06&nbsp;14:51:36&nbsp;INFO&nbsp;[com.xxx.WriteLog:21]&nbsp;-&nbsp;1436165496975
+2015-07-06&nbsp;14:51:38&nbsp;ERROR&nbsp;[com.xxx.WriteLog:27]&nbsp;-&nbsp;error:exception&nbsp;msg
+2015-07-06&nbsp;14:51:38&nbsp;ERROR&nbsp;[com.xxx.WriteLog:28]&nbsp;-&nbsp;error:stack
+2015-07-06&nbsp;14:51:38&nbsp;INFO&nbsp;[com.xxx.WriteLog:21]&nbsp;-&nbsp;1436165498977</pre> 
+<p><br></p>]]></body>
+		<author><![CDATA[cloud-coder]]></author>
+		<authorid>1410765</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-06 14:55:57</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

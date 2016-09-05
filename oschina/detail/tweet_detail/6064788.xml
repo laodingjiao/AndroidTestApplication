@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6064788</id>
+	<body><![CDATA[
+		想了好几天，方案好了。 一切只剩下写了。开心死了。 可是突然 我又不想写了。 是这类型的习惯码嘴皮，忘记了老本。        	]]></body>
+    <author><![CDATA[dworry]]></author>
+	<authorid>555881</authorid>
+    <appclient>1</appclient>
+    <commentCount>0</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/277/555881_50.jpg?t=1368764313000</portrait>
+    <pubDate>2015-07-17 11:27:43</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>1</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[王爵]]></name>
+				<uid>1767531</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/883/1767531_50.png?t=1435568843000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

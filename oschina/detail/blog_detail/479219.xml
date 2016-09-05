@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479219</id>
+		<title><![CDATA[oracle造最近6个月及每月天数SQL]]></title>
+		<url><![CDATA[http://my.oschina.net/h2do/blog/479219]]></url>
+		<where><![CDATA[SQL]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><pre class="brush:sql;toolbar: true; auto-links: false;">select&nbsp;to_char(t,&nbsp;'yyyymm')&nbsp;a,&nbsp;to_char(t,&nbsp;'yyyy-mm')&nbsp;b,&nbsp;to_char(t,&nbsp;'dd')&nbsp;c
+&nbsp;&nbsp;from&nbsp;(
+&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;decode(level,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trunc(sysdate,&nbsp;'dd'),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;add_months(trunc(sysdate,&nbsp;'mm'),&nbsp;2&nbsp;-&nbsp;1&nbsp;*&nbsp;level)&nbsp;-&nbsp;1)&nbsp;t
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;dual
+&nbsp;&nbsp;&nbsp;&nbsp;connect&nbsp;by&nbsp;level&nbsp;&lt;&nbsp;7
+&nbsp;&nbsp;)</pre> 
+<p>当月显示实际天数，非整月天数：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/111441_mMYD_1245084.jpg"></p>]]></body>
+		<author><![CDATA[一是无成]]></author>
+		<authorid>1245084</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 11:16:02</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

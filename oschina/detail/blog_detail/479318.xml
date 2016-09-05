@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479318</id>
+		<title><![CDATA[面试宝典之基本的C#面试问答]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2285044/blog/479318]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">下文是基本的C#面试问答清单。这些面试问题简单、直接了当，涵盖了C#最基本的概念，大部分和面向对象的概念相关。<span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">最近有面试需求的可以看看，理论还是要用于实践，比如参加一场面试：</span><a target="_blank" href="http://t.cn/RZDuuIz" rel="nofollow">http://t.cn/RZDuuIz</a></span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">1.&nbsp;<a target="_blank" href="http://t.cn/RLcIbSh" rel="nofollow">什么是C#</a>？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#（发音”C sharp”）是一种简单、有别于传统的、面向对象、类型安全的编程语言。C和C++程序员很快就会熟悉它。C＃中结合了高生产率的快速应用开发（RAD）语言。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">2.&nbsp;<a target="_blank" href="http://t.cn/RLcI58Y" rel="nofollow">C#的有哪些注释类型</a>？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#中有三种注释类型。<br>单行(//)<br>多行(/* */)<br>Page/XML&nbsp;注释(///)。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">3.&nbsp;C#.NET中使用的命名空间有哪些？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">命名空间是类型的逻辑分组。<br>using System;<br>using System.Collections.Generic;<br>using System.Windows.Forms;</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">4.&nbsp;C#有哪些特点？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#有以下特点：</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">简单<br>类型安全<br>灵活<br>面向对象<br>兼容<br>持久化<br>互操作性<br>有别于传统</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">5.&nbsp;继承有哪些不同的类别？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">在面向对象编程中继承的四种类型：</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">单继承：</span>包括一个基类和一个派生类。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">多层继承(Hierarchical inheritance)&nbsp;:</span>包括一个基类和继承自同一个基类的派生类。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">多级继承(Multilevel inheritance):</span>包括从一个派生类派生出来的类。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">多重继承(Multiple inheritance):</span>包括多个基类和一个派生类。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">6.&nbsp;面向对象编程的基本概念是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">有必要理解一些在面向对象编程中广泛使用的概念。它们包括：</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">对象<br>类<br>数据抽象和封装<br>继承<br>多态性<br>动态绑定<br>信息传递。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">7.&nbsp;你可以继承多个接口吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">可以的。</span><a target="_blank" href="http://t.cn/RLcIf2D" rel="nofollow"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">在C#中可能继承多个接口</span></a><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">8.&nbsp;什么是继承？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">继承是从一个已经存在的类中派生出来的新类。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">9. Define scope?定义作用域？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">作用域指的是代码中一个变量可以被访问的区域。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">10. public、static和void之间的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">public:</span>关键字public是访问修饰符，用来告诉C#编译器主(Main)方法可以被任何人调用。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">static:</span>关键字static表明主(Main)方法是一个全局方法，不需要穿件类实例即可访问。编译器储存该方法的地址作为切入点，并利用这个信息在任何对象创建之前开始执行它。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">void:</span>关键字void是一个类型修饰符表明主(Main)方法不返回任何值。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">11.&nbsp;C#中的修饰符有哪些？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">Abstract<br>Sealed<br>Virtual<br>Const<br>Event<br>Extern<br>Override<br>Readonly<br>Static<br>New</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">12.&nbsp;C#中访问修饰符的种类有哪些？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#中的访问修饰符是：</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">public<br>protect<br>private<br>internal<br>internal protect</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">13.&nbsp;什么是装箱和拆箱？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">变量值类型隐式转换为引用类型成为装箱，例如integer到object的类型转换。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">引用类型变量转换回值类型成为拆箱。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">14.&nbsp;对象是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">对象是类的实例。对象的创建使用new操作。一个类在内存中创建一个对象，将包含特定对象的值和行为(或者方法)的信息。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">15.&nbsp;C#中有哪些类型的数组？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">一维数组(Single-Dimensional)<br>多维数组(Multidimensional)<br>交错数组(Jagged arrays)。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">16.&nbsp;对象和实例之间的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">用户定义的类型的实例称为一个对象。我们可以从一个类实例化很多对象。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">对象是类的实例。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">17. Define destructors?定义析构函数？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">当类对象超出作用域或者被明确删除的时候，析构函数被调用。析构函数，顾名思义是用来销毁由构造函数创建的对象的。正如构造函数，析构函数是一个类成员方法，方法名和类名相同，只是由波浪号开头。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">18.&nbsp;枚举数据类型怎么用？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">枚举类型是另一种用户定义类型，它提供了一种连接名字为数字的方式，从而提高了代码的可理解性。enum关键字自动地枚举一组词，赋予它们的值为0,1,2并以此类推。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">19.&nbsp;定义构造函数？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">构造函数是和它的类同名的成员方法。每当创建其关联的类的对象时构造函数都会被调用。它之所以被称为构造函数是因为它构造了类的数据成员的值。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">20.&nbsp;什么是封装？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">包装数据和功能成为一个单元(称为类)就被称为封装。封装包含并且隐藏对象信息，例如内部数据结构和代码。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">21.&nbsp;C#支持多重继承吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">不支持，它不可能。支持多级继承。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">22.&nbsp;什么是ENUM？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">Enum用于定义常量。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">23.&nbsp;数据集是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">数据集(DataSet)是从任何数据源载入数据的内存表示。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">24.&nbsp;private和public关键字的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">Private:</span>关键字private是默认访问级别，并且在所有其他访问级别中是最严格的。它给予一个类型或者类型成员最小的权限。私有成员仅仅在声明其的类体中可以被访问。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">Public:</span>关键字public是所有访问级别中最自由地，没有任何访问限制。公共成员的访问不仅可以来自外部，也可以来自内部，并且可以自由访问定义在类体内或者体外的任何成员。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">25.&nbsp;定义多态性？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">多态性意味着一个名字，多种形式。它使我们在一个程序中可以定义一个以上相同名字的方法。它让我们重载操作以便这样的操作可以对不同的实例表现不同的行为。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">26.&nbsp;什么是交错数组？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">交错数组是元素为数组的数组。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">交错数组元素的维度和大小可以不同。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">交错数组有时称为“数组的数组”。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">27.&nbsp;什么是抽象基类？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">抽象类是被设计为专门用于作为基类的类。抽象类至少还有一个纯虚方法。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">28.&nbsp;方法重写和方法重载有什么区别？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">当重写一个方法时，你改变了派生类中方法的行为。重载方法只涉及在类中另一个同名的方法。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">29.&nbsp;ref和out参数之间的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">传递给ref参数的参数必须先初始化。与此相比，对out参数来说，在参数传递给out参数之前不需要显示初始化。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">30.&nbsp;C#中using语句怎么用？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">using语句通常是获取资源，执行语句，然后释放该资源。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">31.&nbsp;什么是序列化？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">序列化(Serialization)</span>是将对象转换为字节流的过程。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">反序列化(De-serialization)</span>是从字节流创建对象这样相反的过程。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">序列化/反序列化常用于传递对象。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">32.&nbsp;结构和类之间有什么区别？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">结构是值类型，类是引用类型。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">结构不能有构造函数和析构函数。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">类可以同时有构造函数和析构函数。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">结构不支持继承，而类支持继承。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">33.&nbsp;类和接口之间有什么区别？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">类(Class)</span>是对象的逻辑表示。它是数据集合和相关子过程的定义。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">接口(Interface)</span>也是一个类，包含没有任何方法体定义的方法。类不支持多重继承，但是接口支持。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">34.&nbsp;什么是委托？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">委托是类型安全，面向对象的函数指针的实现，并且在许多一个组件需要回调到使用它的组件这样的情况下使用。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">35.&nbsp;什么是认证与授权？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">认证是识别用户的过程。认证是以证书(用户名和密码)来识别/验证用户。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">授权在认证之后执行。授权是一个基于这些用户身份授予访问权限的过程。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">授权允许用户对特定资源的访问。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">36.&nbsp;什么是基类？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">类声明可以通过类名加一个冒号和基类名来指定基类。省略基类说明等同于从object类派生。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">37. “this”可以在静态方法中用吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">不，‘This’不能在静态方法中使用。仅仅只有静态变量/方法可以在静态方法中使用。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">38.&nbsp;constants、readonly和static之间的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">Constants</span>:&nbsp;值不能变。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">Read-only</span>:&nbsp;值在类的构造函数中仅仅初始化一次。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">Static</span>:&nbsp;值可以被初始化一次。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">39.&nbsp;C#中支持哪些语句类型？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#支持的几种不同的语句类型是</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">块语句<br>声明语句<br>表达式语句<br>选择语句<br>迭代语句<br>跳转语句<br>异常处理语句<br>检查和未检查<br>Lock语句</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">40.&nbsp;什么是接口类？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">它是一个抽象类，所有公共抽象方法必须要在其继承类中实现。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">41.&nbsp;什么是值类型和引用类型？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">值类型存储在堆栈中。<br>例如: bool, byte, chat, decimal, double, enum, float, int, long, sbyte, short, strut, uint, ulong, ushort。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">引用类型存储在托管堆中。<br>例如: class, delegate, interface, object, string。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">42.&nbsp;关键字string和System.String类之间有什么区别？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">关键字string是System.String类的别名。所以，System.String和关键字string是一样的，你可以使用任何你喜欢的命名约定。String类提供了许多方法用于安全创建，操作和比较字符串。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">43.&nbsp;C#中提供的两种数据类型是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">值类型<br>引用类型</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">44.&nbsp;有哪些缓存的种类？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">有三种类型的缓存：</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">输出缓存(Output Caching)</span>:存储asp.net页面的应答信息。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">片段缓存(Fragment Caching)</span>:仅缓存/存储部分页面内容(用户控制)。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">数据缓存(Data Caching)</span>:为了性能通过编程的方式来缓存对象。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">45.&nbsp;自定义控件和用户控件之间的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">自定义控件是编译后的代码(Dlls)，容易使用，创建困难，可以放在工具箱。拖拉使用的控件。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">属性可以直观地在设计时指定。可以被多个应用程序使用(如果共享Dlls)，即使是私有的也能拷贝到web应用程序的bin目录，添加引用和使用。通常是用来为独立的消费应用程序提供公用功能。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">用户控件和ASP的include文件，轻松创建，不能放置在箱中来拖拉放置它。用户控件在单个应用程序文件之间共享。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">46.&nbsp;什么是方法？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">方法是由对象或者类执行来实现计算或者操作的成员。静态方法通过类访问。实例方法通过类的实例来访问。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">47.&nbsp;什么是域？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">域是类或者类的实例相关的变量。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">48.&nbsp;什么是事件？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">事件是使一个类或对象能够提供通知的成员。事件声明像域声明一样，除了声明包含event关键字并且类型必须为委托类型。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">49.什么是文本和它们的类型？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">文本是程序分配给变量的值常量。C#支持的几种文本类型是</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">整数(Integer literals)<br>实数(Real literals)<br>布尔值(Boolean literals)<br>单字符(Single character literals)<br>字符串(String literals)<br>反斜线(Backslash character literals)</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">50.&nbsp;值类型和引用类型的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">值类型存储在堆栈上，是一个变量的值赋值给另一个变量。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">引用类型存储在托管堆上，是两个引用变量之间的发生赋值。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">51.&nbsp;C#有什么特性？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#是一个简单而强大的编程语言，用于编写企业版的应用程序。<br>它是C++和VB的混合体。它保留了许多C++特性，如语句，表达式和运算符并结合了VB的生产力。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#帮助开发者轻易地构建网络服务，能够通过任何语言，任何平台来访问Internet。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#帮助开发者用更少的代码完成开发，从而在代码中错误更少。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#引入了相当大的改进和创新，如类型安全，版本控制，事件和垃圾收集这些领域。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">52.&nbsp;错误的类型是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">语法错误(Syntax error)<br>逻辑错误(Logic error)<br>运行时错误(Runtime error)</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">53. break和continue语句之间有什么区别？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">break语句是用来终止当前封闭循环或者它所在的条件语句的。我们已经使用break语句跳出switch语句。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">continue语句是用来改变执行顺序的。和break语句那样跳出循环相反，continue语句停止当前迭代并且只将控制返回到循环顶部。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">54.&nbsp;定义命名空间？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">命名空间被称为容器，用来组织分层的.NET类。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">55.&nbsp;什么是代码组？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">代码组是一组共享安全上下文的套件。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">56.&nbsp;C#中什么是密封类？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">sealed修饰符用来阻止从一个类派生。如果一个密封类被指定为另一个类的基类时会发生编译时错误。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">57.&nbsp;静态方法和实例方法的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">以static修饰符声明的方法是静态方法。静态方法不操作具体的实例，并且只能被静态成员访问。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">没有以static修饰符声明的方法是实例方法。实例方法操作一个具体的实例并且可以被静态和实例成员访问。在其上调用实例方法的实例可以像这样显示访问。在静态方法中这么调用是错误的。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">58.&nbsp;C#中有哪些变量的类型？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#中不同的变量类型是：</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">静态变量(static variables)<br>实例变量(instance variable)<br>值参数(value parameters)<br>引用参数(reference parameters)<br>数组元素(array elements)<br>输出参数(output parameters)<br>局部变量(local variables)</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">59.&nbsp;方法重载是什么意思？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">方法重载允许在同一个类中的多个方法有相同的名字，只要它们具有独特的签名。当编译一个重载方法的调用时，编译器使用重载决策决定具体调用的方法。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">60.&nbsp;什么是参数？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">参数是用来传递值或者变量引用给方法的。方法的参数从被调用方法时指定的参数得到它们实际的值。有四种参数：值参数，引用参数，输出参数和参数数组。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">61.&nbsp;C#是面向对象的语言吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">是的，C#和传统的Java及C++一样是面向对象的语言。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">62.&nbsp;Array和Arraylist之间的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">数组是相同类型的集合。数组大小在它声明的时候就固定了。链表和数组相似，但它没有固定的大小。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">63.&nbsp;C#中有什么特殊的运算符？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#支持一下特殊运算符。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">is (关系运算符)<br>as (关系运算符)<br>typeof (类型运算符)<br>sizeof (大小运算符，用于获取非托管类的大小)<br>new (对象运算符)<br>.dot (成员访问运算符)<br>checked (溢出检查)<br>unchecked?(防止溢出检查)</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">64.&nbsp;C#中运算符的含义是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">运算符是界定了对类实例应用特定的运算表达式内涵的成员。可以定义三种类型的运算符：一元运算符，二元运算符和转换运算符。所有的运算符必须声明为public和static的。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">65.&nbsp;什么是类型参数化？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">类型参数化是一个类型在另一个值或者类型之上参数化。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">66.&nbsp;抽象类的特性是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">抽象类不能被实力化，在抽象类上使用new操作符是错误的。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">抽象类允许(但不必要)包含抽象方法和入口。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">抽象类不能用scaled修饰符。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">67. abstract关键字怎么用？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">修饰符abstract是用于类的关键字，以表明这个类本身不能直接有实例或者对象，并且对于其他类来说它只能是一个“基类”。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">68.&nbsp;goto语句怎么用？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">goto语句仍然包含在C#语言中。这个goto可以用来从一个循环内部跳转到外部。但是从循环外部跳入循环内是不允许的。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">69.&nbsp;控制台应用程序和窗口应用程序有什么区别？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">控制台应用程序，设计用来在没有用户界面的命令行中运行。<br>窗口应用程序，设计用来通过用户界面在用户桌面执行。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">70.&nbsp;return语句怎么用？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">return语句与程序&nbsp;(方法或者函数)相关。在执行return语句的时候，系统将控制权从被调用程序交给调用程序。return语句用于两种目的：</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">立即返回当前执行的代码的调用者</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">返回给当前执行的代码的调用者一些值。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">71.&nbsp;Array和LinkedList之间的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">数组是不关心彼此元素位置的简单数字序列。他们之间的位置彼此独立。增加，删除或者修改任何数组元素都是非常容易的。相对于数组，链表是一个复杂的数字序列。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">72.&nbsp;C#有throws子句吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">不，不像Java，C#不需要开发者指定方法可以抛出的异常。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">73.&nbsp;C#支持可变数目的参数吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">是的，使用params关键字。该参数指定为特定类型的参数列表。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">74.&nbsp;可以重写私有虚方法吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">不可以，私有方法不能在类外访问。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">75.&nbsp;什么是多播委托？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">每个委托对象保持对一个单独方法的引用。但是，一个委托对象保持对多个方法的引用并调用它们是可能的。这样的委托对象成为多播委托或者组合委托。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">76.&nbsp;什么是C#独有的特性？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">XML文档.</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">77.&nbsp;在C#中使用异常是推荐的吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">是的，在.NET框架中异常是推荐的错误处理机制。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">78.&nbsp;在switch语句中break语句是做什么的？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">break语句终结它所在的循环。它也改变了程序执行的流程。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">在switch语句中，break语句用在一个case语句的结尾处。在C#中break语句是强制性的，避免了一个case语句流向另一个case语句。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">79. Is C# object oriented?C#是面向对象的吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">是的，C#和传统的Java及C++一样是面向对象的语言。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">80.&nbsp;什么是智能导航？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">因为服务端验证和页面被刷新导致页面刷新时，光标位置保持不变。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">81.&nbsp;CONST和READONLY的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">都是为了定义常量值。const字段只能在声明这个域的时候初始化。readonly字段可以在声明时或者构造函数中定义。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">82.&nbsp;C#有throws子句吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">不，不像Java，C#不需要(甚至不允许)开发者指定方法可以抛出的异常。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">83.&nbsp;方法可以重载的不同方式是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">不同的参数类型，不同的参数个数，不同的参数顺序。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">84.&nbsp;事件有返回值吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">没有，事件没有返回类型。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">85.&nbsp;事件是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">事件是一个基于另一个程序方法执行的动作。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">事件是被对象或者类使用来通知其他对象发生的事件的委托类型类成员。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">事件可以通过event关键字来声明。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">86.&nbsp;什么是标识符？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">标识符无他，它是用来在程序中唯一识别各种实体的名称。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">87.&nbsp;C#中有哪些不同的文本类型？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">布尔值</span>: True和False是Boolean类型，分别映射到真和假的状态。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">整数</span>:用于编写类型Int，uInt，long和ulong的值。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">实数</span>:用于编写类型float, double和decimal的值。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">字符</span>:代表单字符，通常由有引号的字符组成，如‘a’。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">字符串</span>:&nbsp;C#支持两种类型的字符串，规则字符串和原义字符串。规则字符串由0个或多个括在双引号中的字符组成，如“116110″。原义字符串由@字符后跟带双引号的字符组成，如@”hello”。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">Null</span>:&nbsp;代表null类型。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">88.&nbsp;什么是数据封装？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">数据封装，也被称为数据隐藏，它是类的实现细节对保持对用户隐匿的机制。用户只能通过执行称为方法的特殊函数来对隐藏了成员的类执行一组有限的操作。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">89.&nbsp;可以重写私有虚方法吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">不可以，私有方法不能在类外访问。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">90.&nbsp;子程序和函数的主要区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">子程序没有返回值，而函数有。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">91.&nbsp;C#和C++的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#不支持#include语句。它只用using语句。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#中，类定义在最后不使用分号。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#不支持多重继承。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">数据类型的显示转换在C#中比C++中安全很多。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#中switch也可用于字符串值。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">命令行参数数组的行为在C#中和C++中不一样。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">92.&nbsp;什么是嵌套类？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">嵌套类是类中的类。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">嵌套类是声明发生在另一个类或者接口里面的任何类。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">93.&nbsp;可以给静态构造函数参数吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">不可以，静态构造函数不可以有参数。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">94.&nbsp;C#中，字符串是值类型还是引用类型？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">字符串是对象(引用类型)。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">95.&nbsp;C#提供拷贝构造函数吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">不，C#不提供拷贝构造函数。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">96.&nbsp;类或者结构可以有多个构造函数吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">可以，类或者结构可以有多个构造函数。C#中构造函数可以被重载。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">97.&nbsp;可以创建接口的实例吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">不可以，你不可以创建接口的实例。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">98.&nbsp;接口可以包含字段吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">不可以，接口不能包含字段。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">99.&nbsp;类可以有静态构造函数吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">是的，类可以有静态构造函数。静态构造函数在任何静态字段被访问之前被立即自动调用，并且通常用来初始化静态类成员。它在第一个实例被创建或者任何静态成员被引用之前自动调用。静态构造函数在实例构造函数之前调用。一个例子如下所示。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">100.&nbsp;C#中委托的主要作用是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">委托主要用于定义回调方法。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">101.&nbsp;投影(Shadowing)和重写(overriding)的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">重写仅仅重定义实现而投影重定义整个元素。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">重写派生类可以通过“ME”关键字引用父类元素，但投影中你可以通过”MYBASE”访问父类元素。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">102.&nbsp;事件可以用访问修饰符吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">可以，你可以在事件中用访问修饰符。你可以对事件使用portected关键字，这样只允许继承类访问。你可以使用private修饰事件，仅可以供当前类对象访问。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">103.&nbsp;为什么在代码中用virtual关键字？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">代码中Virtual关键字是用来定义可以在派生类中重写的方法和属性的。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">104.&nbsp;什么是构造函数和析构函数？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">构造函数和析构函数是特殊的方法。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">构造函数和析构函数是每个类的特殊方法。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">每个类都有自己的构造函数和析构函数，并且在类实例被创建或者销毁时自动调用。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">每当你访问类的时候，构造函数就初始化所有类成员。当对象不想再需要的时候，析构函数就销毁它们。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">105.&nbsp;我们怎么抑制finalize方法？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">GC.SuppressFinalize()。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">106.&nbsp;C#支持可变数目的参数吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">是的，使用params关键字。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">该参数指定为特定类型的参数列表，例如，int。为了最大的灵活性，类型可以是object。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">使用这种方法的标准例子是System.console.writeLine()。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif; border: 0px; margin: 0px; padding: 0px;">107.&nbsp;哪个方法用来启动一个线程？</span><br>Start。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">108.&nbsp;什么是泛型？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">泛型帮助我们创建灵活的强类型集合。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">泛型基本上从数据类型中分离了逻辑，以保持更好的可重用性，更好的可维护性等等。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">109.&nbsp;有哪些不同种类的多态性？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">有两种类型的多态，它们是：</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">编译时多态性</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">运行时多态性</span></p> 
+<p><span style="font-size: 14px; border: 0px; margin: 0px; padding: 0px; font-family: arial, helvetica, sans-serif;">110.&nbsp;编译时多态性和运行时多态性的区别是什么？</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">编译时多态性</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">编译时多态性也被称为方法重载。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">方法重载是指有两个或更多同名但含有不同签名的方法。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">运行时多态性</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">运行时多态性也被称为方法重写。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">方法重写是指有两个或更多的同名方法，含有相同的方法签名但对应不同的实现。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">111.&nbsp;哪一个命名空间使XML中多线程编程可行？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">System.Threading。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">112.&nbsp;在C#中可以声明一个静态块吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">不可以，因为C#不支持静态块，但它支持静态方法。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">113.&nbsp;方法可以声明为密封(sealed)吗？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">在C#中方法不可以声明为sealed。但当我们在派生类重写一个方法的时候，我们可以将重写的方法定义为sealed。通过其sealed，我们就可以避免对该方法的进一步重写。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">114.&nbsp;在C#中用什么命令来实现属性？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#中用get和set修饰符来实现属性。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">115.&nbsp;什么是静态成员？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">定义为静态的成员，可以从类级别上直接调用，而不是从类实例上调用。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">116.&nbsp;C#中继承一个类的语法是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">当一个类从另一个类派生时，基类的成员就变为派生的成员。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">在访问基类的成员所使用的访问修饰符指定了派生类中的基类成员的访问状态。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">C#中从另一个类继承类的语法如下：</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">class MyNewClass : MyBaseClass</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">117.&nbsp;C#中while循环和do while循环的基本区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">while循环在一开始测试它的条件，这意味着如果条件求值为真，封闭的语句块执行0或者更多次。do while循环至少遍历一次语句块然后在最后才检查条件。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">118.&nbsp;子程序和函数的主要区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">子程序没有返回值，而函数有。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">119.&nbsp;C#中什么是密封类？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">sealed修饰符用来阻止从一个类派生。如果一个密封类被指定为另一个类的基类时会发生编译时错误。</span></p> 
+<p><span style="border: 0px; margin: 0px; padding: 0px; font-size: 14px; font-family: arial, helvetica, sans-serif;">120.类和接口的区别是什么？</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">抽象类可以实现它的一些成员，但接口不能实现它的任何成员。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">接口不能有字段，而抽象类可以有字段。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">接口仅可以从另一个接口继承并且不能继承抽象类，而抽象类可以继承另一个抽象类或另一个接口。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">类可以同时继承多个接口，而类不能同时继承多个类。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">抽象类的成员可以定义访问修饰符而接口成员不能定义访问修饰符。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;"></span></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[拉偶有所依]]></author>
+		<authorid>2285044</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 14:49:54</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

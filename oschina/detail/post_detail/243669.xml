@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>243669</id>
+      <title><![CDATA[android studio  添加注释模板]]></title>
+      <url><![CDATA[http://www.oschina.net/question/2005680_243669]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1002/2005680_50.jpg?t=1423381193000</portrait>
+      <event>
+			  </event>
+      <body>
+		<![CDATA[
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+					</style>
+				<p> 修改android studio 的fix doc document 快捷键为 alt + shift + j之后,如何设置添加注释模板,设置成自己想要的格式 </p> 
+<p> 例如eclipse中的样式: </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0719/105816_md0F_2005680.png" alt=""> </p>						]]>
+	  </body>
+      <author><![CDATA[xy19940331]]></author>
+      <authorid>2005680</authorid>
+      <answerCount>1</answerCount>
+      <viewCount>81</viewCount>
+      <pubDate>2015-07-19 10:58:22</pubDate>
+	  <favorite>0</favorite>
+	  		<tags>
+		            <tag><![CDATA[Android]]></tag>
+		            <tag><![CDATA[Android Studio]]></tag>
+		        </tags>
+	    </post>
+</oschina>

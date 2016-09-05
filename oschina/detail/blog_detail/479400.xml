@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479400</id>
+		<title><![CDATA[Mysql Partition分区（理论）]]></title>
+		<url><![CDATA[http://my.oschina.net/zhanyu/blog/479400]]></url>
+		<where><![CDATA[数据库]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h3><span style="color: rgb(69, 69, 69); font-family: tahoma, helvetica, arial; font-size: 14px; line-height: 21px; background-color: rgb(255, 255, 255);">Partition &nbsp;分区</span></h3> 
+<p><span style="color: rgb(69, 69, 69); font-family: tahoma, helvetica, arial; font-size: 14px; line-height: 21px; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp; &nbsp; MySql 5.6 手册：<a href="http://dev.mysql.com/doc/refman/5.6/en/partitioning.html" target="_blank" rel="nofollow">http://dev.mysql.com/doc/refman/5.6/en/partitioning.html</a></span></p> 
+<h3><span style="font-family: 'times new roman';"></span></h3> 
+<h3><span style="color: rgb(69, 69, 69); font-family: tahoma, helvetica, arial; font-size: 14px; line-height: 21px; background-color: rgb(255, 255, 255);">我理解的分区</span></h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="text-decoration: underline;"><em><span style="text-decoration: underline; font-size: 14px;">举个例子，<span style="color: rgb(69, 69, 69); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px; line-height: 21px; background-color: rgb(255, 255, 255);">操作系统中的分区，是将硬盘根据大小进行逻辑分区，就是我们看到的C、D、E、F盘，逻辑分区还是在同一个操作系统中。数据库产品的Partition分区也是一样的道理，将数据进行逻辑分区，对数据划分界限。</span></span></em></span><br></p> 
+<h3><span style="color: rgb(69, 69, 69); font-family: tahoma, helvetica, arial; font-size: 14px; line-height: 21px; background-color: rgb(255, 255, 255);">分区类型</span></h3> 
+<p><span style="color: rgb(69, 69, 69); font-family: tahoma, helvetica, arial; font-size: 14px; line-height: 21px; background-color: rgb(255, 255, 255);">MySql 支持Range，List，Hash，Key。最长用的是Range。</span><span style="color: rgb(192, 0, 0); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px; line-height: 21px; text-decoration: underline; background-color: rgb(255, 255, 255);"><em>注意不同的版本对分区类型的支持有些不同！</em></span></p> 
+<pre class="brush:sql;toolbar: true; auto-links: false;">Range：范围
+
+CREATE&nbsp;TABLE&nbsp;employees&nbsp;(
+&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;INT&nbsp;NOT&nbsp;NULL,
+&nbsp;&nbsp;&nbsp;&nbsp;fname&nbsp;VARCHAR(30),
+&nbsp;&nbsp;&nbsp;&nbsp;lname&nbsp;VARCHAR(30),
+&nbsp;&nbsp;&nbsp;&nbsp;hired&nbsp;DATE&nbsp;NOT&nbsp;NULL&nbsp;DEFAULT&nbsp;'1970-01-01',
+&nbsp;&nbsp;&nbsp;&nbsp;separated&nbsp;DATE&nbsp;NOT&nbsp;NULL&nbsp;DEFAULT&nbsp;'9999-12-31',
+&nbsp;&nbsp;&nbsp;&nbsp;job_code&nbsp;INT&nbsp;NOT&nbsp;NULL,
+&nbsp;&nbsp;&nbsp;&nbsp;store_id&nbsp;INT&nbsp;NOT&nbsp;NULL
+)
+PARTITION&nbsp;BY&nbsp;RANGE&nbsp;(store_id)&nbsp;(
+&nbsp;&nbsp;&nbsp;&nbsp;PARTITION&nbsp;p0&nbsp;VALUES&nbsp;LESS&nbsp;THAN&nbsp;(6),
+&nbsp;&nbsp;&nbsp;&nbsp;PARTITION&nbsp;p1&nbsp;VALUES&nbsp;LESS&nbsp;THAN&nbsp;(11),
+&nbsp;&nbsp;&nbsp;&nbsp;PARTITION&nbsp;p2&nbsp;VALUES&nbsp;LESS&nbsp;THAN&nbsp;(16),
+&nbsp;&nbsp;&nbsp;&nbsp;PARTITION&nbsp;p3&nbsp;VALUES&nbsp;LESS&nbsp;THAN&nbsp;(21)
+);</pre> 
+<pre class="brush:sql;toolbar: true; auto-links: false;">LIST：列表
+
+CREATE&nbsp;TABLE&nbsp;employees&nbsp;(
+&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;INT&nbsp;NOT&nbsp;NULL,
+&nbsp;&nbsp;&nbsp;&nbsp;fname&nbsp;VARCHAR(30),
+&nbsp;&nbsp;&nbsp;&nbsp;lname&nbsp;VARCHAR(30),
+&nbsp;&nbsp;&nbsp;&nbsp;hired&nbsp;DATE&nbsp;NOT&nbsp;NULL&nbsp;DEFAULT&nbsp;'1970-01-01',
+&nbsp;&nbsp;&nbsp;&nbsp;separated&nbsp;DATE&nbsp;NOT&nbsp;NULL&nbsp;DEFAULT&nbsp;'9999-12-31',
+&nbsp;&nbsp;&nbsp;&nbsp;job_code&nbsp;INT,
+&nbsp;&nbsp;&nbsp;&nbsp;store_id&nbsp;INT
+)
+PARTITION&nbsp;BY&nbsp;LIST(store_id)&nbsp;(
+&nbsp;&nbsp;&nbsp;&nbsp;PARTITION&nbsp;pNorth&nbsp;VALUES&nbsp;IN&nbsp;(3,5,6,9,17),
+&nbsp;&nbsp;&nbsp;&nbsp;PARTITION&nbsp;pEast&nbsp;VALUES&nbsp;IN&nbsp;(1,2,10,11,19,20),
+&nbsp;&nbsp;&nbsp;&nbsp;PARTITION&nbsp;pWest&nbsp;VALUES&nbsp;IN&nbsp;(4,12,13,14,18),
+&nbsp;&nbsp;&nbsp;&nbsp;PARTITION&nbsp;pCentral&nbsp;VALUES&nbsp;IN&nbsp;(7,8,15,16)
+);</pre> 
+<pre class="brush:sql;toolbar: true; auto-links: false;">Key：键
+
+CREATE&nbsp;TABLE&nbsp;k1&nbsp;(
+&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;INT&nbsp;NOT&nbsp;NULL,
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;VARCHAR(20),
+&nbsp;&nbsp;&nbsp;&nbsp;UNIQUE&nbsp;KEY&nbsp;(id)
+)
+PARTITION&nbsp;BY&nbsp;KEY()
+PARTITIONS&nbsp;2;</pre> 
+<pre class="brush:sql;toolbar: true; auto-links: false;">HASH：哈希
+
+CREATE&nbsp;TABLE&nbsp;employees&nbsp;(
+&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;INT&nbsp;NOT&nbsp;NULL,
+&nbsp;&nbsp;&nbsp;&nbsp;fname&nbsp;VARCHAR(30),
+&nbsp;&nbsp;&nbsp;&nbsp;lname&nbsp;VARCHAR(30),
+&nbsp;&nbsp;&nbsp;&nbsp;hired&nbsp;DATE&nbsp;NOT&nbsp;NULL&nbsp;DEFAULT&nbsp;'1970-01-01',
+&nbsp;&nbsp;&nbsp;&nbsp;separated&nbsp;DATE&nbsp;NOT&nbsp;NULL&nbsp;DEFAULT&nbsp;'9999-12-31',
+&nbsp;&nbsp;&nbsp;&nbsp;job_code&nbsp;INT,
+&nbsp;&nbsp;&nbsp;&nbsp;store_id&nbsp;INT
+)
+PARTITION&nbsp;BY&nbsp;HASH(&nbsp;YEAR(hired)&nbsp;)
+PARTITIONS&nbsp;4;</pre> 
+<p><br></p> 
+<h3><span style="color: rgb(69, 69, 69); font-family: tahoma, helvetica, arial; font-size: 14px; line-height: 21px; background-color: rgb(255, 255, 255);">例子</span></h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;数据：新闻表，2010开始记录，假设10年到15年每年的数据为200W，总数1000W；</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;条件：查询15年7月所有的新闻数据；</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;未分区：需要把表遍历，1000W条数据，查询性能就不用说了；</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;分区：按照年份分区，当要查询15年数据，只会遍历15年的数据200W条；</p> 
+<p><br></p> 
+<h3>参考</h3> 
+<p><a href="http://database.51cto.com/art/201002/184392.htm" target="_blank" rel="nofollow"><span style="font-size: 14px; color: rgb(192, 0, 0);">深入了解MySQL 5.5分区功能增强</span></a><br></p> 
+<p><a href="http://database.51cto.com/art/201002/184392.htm" target="_blank" rel="nofollow"><span style="color: rgb(34, 34, 34); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px; white-space: pre-wrap; background-color: rgb(255, 255, 255);"><span style="display: none; line-height: 0px;">‍</span></span></a><span style="color: rgb(34, 34, 34); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px; white-space: pre-wrap; background-color: rgb(255, 255, 255);"><span style="display: none; line-height: 0px;"></span></span></p>]]></body>
+		<author><![CDATA[尚小胖]]></author>
+		<authorid>102055</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 17:12:30</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479173</id>
+		<title><![CDATA[Linux设置Java环境变量]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2370543/blog/479173]]></url>
+		<where><![CDATA[安装指南]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><pre class="brush:shell;toolbar: true; auto-links: false;">###Linux下使用”export“命令设定环境变量
+export&nbsp;JAVA_HOME=/opt/app/jdk1.7.0_51
+export&nbsp;CLASSPATH=.:$JAVA_HOME/lib
+export&nbsp;PATH=$JAVA_HOME/bin:$PATH</pre> 
+<p><br></p>]]></body>
+		<author><![CDATA[Kxvz]]></author>
+		<authorid>2370543</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 10:36:15</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

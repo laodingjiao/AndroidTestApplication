@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6055818</id>
+	<body><![CDATA[
+		技术部的妹纸，穿个波希米亚吊带长裙来上班 真的好吗，        	]]></body>
+    <author><![CDATA[星迷]]></author>
+	<authorid>125327</authorid>
+    <appclient>1</appclient>
+    <commentCount>61</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/62/125327_50.png?t=1422939269000</portrait>
+    <pubDate>2015-07-16 13:43:33</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>5</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[itheima]]></name>
+				<uid>993896</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/496/993896_50.jpg?t=1431856188000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[皮蛋粥被占用]]></name>
+				<uid>245146</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/122/245146_50.jpg?t=1432260375000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[yuyang123]]></name>
+				<uid>2417774</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1208/2417774_50.jpg?t=1437115850000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[BaratSemet]]></name>
+				<uid>2340783</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1170/2340783_50.jpg?t=1434820226000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[微妙率直]]></name>
+				<uid>110387</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/55/110387_50.jpg</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

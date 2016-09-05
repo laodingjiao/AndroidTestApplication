@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64232</id>
+      <title><![CDATA[Eova 1.3 Oracle 兼容版，Java Web 快速开发平台]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64232/eova-1-3-oracle]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="color:#E53333;">Eova的能量，超乎你的想象，说兼容Oracle就兼容Oracle！</span></p> 
+<p><strong>Q：EOVA 支持oracle数据库吗?</strong></p> 
+<p>A：Eova 1.3 已经兼容Oracle.</p> 
+<p></p> 
+<p></p> 
+<p></p> 
+<p><span style="line-height:1.5;font-family:SimSun;"><strong>Q:你好，请问EOVA支持sql server吗？&nbsp;</strong></span></p> 
+<p>A：JFinal2.0已支持slq server方言，Eova支持JFinal所支持的所有数据库.</p> 
+<p><span style="color:#009900;">[新增]数据源优化兼容各种数据库</span><br></p> 
+<p><span style="color:#009900;">[新增]兼容Oracle数据</span><br></p> 
+<p><span style="color:#009900;">[新增]升级到JFinal2.0，支持SqlServer方言</span><br></p> 
+<p></p> 
+<p><span style="color:#009900;">[新增]Mysql自动生成兼容Oracle脚本</span><br></p> 
+<p><span style="color:#009900;">[新增]系统启动时自动下载JS插件包</span></p> 
+<p><span style="color:#E53333;">[修复]Excel导入导出缺少一行数据</span><br></p> 
+<p><span style="color:#337FE5;">[</span><span style="color:#337FE5;">优化]元数据导入实现 @</span><span style="line-height:1.8;background-color:#FAFAFA;color:#333333;font-family:Lato, 'Helvetica Neue', 'Microsoft YaHei', Arial, Helvetica, sans-serif;font-size:15.454545021057129px;"><a href="https://git.oschina.net/icecream" rel="nofollow"><span style="color:#337FE5;">yourOnlyJack</span></a></span></p> 
+<p><span style="color:#337FE5;">[优化]</span><span style="line-height:1.8;color:#337FE5;">DB字段小写，敏感词改名</span></p> 
+<p><span style="color:#337FE5;">[优化]</span><span style="line-height:1.8;color:#337FE5;">eova.config配置优化</span><br></p> 
+<p><span style="color:#337FE5;">[优化]</span><span style="line-height:1.8;color:#337FE5;">maven依赖Jar版本更新</span></p> 
+<p><strong><span style="color:#E56600;">Eova Oracle 自增长的处理：</span></strong></p> 
+<p><a href="http://note.youdao.com/share/?id=da74936c944c613ef5e84e1bf23f0925&amp;type=note" rel="nofollow"><span style="font-size:9px;">http://note.youdao.com/share/?id=da74936c944c613ef5e84e1bf23f0925&amp;type=note</span></a></p> 
+<p><strong><span style="color:#E53333;">ONE MORE THING：</span></strong><br></p> 
+<p>Eova其实还未完善 ，UI校验还不够完善，各种表达式能力还不够，查询还不支持区间时间选择，仅支持单表模版，Eova组件还不能独立运行，不能自定义插件</p> 
+<p>未完待续...</p> 
+<p></p> 
+<p>Eova 基于JFinal开发，首创JFinal 快速开发平台，JFinal最佳实践！<br><br>大家好我是Java的表弟Eova，中文名:伊哇 :)</p> 
+<p><span style="color:#337FE5;">我可以快速完成开发任务，信手拈来</span><br><span style="color:#337FE5;">我会10大控件,4大组件,N种业务模型</span><br><span style="color:#337FE5;">常见的增删改查、条件查询、数据校验、前后置业务处理、批量操作、权限管理...通通能帮你快速搞定</span><span style="color:#337FE5;"></span></p> 
+<p><strong>我的全称是——Easy Object View Admin(简单对象视图管理系统)</strong><br>Easy-----简单，方便，快速，快速开发 So Easy<br>Object--万物皆对象，以元数据驱动业务<br>View----各种功能界面<br>Admin--信息管理和维护</p> 
+<p><strong>我的个性：</strong><br>0xx01：以元数据驱动业务为核心思想<br>0xx02：使用了极速框架JFinal，站在巨人的肩膀上<br>0xx03：以OOP思想结合EasyUI和Bootstrap样式自创EovaUI<br>0xx04：使用Beetl融合Java和Script<br>0xx05：兼容主流数据库Mysql、Oracle、Postgre...<br>0xx06：可以一键完成CRUD，但不仅限于CRUD<br>0xx07：灵动迅捷，多快好省，不影响你你实现任何功能</p> 
+<p>更多高级功能等你来玩，开发不再苦逼，生活由此美丽！</p> 
+<p><img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0327/011349_2AQX_915359.png"><br></p>]]></body>
+      <commentCount>24</commentCount>
+      <author><![CDATA[Jieven]]></author>
+      <authorid>915359</authorid>
+      <pubDate>2015-07-14 12:08:51</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/eova]]></softwarelink>
+	  <softwarename><![CDATA[EOVA]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Java SE 8u51 发布，Oracle 强烈建议升级]]></rtitle>
+			<rurl>http://www.oschina.net/news/64237/java-se-8u51</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Android Studio 1.3 RC1 发布，Android NDK 支持预览]]></rtitle>
+			<rurl>http://www.oschina.net/news/64123/android-studio-1-3-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[SonarQube XML 1.3 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64027/sonarqube-xml-1-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[JFinal 社区 V1.3 更新，属于 Java 语言的社区]]></rtitle>
+			<rurl>http://www.oschina.net/news/63803/jfinal</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[JFinal Weixin 1.3 发布，微信极速 SDK]]></rtitle>
+			<rurl>http://www.oschina.net/news/63657/jfinal-weixin-1-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Android Studio 1.3 Beta 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63529/android-studio-1-3-beta</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Android Studio 1.3 Preview 4 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63408/android-studio-1-3-preview-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Android Studio 1.3 Preview 3 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63252/android-studio-1-3-preview-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Eova 1.2 正式版，Java Web 快速开发平台]]></rtitle>
+			<rurl>http://www.oschina.net/news/63251/eova-1-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[EasyPR 1.3 Beta 发布，中文车牌识别系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63101/easypr-1-3-beta</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

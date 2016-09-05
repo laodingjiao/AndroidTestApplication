@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>471950</id>
+		<title><![CDATA[React-Native入门指南（五）——UI组件]]></title>
+		<url><![CDATA[http://my.oschina.net/vczero/blog/471950]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h1>React-Native入门指南</h1> 
+<h2>github:<a href="https://github.com/vczero/react-native-lession" target="_blank" rel="nofollow">https://github.com/vczero/react-native-lession</a></h2> 
+<p><span style="color: #3366ff;"><strong>React-Native:用JavaScript开发你的原生应用，释放Native的UI体验，体验 Hybird开发效率。</strong></span></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131003_RjcQ.png" alt=""></p>
+<p>最近一个星期写的文章如下，链接是github page的，其实也可以在系列博客找到相应文章：</p> 
+<ul> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC1%E7%AF%87hello%20react-native.html" rel="nofollow">Lession1: Hello React-Native</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC2%E7%AF%87%E8%AE%A4%E8%AF%86%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84.html" rel="nofollow">Lession2: 认识代码结构</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC3%E7%AF%87css%E5%92%8C%E5%B8%83%E5%B1%80.html" rel="nofollow">Lession3: css和布局</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC4%E7%AF%87%E5%AD%A6%E4%BC%9Areact-native%E5%B8%83%E5%B1%80.html" rel="nofollow">Lession4: 学会React-Native布局（一）</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC4%E7%AF%87react-native%E5%B8%83%E5%B1%80%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%8C%EF%BC%89.html" rel="nofollow">Lession5: 学会React-Native布局(二)</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC5%E7%AF%87ui%E7%BB%84%E4%BB%B6.html" rel="nofollow">Lession6: UI组件</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC6%E7%AF%87jsx%E5%9C%A8react-native%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8.html" rel="nofollow">Lession7: JSX在React-Native中的应用</a></li> 
+</ul> 
+<p>还有几篇会时刻更新：</p> 
+<ul> 
+ <li><a href="https://github.com/vczero/react-native-lession/blob/master" rel="nofollow">Lession8: 自己动手写组件</a></li> 
+ <li><a href="https://github.com/vczero/react-native-lession/blob/master" rel="nofollow">Lession9: 模块化开发</a></li> 
+ <li><a href="https://github.com/vczero/react-native-lession/blob/master" rel="nofollow">Lession10: 搭建项目架构</a></li> 
+ <li><a href="https://github.com/vczero/react-native-lession/blob/master" rel="nofollow">Lession11: 源码分析</a></li> 
+ <li></li> 
+</ul> 
+<p><span style="font-size: 1.5em; line-height: 1.5;">第5篇UI组件</span></p> 
+<h3>一、目前React-Native支持的组件</h3> 
+<pre><code>在facebook React-native的官网可以看到目前支持的组件如下：
+https://facebook.github.io/react-native/docs/getting-started.html#content
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131004_Y6uf.png" alt="组件列表"></p>
+<h3>二、如何正确运行UI组件Example</h3> 
+<pre><code>我们可以到react-native的github项目地址找到example,地址是https://github.com/facebook/react-native/tree/master/Examples/UIExplorer。下载react-native的代码库，将UIExplorer目录下的所有文件拷贝到你新建的项目中。其实UIExplorerApp.js就是整个项目的启动的文件。有两种方式可以启动项目：
+
+1、第一种是修改jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle"];
+
+2、第二种就是将UIExplorerApp.js里面的代码复制到index.ios.js中，此时，注意：
+AppRegistry.registerComponent('HelloWorld', () =&gt; UIExplorerApp);
+HelloWorld是你的项目名称，如果已经启动项目，需要确保这个名称一致。
+
+项目启动后的界面如下，你就可改改UI组件看效果了。
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131005_vIvl.png" alt="组件列表"></p>
+<h3>三、活动指示器组件</h3> 
+<pre><code>其实，每个组件如何使用，可以到demo中去看代码。这里做简单的介绍.活动指示器组件可以做loading,下拉刷新等
+</code></pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131007_zmpA.png" alt="组件"></p>
+<h3>四、日历组件</h3> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131009_rHzr.png" alt="组件"></p>
+<h3>五、图片组件</h3> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131010_o1vk.png" alt="组件"></p>
+<h3>六、列表组件</h3> 
+<p></p> 
+<h3>七、导航器组件</h3> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131013_slsh.png" alt="组件"></p>
+<h3>八、导航组件</h3> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131014_tV6e.png" alt="组件"></p>
+<h3>九、开关组件</h3> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131015_3DTo.png" alt="组件"></p>
+<pre><code>其余组件可以查看demo运行和学习，其实就是相当于html标签，具有某种功能，习惯就好。</code></pre>]]></body>
+		<author><![CDATA[vczero]]></author>
+		<authorid>2401036</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-29 13:10:15</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

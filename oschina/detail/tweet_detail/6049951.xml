@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6049951</id>
+	<body><![CDATA[
+		高晓松入职阿里巴巴        	]]></body>
+    <author><![CDATA[红薯]]></author>
+	<authorid>12</authorid>
+    <appclient>4</appclient>
+    <commentCount>3</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/0/12_50.jpg?t=1421200584000</portrait>
+    <pubDate>2015-07-15 18:19:54</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>5</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[爱我老婆]]></name>
+				<uid>15777</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/7/15777_50.jpg?t=1353577006000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[范邪]]></name>
+				<uid>96254</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/48/96254_50.jpg?t=1400756158000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[首席撸脱臼]]></name>
+				<uid>929818</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/464/929818_50.jpg?t=1434643102000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[开源oschina]]></name>
+				<uid>1037462</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/518/1037462_50.jpg?t=1417053276000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[aabbccli]]></name>
+				<uid>1188059</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/594/1188059_50.jpg?t=1396784220000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

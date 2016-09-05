@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64299</id>
+      <title><![CDATA[ECharts-Java 类库 2.2.6 版本发布]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64299/echarts-java-2-2-6]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> ECharts - Java类库</p> 
+<p><strong>当前版本2.2.6</strong></p> 
+<p> 本项目是一个供Java开发使用的ECharts的开发包，主要目的是方便在Java中构造ECharts中可能用到的全部数据结构，如完整的结构Option。Option中的数据Series，包含Bar-柱状图，Line-折线图，Pie-饼图，Chord-和弦图等，支持ECharts中的所有图表。支持所有的Style类，如AreaStyle,ChordStyle,ItemStyle,LineStyle,LinkStyle等等。支持多种Data数据类型，一个通用的Data数据，以及PieData,MapData,ScatterData,KData等针对性的数据结构。</p> 
+<p> 你可以使用本项目直接构造一个Option对象，转换为JSON后直接用js设置myChart.setOption(option)，或者你也可以在前端构造基本的Option对象，然后使用本项目来构造其中需要的任意某部分的数据，如使用Series支持的图表类型创建Series数据。</p> 
+<p><strong>为了便于使用对应版本的ECcharts，本项目的版本号会使用和ECharts相同的版本号。</strong></p> 
+<p><strong>由于本项目反馈的bug并不多，为了方便每一个开发人员，每次修复bug都会发布一个小版本，并且bug修复只针对当前的大版本进行修复。</strong></p> 
+<h2><a href="http://git.oschina.net/free/ECharts#maven坐标" rel="nofollow"></a>Maven坐标</h2> 
+<p></p> 
+<pre class="brush:xml; toolbar: true; auto-links: false;">&lt;dependency&gt;
+&nbsp;&nbsp;&lt;groupId&gt;com.github.abel533&lt;/groupId&gt;
+&nbsp;&nbsp;&lt;artifactId&gt;ECharts&lt;/artifactId&gt;
+&nbsp;&nbsp;&lt;version&gt;2.2.6&lt;/version&gt;
+&lt;/dependency&gt;</pre> 
+<p></p> 
+<h2><a href="http://git.oschina.net/free/ECharts#下载地址" rel="nofollow"></a>下载地址</h2> 
+<p><a href="https://oss.sonatype.org/content/repositories/releases/com/github/abel533/ECharts/" target="_blank" rel="nofollow">ECharts-x.x.x.jar</a></p> 
+<p><a href="https://oss.sonatype.org/content/repositories/releases/com/github/abel533/ECharts/2.2.6/ECharts-2.2.6-javadoc.jar" rel="nofollow">API文档-2.2.6</a><span style="color:rgba(0, 0, 0, 0.8);font-family:Lato, 'Helvetica Neue', 'Microsoft YaHei', Arial, Helvetica, sans-serif;font-size:15px;line-height:22.1666679382324px;background-color:#FAFAFA;">&nbsp;下载后解压即可</span></p> 
+<h2><a href="http://git.oschina.net/free/ECharts#项目支持" rel="nofollow"></a>项目支持</h2> 
+<h3><a href="http://git.oschina.net/free/ECharts#图表类型" rel="nofollow"></a>图表类型</h3> 
+<ul> 
+ <li><p> Line - 折线（面积）图 </p></li> 
+ <li><p> Bar - 柱状（条形）图 </p></li> 
+ <li><p> Scatter - 散点（气泡）图 </p></li> 
+ <li><p> K - K线图 </p></li> 
+ <li><p> Pie - 饼（圆环）图 </p></li> 
+ <li><p> Radar - 雷达（面积）图 </p></li> 
+ <li><p> Chord - 和弦图 </p></li> 
+ <li><p> Force - 力导向布局图 </p></li> 
+ <li><p> Map - 地图 </p></li> 
+ <li><p> Gauge - 仪表盘 </p></li> 
+ <li><p> Funnel - 漏斗图 </p></li> 
+ <li><p> Island - 孤岛图（官方未提供，这里只有数据Island对象） </p></li> 
+ <li><p> EventRiver - 事件河流图 </p></li> 
+ <li><p> Venn - 韦恩图 </p></li> 
+ <li><p> Tree - 树图 </p></li> 
+ <li><p> Treemap - 矩形树图 </p></li> 
+ <li><p> WordCloud - 词云 </p></li> 
+ <li><p><strong><span style="color:#FFFFFF;background-color:#009900;">Heatmap - 热力图</span></strong></p></li> 
+</ul> 
+<p> =================================</p> 
+<p><strong><span style="font-size:24px;">更新日志：</span></strong></p> 
+<h3> 2.2.6</h3> 
+<p></p> 
+<ul> 
+ <li><p> 由于echarts.js-2.2.5版本只是修复bug，对本项目没有影响,可以直接用echarts-java-2.2.4，所以<strong>跳过2.2.5</strong>版本 </p></li> 
+ <li><p> echarts.js-2.2.6新增Option 查找工具，本项目已经完全和这个工具对照过，已经补充部分缺少的属性 </p></li> 
+ <li><p> 新增热力图heatmap，对应测试代码<a href="http://git.oschina.net/free/ECharts/blob/master/src/test/java/com/github/abel533/echarts/samples/heatmap/HeatmapTest.java" rel="nofollow"><strong>HeatmapTest</strong></a>(如果看不到效果，那就是因为测试中的引用的echarts-all.js还不是2.2.6版本，自己替换就行) </p></li> 
+</ul> 
+<p></p> 
+<p> 百度官方ECharts.js更新频率越来越快，ECharts-Java项目个人维护起来也很费时间，所以如果<span style="font-size:13.3333330154419px;">大家</span>想奖励一下作者，可以在 <a href="http://www.mybatis.tk" target="_blank" rel="nofollow">www.mybatis.tk</a>&nbsp;页面最下面进行捐赠<img src="http://192.168.79.254:8080/oschina/images/js/ke/plugins/emoticons/images/13.gif" alt="" border="0">。</p>]]></body>
+      <commentCount>8</commentCount>
+      <author><![CDATA[Liuzh_533]]></author>
+      <authorid>560908</authorid>
+      <pubDate>2015-07-16 15:08:57</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/echarts-java]]></softwarelink>
+	  <softwarename><![CDATA[ECharts-Java]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[ECharts 2.2.6 发布，JavaScript 图表库]]></rtitle>
+			<rurl>http://www.oschina.net/news/64282/echarts-2-2-6</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ECharts-Java 类库 2.2.4 版本发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63792/echarts-java-2-2-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ECharts-Java 类库 2.2.0.3 版本发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63024/echarts-java-2-2-0-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ECharts-Java 类库 2.2.0.1 版本发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/60966/echarts-java-2-2-0-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ECharts-Java 类库 2.2.0 版本发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/60328/exhorts-java-2-2-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[cocos2d-x-2.2.6 分支更新 Cocos JSCompile]]></rtitle>
+			<rurl>http://www.oschina.net/news/58280/cocos2d-x-2-2-6-patch</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Cocos2d-x 3.3/2.2.6 发布，更多 3D 特性支持]]></rtitle>
+			<rurl>http://www.oschina.net/news/57950/cocos2d-x-3-3-final</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ECharts-Java 类库 2.1.8 版本发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/57541/echarts-java-2-1-8</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Percona XtraBackup 2.2.6 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/56709/percona xtrabackup-2-2-6-is-now-available</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ECharts-Java —— Echarts 的 Java 封装类库]]></rtitle>
+			<rurl>http://www.oschina.net/p/echarts-java</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

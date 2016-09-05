@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>243001</id>
+      <title><![CDATA[8月2日，深圳 | DockOne技术沙龙开始报名啦]]></title>
+      <url><![CDATA[http://www.oschina.net/question/1788105_243001]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/894/1788105_50.jpg?t=1419160401000</portrait>
+      <event>
+					<id>243001</id>
+    		<cover><![CDATA[http://192.168.79.254:8080/oschina/images/uploads/cover/shenzhen_1788105_243001_boeWG_bi.jpg]]></cover>
+    		<title><![CDATA[8月2日，深圳 | DockOne技术沙龙开始报名啦]]></title>
+    		<category>4</category>
+    		<url><![CDATA[http://www.mikecrm.com/f.php?t=9S6vPe]]></url>
+            <startTime>2015-08-02 14:00:00</startTime>>
+    		<endTime>2015-08-02 19:00:00</endTime>>
+            <createTime>2015-07-13 10:17:18</createTime>
+            <spot>深圳圣淘沙酒店（翡翠店）四楼翡翠二厅</spot>
+    		<actor_count>0</actor_count>
+			<location>114.066112,22.548515</location>
+			<city>深圳</city>
+			        		 													<status>2</status>									<applyStatus>-1</applyStatus>						  </event>
+      <body>
+		<![CDATA[
+						<span style="font-weight:bold;">活动名称</span>：8月2日，深圳 | DockOne技术沙龙开始报名啦<br>
+		<span style="font-weight:bold;">活动时间</span>：2015-08-02 14:00<br>
+		<span style="font-weight:bold;">活动地点</span>：深圳 深圳圣淘沙酒店（翡翠店）四楼翡翠二厅<br>
+		<span style="font-weight:bold;">活动费用</span>：免费<br>
+		<span style="font-weight:bold;">活动类型</span>：站外活动<br>
+        <span style="font-weight:bold;">引用标识</span>：<a href="javascript:alert('引用标识：用来在动弹中通过#sz001#方式引用当前活动，同时该动弹附带的图片将上传为活动图片。');">sz001</a><br>
+		<span style="font-weight:bold;">活动介绍</span>：<br>
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+						@charset "utf-8";
+/*markdown 显示内容样式*/
+.markdown-content{
+	font-size:14px;
+}
+.markdown-content h1,.markdown-content  h2,.markdown-content  h3,.markdown-content  h4,.markdown-content  h5,.markdown-content  h6
+	{
+	margin: 10px 0;
+	font-weight: bold;
+}
+
+.markdown-content h1 {
+	color: #000000;
+	font-size: 28px;
+}
+
+.markdown-content h2 {
+	color: #000000;
+	font-size: 24px;
+}
+
+.markdown-content h3 {
+	font-size: 18px;
+}
+
+.markdown-content h4 {
+	font-size: 16px;
+}
+
+.markdown-content h5 {
+	font-size: 14px;
+}
+
+.markdown-content h6 {
+	color: #777777;
+	background-color: inherit;
+	font-size: 14px;
+}
+
+.markdown-content hr {
+	height: 0.2em;
+	border: 0;
+	color: #CCCCCC;
+	background-color: #CCCCCC;
+}
+
+.markdown-content strong{
+	font-weight:bold;
+}
+
+.markdown-content p,.markdown-content blockquote,.markdown-content ul,.markdown-content ol,.markdown-content dl,.markdown-content li,.markdown-content table,.markdown-content pre
+	{
+	margin: 10px 0;
+	font-size: 10.5pt;
+}
+
+.markdown-content em {
+	font-style: italic;
+}
+
+.markdown-content pre {
+	line-height: 18px;
+	margin: 10px 0;
+	font-size: 9pt;
+	font-family: Courier New, Arial;
+	border: 1px solid rgb(221, 221, 221);
+	border-left: 5px solid rgb(108, 226, 108);
+	background: rgb(246, 246, 246);
+	padding: 5px;
+	white-space: pre-wrap;
+}
+
+.markdown-content pre code {
+	background-color: #F8F8F8;
+	border: none;
+	padding: 0;
+}
+
+.markdown-content code {
+	font-family: Consolas, Monaco, Andale Mono, monospace;
+	background-color: #F8F8F8;
+	border: 1px solid #CCCCCC;
+	border-radius: 3px;
+	padding: 0 0.2em;
+	line-height: 23px;
+}
+
+.markdown-content pre>code {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.markdown-content a:focus {
+	outline: thin dotted;
+}
+
+.markdown-content a:hover,.markdown-content a:active {
+	outline: 0;
+}
+
+.markdown-content blockquote {
+	color: #060;
+	margin: 0;
+	padding-left: 3em;
+	border-left: 0.5em #EEE solid;
+}
+
+.markdown-content ul,.markdown-content ol {
+	margin: 1em 0;
+	list-style-position: inside;
+	margin: 20px 0 20px 10px;
+	line-height: 20px;
+}
+
+.markdown-content ul {
+	list-style-type: circle;
+}
+
+.markdown-content ol {
+	list-style-type: decimal;
+}
+
+.markdown-content li p:last-child {
+	margin: 0
+}
+
+.markdown-content dd {
+	margin: 0 0 0 2em;
+}
+
+.markdown-content img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+	vertical-align: middle;
+	max-width: 100%;
+}
+
+.markdown-content table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.markdown-content td {
+	vertical-align: top;
+}					</style>
+				<div class="markdown-content"><p>微服务正在博客、社交媒体中获得越来越多的关注，在Gartner的2014 Hype Cycle上它的排名非常靠前。同时，软件社区中也有不少持怀疑论者，认为微服务不是什么新东西。Naysayers认为这就是SOA架构的重新包装。然而，尽管存在着不同的争论，微服务架构模式却正在为敏捷部署以及复杂企业应用实施提供巨大的帮助。目前DockOne.io翻译了非常多的微服务相关的文章，读者可以参考阅读。此次DockOne技术沙龙深圳站我们将重点关注微服务与容器的结合，重点讨论的问题包括微服务究竟是什么？它究竟有什么特别之处？在容器时代，这种新的架构模式优势在哪里？我们将邀请腾讯、华为的技术专家来为我们一探究竟。</p> 
+<p><strong>感谢首都在线对本次沙龙的大力支持。</strong></p> 
+<h3>沙龙信息</h3> 
+<p>沙龙时间：2015年8月2日（周日） 14：00-18：45</p> 
+<p>沙龙地点：深圳圣淘沙酒店（翡翠店）四楼翡翠二厅</p> 
+<p>扫描以下二维码进入深圳技术沙龙预热群： <br><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0713/214437_B1W7_1788105.jpg" alt="二维码失效请加我个人微信：liyingjiesx，我拉您进群。"></p>
+<h3>沙龙亮点</h3> 
+<ol> 
+ <li>相比于集中式架构和分布式架构，到底什么是微服务？都有哪些特点？在实践中都有哪些应用的场景？</li> 
+ <li>ContainerOps解决方案架构设想。</li> 
+ <li>微服务架构如何与精益创业相互配合？</li> 
+ <li>如何用正确地姿势来构建分布式环境下的应用？</li> 
+</ol> 
+<h3>沙龙议程</h3> 
+<p>14：00～14：30 签到</p> 
+<p>14：30～15：10 微服务的场景化应用</p> 
+<p>15：10～15：50 微服务与精益创业</p> 
+<p>15：50～16：30 微服务举例：构建分布式爬虫系统</p> 
+<p>16：30～16：40 茶歇</p> 
+<p>16：40～17：20 待定</p> 
+<p>17：20～17：50 基于容器的ContainerOps解决方案</p> 
+<p>17：50～18：45 圆桌讨论</p> 
+<h3>讲师介绍</h3> 
+<p>刘永峰：腾讯云高级产品经理，近十年的研发以及产品经验。曾负责过流媒体服务器架构设计，操作系统性能优化，云计算系统架构设计等相关的技术研发。目前负责腾讯云产品规划设计，市场分析等方面的工作，在云计算领域有着深厚的技术背景以及行业经验。</p> 
+<p>马彬：华为开源能力中心资深架构师。多年嵌入式软件研发经验，对电信软件领域有较深理解。曾从事华为电信级嵌入式平台、虚拟化、LINUX的设计和开发，现任华为开源能力中心架构师，负责基于容器的Containerops解决方案研究和分析工作。</p> 
+<p>吴雪峰：ThoughtWorks资深架构师，负责敏捷精益软件开发和架构设计。具有10+工作经验，擅长Java/Scala技术栈，函数式编程，大规模分布式实时系统架构和Spark大数据分析。</p> 
+<p>谢乐冰：数人科技COO，毕业于柏林工业大学，多年电信运营商行业 (HP)和云计算创业公司经验。</p> 
+<p>周东波：首都在线总工，在软件开发、数据库管理、架构设计、运维、产品等领域都有较长的工作经历，功力深厚。</p> 
+<h3>报名方式</h3> 
+<p>本次技术沙龙采用报名制，全程免费，前100名签到者可获得精美礼品。</p> 
+<p>请填写<strong><a href="http://www.mikecrm.com/f.php?t=9S6vPe" rel="nofollow">此表单</a></strong>，并确认您的邮箱正确。正确填写即可报名，在沙龙前我们会发送提醒邮件，请您注意查收（只有报名才可以参加，谢谢大家支持）。</p></div>				    		<span style="font-weight:bold;">活动相册</span>：<br>
+        	    		    			还未上传任何活动照片，在动弹中引用  #sz001# 并添加图片即可上传~
+    		    		</table>
+				]]>
+	  </body>
+      <author><![CDATA[DockOne]]></author>
+      <authorid>1788105</authorid>
+      <answerCount>0</answerCount>
+      <viewCount>129</viewCount>
+      <pubDate>2015-07-13 10:17:18</pubDate>
+	  <favorite>0</favorite>
+	    </post>
+</oschina>

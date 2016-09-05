@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64250</id>
+      <title><![CDATA[【每日一博】HBase RowKey 设计的那些事]]></title>
+      <url><![CDATA[http://my.oschina.net/lanzp/blog/477732]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>在说rowkey设计之前，先回答一下大家配置HBase时可能有的疑问，关于HBase是否需要单独的ZooKeeper托管？嗯，如果只是部署HBase，我建议不要用单独的ZooKeeper进行托管，用HBase自带的ZooKeeper就可以，假如要部署其他应用，比如Spark等可以单独部署一个ZooKeeper集群。好，废话不多说了，下面说说RowKey设计的事。 &nbsp;<span></span></p> 
+<p><br></p> 
+<br> 
+<p><a href="http://static.oschina.net/uploads/space/2015/0713/100618_jUOc_580695.jpg" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0713/100618_jUOc_580695.jpg" alt=""></a> </p>]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 08:01:12</pubDate>
+	  <softwarelink><![CDATA[]]></softwarelink>
+	  <softwarename><![CDATA[]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[mybus —— MySQL到Redis/Hbase的同步工具]]></rtitle>
+			<rurl>http://www.oschina.net/p/mybus</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[基于 HBase 构建可伸缩的分布式事务队列]]></rtitle>
+			<rurl>http://www.oschina.net/translate/scalable-distributed-transactional-queues</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache HBase 出现信息泄漏漏洞]]></rtitle>
+			<rurl>http://www.oschina.net/news/62760/apache-hbase-in-disclosure</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache HBase v1.0 发布，分布式数据库]]></rtitle>
+			<rurl>http://www.oschina.net/news/59973/apache-hbase-1-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[【每日一博】HBase中Scan类属性maxResultSize说明]]></rtitle>
+			<rurl>http://my.oschina.net/psuyun/blog/375637</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[hindex —— 来自华为的 HBase 二级索引]]></rtitle>
+			<rurl>http://www.oschina.net/p/hindex</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[HydraBase —— Facebook 发布下一代 HBase]]></rtitle>
+			<rurl>http://www.oschina.net/p/hydrabase</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Phoenix —— HBase 的 JDBC 驱动]]></rtitle>
+			<rurl>http://www.oschina.net/p/apache-phoenix</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache HBase 0.98.0 发布，分布式数据库]]></rtitle>
+			<rurl>http://www.oschina.net/news/48938/apache-hbase-0-98-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache HBase 0.96.0 发布，分布式数据库]]></rtitle>
+			<rurl>http://www.oschina.net/news/45201/apache-hbase-0-96-0</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

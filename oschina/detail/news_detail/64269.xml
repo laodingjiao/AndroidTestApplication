@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64269</id>
+      <title><![CDATA[jQuery 3.0 Alpha 发布，Deferred 兼容 Promise]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64269/jquery-3-0-alpha]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>jQuery 3.0 预览版发布，此版本是 jQuery 3.0 的第一个 Alpha 预览版！此版本主要特性：支持现代化浏览器和 IE9 环境。同时还发布了 jQuery Compat 3.0 Alpha 版本，此版本主要特性：支持 IE8！</p> 
+<p>jQuery 3.0 Alpha 和 jQuery Compat 3.0 Alpha 都支持 Yandex，一个 2012 年发布的浏览器，可以从 jQuery CDN 或者这里直接下载：<br></p> 
+<ul> 
+ <li><p><a target="_blank" href="https://code.jquery.com/jquery-3.0.0-alpha1.js" rel="nofollow">https://code.jquery.com/jquery-3.0.0-alpha1.js</a></p></li> 
+ <li><p><a target="_blank" href="https://code.jquery.com/jquery-compat-3.0.0-alpha1.js" rel="nofollow">https://code.jquery.com/jquery-compat-3.0.0-alpha1.js</a></p></li> 
+</ul> 
+<p>使用 npm 安装：<br></p> 
+<p><code>npm install jquery@3.0.0-alpha1</code></p> 
+<p><code>npm install jquery-compat@3.0.0-alpha1</code></p> 
+<p>此版本可以使用&nbsp;<a target="_blank" href="http://code.jquery.com/jquery-migrate-git.js" rel="nofollow">jQuery 迁移插件</a>进行升级。</p> 
+<h3>值得关注的特性</h3> 
+<ul> 
+ <li><p>简化 <code>.show()</code> 和 <code>.hide()</code> 方法</p></li> 
+ <li><p>修改 <code>.data()</code> 名称，更新 <code>.data()</code> 实现，能更好的匹配 <a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#dom-dataset" rel="nofollow">HTML5 数据集规范</a><br></p></li> 
+ <li><p>jQuery.Deferred 现在兼容 Promises/A+ 和 ES2015</p></li> 
+ <li><p>样式表设为 display:none 的元素，show() 无法让该元素显示<br></p></li> 
+ <li><p>移除 jQuery.ajax 的特定 Deferred 方法 <br></p></li> 
+ <li><p>尝试性增加错误提醒</p></li> 
+ <li><p>.width(), .height(), .css(“width”) 和 .css(“height”) 可以返回小数值</p></li> 
+ <li><p>移除废弃的事件别名（<code>.load</code>, <code>.unload</code> 和 <code>.error</code>）</p></li> 
+ <li><p>不能在 jQuery 对象中访问 jQuery.swap, jQuery.buildFragment 和 jQuery.domManip <br></p></li> 
+ <li><p>Animations 现在使用 <code>requestAnimationFrame</code></p></li> 
+ <li><p>.unwrap( selector )</p></li> 
+ <li><p>大幅度提升 jQuery 自定义选择器速度</p><p><br></p></li> 
+</ul> 
+<p>详细更新内容请看<a target="_blank" href="http://blog.jquery.com/2015/07/13/jquery-3-0-and-jquery-compat-3-0-alpha-versions-released/" rel="nofollow">发行说明</a>。<br></p>]]></body>
+      <commentCount>34</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 23:48:02</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/jquery]]></softwarelink>
+	  <softwarename><![CDATA[jQuery]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Point Linux 3.0 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64101/point-linux-3-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[jQuery EasyUI 1.4.3 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63907/easyui-1-4-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[GoVPN 3.0 发布，VPN 守护进程]]></rtitle>
+			<rurl>http://www.oschina.net/news/62091/govpn</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ jQuery 1.11.3 和 2.1.4 发布，iOS 安全版本]]></rtitle>
+			<rurl>http://www.oschina.net/news/61952/jquery-1-11-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Qubes OS 3.0 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/61856/qubes-os-3-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Grails 3.0 发布，Groovy 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/61099/grails-3-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[jQuery EasyUI 1.4.2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/60548/jquery-easyui-1-4-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ jQuery UI 1.11.4 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/60447/jquery-ui-1-11-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[AppendGrid 1.5.2 发布，jQuery 动态表格]]></rtitle>
+			<rurl>http://www.oschina.net/news/60252/appendgrid-1-5-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PostgreDAC 3.0 发布，PG 的 Delphi 组件]]></rtitle>
+			<rurl>http://www.oschina.net/news/60191/postgredac-3-0</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479460</id>
+		<title><![CDATA[开源蘑菇街TeamTalk报make db_proxy_server failed，信息分析]]></title>
+		<url><![CDATA[http://my.oschina.net/heavenly/blog/479460]]></url>
+		<where><![CDATA[技术研究]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>报错误消息： &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;compilation terminated.</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;make[2]: *** [CMakeFiles_proxy_server.dir/DBPool.cpp.o] Error 1</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;make[1]: *** [CMakeFiles_proxy_server.dir/all] Error 2</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;make: *** [all] Error 2</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;make db_proxy_server failed</p> 
+<p>解决的方法是<img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/181133_r2Sv_1167885.png"></p>
+<p><br></p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p> 
+<p>这是蓝狐的网站的截图，是解决方法的其中一种。</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原来：里面说的是centos7 ，且是已安装上mysql或mariadb<br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;修改：是系统原本没有mysql和mariadb，后来进行源码安装的<br></p> 
+<p>另外mysql或mariadb没有安装上也会报这个错误。<br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;运行命令：rpm -qa|grep mariadb<br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;报mariadb-libs-*****; &nbsp; 你的mariadb就安装不上去了。需要先卸载。<br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 如果有三项：mariadb-compat;mariadb-common;<span style="line-height: 22.5px;">mariadb-devel; 这才是安装成功了。</span></p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[Linux一叶]]></author>
+		<authorid>1167885</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 18:49:19</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

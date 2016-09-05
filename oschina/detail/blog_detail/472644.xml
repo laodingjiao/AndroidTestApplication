@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>472644</id>
+		<title><![CDATA[docker-reviewboard（让reviewboard安装、迁移更简单）]]></title>
+		<url><![CDATA[http://my.oschina.net/donhui/blog/472644]]></url>
+		<where><![CDATA[docker]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> <span style="line-height:1.5;">ReviewBoard是个开源的、可扩展的、友好的基于Web的代码评审工具，是用Python框架Django开发的。</span> </p> 
+<div> 
+ <br> 
+</div> 
+<div>
+  还记得之前安装ReviewBoard时折腾了好久 
+</div> 
+<div>
+  ReviewBoard官方文档很完善，官网上有详细的 
+ <a href="https://www.reviewboard.org/docs/manual/2.5/admin/installation/" rel="nofollow">安装指南</a>（每个环境：linux、windows、MacOSX） 
+</div> 
+<div>
+  当时的安装环境是linux，所需要的大多软件理论上可以通过yum/apt-get或者easy-install安装 
+</div> 
+<div>
+  但是最初安装的时候，是在公司内网，无法连接到外网，同时yum源不完善、也无法使用easy-install来安装与python相关的包 
+</div> 
+<div>
+  这样，许多软件都需要手动安装，安装过程繁琐、复杂，安装时的依赖解决、错误定位和解决花费了大量的时间 
+</div> 
+<div>
+  尤其是安装ReviewBoard需要解决的依赖甚多，安装pysvn时需要一一解决的错误甚多 
+</div> 
+<div>
+  这样，首次安装就花费了大约一周的时间 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  而这样的安装，无法迁移，要在其他环境安装还得重新安装 
+</div> 
+<div>
+  后来虽多次演练，不断积累了安装经验，但整个ReviewBoard环境一步步安装下来至少也需要一天 
+</div> 
+<div>
+  这两年Docker风生水起，而它使得ReviewBoard安装、迁移等变得更简单。 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  ReviewBoard官网上docker-reviewboard页面： 
+ <br> 
+ <a href="https://www.reviewboard.org/store/products/docker-reviewboard/" rel="nofollow">https://www.reviewboard.org/store/products/docker-reviewboard/</a> 
+ <div>
+   GitHub上docker-reviewboard的源码： 
+  <br> 
+  <div> 
+   <a href="https://github.com/ikatson/docker-reviewboard/" rel="nofollow">https://github.com/ikatson/docker-reviewboard/</a> 
+  </div> 
+  <div>
+    DockerHub上reviewboard的镜像： 
+  </div> 
+  <div> 
+   <a href="https://registry.hub.docker.com/u/ikatson/reviewboard/" rel="nofollow">https://registry.hub.docker.com/u/ikatson/reviewboard/</a> 
+  </div> 
+ </div> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  查看GitHub或DockerHub的相关页面，有详细的使用说明。 
+</div> 
+<div>
+  docker-reviewboard： 
+</div> 
+<div>
+  Dockerized化的ReviewBoard。 
+</div> 
+<div>
+  这个容器遵循Docker最佳实践，并且除了reviewboard运行在uwsgi的服务，不包括sshd、supervisor、apache2或其他服务。 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  它需要PostgreSQL和memcached，你可以使用Docker化的版本，也可以使用外部版本（例如安装在主机上或第三方机器上）。 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> 
+ <b>使用所有docker化的依赖快速启动、运行docker化的reviewboard，在docker容器中持久化数据。</b> 
+</div> 
+<div> 
+ <pre class="brush:shell; toolbar: true; auto-links: false;"># Install postgres
+docker run -d --name rb-postgres -e POSTGRES_USER=reviewboard postgres
+# Install memcached
+docker run --name rb-memcached -d -p 11211 sylvainlasnier/memcached
+# Create a data container for reviewboard with ssh credentials and media.
+docker run -v /.ssh -v /media --name rb-data busybox true
+# Run reviewboard
+docker run -it --link rb-postgres:pg --link rb-memcached:memcached --volumes-from rb-data -p 8000:8000 ikatson/reviewboard</pre> 
+ <p> <span style="line-height:22px;">在docker命令执行完成后，通过http://ip:8000/便可访问reviewboard，管理员帐号是admin:admin，登录之后可以修改管理员密码，设置SMTP等。</span><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/192352_up9y_1588291.png" alt=""> </p>
+</div> 
+<div> 
+</div> 
+<div>
+  使用docker ps查看运行的容器： 
+</div> 
+<div> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/192405_VMya_1588291.png" alt="">
+</div> 
+<p> 通过csphere的管理界面，也可以查看相应的容器信息： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/192416_Txjk_1588291.png" alt=""> </p>
+<div> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  此外，也可以通过源码自己构建镜像（包括依赖），也可以选择将PostgreSQL、memcached安装在主机上。 
+ <br> 
+</div> 
+<div>
+  更多，详见： 
+ <a href="https://registry.hub.docker.com/u/ikatson/reviewboard/" rel="nofollow">https://registry.hub.docker.com/u/ikatson/reviewboard/</a> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div> 
+ <b>reviewboard容器的挂载点和环境变量：</b> 
+</div> 
+<div>
+  这个容器有两个Volum挂载点： 
+</div> 
+<div> 
+ <ul> 
+  <li> /.ssh：reviewboard存储ssh key的默认路径 </li> 
+  <li> /media：reviewboard存储上传的媒介的默认路径 </li> 
+ </ul> 
+ <div>
+   这个容器接收如下环境变量： 
+ </div> 
+ <div> 
+  <ul> 
+   <li> PGHOST：postgre的主机，默认是PG_PORT_5432_TCP_ADDR的值，由连接的容器pg提供。 </li> 
+   <li> PGPORT：postgre的端口，默认是PG_PORT_5432_TCP_PORT的值，由连接的容器pg提供，或者是5432，或者是空。 </li> 
+   <li> PGUSER：postgre的用户，默认是reviewboard。 </li> 
+   <li> PGDB：postgre数据库，默认是reviewboard。 </li> 
+   <li> PGPASSWORD：postgre密码，默认是reviewboard。 </li> 
+   <li> MEMCACHED：mencached地址，以host:port的形式，默认的值来着连接的mencached容器。 </li> 
+   <li> DOMAIN：默认是localhost。 </li> 
+   <li> DEBUG：如果设置，django服务将以debug模式运行。 </li> 
+  </ul> 
+  <div>
+    此外，Docker镜像或容器可以持久化（docker export用于持久化容器，docker save用于持久化镜像）到文件系统中； 
+  </div> 
+ </div> 
+ <div>
+   同时可以使用docker import导入持久化的容器，可以使用docker load载入持久化的镜像； 
+ </div> 
+ <div>
+   这使得镜像或容器的迁移非常方便。 
+ </div> 
+ <div>
+   这样docker化的reviewboard迁移变得更简单。 
+ </div> 
+ <div> 
+  <br> 
+ </div> 
+ <div>
+   总之，docker化的reviewboard让reviewboard安装、迁移更简单。 
+ </div> 
+ <div> 
+  <br> 
+ </div> 
+ <div>
+   参考： 
+ </div> 
+ <div> 
+  <a href="https://registry.hub.docker.com/u/ikatson/reviewboard/" rel="nofollow">https://registry.hub.docker.com/u/ikatson/reviewboard/</a> 
+ </div> 
+ <div> 
+  <a href="http://dockerpool.com/static/books/docker_practice/image/save_load.html" rel="nofollow">http://dockerpool.com/static/books/docker_practice/image/save_load.html</a> 
+ </div> 
+ <div> 
+  <a href="http://dockerpool.com/static/books/docker_practice/container/import_export.html" rel="nofollow">http://dockerpool.com/static/books/docker_practice/container/import_export.html</a> 
+ </div> 
+</div> 
+<span></span>]]></body>
+		<author><![CDATA[donhui]]></author>
+		<authorid>1588291</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-30 19:24:29</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

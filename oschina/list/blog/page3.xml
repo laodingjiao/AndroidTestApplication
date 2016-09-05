@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <pagesize>20</pagesize>
+  <blogs>
+  					<blog>
+		<id>479254</id>
+		<title><![CDATA[linux的守护进程init.d和xinetd.d]]></title>
+        <body><![CDATA[Linux 服务器在启动时需要启动很多系统服务，它们向本地和网络用户提供了...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2408025/blog/479254]]></url>
+        <pubDate>2015-07-16 12:31:23</pubDate>
+        <authoruid>2408025</authoruid>
+        <authorname><![CDATA[学习环境]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479248</id>
+		<title><![CDATA[C#窗口实现单例模式]]></title>
+        <body><![CDATA[主要是应对这种需求：软件只允许启动一次。 将这个问题转化一下，可以这...]]></body>
+		<url><![CDATA[http://my.oschina.net/somereasons/blog/479248]]></url>
+        <pubDate>2015-07-16 12:04:36</pubDate>
+        <authoruid>212203</authoruid>
+        <authorname><![CDATA[夜风聆雨]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479245</id>
+		<title><![CDATA[seci-log 1.09 发布 增加了多个报表和功能点]]></title>
+        <body><![CDATA[日志分析软件 seci-log 1.09发布，增加了多个报表和功能点。上篇文章htt...]]></body>
+		<url><![CDATA[http://my.oschina.net/secisland/blog/479245]]></url>
+        <pubDate>2015-07-16 12:02:17</pubDate>
+        <authoruid>247205</authoruid>
+        <authorname><![CDATA[赛克蓝德]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479238</id>
+		<title><![CDATA[JSP打入jar包]]></title>
+        <body><![CDATA[        由于在Servlet3.0中，可以支持将JSP文件打入jar包，只需...]]></body>
+		<url><![CDATA[http://my.oschina.net/zhaoyun1985/blog/479238]]></url>
+        <pubDate>2015-07-16 11:51:00</pubDate>
+        <authoruid>2290151</authoruid>
+        <authorname><![CDATA[脚下的节奏]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479236</id>
+		<title><![CDATA[使用InputStream的markSupported、mark和reset]]></title>
+        <body><![CDATA[使用InputStream的markSupported、mark和reset mark用于标记地方，以后再...]]></body>
+		<url><![CDATA[http://my.oschina.net/dubenju/blog/479236]]></url>
+        <pubDate>2015-07-16 11:47:29</pubDate>
+        <authoruid>660460</authoruid>
+        <authorname><![CDATA[茶壶]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479219</id>
+		<title><![CDATA[oracle造最近6个月及每月天数SQL]]></title>
+        <body><![CDATA[select to_char(t, 'yyyymm') a, to_char(t, 'yyyy-mm') b, to_...]]></body>
+		<url><![CDATA[http://my.oschina.net/h2do/blog/479219]]></url>
+        <pubDate>2015-07-16 11:16:02</pubDate>
+        <authoruid>1245084</authoruid>
+        <authorname><![CDATA[一是无成]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479215</id>
+		<title><![CDATA[Linux的gpg命令]]></title>
+        <body><![CDATA[gpg [功能] GPG是加密和数字签名的免费工具，大多用于加密信息的传递。除...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2408048/blog/479215]]></url>
+        <pubDate>2015-07-16 11:12:56</pubDate>
+        <authoruid>2408048</authoruid>
+        <authorname><![CDATA[被使用的文件]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479214</id>
+		<title><![CDATA[系统吞吐量（TPS）、用户并发量、性能测试概念和公式]]></title>
+        <body><![CDATA[PS：下面是性能测试的主要概念和计算公式，记录下： 一．系统吞度量要素...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2300159/blog/479214]]></url>
+        <pubDate>2015-07-16 11:12:32</pubDate>
+        <authoruid>2300159</authoruid>
+        <authorname><![CDATA[如风达]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479210</id>
+		<title><![CDATA[struts2 跳转方式，请求分派，重定向]]></title>
+        <body><![CDATA[http://localhost:8080/s2_05_HCM_05/hcm/employee/helloworld 1、actio...]]></body>
+		<url><![CDATA[http://my.oschina.net/sniperLi/blog/479210]]></url>
+        <pubDate>2015-07-16 11:05:58</pubDate>
+        <authoruid>2004245</authoruid>
+        <authorname><![CDATA[Zero零_度]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479203</id>
+		<title><![CDATA[centos7 kvm 安装win7 virtio 等等]]></title>
+        <body><![CDATA[#yum -y install qemu-kvm libvirt virt-install bridge-utils
+#l...]]></body>
+		<url><![CDATA[http://my.oschina.net/mingyuejingque/blog/479203]]></url>
+        <pubDate>2015-07-16 11:00:20</pubDate>
+        <authoruid>104197</authoruid>
+        <authorname><![CDATA[明月惊鹊]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479201</id>
+		<title><![CDATA[20150716]]></title>
+        <body><![CDATA[是是是是是是是是是是是是是是是是是是是是是是是是是是是是是是是 顶顶...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2411183/blog/479201]]></url>
+        <pubDate>2015-07-16 10:59:17</pubDate>
+        <authoruid>2411183</authoruid>
+        <authorname><![CDATA[yijiao]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479199</id>
+		<title><![CDATA[su和sudo用法学习整理]]></title>
+        <body><![CDATA[1、切换身份为root进行工作：su - 2、一个叧有 root 才能执行的指令，执...]]></body>
+		<url><![CDATA[http://my.oschina.net/lisn/blog/479199]]></url>
+        <pubDate>2015-07-16 10:58:56</pubDate>
+        <authoruid>1042122</authoruid>
+        <authorname><![CDATA[lisn]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479195</id>
+		<title><![CDATA[Hoeffding Tree]]></title>
+        <body><![CDATA[VFDT是一种基于Hoeffding不等式建立决策树的方法，透过不断地将叶节点替...]]></body>
+		<url><![CDATA[http://my.oschina.net/supersonic/blog/479195]]></url>
+        <pubDate>2015-07-16 10:56:33</pubDate>
+        <authoruid>1399748</authoruid>
+        <authorname><![CDATA[敏事慎言]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479189</id>
+		<title><![CDATA[12款最佳Linux命令行终端工具]]></title>
+        <body><![CDATA[如果你跟我一样，整天要花大量的时间使用Linux命令行，而且正在寻找一些...]]></body>
+		<url><![CDATA[http://my.oschina.net/chinacaptain/blog/479189]]></url>
+        <pubDate>2015-07-16 10:53:26</pubDate>
+        <authoruid>1582832</authoruid>
+        <authorname><![CDATA[90后爱国]]></authorname>
+        <commentCount>1</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479179</id>
+		<title><![CDATA[Eclipse中做Android开发LogCat的使用]]></title>
+        <body><![CDATA[介绍 LogCat是Eclipse里面做Android开发的工具包ADT中的一个工具，用来查...]]></body>
+		<url><![CDATA[http://my.oschina.net/xuleo/blog/479179]]></url>
+        <pubDate>2015-07-16 10:43:25</pubDate>
+        <authoruid>233834</authoruid>
+        <authorname><![CDATA[leoxu]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479176</id>
+		<title><![CDATA[Libgdx之封装简单的脚本机制]]></title>
+        <body><![CDATA[需求： 游戏中，在开始前经常会用到，ready-&gt;go-&gt;start game，或者其他情...]]></body>
+		<url><![CDATA[http://my.oschina.net/oahcfly/blog/479176]]></url>
+        <pubDate>2015-07-16 10:41:48</pubDate>
+        <authoruid>1866808</authoruid>
+        <authorname><![CDATA[flyoahc]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479173</id>
+		<title><![CDATA[Linux设置Java环境变量]]></title>
+        <body><![CDATA[###Linux下使用”export“命令设定环境变量
+export JAVA_HOME=/opt/ap...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2370543/blog/479173]]></url>
+        <pubDate>2015-07-16 10:36:15</pubDate>
+        <authoruid>2370543</authoruid>
+        <authorname><![CDATA[Kxvz]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479170</id>
+		<title><![CDATA[thinkphp开启GZIP压缩]]></title>
+        <body><![CDATA[在项目的入口文件index.php添加 define ( "GZIP_ENABLE", function_exi...]]></body>
+		<url><![CDATA[http://my.oschina.net/weiwenfeng/blog/479170]]></url>
+        <pubDate>2015-07-16 10:28:53</pubDate>
+        <authoruid>877901</authoruid>
+        <authorname><![CDATA[晓自由]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479169</id>
+		<title><![CDATA[员工激励]]></title>
+        <body><![CDATA[员工激励机制 俗话说 “水不激不扬，人不激不奋” 是我国古代典型的激励...]]></body>
+		<url><![CDATA[http://my.oschina.net/neochen/blog/479169]]></url>
+        <pubDate>2015-07-16 10:27:14</pubDate>
+        <authoruid>725072</authoruid>
+        <authorname><![CDATA[neo-chen]]></authorname>
+        <commentCount>21</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479166</id>
+		<title><![CDATA[关于easydialog 使用方法和问题 ]]></title>
+        <body><![CDATA[easydialog 非常简洁的弹出层JS组件，相比于传统的alert(),有更好的用户...]]></body>
+		<url><![CDATA[http://my.oschina.net/leftheart/blog/479166]]></url>
+        <pubDate>2015-07-16 10:21:58</pubDate>
+        <authoruid>151271</authoruid>
+        <authorname><![CDATA[Y_ai]]></authorname>
+        <commentCount>2</commentCount>
+		<documentType>1</documentType>
+	</blog>
+		    </blogs>
+</oschina>	

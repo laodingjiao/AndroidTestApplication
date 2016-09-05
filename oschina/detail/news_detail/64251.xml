@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64251</id>
+      <title><![CDATA[Pholcus 0.4.8 发布，Go 爬虫软件]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64251/pholcus-0-4-8]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Pholcus 0.4.8 发布，这个版本添加页码下载成功数与失败数监控。</p> 
+<p>更多内容请查看<a target="_blank" href="https://github.com/henrylee2cn/pholcus" rel="nofollow">软件主页</a>。</p> 
+<p>下载地址请点<a target="_blank" href="https://github.com/henrylee2cn/pholcus/releases/tag/v0.4.8" rel="nofollow">这里</a>。</p> 
+<p>Pholcus（幽灵蛛）是一款纯Go语言编写的重量级爬虫软件，清新的GUI界面，优雅的爬虫规则、可控的高并发、任意的批量任务、多种输出方式、大量Demo，支持横纵向两种抓取模式，支持模拟登录和任务取消等，并且考虑了支持分布式布局。</p>]]></body>
+      <commentCount>7</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 08:09:36</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/pholcus]]></softwarelink>
+	  <softwarename><![CDATA[Pholcus]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Pholcus 0.5.0 发布，Go 爬虫软件]]></rtitle>
+			<rurl>http://www.oschina.net/news/64313/pholcus-0-5-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[奇虎360 和 go]]></rtitle>
+			<rurl>http://www.oschina.net/translate/qihoo-and-go</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Google App Engine 对 Go 已经移除 Beta 标签]]></rtitle>
+			<rurl>http://www.oschina.net/news/64083/google-app-engine-for-go</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Go 1.5 Beta1 发布，完全使用 Go 编写的 Go]]></rtitle>
+			<rurl>http://www.oschina.net/news/64051/go-1-5-beta1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[为什么说 Go 和 Rust 不是竞争者 ]]></rtitle>
+			<rurl>http://www.oschina.net/translate/why-go-and-rust-are-not-competitors</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— Go 开发的任务计划]]></rtitle>
+			<rurl>http://git.oschina.net/cnjack/go-task</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[telegraf v0.1.3 发布，Go 编写的代理程序]]></rtitle>
+			<rurl>http://www.oschina.net/news/64002/telegraf-0-1-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Telegraf 0.1.2 发布，Go 编写的代理程序]]></rtitle>
+			<rurl>http://www.oschina.net/news/63896/telegraf-0-1-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RequestHub —— Go 开发的 HTTP 调试工具]]></rtitle>
+			<rurl>http://www.oschina.net/p/requesthub</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Mattermost —— Slack 的开源替代品，Go 开发]]></rtitle>
+			<rurl>http://www.oschina.net/p/mattermost</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

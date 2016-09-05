@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64317</id>
+      <title><![CDATA[《Apache Spark 设计与实现》]]></title>
+      <url><![CDATA[http://www.oschina.net/p/sparkinternals]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>本文主要讨论 <a target="_blank" href="http://www.oschina.net/p/spark-project" rel="nofollow">Apache Spark</a> 的设计与实现，重点关注其设计思想、运行原理、实现架构及性能调优，附带讨论与 Hadoop MapReduce 在设计与实现上的区别。不喜欢将该文档称之为“源码分析”，因为本文的主要目的不是去解读实现代码，而是尽量有逻辑地，从设计与实现原理的角度，来理解 job 从产生到执行完成的整个过程，进而去理解整个系统。</p>]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 08:09:36</pubDate>
+	  <softwarelink><![CDATA[]]></softwarelink>
+	  <softwarename><![CDATA[]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Apache 2.4.16 发布，改进 HTTP ]]></rtitle>
+			<rurl>http://www.oschina.net/news/64268/apache-2-4-16</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spark 和 Hadoop 是朋友不是敌人]]></rtitle>
+			<rurl>http://www.oschina.net/news/64217/spark-and-hadoop-are-friends-not-foes</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[IBM 想要通过 Apache Spark 影响百万工程师]]></rtitle>
+			<rurl>http://www.oschina.net/news/63396/ibm-apache-spark</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spark IM 2.7.1 发布，IM 客户端]]></rtitle>
+			<rurl>http://www.oschina.net/news/63337/spark-im-2-7-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Spark 1.4 发布，开源集群计算系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63301/apache-spark-1-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Ignite vs Apache Spark ]]></rtitle>
+			<rurl>http://www.oschina.net/translate/apache-ignite-vs-apache-spark</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spark IM 2.7.0 发布，即时通讯客户端]]></rtitle>
+			<rurl>http://www.oschina.net/news/61850/spark-im-2-7-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spark 1.2.2/1.3.1 发布，开源集群计算系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/61688/spark-1-2-2-and-1-3-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OSC 第 69 期高手问答 — Spark 源码剖析]]></rtitle>
+			<rurl>http://www.oschina.net/question/865233_232908</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[最受欢迎开源项目 Apache Spark 的持续增长]]></rtitle>
+			<rurl>http://www.oschina.net/translate/on-the-growth-of-apache-spark</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

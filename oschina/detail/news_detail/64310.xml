@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64310</id>
+      <title><![CDATA[Piwik 2.14.1 发布，网站访问统计系统]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64310/piwik-2-14-1]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Piwik 2.14.1 发布，这个版本着重修复前个版本报告的一些问题，此外还有 27项小的改进：</p> 
+<ul> 
+ <li><p><a href="https://github.com/piwik/piwik/pull/8331" target="_blank" rel="nofollow">#8331</a> Do not perform an inner join when looking for archives to purge, it does not scale. [by <a href="https://github.com/diosmosis" target="_blank" rel="nofollow">@diosmosis</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/7181" target="_blank" rel="nofollow">#7181</a> Report archives have tripled in size since update to 2.10 [by <a href="https://github.com/diosmosis" target="_blank" rel="nofollow">@diosmosis</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8321" target="_blank" rel="nofollow">#8321</a> Embedding widgets with token_auth does not work anymore [by <a href="https://github.com/sgiehl" target="_blank" rel="nofollow">@sgiehl</a>, <a href="https://github.com/diosmosis" target="_blank" rel="nofollow">@diosmosis</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8324" target="_blank" rel="nofollow">#8324</a> API: make parameter filter_excludelowpop_value work in all cases [by <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>, <a href="https://github.com/diosmosis" target="_blank" rel="nofollow">@diosmosis</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8312" target="_blank" rel="nofollow">#8312</a> Web cron archive.php is not working in some cases [by <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8311" target="_blank" rel="nofollow">#8311</a> misc/others/api_internal_call.php is broken [by <a href="https://github.com/diosmosis" target="_blank" rel="nofollow">@diosmosis</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8289" target="_blank" rel="nofollow">#8289</a> Apache Error 500 in case of Detected browser engine was not found in $availableEngines [by <a href="https://github.com/sgiehl" target="_blank" rel="nofollow">@sgiehl</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8272" target="_blank" rel="nofollow">#8272</a> Do not use INI [proxy] settings when connecting to localhost or 127.0.0.1 [by <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8257" target="_blank" rel="nofollow">#8257</a> Site Search report does not display tooltips with metrics documentation [by <a href="https://github.com/barbushin" target="_blank" rel="nofollow">@barbushin</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8245" target="_blank" rel="nofollow">#8245</a> Mobile Messaging shows error message when changing setting</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8244" target="_blank" rel="nofollow">#8244</a> Adding/Editing a new goal doesn’t update its “state” and some UI issues</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8243" target="_blank" rel="nofollow">#8243</a> Visitor map NaN error in browser console</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/7969" target="_blank" rel="nofollow">#7969</a> Quotes in goal names are over-escaped [by <a href="https://github.com/diosmosis" target="_blank" rel="nofollow">@diosmosis</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/7768" target="_blank" rel="nofollow">#7768</a> Browser info tooltip doesnt hide &nbsp;[by <a href="https://github.com/barbushin" target="_blank" rel="nofollow">@barbushin</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/7382" target="_blank" rel="nofollow">#7382</a> Cannot click links in visitor-log-lightbox [by <a href="https://github.com/barbushin" target="_blank" rel="nofollow">@barbushin</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8305" target="_blank" rel="nofollow">#8305</a> Make Auto update buttons bigger</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/pull/8350" target="_blank" rel="nofollow">#8350</a> Update to Kartograph 0.8.2 [by <a href="https://github.com/barbushin" target="_blank" rel="nofollow">@barbushin</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/pull/8343" target="_blank" rel="nofollow">#8343</a> Adding PRIVACY.md file to document various ways to improve Privacy for visitors and Piwik admins [by <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>, <a href="https://github.com/diosmosis" target="_blank" rel="nofollow">@diosmosis</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/pull/8303" target="_blank" rel="nofollow">#8303</a> missing translation General_Next in javascript of SitesManager [by <a href="https://github.com/parruc" target="_blank" rel="nofollow">@parruc</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/pull/8283" target="_blank" rel="nofollow">#8283</a> Update to Kartograph 0.8.2 [by <a href="https://github.com/barbushin" target="_blank" rel="nofollow">@barbushin</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/pull/8248" target="_blank" rel="nofollow">#8248</a> Fixes duplication `onchange` event for `radio` elements [by <a href="https://github.com/barbushin" target="_blank" rel="nofollow">@barbushin</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/pull/8229" target="_blank" rel="nofollow">#8229</a> Add OptOutManager [by <a href="https://github.com/Zeichen32" target="_blank" rel="nofollow">@Zeichen32</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8220" target="_blank" rel="nofollow">#8220</a> Document the possible issue with data not being tracked and SSL certificates / net::ERR_INSECURE_RESPONSE</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/pull/8208" target="_blank" rel="nofollow">#8208</a> Use translated plugin description if available [by <a href="https://github.com/sgiehl" target="_blank" rel="nofollow">@sgiehl</a>, <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/8188" target="_blank" rel="nofollow">#8188</a> Allow to test all API endpoints using SystemTestCase::runApiTests [by <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/issues/7698" target="_blank" rel="nofollow">#7698</a> Improve logging for “unexpected website” [by <a href="https://github.com/mattab" target="_blank" rel="nofollow">@mattab</a>]</p></li> 
+ <li><p><a href="https://github.com/piwik/piwik/pull/8334" target="_blank" rel="nofollow">#8334</a> [automatic translation update] Updated 306 strings in 16 languages (sk, de, es, nb, sv, sl, el, fr, it, bg, cs, ko, nl, nn, pt, sq) [by <a href="https://github.com/sgiehl" target="_blank" rel="nofollow">@sgiehl</a>]</p></li> 
+</ul> 
+<p>详细内容请查看<a target="_blank" href="http://piwik.org/changelog/piwik-2-14-1/" rel="nofollow">发行说明</a>。</p> 
+<p>Piwik是一套基于PHP5+MySQL技术构建的开源网站访问统计系统，前身是<a href="http://www.oschina.net/p/phpmyvisites" rel="nofollow">phpMyVisites</a>。Piwik可以给你详细的统计信息，比如网页浏览人数，访问最多的页面，搜索引擎关键词等等流量分析功能。此外，它还采用了插件扩展及开放API架构，可以让用户根据 自已的实际需求创建更多的功能。</p> 
+<p>现在官方已经推出 <a href="http://piwik.org/mobile/" target="_blank" rel="nofollow">移动客户端</a>(<a href="https://itunes.apple.com/us/app/piwik-mobile-2/id737216887?mt=8" target="_blank" rel="nofollow">iOS</a> &amp; <a href="https://play.google.com/store/apps/details?id=org.piwik.mobile2" target="_blank" rel="nofollow">Android</a>)</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201003/04105610_FZxc.png" alt=""></p>]]></body>
+      <commentCount>2</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 07:48:12</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/piwik]]></softwarelink>
+	  <softwarename><![CDATA[Piwik]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Piwik 2.14.0 RC 发布，重要安全更新版本！]]></rtitle>
+			<rurl>http://www.oschina.net/news/63633/piwik-2-14-0-rc</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Piwik 2.13.1 发布，网站访问统计系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/62204/piwik-2-13-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Piwik 2.12.1 发布，网站访问统计系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/60948/piwik-2-12-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Piwik 2.12.0 发布，网站访问统计系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/60789/piwik-2-12-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Piwik 2.11.2 发布，网站访问统计系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/60173/piwik-2-11-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Piwik 2.11.1 发布，网站访问统计系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/59903/piwik-2-11-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Piwik 2.11.0 RC 发布，网站访问统计系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/59736/piwik-2-11-0-rc</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Piwik 2.10.0 RC 发布，网站访问统计系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/58047/piwik-2-10-0-rc</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Piwik 2.9.1 发布，网站访问统计系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/57218/piwik-2-9-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Piwik 2.9.0 发布，网站访问统计系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/57009/piwik-2-9-0</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

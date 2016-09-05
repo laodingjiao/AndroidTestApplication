@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>472385</id>
+		<title><![CDATA[Tiny前端展现框架开源了~~~]]></title>
+		<url><![CDATA[http://my.oschina.net/tinyframework/blog/472385]]></url>
+		<where><![CDATA[Tiny框架]]></where>
+		<commentCount>94</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> <span style="line-height:1.5;">以前发表过一篇文章：</span><a href="http://my.oschina.net/tinyframework/blog/339838" target="_blank" rel="nofollow">TinyAdmin前端展现框架</a><span style="line-height:1.5;">，其在线演示路径为：</span><a href="http://www.tinygroup.org/tinyadmin/" target="_blank" rel="nofollow">http://www.tinygroup.org/tinyadmin/</a><span style="line-height:1.5;">，应该说有许多人还是感觉兴趣的，但是由于这个是基于SmartAdmin框架改写的，虽然我们自己买了SmartAdmin的授权，但是广大用户如果要用的时候，就会有授权相关的问题，这会大大影响一些人的使用决策--尤其是会再发行的朋友。</span> </p> 
+<p> <span style="line-height:1.5;">再一个原因是SmartAdmin初看不是不错的，但是实际用起来，里面的问题比较多，对IE8基本上可以说是不兼容，虽然我们努力进行了一定的修正，但是还是兼容性不够好。有些用户体验方面也有改进的空间，这就越来越让我思考，是不是要有更好的解决方案？</span> </p> 
+<p> <span style="line-height:1.5;">直到AJian和密缘之友加入我的团队之后，我觉得是时候比较彻底的解决这个问题了。果然，在风淡芸轻、AJian、密缘之友的通力合作下，只用了一个月左右的时间，就拿出一TinyUI的初始版本，目前已经基本完善，当然我们还在进行系统性的测试，相信还存在一些小问题（有些我们自己已经发现，正在修正中），欢迎感兴趣的同学们一起来参与改进。</span> </p> 
+<p> <span style="line-height:1.5;">在线演示地址：<a href="http://www.tinygroup.org/tinyuiweb/" target="_blank" rel="nofollow">http://www.tinygroup.org/tinyuiweb/</a></span> </p> 
+<p> <span style="line-height:1.5;">源码地址（必须<span>托管在</span>高大上的开源中国GIT仓库）：<a href="http://git.oschina.net/tinyframework/TinyUiEnterprise" target="_blank" rel="nofollow">http://git.oschina.net/tinyframework/TinyUiEnterprise</a></span> </p> 
+<p> 开发环境构建，需要有GIT，MAVEN(3.1.x)，JDK1.6： </p> 
+<pre class="brush:shell; toolbar: true; auto-links: false;">git clone https://git.oschina.net/tinyframework/TinyUiEnterprise.git
+cd TinyUiEnterprise
+mvn install
+cd *web
+mvn jetty:run</pre> 在执行mvn install的时候，第一次时间比较长，因为要从中央仓库下载一些资源包，可以抽支烟、喝杯茶、走走步啥的。 
+<p> 如果走完最后一步，就可以启动起一个本地环境（注意，没有别的应用占用8080端口），这个时候起个浏览器，输入： </p> 
+<p> <a href="http://localhost:8080/tinyuiweb/" target="_blank" rel="nofollow"> </a> </p> 
+<pre class="brush:java; toolbar: true; auto-links: false;">http://localhost:8080/tinyuiweb/
+</pre> 
+<p> &nbsp;注意，请在IE9以上浏览器、Chrome、FireFox等浏览器上浏览，目前IE8还在作适应性调整。 </p> 
+<p> <span style="color:#E56600;">一些说明，本UI框架中，有一些内容取自H-UI，这个我们和H-UI源创团队进行过沟通，他们允许我们复用他们框架中的内容。</span><br> <span style="line-height:1.5;"><span style="color:#E56600;">本UI框架中，在某些外在实现方面参考了SmartAdmin的一些特性，但是没有复用它的源码。</span><br> </span><span style="line-height:1.5;color:#E56600;">本UI框架中，集成了一些开源的JQuery插件，但是不改变原来插件的授权方式，请使用者在使用时查看原始插件的授权方式。</span> </p> 
+<p> TinyUI的一些特性说明： </p> 
+<ul> 
+ <li> <span style="line-height:1.5;">提供了完整的主页面框架</span> </li> 
+ <li> <span style="line-height:1.5;">提供了整页切换和Ajax</span><span style="line-height:1.5;">局部刷新的支持</span> </li> 
+ <li> <span style="line-height:1.5;">提供了丰富的菜单插入点</span> </li> 
+ <li> <span style="line-height:1.5;">提供了多种皮肤</span> </li> 
+ <li> <span style="line-height:1.5;">提供了丰富的界面元素自定义</span> </li> 
+ <li> <span style="line-height:1.5;">提供了UI组件包的封装</span> </li> 
+ <li> <span style="line-height:1.5;">提供了宏封装，使得使用时不必关心具体实现</span> </li> 
+ <li> <span style="line-height:1.5;">提供了流式布局，在手机端也有良好的展现</span> </li> 
+ <li> <span style="line-height:1.5;">良好的解决了UI组件包之间的依赖关系</span> </li> 
+ <li> <span style="line-height:1.5;">良好的解决了CSS合并和JS合并及其压缩方面的问题</span> </li> 
+</ul> 
+<p> 下面我通过一些图形了做一个展示： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/101942_4gwE_1245989.png" alt=""> </p>
+<p> 上面是其中的一个页面，组件包列表是根据实际加载的组件包数量实时计算出来的，因此不需要人为进行修改---这个就是依赖TinyUiEngine的强大支持了。 </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/102247_JRuS_1245989.png" alt=""> </p>
+<p> 点击设置按钮，会显示界面调整面板，在这里可以对导航条、菜单栏、导般菜单等进行固定与否的调整，也可以调整菜单的位置。还可以选择是采用全屏还是固定宽度的设置，值得一提的是如果选择固定宽度，会根据页面的宽度在970与1170宽度之间自动适应。再下面就是各种各样的主题风格了。呵呵，现在的主题风格只是简单调整了一下，用于测试，后面会请专业的美工同学进行系统性的调整。 </p> 
+<p> 然后，里面就是几十个组件的实际示例，我敢保证你想用的多大多组件都已经包含在内了。如果你认为还不够，请到<a href="http://bbs.tinygroup.org" target="_blank" rel="nofollow">bbs.tinygroup.org</a>社区中留言，只要提的合理，我们会以你想象不到的速度快速进行添加。 </p> 
+<p> 下面我展示一个流式布局的示范： </p> 
+<p> 一开始是整页宽度的固定宽度显示，还可以看到两边的阴影，现在固定宽度为1170像素。 </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/105844_Y3Xr_1245989.png" alt=""> </p>
+<p> <span style="line-height:1.5;">我们减少它的宽度 </span> </p> 
+<p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/110144_U8Bj_1245989.png" alt=""><br> </span> </p>
+<p> 它的宽度已经变成970像素宽。 </p> 
+<p> 再把它的宽度减少， </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/110416_DqM2_1245989.png" alt=""> </p>
+<p> 可以看到两边的隐藏已经没有了。 </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/110539_YSqH_1245989.png" alt=""> </p>
+<p> 由于宽度实在是小，菜单就不再完整显示，而是只显示图标了。 </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/110717_2u8d_1245989.png" alt=""> </p>
+<p> 嗯嗯，效果不错，已经完整的展示了整个过程。 </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/111016_159t_1245989.png" alt=""> </p>
+<p> 上面是菜单显示方式，可以看到是非常适合手机等触摸屏上操作的。 </p> 
+<p> <span style="color:#E53333;">Tiny出品，必是精品，小伙伴们一起参与或加入我们吧！！！</span> </p> 
+<p> <br> </p>]]></body>
+		<author><![CDATA[悠悠然然]]></author>
+		<authorid>1245989</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-30 11:15:53</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

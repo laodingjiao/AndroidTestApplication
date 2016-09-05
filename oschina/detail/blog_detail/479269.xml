@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479269</id>
+		<title><![CDATA[Mac 下 Laravel 创建 新项目]]></title>
+		<url><![CDATA[http://my.oschina.net/qqwang/blog/479269]]></url>
+		<where><![CDATA[心灵空间]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> PHP Warning: PHP Startup: Unable to load dynamic library '/usr/lib/php/extensions/no-debug-non-zts-20121212/php_gd2.dll' - dlopen(/usr/lib/php/extensions/no-debug-non-zts-20121212/php_gd2.dll, 9): image not found in Unknown on line 0 PHP Warning: PHP Startup: Unable to load dynamic library '/usr/lib/php/extensions/no-debug-non-zts-20121212/php_mbstring.dll' - dlopen(/usr/lib/php/extensions/no-debug-non-zts-20121212/php_mbstring.dll, 9): image not found in Unknown on line 0 PHP Warning: PHP Startup: Unable to load dynamic library '/usr/lib/php/extensions/no-debug-non-zts-20121212/php_mysql.dll' - dlopen(/usr/lib/php/extensions/no-debug-non-zts-20121212/php_mysql.dll, 9): image not found in Unknown on line 0 Crafting application. </p> 
+<p> 在网上找了好久。http://stackoverflow.com/questions/28084943/how-to-clean-php-output-in-os-x &nbsp; 这里找到了答案 </p> 
+<p> mac 下是不支持 &nbsp;dll &nbsp; 的 </p> 
+<p> <br> </p>]]></body>
+		<author><![CDATA[王纪光]]></author>
+		<authorid>269285</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 13:16:35</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

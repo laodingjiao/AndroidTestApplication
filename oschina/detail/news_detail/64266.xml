@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64266</id>
+      <title><![CDATA[Apache Subversion 1.9.0-rc3 发布]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64266/subversion-1-9-0-rc3]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Apache Subversion 1.9.0-rc3 发布，此版本现已提供下载：</p> 
+<p><a target="_blank" href="http://subversion.apache.org/download/#pre-releases" rel="nofollow">http://subversion.apache.org/download/#pre-releases</a>&nbsp; <br></p> 
+<h3>主要更新内容</h3> 
+<p>用户可见改进：<br>&nbsp; - 常规改进：<br>&nbsp;&nbsp;&nbsp; * 所有命令在 help 输出的时候都提供简短的描述 (r1522518)<br>&nbsp;&nbsp;&nbsp; * 在退出前 flush stdout，避免消息丢失 (r1543868)<br><br>&nbsp; - 重要新特性<br>&nbsp;&nbsp;&nbsp; * fsfs: new format 7 with more efficient on-disk layout (r1547045 et al)<br>&nbsp;&nbsp;&nbsp; * resolve: improve interactive conflict resolution menus<br>&nbsp;&nbsp;&nbsp; * blame: support showing prospective as well as previous changes<br>&nbsp;&nbsp;&nbsp; * info: support printing of individual values with --show-item (r1662620)<br>&nbsp;&nbsp;&nbsp; * svn auth: new subcommand to manage cached credentials and certs<br>&nbsp;&nbsp;&nbsp; * svnserve: cache config and authz to lower resource usage and be able to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; serve large numbers of connections with a limited number of threads<br>&nbsp;&nbsp;&nbsp; * membuffer: quadruple the maximum cacheable directory size (r1545948 et al)<br>&nbsp;&nbsp;&nbsp; * new filesystem fsx (faster, smaller); experimental - see release notes</p> 
+<p>SHA1 校验码<br><br>&nbsp;&nbsp;&nbsp; 26fcfa53e32e3f83724327d3fdb965dc28253260 subversion-1.9.0-rc3.tar.bz2<br>&nbsp;&nbsp;&nbsp; 1c7386c0d32cf9789967d711415ccc28041295a9 subversion-1.9.0-rc3.tar.gz<br>&nbsp;&nbsp;&nbsp; f50cf8dd14a46c882c05f5436f1dec97169b58c0 subversion-1.9.0-rc3.zip<br><br>PGP 签名：<br><br>&nbsp;&nbsp;&nbsp; <a href="http://www.apache.org/dist/subversion/subversion-1.9.0-rc3.tar.bz2.asc" rel="nofollow">http://www.apache.org/dist/subversion/subversion-1.9.0-rc3.tar.bz2.asc</a>&nbsp; <br>&nbsp;&nbsp;&nbsp; <a href="http://www.apache.org/dist/subversion/subversion-1.9.0-rc3.tar.gz.asc" rel="nofollow">http://www.apache.org/dist/subversion/subversion-1.9.0-rc3.tar.gz.asc</a>&nbsp; <br>&nbsp;&nbsp;&nbsp; <a href="http://www.apache.org/dist/subversion/subversion-1.9.0-rc3.zip.asc" rel="nofollow">http://www.apache.org/dist/subversion/subversion-1.9.0-rc3.zip.asc</a>&nbsp; <br><br>Apache Subversion 1.9.0 issues 列表：</p> 
+<p><a target="_blank" href="http://subversion.tigris.org/issues/buglist.cgi?component=subversion&amp;issue_status=NEW&amp;issue_status=STARTED&amp;issue_status=REOPENED&amp;target_milestone=1.9.0" rel="nofollow">http://subversion.tigris.org/issues/buglist.cgi?component=subversion&amp;issue_status=NEW&amp;issue_status=STARTED&amp;issue_status=REOPENED&amp;target_milestone=1.9.0</a>&nbsp; <br><br>Subversion 1.9.0 发行说明：</p> 
+<p><a target="_blank" href="http://subversion.apache.org/docs/release-notes/1.9.html" rel="nofollow">http://subversion.apache.org/docs/release-notes/1.9.html</a>&nbsp; <br><br>Subversion 1.9.0 RC3 更新日志：</p> 
+<p><a target="_blank" href="http://svn.apache.org/repos/asf/subversion/tags/1.9.0-rc3/CHANGES" rel="nofollow">http://svn.apache.org/repos/asf/subversion/tags/1.9.0-rc3/CHANGES</a>&nbsp; <br></p>]]></body>
+      <commentCount>5</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 15:04:57</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/subversion]]></softwarelink>
+	  <softwarename><![CDATA[Subversion (SVN)]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Apache 2.4.16 发布，改进 HTTP ]]></rtitle>
+			<rurl>http://www.oschina.net/news/64268/apache-2-4-16</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Subversion 1.9.0-rc2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63303/subversion-1-9-0-rc2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Ignite vs Apache Spark ]]></rtitle>
+			<rurl>http://www.oschina.net/translate/apache-ignite-vs-apache-spark</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Subversion 1.9.0 rc1 发布，版本控制系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/62353/apache-subversion-1-9-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Subversion 1.7.20/1.8.13 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/61096/apache-subversion-1-8-13-and-1-7-20</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Subversion 1.9.0-beta1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/60678/apache-subversion-1-9-0-beta1-release</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Commons Validator 1.4.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/58778/apache-commons-validator-1-4-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Jackrabbit Oak 1.1.4 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/58753/apache-jackrabbit-oak-1-1-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Knox Gateway 0.5.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/58710/apache-knox-gateway-0-5-1-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Clownfish 0.4.2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/58420/apache-clownfish-0-4-2</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

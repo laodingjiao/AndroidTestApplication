@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6074810</id>
+	<body><![CDATA[
+		<a href='http://my.oschina.net/u/2340783' target="_blank" rel="nofollow">@BaratSemet</a> 今天杭州源创会到场人数 700+，长沙有这么牛逼吗？        	]]></body>
+    <author><![CDATA[红薯]]></author>
+	<authorid>12</authorid>
+    <appclient>1</appclient>
+    <commentCount>5</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/0/12_50.jpg?t=1421200584000</portrait>
+    <pubDate>2015-07-18 14:47:55</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>2</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[nile]]></name>
+				<uid>4336</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/2/4336_50.jpg?t=1370434811000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[霍啸林]]></name>
+				<uid>2322725</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1161/2322725_50.png?t=1430998752000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

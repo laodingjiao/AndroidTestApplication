@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64262</id>
+      <title><![CDATA[Ember v1.13.4 发布]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64262/ember-js-1-13-4]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Ember v1.13.4 发布此版本主要是 bug 修复：</p> 
+<ul> 
+ <li><p><a href="https://github.com/emberjs/ember.js/pull/11651" rel="nofollow">#11651</a> [BUGFIX] Ensure child views of non-dirty components get the correct parentView when rerendered.</p></li> 
+ <li><p><a href="https://github.com/emberjs/ember.js/pull/11662" rel="nofollow">#11662</a> [BUGFIX] Prevent ArrayController deprecation on generated controllers.</p></li> 
+ <li><p><a href="https://github.com/emberjs/ember.js/pull/11655" rel="nofollow">#11655</a> [BUGFIX] Fix issue with blockless link-to with only query params.</p></li> 
+ <li><p><a href="https://github.com/emberjs/ember.js/pull/11664" rel="nofollow">#11664</a> [BUGFIX] Ensure Route actions can be unit tested.</p></li> 
+ <li><p><a href="https://github.com/emberjs/ember.js/pull/11667" rel="nofollow">#11667</a> [BUGFIX] Fix memory leak in rendering engine.</p></li> 
+</ul> 
+<p>下载：<a href="https://github.com/emberjs/ember.js/archive/v1.13.4.zip" rel="nofollow">https://github.com/emberjs/ember.js/archive/v1.13.4.zip</a>。</p> 
+<p>Ember是一个雄心勃勃的Web应用程序，消除了样板，并提供了一个标准的应用程序架构的JavaScript框架。<br> </p>]]></body>
+      <commentCount>4</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 14:46:24</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/ember]]></softwarelink>
+	  <softwarename><![CDATA[Ember.js]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Ember v2.0.0-beta.2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64180/ember-js-2-0-beta2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ember v1.13.3 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64018/ember-js-1-13-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ember Data v1.13 正式发布，支持 JSON API]]></rtitle>
+			<rurl>http://www.oschina.net/news/63725/ember-data-1-13</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ember.js 1.13.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63524/ember-js-1-13-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ember.js 1.13.0/2.0 Beta 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63359/ember-js-2-0-beta</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Flarum 前端使用 Mithril.js 替换了 Ember.js]]></rtitle>
+			<rurl>http://www.oschina.net/news/63308/flarum-mithril-js</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ember CLI 0.2.7 发布，Ember.js 命令行工具]]></rtitle>
+			<rurl>http://www.oschina.net/news/63161/ember-cli</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ember v1.12.1 发布，JavaScript 框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63159/ember-js-1-12-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ember.js 1.12.0 beta.3 发布，JavaScript 框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/62121/ember-js-1-12-0-beta-3-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ember 发布安全更新版本：1.10.1/1.11.2/1.11.3]]></rtitle>
+			<rurl>http://www.oschina.net/news/61543/ember-1-10-1and1-11-2and1-11-3</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479290</id>
+		<title><![CDATA[SVN使用教程总结]]></title>
+		<url><![CDATA[http://my.oschina.net/u/1266171/blog/479290]]></url>
+		<where><![CDATA[SVN]]></where>
+		<commentCount>1</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><div> 
+ <p> SVN简介： </p> 
+ <p> &nbsp;<strong>为什么要使用SVN？</strong> </p> 
+ <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;程序员在编写程序的过程中，每个程序员都会生成很多不同的版本，这就需要程序员有效的管理代码，在需要的时候可以迅速，准确取出相应的版本。 </p> 
+ <p> <strong>Subversion是什么？</strong> </p> 
+ <p> &nbsp;&nbsp; 它是一个自由/开源的版本控制系统，一组文件存放在中心版本库，记录每一次文件和目录的修改，Subversion允许把数据恢复到早期版本，或是检查数据修改的历史，Subversion可以通过网络访问它的版本库，从而使用户在不同的电脑上进行操作。 </p> 
+ <p> 一：SVN服务器搭建和使用。 </p> 
+ <p> <span style="line-height:1.5;">&nbsp; &nbsp;<strong>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先来下载和搭建<span style="line-height:1.5;">SVN服务器<span style="line-height:1.5;">,下载地址如下<span style="line-height:1.5;">:&nbsp;<span style="line-height:1.5;"><a href="http://subversion.apache.org/packages.html" rel="nofollow">http://subversion.apache.org/packages.html</a>，进入网址后，滚动到浏览器最底部看到如下截图：</span></span></span></span></strong></span> </p> 
+ <p> <span style="line-height:1.5;">&nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141729_9AJr.png" alt=""></span> </p>
+ <p> &nbsp; &nbsp; &nbsp; 个人认为最好用<span style="line-height:1.5;">VisualSVN server 服务端和<span style="line-height:1.5;">&nbsp;TortoiseSVN客户端搭配使用<span style="line-height:1.5;">.<span style="line-height:1.5;">&nbsp;点开上面的<span style="line-height:1.5;">VisualSVN连接<span style="line-height:1.5;">,下载<span style="line-height:1.5;">VisualSVN server,下载完成后双击安装，如下图：</span></span></span></span></span></span></span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141729_sB8J.png" alt=""></span> </p>
+ <p> &nbsp; </p> 
+ <p> 点击<span style="line-height:1.5;">Next下一步，如下：</span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141730_b4kj.png" alt=""></span> </p>
+ <p> 然后再点击<span style="line-height:1.5;">Next项，下一步，如下：</span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141730_6aEF.png" alt="">&nbsp;</span> </p>
+ <p> 点击【<span style="line-height:1.5;">Next】 如下：</span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141730_9jr2.png" alt=""></span> </p>
+ <p> &nbsp; </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141731_v040.png" alt=""> </p>
+ <p> <span style="line-height:1.5;">Location是指<span style="line-height:1.5;">VisualSVN Server的安装目录<span style="line-height:1.5;">,Repositorys是指定你的版本库目录<span style="line-height:1.5;">.Server Port指定一个端口<span style="line-height:1.5;">,Use secure connection勾山表示使用安全连接<span style="line-height:1.5;">,</span></span></span></span></span></span> </p> 
+ <p> 点击<span style="line-height:1.5;">Next,进入下一步<span style="line-height:1.5;">,如下图<span style="line-height:1.5;">:</span></span></span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141731_x6vw.png" alt=""></span> </p>
+ <p> 再点击【<span style="line-height:1.5;">Install】<span style="line-height:1.5;">,进入如下安装图：</span></span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141731_EXmE.png" alt=""></span> </p>
+ <p> 等待安装完成后，点击【<span style="line-height:1.5;">next】，进入下一步：如下图</span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141732_NHyc.png" alt=""></span> </p>
+ <p> 点击【<span style="line-height:1.5;">Finish】即可完成安装。安装完成后<span style="line-height:1.5;">,启动<span style="line-height:1.5;">VisualSVN Server Manager,如图<span style="line-height:1.5;">:</span></span></span></span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141732_x9U6.png" alt=""></span> </p>
+ <p> 可以在窗口的右边看到版本库的一些信息<span style="line-height:1.5;">,比如状态<span style="line-height:1.5;">,日志<span style="line-height:1.5;">,用户认证<span style="line-height:1.5;">,版本库等<span style="line-height:1.5;">.</span></span></span></span></span> </p> 
+ <p> 要建立版本库<span style="line-height:1.5;">,需要右键单击左边窗口的<span style="line-height:1.5;">Repositores,如下图<span style="line-height:1.5;">:</span></span></span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141732_zicL.png" alt=""></span> </p>
+ <p> 在弹出的右键菜单中选择<span style="line-height:1.5;">Create New Repository或者新建<span style="line-height:1.5;">-&gt;Repository:</span></span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141732_VAbG.png" alt=""></span> </p>
+ <p> 进入下一步，如下图： </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141732_k8fN.png" alt=""> </p>
+ <p> 点击【下一步】，如下图： </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141732_Pcjp.png" alt=""> </p>
+ <p> 点击【<span style="line-height:1.5;">create】，如下图：</span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141732_JFSt.png" alt=""></span> </p>
+ <p> 点击【<span style="line-height:1.5;">Finish】即可完成基本创建。</span> </p> 
+ <p> <strong>&nbsp;&nbsp;</strong><strong><strong>2. 需要建立用户和组，并且需要分配权限</strong>。</strong> </p> 
+ <p> &nbsp;&nbsp;1. 在VisualSVN Server Manager窗口的左侧右键单击用户组,选择Create User或者新建-&gt;User,如图: </p> 
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141732_RR59.png" alt=""> </p>
+ <p> 点击<span style="line-height:1.5;">User后，进入如下图：</span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141733_R70t.png" alt=""></span> </p>
+ <p> 填写<span style="line-height:1.5;">Username和<span style="line-height:1.5;">password后，点击<span style="line-height:1.5;">ok按钮后，进入如下图：</span></span></span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141733_f0Nk.png" alt=""></span> </p>
+ <p> 点击上面的【<span style="line-height:1.5;">Add】按钮后，如下图</span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141733_XCZ8.png" alt=""></span> </p>
+ <p> 增加<span style="line-height:1.5;">longen0707到用户中<span style="line-height:1.5;">(如果有多个用户，操作一样<span style="line-height:1.5;">)。</span></span></span> </p> 
+ <p> <span style="line-height:1.5;">&nbsp; 2 . &nbsp;&nbsp;然后我们建立用户组<span style="line-height:1.5;">,在<span style="line-height:1.5;">VisualSVN Server Manager窗口的左侧右键单击用户组<span style="line-height:1.5;">,选择<span style="line-height:1.5;">Create Group或者新建<span style="line-height:1.5;">-&gt;Group,如图<span style="line-height:1.5;">:</span></span></span></span></span></span></span> </p> 
+ <p> <span style="line-height:1.5;"><span style="line-height:1.5;">&nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141733_3MiG.png" alt=""></span></span> </p>
+ <p> 点击【<span style="line-height:1.5;">Group】按钮后，进入如下图：</span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141733_gRSp.png" alt=""></span> </p>
+ <p> 在弹出窗口中填写<span style="line-height:1.5;">Group name为<span style="line-height:1.5;">Developers,然后点<span style="line-height:1.5;">Add按钮<span style="line-height:1.5;">,在弹出的窗口中选择<span style="line-height:1.5;">Developer,加入到这个组<span style="line-height:1.5;">,然后点<span style="line-height:1.5;">Ok.</span></span></span></span></span></span></span> </p> 
+ <p> 接下来我们需要给用户组设置权限，在<span style="line-height:1.5;">MyRepository上单击右键<span style="line-height:1.5;">,选择属性<span style="line-height:1.5;">,如图<span style="line-height:1.5;">:</span></span></span></span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141733_fEHP.png" alt=""></span> </p>
+ <p> 在弹出的对话框中<span style="line-height:1.5;">,选择<span style="line-height:1.5;">Security选项卡<span style="line-height:1.5;">,点击<span style="line-height:1.5;">Add按钮<span style="line-height:1.5;">,选中<span style="line-height:1.5;">longen0707,然后添加进来<span style="line-height:1.5;">,权限设置为<span style="line-height:1.5;">Read/Write,如下图<span style="line-height:1.5;">:</span></span></span></span></span></span></span></span></span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141733_S970.png" alt=""></span> </p>
+ <p> 点击【确定】按钮即可。 </p> 
+ <p> 二：客户端SVN安装。 </p> 
+ <p> &nbsp;<strong>1.首先我们需要下载 ”svn小乌龟”后，进行安装。比如我下载如下的：</strong> </p> 
+ <p> &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141733_NLgF.png" alt=""> </p>
+ <p> &nbsp; &nbsp;安装完成后，比如在我的项目在qiandaun1中，我右键就可以看到如下： </p> 
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141733_SAiR.png" alt=""> </p>
+ <p> 说明snv已经安装成功了！ </p> 
+ <p> <strong>2：checkout项目文件。</strong> </p> 
+ <p> &nbsp; &nbsp;&nbsp;新建或者进入目录下(比如qianduan1)，右键 --&gt; Svn Checkout --&gt; </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141733_x4v5.png" alt=""> </p>
+ <p> 其中<span style="line-height:1.5;">URL我可以在<span style="line-height:1.5;">SVN服务器获取到，我在<span style="line-height:1.5;">myRepositories下右键新建文件</span></span></span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141733_lWKx.png" alt="">&nbsp;</span> </p>
+ <p> <span style="line-height:1.5;">qianduan文件被建立，然后比如我这样右键<span style="line-height:1.5;">&nbsp;--&gt; copy下</span></span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141734_fqgI.png" alt=""></span> </p>
+ <p> 即可。 </p> 
+ <p> 将复制的版本库URL粘贴上,如下图： </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141734_6HoR.png" alt=""> </p>
+ <p> 点击【ok】按钮后，就可以检索出来，如下： </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141734_pfMi.png" alt=""> </p>
+ <p> 如下图： </p> 
+ <p> &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141734_I2JS.png" alt=""> </p>
+ <p> <strong>注意事项：</strong> </p> 
+ <p> <strong>&nbsp;&nbsp;&nbsp;</strong>.svn这个隐藏目录记录着两项关键信息：工作文件的基准版本和一个本地副本最后更新的时间戳，千万不要手动修改或者删除这个.svn隐藏目录和里面的文件!!,否则将会导致你本地的工作拷贝(静态试图)被破坏，无法再进行操作。 </p> 
+ <p> <span style="line-height:1.5;">&nbsp;&nbsp;<strong>1) &nbsp; &nbsp;<span style="line-height:1.5;">TortoiseSVN图标介绍</span></strong></span> </p> 
+ <p> <span style="line-height:1.5;">&nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141734_WlDh.png" alt="">&nbsp;&nbsp;</span> </p>
+ <p> &nbsp; &nbsp;一个新检出的工作复本使用绿色的对勾重载，表示<span style="line-height:1.5;">Subversion状态正常。</span> </p> 
+ <p> <span style="line-height:1.5;">&nbsp; &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141734_52gG.png" alt="">&nbsp;</span> </p>
+ <p> &nbsp;&nbsp;在你开始编辑一个文件之后，状态就变成了已修改，而图标重载已变成了红色感叹号。通过这种方式，你可以很容易地看出那些文件从你上次更新工作复本被修改过，且需要提交。 </p> 
+ <p> &nbsp; &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141734_XaxL.png" alt="">&nbsp;&nbsp;如果在提交的过程中出现了冲突，图标就会变成了黄色感叹号。 </p>
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141734_eJK2.png" alt="">&nbsp;&nbsp; </p>
+ <p> 加号告诉你有一个文件或者目录已经被计划加入到版本控制中。 </p> 
+ <p> <strong><span style="line-height:1.5;">2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="line-height:1.5;">TortoiseSVN Client基础操作:</span></span></strong> </p> 
+ <p> <span style="line-height:1.5;"><span style="line-height:1.5;">&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;<strong>SVN检出(SVN Checkout)</strong></span></span> </p> 
+ <p> &nbsp; &nbsp; &nbsp;在文件夹或者目录下单击右键&nbsp;<span style="line-height:1.5;">–<span style="line-height:1.5;">&gt; 选择<span style="line-height:1.5;">SVN检出，如下图所示</span></span></span> </p> 
+ <p> <span style="line-height:1.5;">&nbsp; &nbsp; &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141734_pYVT.jpg" alt=""></span> </p>
+ <p> &nbsp;&nbsp;点击后，在弹开窗口的版本库<span style="line-height:1.5;">url框中输入版本库的目录地址，然后点击确定，如下图</span> </p> 
+ <p> <span style="line-height:1.5;">&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141734_fGSS.png" alt=""></span> </p>
+ <p> 再点击<span style="line-height:1.5;">ok按钮后，如下图：</span> </p> 
+ <p> 在弹出的对话框中输入用户名和密码，验证成功后，项目文件开始从远程服务器下载到本地工作目录中。 </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141734_UrF9.png" alt=""> </p>
+ <p> 点击<span style="line-height:1.5;">ok按钮后，即可获取完成，如下图所示：</span> </p> 
+ <p> <span style="line-height:1.5;"><strong>&nbsp;2. &nbsp;</strong><strong>增加(Add)</strong></span> </p> 
+ <p> &nbsp; 在test项目文件下，新建一个b.txt文件，提交到版本库的方法如下2种： </p> 
+ <p> &nbsp; &nbsp;1. 先提到变更列表中，再commit到配置库中，选择新增文件，右键SVN菜单执行“Add“操作提交到”变更列表中”，然后右键SVN菜单执行”SVN Commit”提交到版本库中。 </p> 
+ <p> &nbsp; &nbsp;2. 不提交到变更列表中，而是直接commit配置库中，选择该文件，右键svn菜单执行”SVN Commit”操作。 </p> 
+ <p> <strong>&nbsp;&nbsp;3. &nbsp;</strong><strong>删除(Delete)</strong> </p> 
+ <p> &nbsp; &nbsp; &nbsp;如果被删除的文件还未入版本库，则可以直接使用操作系统的删除操作删除该文件。 </p> 
+ <p> &nbsp; &nbsp; &nbsp;如果被删除的文件已入版本库，则删除的方法如下： </p> 
+ <ol> 
+  <li> 选择被删除文件，右键svn菜单执行”delete”操作，然后选择被删除文件的父目录，右键svn菜单执行”SVN Commit”. </li> 
+ </ol> 
+ <p> 使用操作系统的删除操作删除该文件，然后选择被删除文件的父目录，右键svn菜单执行”SVN Commit”,在变更列表中选择被删除的文件。如下图： </p> 
+ <p> &nbsp; &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141735_JDKV.png" alt=""> </p>
+ <p> <strong>&nbsp;4.&nbsp;&nbsp;</strong><strong>改名(Rename)</strong> </p> 
+ <p> &nbsp; &nbsp; 修改文件名，选中需要重命名的文件或文件夹，然后右键“TortoiseSVNàRename“，在弹出的对话框中输入新名称，点击”ok”按钮，并将修改文件名后的文件或文件夹通过 “SVN Commit”提交到SVN服务器上。 </p> 
+ <p> <strong>&nbsp;5. &nbsp;</strong><strong>SVN</strong><strong>还原(SVN Revert)</strong> </p> 
+ <p> &nbsp; &nbsp; 右击想要回退的文件或者文件夹，在TortoiseSVN弹出菜单中选择”Update to reversion…” 然后会弹出一个窗口，如下： </p> 
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141735_mBpp.png" alt=""> </p>
+ <p> 比如说我们要回退到第<span style="line-height:1.5;">10个版本只需要在<span style="line-height:1.5;">Revision中填写相应的版本号，然后点击<span style="line-height:1.5;">ok即可。</span></span></span> </p> 
+ <p> <span style="line-height:1.5;">&nbsp;<strong>6. &nbsp;</strong><strong>检查更新(Check for modifications)</strong></span> </p> 
+ <p> &nbsp; &nbsp; &nbsp;此功能可以显示你所做的修改有哪些还没有提交的，此功能不光能看到对文件的修改变化，所有的变化都能看到，包括增加文件或者目录，删除文件或者目录，移动文件或者目录等，如果你点击了检查版本库，那你还可以看到版本库里的改动，既别人提交了哪些文件的改动，你还没更新到本地，如下： </p> 
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141735_KUZf.png" alt=""> </p>
+ <p> &nbsp;<strong>7.&nbsp;&nbsp;</strong><strong>SVN</strong><strong>更新(SVN Update)</strong> </p> 
+ <p> &nbsp; &nbsp; 更新本地代码与SVN服务器上最新的版本一致，只要在需要更新的文件夹上点击右键或者在文件下空白处点击右键，选择”SVN Update” (获取指定版本中的内容，点击右键执行SVN菜单中的“Update to reversion“)，就可以了。 </p> 
+ <p> &nbsp;<strong>7.1 如何解决冲突文件</strong> </p> 
+ <p> &nbsp; &nbsp; &nbsp;对于每个冲突的文件Subversion在你的目录下放置了三个文件：如下： </p> 
+ <p> &nbsp; &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141735_0vHY.png" alt=""> </p>
+ <p> &nbsp; &nbsp; &nbsp;为什么会产生冲突代码呢？原因很简单就是因为不同的人，同时修改了同一个文件的同一个地方，这时候，他提交了，我没有提交，我就提交不了，这个时候我们要进行先更新，然后在进行提交即可，那如果产生冲突，会生成如上<span style="line-height:1.5;">3个文件。<span style="line-height:1.5;">&nbsp;</span></span> </p> 
+ <p> <strong>解决方案如下</strong>： </p> 
+ <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 首先我们可以看下1.txt代码如下： </p> 
+ <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;&lt;&lt;&lt;&lt;&lt;&lt; .mine </p> 
+ <p> &nbsp; &nbsp; &nbsp; &nbsp; aaaasdf11222333 dderderder </p> 
+ <p> &nbsp; &nbsp; &nbsp; &nbsp; ======= </p> 
+ <p> &nbsp; &nbsp; &nbsp; &nbsp;b&gt;&gt;&gt;&gt;&gt;&gt;&gt; .r5 </p> 
+ <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 然后我去掉多余的代码，1.txt变成这样 </p> 
+ <p> &nbsp; &nbsp; &nbsp; aaaasdf11222333 dderderder </p> 
+ <p> &nbsp; &nbsp; &nbsp; 进行提交，还是提交不了，如下所示： </p> 
+ <p> &nbsp; &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141735_2Xgk.png" alt=""> </p>
+ <p> &nbsp;&nbsp;为什么？因为冲突会产生上面的三个文件，有上面3个文件存在肯定提交不了，这三个文件代码及解释如下： </p> 
+ <ol> 
+  <li> 1.txt.mine 是冲突前自己的文件。可以看下内容如下： </li> 
+ </ol> 
+ <p> &nbsp; &nbsp; &nbsp; aaaasdf11222333 dderderder </p> 
+ <p> &nbsp; &nbsp; &nbsp; 2. &nbsp;1.txt.r4 是冲突前本地的版本文件 </p> 
+ <p> &nbsp; &nbsp; &nbsp;内容如下：aaaasdf11222333 </p> 
+ <p> &nbsp; &nbsp; &nbsp; 3. &nbsp;1.txt.r5&nbsp; 是别人赶在你之前提交的版本 </p> 
+ <p> &nbsp; &nbsp; &nbsp; 内容如下： b </p> 
+ <p> 其中,&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;.mine .....=======之间的代码是你自己的，而======......&gt;&gt;&gt;&gt;&gt;&gt;&gt;.r5是别人与你冲突的代码部分 </p> 
+ <p> 这样就不难理解为什么会产生冲突这种奇怪的东西了，因为你们修改的同一块代码，当然会产生冲突。 </p> 
+ <p> 解决方案如下： </p> 
+ <ol> 
+  <li> 假如我现在的1.txt中的冲突内容如下： </li> 
+ </ol> 
+ <p> &nbsp; &nbsp; &nbsp; &lt;&lt;&lt;&lt;&lt;&lt;&lt; .mine </p> 
+ <p> &nbsp; &nbsp; &nbsp; &nbsp;6666666666666600000 </p> 
+ <p> &nbsp; &nbsp; &nbsp; &nbsp;======= </p> 
+ <p> &nbsp; &nbsp; &nbsp; 66666666666aaaaaaaaaa666 </p> 
+ <p> &nbsp; &nbsp; &nbsp; &gt;&gt;&gt;&gt;&gt;&gt;&gt; .r16<br> <strong>&nbsp; &nbsp; 前面说过&nbsp; &lt;&lt;&lt;&lt;&lt;&lt;&lt; .mine …… =======</strong> </p> 
+ <p> &nbsp; &nbsp; ……之间的代码是我未产生冲突之前修改的代码， </p> 
+ <p> <strong>&nbsp; &nbsp; =======&nbsp;</strong><strong>………&gt;&gt;&gt;&gt;&gt;&gt;&gt; .r16</strong>&nbsp;这中间……的代码是别人与我冲突代码的部分，从上面的代码可以看到 aaaaaaaaa是我同事新增的 ,00000是我后增加的。 </p> 
+ <ol> 
+  <ol> 
+   <li> 使用revert(回滚)操作，该操作表示用户放弃自己的更新代码，然后直接提交，这个时候你的代码就会使服务器上最新的代码，即A用户提交的新代码，你的代码不会被提交，如下所示：<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141735_rBT1.png" alt=""><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141735_7mZ5.png" alt=""> <p> 点击<span style="line-height:1.5;">ok按钮后 可以看到其他三个文件都自动删掉了，<span style="line-height:1.5;">1.txt代码变成如下代码：</span></span> </p> <p> <span style="line-height:1.5;">66666666666aaaaaaaaaa666</span> </p> <p> 也就是<span style="line-height:1.5;">a用户提交的代码，我自己更新的代码需要自己动手复制进去即可提交<span style="line-height:1.5;">commit。</span></span> </p> </li>
+   <li> 假如我现在3.txt产生冲突代码如下： <p> <span style="line-height:1.5;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;&nbsp;.mine</span> </p> <p> 333333338888888888888======= </p> <p> 3333cccccccccc3333&gt;&gt;&gt;&gt;&gt;&gt;&gt; .r16 </p> <p> 通过第一点我们知道，333333338888888888888这个内容是我修改后，未产生冲突之前的内容，3333cccccccccc3333这个代码是A用户提交的代码，从上面得知 A用户新增内容是ccccccc，而我新增的内容是8888888。 </p> <p> 那么第二种解决方法如下： </p> </li> 
+  </ol> 
+ </ol> 
+ <p> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 选择文件-&gt;右键Editconficts：这种方法需要冲突双方经过协商之后将代码更改统一之后再提交。不仅解决了冲突而且还保证了代码是正确的，因为只有一方的代码被提交. </p> 
+ <p> &nbsp; &nbsp; &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141735_qQnz.png" alt=""> </p>
+ <p> &nbsp; &nbsp;如上图所示，红色的部分是冲突代码：theirs表示当前服务器端最新的代码，Mine表示自己修改后的代码，Merged表示合并后的代码。点击红色后右键选择：use this text block就可以将该部分代码作为合并后的代码 </p> 
+ <p> 接下来再说说由于冲突导致重要代码被覆盖的情况。冲突发生时如果采取的措施不对可能会导致部分代码丢失，如果想要还原之前的代码也很容易。 </p> 
+ <p> 选择文件-&gt;右键选择show log在这里面你可以看见之前提交的所有版本，找到你想要恢复的版本右键选择revert to this version 就可以恢复了. </p> 
+ <p> <strong>SVN</strong><strong>提交(SVN Commit)</strong> </p> 
+ <p> &nbsp; &nbsp; Svn的提交是将在工作空间做的修改进行提交，包括文件内容的修改，文件或目录的添加，删除，命名，移动等操作。如下图所示: </p> 
+ <p> &nbsp; &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141735_ShVX.png" alt=""> </p>
+ <p> &nbsp;&nbsp;<strong>8.</strong>&nbsp;&nbsp;<strong>&nbsp;</strong><strong>显示日志(Show log)</strong> </p> 
+ <p> &nbsp; &nbsp; &nbsp; &nbsp;通过此功能可以查到谁，什么时候，对那个目录下的那些文件进行了那些操作，如下图： </p> 
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141736_bu2z.png" alt=""> </p>
+ <p> &nbsp;<strong>9</strong>. &nbsp;<strong>版本库浏览(Repo-browser)</strong> </p> 
+ <p> &nbsp; &nbsp; &nbsp;此功能是用来浏览需要查看的资料库，在本地文件夹下点击右键，选择<span style="line-height:1.5;">TortoiseSVN<span style="line-height:1.5;">à<span style="line-height:1.5;">Repo-browser,在弹出的对话框中输入资料库地址，再输入用户名和密码，就能查看到你需要查看到版本库的内容，在这你还能看到那些文件被谁锁定了，如下图：</span></span></span> </p> 
+ <p> <span style="line-height:1.5;">&nbsp; &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141736_LjRK.png" alt=""></span> </p>
+ <p> 三： 创建分支合并相互操作 </p> 
+ <p> &nbsp; &nbsp;项目中为何要创建分支，及合并？ </p> 
+ <p> &nbsp; &nbsp; &nbsp; 比如我现在项目所有的文件放在主干上<span style="line-height:1.5;">(trunk)中，由于需求的变更，需要增加新的需求，但是我们主干上还要继续往下开发，在此我们可以新建一个分支，来做增加新的需求那一块，主干上继续开发，等分支上代码没有问题的时候，再合并到主干上来。</span> </p> 
+ <p> 创建分支的最大的目的就是跟主线进行并行开发时候不影响主线的开发。 </p> 
+ <p> <strong>&nbsp; &nbsp;如何操作？</strong> </p> 
+ <p> <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong><strong>&nbsp;</strong>假如我本地新建一个文件夹test下有2个文件夹trunk(存放主干上的代码)和branch(存放分支上的代码)，如下所示： </p> 
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141736_kwP5.png" alt=""> </p>
+ <p> <strong>一：先提取主干上的代码。</strong> </p> 
+ <p> &nbsp; &nbsp;点击trunk --&gt; 鼠标右键 --&gt; 点击SVN Checkout --&gt; 弹出一个对话框，如下图所示： </p> 
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141736_LrKX.png" alt=""> </p>
+ <p> 其中上面的URL是从服务器VisualSVN Server上获取的，如下所示： </p> 
+ <p> &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141736_6gvN.png" alt=""> </p>
+ <p> &nbsp; 直接右键qianduan3 --&gt; Copy URL to Clipboard 即可。 </p> 
+ <p> &nbsp; 其中qianduan3项目有如下文件，如下图所示： </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141736_Ybpj.png" alt=""> </p>
+ <p> 最后点击上面的checkout按钮后，就可以在主干上把代码从远程服务器上获取到，如下所示： </p> 
+ <p> &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141736_tPzv.png" alt=""> </p>
+ <p> <strong>二：新建分支</strong> </p> 
+ <p> <strong>&nbsp;&nbsp;</strong>从trunk（主干上）创建分支(branch)步骤如下： </p> 
+ <p> &nbsp; 1. 右键trunk --&gt; branch/Tag 如下图： </p> 
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141736_1S4d.jpg" alt=""> </p>
+ <p> &nbsp; 在弹出的对话框如下图： </p> 
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141736_KxcO.jpg" alt=""> </p>
+ <p> &nbsp;&nbsp;点击ok按钮后，就可以在VisualSVN Serval服务器上新增newBranch，是从如上服务器qianduan3上的文件拷贝一份的，如下所示： </p> 
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141737_5aII.png" alt=""> </p>
+ <p> 现在我们可以再来看看本地branch文件夹了，我现在直接进入branch文件下，右键 --&gt; Chenckout下，就可以把newBranch下的所有文件提取出来了，如下所示： </p> 
+ <p> &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141737_S9ZP.png" alt=""> </p>
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141737_wRO6.png" alt=""> </p>
+ <p> 点击ok按钮就可以把文件提取出来了，如下图所示： </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141737_wwUl.png" alt=""> </p>
+ <p> 分支目前建立在svn的服务器端，本地并没有更新，对本地branch文件夹 右键--&gt; update即可，就可以更新到分支代码，如下所示： </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141737_cgDr.png" alt=""> </p>
+ <p> 四：合并分支到主干上 </p> 
+ <p> &nbsp; &nbsp;比如我现在对branch分支上新增3.txt文件，然后提交上去，如下所示： </p> 
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141737_DB3z.png" alt=""> </p>
+ <p> 我现在想把分支上的代码3.txt合并到主干上trunk，现在要怎么合并呢？步骤如下： </p> 
+ <p> &nbsp; 1. 回到我们刚刚的主干（trunk）文件夹下，鼠标右键该文件夹 --&gt; TortoiseSVN --&gt; Merge 如下图所示： </p> 
+ <p> &nbsp;&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141737_LRiV.jpg" alt=""> </p>
+ <p> 在弹出的窗口，如下图所示： </p> 
+ <p> &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141737_NtST.jpg" alt=""> </p>
+ <p> 接着点击【<span style="line-height:1.5;">Next】下一步，如下图所示：</span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141738_8o4i.jpg" alt=""></span> </p>
+ <p> 再接着【<span style="line-height:1.5;">Next】下一步，如下图所示：</span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141738_W8xw.jpg" alt=""></span> </p>
+ <p> &nbsp; </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141738_nDAF.png" alt=""> </p>
+ <p> 就可以看到主干<span style="line-height:1.5;">trunk上多加了一个<span style="line-height:1.5;">3.txt，就是从分支上合并过来的。</span></span> </p> 
+ <p> 五：合并主干到分支。 </p> 
+ <p> &nbsp;如果主干上有一些更新，比如说<span style="line-height:1.5;">jar包更新等等，那么这些要更新到分支上去，如何操作呢？比如我现在在主干上新建一个<span style="line-height:1.5;">4.txt文件，比如如下：</span></span> </p> 
+ <p> &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141738_qPwy.png" alt=""> </p>
+ <p> 我现在的分支上目录如下： </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141738_4kRO.png" alt=""> </p>
+ <p> 现在是想把主干上的4.txt合并到分支上来，要如何操作？ </p> 
+ <p> 步骤如下，还是和刚刚操作类似. </p> 
+ <p> &nbsp;1. 我们在分支点击branch --&gt; 右键TortoiseSVN --&gt; Merge 如下图所示： </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141738_bBeE.jpg" alt=""> </p>
+ <p> &nbsp; </p> 
+ <p> 在弹出新窗口后，如下图所示： </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141738_FriX.jpg" alt=""> </p>
+ <p> 接着点击【<span style="line-height:1.5;">Next】下一步，如下图所示：</span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141738_sOWj.jpg" alt=""></span> </p>
+ <p> &nbsp; </p> 
+ <p> 继续下一步，如下图： </p> 
+ <p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141739_zSMi.jpg" alt=""> </p>
+ <p> 最后直接<span style="line-height:1.5;">merge，就可以看到分支<span style="line-height:1.5;">branch上也有主干上的<span style="line-height:1.5;">4.txt文件了，也就是说，合并主干到分支上也是可以的，如下图所示：</span></span></span> </p> 
+ <p> <span style="line-height:1.5;"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16141739_Hbut.png" alt=""></span> </p>
+</div> 
+<div> 
+ <div>
+   分类: 
+  <span>&nbsp;</span> 
+  <a href="http://www.cnblogs.com/armyfai/category/428741.html" rel="nofollow">C#</a> 
+ </div> 
+</div>]]></body>
+		<author><![CDATA[james_laughing]]></author>
+		<authorid>1266171</authorid>
+		<documentType>0</documentType>
+        <pubDate>2015-07-16 14:17:38</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479433</id>
+		<title><![CDATA[yeelink在PX2上的运用（远程控制）]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2007588/blog/479433]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>首先介绍yeelink，这嘛，是一个开放的云服务器平台，大家都可以去注册一个自己的账号，然后就可以使用它的服务器就是，只要你的设备能够联网，无论你人在哪里，就能从网络上控制你的设备，而它就提供各种API接口，我们只要熟悉一点tcp的编程我们就可以简单使用了，另外值得注意的一点是，yeelink也可以在微信公众号上查看，修改我们的设备，十分简便。</p> 
+<p>官网是这个，http://www.yeelink.net/ ，注册完之后我们进入用户中心就可以看到这样的界面</p> 
+<p>&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/175209_y6EI_2007588.png">&nbsp;</p>
+<p>而在账户中找到我们的apikey，这个值在编程时会用到，另外在设备管理中，我们可以创建自己的设备，选择在设备里创建个自己的传感器，可选择数值型和开关型等，如下，可以在传感器的这个位置，看到设备的ID，和传感器的ID，这两个值也是需要的</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/175233_s6S8_2007588.png">&nbsp;&nbsp;</p>
+<p>然后我们先测试下通信是否能成功，可以使用网络助手作为一个服务器端，作为一个设备向yeelink服务器发送命令</p> 
+<p>下面两个命令中一个是发送数值到服务器，一个是从服务器获取数值，通信成功的效果如下，若通信失败的话，可以尝试重新获取下apikey的值，在账户那边可以重新获取。（记得将下面的ID值和apikey值改为自己的）</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/175248_YxjZ_2007588.png">&nbsp; &nbsp;&nbsp;</p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/175259_nPyB_2007588.png"></p>
+<p>然后我们就可以写个tcp通信程序，并且将设备的开启加入其中了，楼主这里就简单用个GPIO口做个例子，如果想的话，我们也可以写个温度检测的程序，然后通过微信实时检测家里或某个地方的温度。</p> 
+<p>程序如下</p> 
+<p>#include&lt;stdlib.h&gt;</p> 
+<p>#include&lt;stdio.h&gt;</p> 
+<p>#include&lt;errno.h&gt;</p> 
+<p>#include&lt;netdb.h&gt;</p> 
+<p>#include&lt;string.h&gt;</p> 
+<p>#include&lt;sys/types.h&gt;</p> 
+<p>#include&lt;netinet/in.h&gt;</p> 
+<p>#include&lt;sys/socket.h&gt;</p> 
+<p>#include &lt;fcntl.h&gt;</p> 
+<p>#include&lt;string.h&gt;</p> 
+<p>#define portnumber 80//yeelink的服务器端口</p> 
+<p>#define DEVICE_NAME &nbsp; &nbsp; "/dev/rkpx2_GPIO"//gpio的设备，提供的kernel已包含，里面定义里gpio4的1234四个引脚，这里用到1引脚</p> 
+<p>int main(int argc,char *argv[])</p> 
+<p>{ &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p> 
+<p>&nbsp; &nbsp; int sockfd//tcp进程号</p> 
+<p>&nbsp; &nbsp; int fd//gpio的设备号</p> 
+<p>&nbsp; &nbsp; int recdata//收到的数据长度</p> 
+<p>&nbsp; &nbsp; char *addr//一个字符型指针，用来找数据value的位置，后面的值即是网站上按键的值</p> 
+<p>&nbsp; &nbsp; int offset//value的长度，以便找到按键值</p> 
+<p>&nbsp; &nbsp; char *yeelink//yeelink服务器ip地址</p> 
+<p>&nbsp; &nbsp; char recv_data[1024]//收到数据的内存</p> 
+<p>&nbsp; &nbsp; char flag//按键值</p> 
+<p>&nbsp; &nbsp; yeelink="42.96.164.52"</p> 
+<p>&nbsp; &nbsp; struct sockaddr_in server_addr</p> 
+<p>&nbsp; &nbsp; struct sockaddr_in cilent_addr</p> 
+<p>&nbsp; &nbsp; char send_data1[300] = "GET /v1.0/device/××××××××/sensor/×××××××/datapoints HTTP/1.1\r\nHost: api.yeelink.net\r\nContent-Length: 11\r\nU-ApiKey:××××××××××××（这里请用自己的APIKEY代替包括前面的ID）\r\n\r\n{\"value\":0}\r\n" /* 发送用到的数据 */</p> 
+<p>&nbsp; &nbsp; struct hostent *host</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; fprintf(stderr,"start")</p> 
+<p>&nbsp; &nbsp; while(1){//循环起来，每隔5s读一次按键值</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if((host=gethostbyname(yeelink))==NULL)//获取服务器地址</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {fprintf(stderr,"gethostname Error:%s\a\n",strerror(errno))</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; exit(1)</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; if((sockfd=socket(AF_INET,SOCK_STREAM,0))==-1)//建立socket</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fprintf(stderr,"socketError:%s\a\n")</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; exit(1)}</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; bzero(&amp;server_addr ,sizeof(server_addr))//堆栈初始化，全部化为0</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; server_addr.sin_family=AF_INET</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; server_addr.sin_port=htons(portnumber)</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; server_addr.sin_addr=*((struct in_addr *)host-&gt;h_addr)</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(connect(sockfd,(struct sockaddr*)(&amp;server_addr),sizeof( struct sockaddr))==-1)//申请连接</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fprintf(stderr,"connect Error:%s\a\n",strerror(errno))</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; exit(1)</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }&nbsp;</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; send(sockfd,send_data1,sizeof(send_data1),0)//将http文件头发过去</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;recdata = recv(sockfd, recv_data, sizeof(recv_data), 0)//接受服务器返回的数值</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; recv_data[recdata]=' '//加上结束符 &nbsp; &nbsp; &nbsp; &nbsp;</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; addr = strstr(recv_data,"\"value\"")//在接受到的数据中找到按键值的位置，即value，收到数据的样式如下{“value”：key}</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; offset=strlen("\"value\":")//判断value的长度，</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; flag = *(addr + offset) //找到按键的值，赋值给flag</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; fprintf(stderr,"the value is %c \n")</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; close(sockfd)//关闭socket，记住，这里得提前关闭，不然会发生段错误。</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; fd=open(DEVICE_NAME,O_RDWR)//打开GPIO设备</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (fd==-1){</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; fprintf(stderr,"open devices %s error\n",DEVICE_NAME)</p> 
+<p>&nbsp; &nbsp; }</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; if(flag=='1'){//判断flag的值，然后执行相应的操作</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; ioctl(fd,1)</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; fprintf(stderr,"the value is %c \n",flag)</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; }</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; else</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; {</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; ioctl(fd,0)</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; fprintf(stderr,"the value is %c \n",flag)</p> 
+<p>} &nbsp; &nbsp; &nbsp;</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; fprintf(stderr,"please wait 5s\n")</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; sleep(10)//延时10s,让实验效果更明显</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; close(fd)</p> 
+<p>}</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; exit(0)</p> 
+<p>}</p> 
+<p>因为是用GPIO口的，用的是板上的GPIO4_1楼主也不好加图片，所以效果就不演示了，但是已验证可行，楼主用的使用的kernel和程序文件如下，都放压缩包里了，有兴趣可以下载过去研究下，压缩包中的文件一个是kernel，这个是支持VGA显示的，而且包含了楼主的一个GPIO驱动，在程序中会用到，一个是源码，我们可以在源码包中编译出可执行文件，最后一个是可执行文件，可以用adb工具push进板中，然后执行起来就可以了，当然，这里是楼主自己的帐号，ID ，APIKEY都是楼主帐号的，所以你们想用的话，就得修改下，只需要在程序中改这三个值便行，然后就可以使用自己帐号的设备 控制，</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16175427_P38W.gif" alt=""><span style="color: rgb(68, 68, 68); font-family: Tahoma, 'Microsoft Yahei', Simsun; font-size: 14.4444446563721px; line-height: 23.3333339691162px; background-color: rgb(255, 255, 255);">&nbsp;</span><span style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, 'Microsoft Yahei', Simsun; font-size: 14.4444446563721px; line-height: 23.3333339691162px; background-color: rgb(255, 255, 255);"><a href="http://bbs.chipspark.com/forum.php?mod=attachment&amp;aid=MTE4Nnw1ZGJiM2VkY3wxNDM3MDA4MDU0fDN8ODIwNQ%3D%3D" target="_blank" rel="nofollow">yeelink.zip</a>&nbsp;</span></p>
+<p>测试时的部分图片如下，按那个开关会改变GPIO端口的值，而改变端口时，debug口也会有提示，这里也会有提示，大家可以使用这个端口电平的改变，控制灯，蜂鸣器之类的。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/175323_dCNj_2007588.png">&nbsp; &nbsp; &nbsp; &nbsp;</p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/175337_ujPi_2007588.png"></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/175349_k8Gi_2007588.png"></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/175359_z4tH_2007588.png"></p>
+<p>现在说说程序中楼主遇到的几个错误。</p> 
+<p>1.发送过去的http文件头，在{"value":**}的前面要有两个回车，这个别漏了，这是格式要求，漏了就没法正常把值放到服务器了</p> 
+<p>2.获取服务器的值的时候，我们得在服务器中的值处理，因为他发过来的值时没有结束符的，所以我们得手动加上结束符。</p> 
+<p><br></p>]]></body>
+		<author><![CDATA[穿prada的008]]></author>
+		<authorid>2007588</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 17:54:26</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

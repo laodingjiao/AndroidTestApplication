@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479282</id>
+		<title><![CDATA[玩转iOS 9的UIDynamics]]></title>
+		<url><![CDATA[http://my.oschina.net/gejw0623/blog/479282]]></url>
+		<where><![CDATA[IOS随记]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><span style="color: rgb(37, 37, 37); font-family: 'Helvetica Neue', Helvetica, STheiti, 微软雅黑, 黑体, Arial, Tahoma, sans-serif, serif; font-size: 14px; line-height: 28px;">UIDynamics在iOS7 SDK中是一个受欢迎的新加特性， 它基本上是一个支持UIView的物理引擎，可以让我们自定义UI 控件的物理特性。这个API浅显易懂，你可以轻松地创建很棒的动画或者过渡效果。之前我在&nbsp;</span> 
+<a href="http://andreamazz.github.io/blog/2014/05/22/uikit-dynamics/" target="_blank" rel="nofollow">这篇文章</a> 
+<span style="color: rgb(37, 37, 37); font-family: 'Helvetica Neue', Helvetica, STheiti, 微软雅黑, 黑体, Arial, Tahoma, sans-serif, serif; font-size: 14px; line-height: 28px;">&nbsp;中已经涵盖了其基本要点， 而这一次，我们将看看iOS 9里的UIDynamics有什么新玩意。</span> 
+<p><br></p> 
+<p><strong>碰撞边界（Collision Bounds）</strong></p> 
+<p>UIDynamics 的第一个版本带有碰撞系统（在&nbsp;<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UICollisionBehavior_Class/" target="_blank" rel="nofollow">UICollisionBehavior</a>&nbsp;中）只支持矩形。这可以理解，因为UIViews都是矩形架构，但是圆形的却不常见，更不用说优化一个自定义的贝塞尔曲线。在iOS 9中，UIDynamicItem协议里加了一个新属性：UIDynamicItemCollisionBoundsType，支持以下枚举类型：</p> 
+<ul> 
+ <li><p>Rectangle</p></li> 
+ <li><p>Ellipse</p></li> 
+ <li><p>Path</p></li> 
+</ul> 
+<p>这个属性是只读的，如果我们想修改它的话，需要提供我们的子类：</p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">class&nbsp;Ellipse:&nbsp;UIView&nbsp;{
+&nbsp;&nbsp;override&nbsp;var&nbsp;collisionBoundsType:&nbsp;UIDynamicItemCollisionBoundsType&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;.Ellipse
+&nbsp;&nbsp;}
+}</pre> 
+<p><span style="line-height: 1.8;">这是默认碰撞边界的UIView。</span></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16135040_uSyn.gif" title="1436952564475822.gif" alt="slide.gif"></p>
+<p>而这是同一个带.Ellipse属性的UIView。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16135040_VJsl.gif" title="1436952593889256.gif" alt="21.gif"></p>
+<p>这涵盖了圆形的视图，如果我们突发奇想，画一个更复杂，有连续的刚体，我们就可以使用.path枚举类型啦，并且也要重写该属性：</p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">var&nbsp;collisionBoundingPath:&nbsp;UIBezierPath&nbsp;{&nbsp;get&nbsp;}</pre> 
+<p>这个路线可以是任意你能所想到的，只要它的样子是凸面的（即任意在多边形内两个的点，两点间的线段完全包含在多边形内），并且是逆时针绕的。凸面这个条件也许限制的太死了，于是引入了UIDynamicItemGroup，它可以详细描绘一组不同图形的的组合图形。这样，只要该组合中的每个图形都是凸面，即使得到的多边形是凹面的也OK。</p> 
+<p><strong>Field Behavior</strong></p> 
+<p>Field Behavior是在整个场景中运用的一种新behavior。一个最普通的例子就是我们一直默默地使用着的UIGravityBehavior，即场景中的每个物体都会受到一个向下的重力。现在我们可以使用一组新的场力，就像径向（距离场景中心越近，力越大）、噪声（在场景内随机产生的不同的力）等等。</p> 
+<p><strong>Dynamic Item Behavior（动力元素行为）</strong></p> 
+<p>UIDynamicItemBehavior 包含了几个有趣的新特性：</p> 
+<ul> 
+ <li><p>var charge: CGFloat</p></li> 
+ <li><p>var anchored: Bool</p></li> 
+</ul> 
+<p><span style="line-height: 1.8;">charge 代表能够影响一个元素在电磁场上如何移动的电荷（是的，听起来很疯狂），而anchored本质上是将图形变成了碰撞中的一个静态物体，但没有响应事件（如果有什么东西撞上了它，它会丝毫不动），所以可以完美地用来表示地板或墙壁。</span></p> 
+<p><strong>Attachment Behavior（吸附行为）</strong></p> 
+<p>UIAttachmentBehavior改进后，现在像个具有新方法和属性的侦探，如同frictionTorque和attachmentRange一样。现在吸附行为变得更加灵活，我们可以指定相对滑动的动作、固定吸附、绳索链接和我最喜欢的：针型吸附。想像一下两个钉在一起的物体你就明白了。<span style="line-height: 1.8;">这些基本涵盖了UIDynamics的新特性，现在，是时候丢下这个更新日志，并开始搭建一些很二的东西了。</span></p> 
+<p><strong>让我们玩球吧</strong></p> 
+<p>我上周花了很多时间在球王（<a href="https://itunes.apple.com/us/app/ball-king/id946496840?mt=8" target="_blank" rel="nofollow">Ball King</a>）上。这一个很棒的消磨时间的东西，这游戏的的理念很简单，但是表现很出色。并且，它采用了获得苹果设计奖的Crossy Roadde 相同的理念：它不会以任何方式影响到玩家，比如游戏内的荣誉。<br></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16135040_1P5c.jpeg" title="1436952701904035.jpeg" alt="ballking.jpeg"></p>
+<p>我非常喜欢它的一点是球的物理模型，以及当球打到篮板上时篮板的反应。看起来用它来测试上面提到的UIDynamics新特性应该会非常不错。让我们来看看如何一步步地打造属于自己的简单的版本吧：<a href="https://github.com/FancyPixel/BallSwift" target="_blank" rel="nofollow">BallSwift</a></p> 
+<p><strong>篮框</strong></p> 
+<p>篮球架可以用一个UIView作为篮板，几个UIView作为篮框的左右两边，最前面的view作为篮框本身（不带物理刚体）。使用我们之前定义的类Ellipse，我们就可以创造我们的游戏场景的视觉表现：</p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">/*
+Build&nbsp;the&nbsp;hoop,&nbsp;setup&nbsp;the&nbsp;world&nbsp;appearance
+*/
+func&nbsp;buildViews()&nbsp;{
+&nbsp;&nbsp;board&nbsp;=&nbsp;UIView(frame:&nbsp;CGRect(x:&nbsp;hoopPosition.x,&nbsp;y:&nbsp;hoopPosition.y,&nbsp;width:&nbsp;100,&nbsp;height:&nbsp;100))
+&nbsp;&nbsp;board.backgroundColor&nbsp;=&nbsp;.whiteColor()
+&nbsp;&nbsp;board.layer.borderColor&nbsp;=&nbsp;UIColor(red:&nbsp;0.98,&nbsp;green:&nbsp;0.98,&nbsp;blue:&nbsp;0.98,&nbsp;alpha:&nbsp;1).CGColor
+&nbsp;&nbsp;board.layer.borderWidth&nbsp;=&nbsp;2
+&nbsp;&nbsp;
+&nbsp;&nbsp;board.addSubview({
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;v&nbsp;=&nbsp;UIView(frame:&nbsp;CGRect(x:&nbsp;30,&nbsp;y:&nbsp;43,&nbsp;width:&nbsp;40,&nbsp;height:&nbsp;40))
+&nbsp;&nbsp;&nbsp;&nbsp;v.backgroundColor&nbsp;=&nbsp;.clearColor()
+&nbsp;&nbsp;&nbsp;&nbsp;v.layer.borderColor&nbsp;=&nbsp;UIColor(red:&nbsp;0.4,&nbsp;green:&nbsp;0.4,&nbsp;blue:&nbsp;0.4,&nbsp;alpha:&nbsp;1).CGColor
+&nbsp;&nbsp;&nbsp;&nbsp;v.layer.borderWidth&nbsp;=&nbsp;5
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;v
+&nbsp;&nbsp;&nbsp;&nbsp;}())
+&nbsp;&nbsp;
+&nbsp;&nbsp;leftHoop&nbsp;=&nbsp;Ellipse(frame:&nbsp;CGRect(x:&nbsp;hoopPosition.x&nbsp;+&nbsp;20,&nbsp;y:&nbsp;hoopPosition.y&nbsp;+&nbsp;80,&nbsp;width:&nbsp;10,&nbsp;height:&nbsp;6))
+&nbsp;&nbsp;leftHoop.backgroundColor&nbsp;=&nbsp;.clearColor()
+&nbsp;&nbsp;leftHoop.layer.cornerRadius&nbsp;=&nbsp;3
+&nbsp;&nbsp;
+&nbsp;&nbsp;rightHoop&nbsp;=&nbsp;Ellipse(frame:&nbsp;CGRect(x:&nbsp;hoopPosition.x&nbsp;+&nbsp;70,&nbsp;y:&nbsp;hoopPosition.y&nbsp;+&nbsp;80,&nbsp;width:&nbsp;10,&nbsp;height:&nbsp;6))
+&nbsp;&nbsp;rightHoop.backgroundColor&nbsp;=&nbsp;.clearColor()
+&nbsp;&nbsp;rightHoop.layer.cornerRadius&nbsp;=&nbsp;3
+&nbsp;&nbsp;
+&nbsp;&nbsp;hoop&nbsp;=&nbsp;UIView(frame:&nbsp;CGRect(x:&nbsp;hoopPosition.x&nbsp;+&nbsp;20,&nbsp;y:&nbsp;hoopPosition.y&nbsp;+&nbsp;80,&nbsp;width:&nbsp;60,&nbsp;height:&nbsp;6))
+&nbsp;&nbsp;hoop.backgroundColor&nbsp;=&nbsp;UIColor(red:&nbsp;177.0/255.0,&nbsp;green:&nbsp;25.0/255.0,&nbsp;blue:&nbsp;25.0/255.0,&nbsp;alpha:&nbsp;1)
+&nbsp;&nbsp;hoop.layer.cornerRadius&nbsp;=&nbsp;3
+&nbsp;&nbsp;
+&nbsp;&nbsp;[board,&nbsp;leftHoop,&nbsp;rightHoop,&nbsp;floor,&nbsp;ball,&nbsp;hoop].map({self.view.addSubview($0)})
+}</pre> 
+<p>这里其实没有什么新东西， 篮框以编程形式被创建在常量CGPoint hoopPosition上。但是视图的顺序很重要，因为我们想让篮框要高于篮球（的抛投点）。</p> 
+<p><strong>螺母和螺栓（Nuts and bolts）</strong></p> 
+<p>篮框的最重要的部分是左右臂，它们需要一个物理圆形身体（使得与球的碰撞显得自然），需要用螺栓固定在板和前框。这两个将成为基本的UIDynamicItems，并不会直接碰撞参与碰撞。新推出的针型吸附就是为此而生的，它可以把一切都完美地结合在一起，因为我们可以在这个比较粗糙的图画上看到：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16135040_ziLX.png" title="1436952801179649.png" alt="QQ截图20150715173314.png"></p>
+<p>在给定的确定空间点内，pin一次仅可连接几个视图：</p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">let&nbsp;bolts&nbsp;=&nbsp;[
+&nbsp;&nbsp;CGPoint(x:&nbsp;hoopPosition.x&nbsp;+&nbsp;25,&nbsp;y:&nbsp;hoopPosition.y&nbsp;+&nbsp;85),&nbsp;//&nbsp;leftHoop&nbsp;-&gt;&nbsp;Board
+&nbsp;&nbsp;CGPoint(x:&nbsp;hoopPosition.x&nbsp;+&nbsp;75,&nbsp;y:&nbsp;hoopPosition.y&nbsp;+&nbsp;85),&nbsp;//&nbsp;rightHoop&nbsp;-&gt;&nbsp;Board
+&nbsp;&nbsp;CGPoint(x:&nbsp;hoopPosition.x&nbsp;+&nbsp;25,&nbsp;y:&nbsp;hoopPosition.y&nbsp;+&nbsp;85),&nbsp;//&nbsp;hoop&nbsp;-&gt;&nbsp;Board&nbsp;(L)
+&nbsp;&nbsp;CGPoint(x:&nbsp;hoopPosition.x&nbsp;+&nbsp;75,&nbsp;y:&nbsp;hoopPosition.y&nbsp;+&nbsp;85)]&nbsp;//&nbsp;hoop&nbsp;-&gt;&nbsp;Board&nbsp;(R)
+&nbsp;&nbsp;
+//&nbsp;Build&nbsp;the&nbsp;board
+zip([leftHoop,&nbsp;rightHoop,&nbsp;hoop,&nbsp;hoop],&nbsp;offsets).map({
+&nbsp;&nbsp;(item,&nbsp;offset)&nbsp;in
+&nbsp;&nbsp;animator?.addBehavior(UIAttachmentBehavior.pinAttachmentWithItem(item,&nbsp;attachedToItem:&nbsp;board,&nbsp;attachmentAnchor:&nbsp;bolts))
+})</pre> 
+<p>如果你不准备继续看看swfit版里的奇妙的功能，那你很可能不熟悉zip和map。这一开始看起来似乎有些刻意而为，但其实很简单：每个视图都用一个偏移点钉住吸附，然后我们得到一系列的元组，稍后将会在映射函数中使用。顾名思义，它创建了所给定的物体的数组中的每个元素间的映射。这使得篮框的左右边都用螺栓固定在板和前框，如下：</p> 
+<ul> 
+ <li><p>左臂用螺栓固定在篮板的左侧</p></li> 
+ <li><p>右臂用螺栓固定在篮板右侧</p></li> 
+ <li><p>篮框用螺栓固定在篮板的左侧</p></li> 
+</ul> 
+<p><span style="line-height: 1.8;">下一个步骤要求我们将篮板悬挂上，别将它固定死，这样球一个碰撞就可以使得它转动，就像在Ball King这个游戏中一样：</span></p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">//&nbsp;Set&nbsp;the&nbsp;density&nbsp;of&nbsp;the&nbsp;hoop,&nbsp;and&nbsp;fix&nbsp;its&nbsp;angle
+//&nbsp;Hang&nbsp;the&nbsp;hoop
+animator?.addBehavior({
+&nbsp;&nbsp;let&nbsp;attachment&nbsp;=&nbsp;UIAttachmentBehavior(item:&nbsp;board,&nbsp;attachedToAnchor:&nbsp;CGPoint(x:&nbsp;hoopPosition.x,&nbsp;y:&nbsp;hoopPosition.y))
+&nbsp;&nbsp;attachment.length&nbsp;=&nbsp;2
+&nbsp;&nbsp;attachment.damping&nbsp;=&nbsp;5
+&nbsp;&nbsp;return&nbsp;attachment
+&nbsp;&nbsp;}())
+&nbsp;&nbsp;
+animator?.addBehavior({
+&nbsp;&nbsp;let&nbsp;behavior&nbsp;=&nbsp;UIDynamicItemBehavior(items:&nbsp;[leftHoop,&nbsp;rightHoop])
+&nbsp;&nbsp;behavior.density&nbsp;=&nbsp;10
+&nbsp;&nbsp;behavior.allowsRotation&nbsp;=&nbsp;false
+&nbsp;&nbsp;return&nbsp;behavior
+&nbsp;&nbsp;}())
+&nbsp;&nbsp;
+//&nbsp;Block&nbsp;the&nbsp;board&nbsp;rotation
+animator?.addBehavior({
+&nbsp;&nbsp;let&nbsp;behavior&nbsp;=&nbsp;UIDynamicItemBehavior(items:&nbsp;[board])
+&nbsp;&nbsp;behavior.allowsRotation&nbsp;=&nbsp;false
+&nbsp;&nbsp;return&nbsp;behavior
+&nbsp;&nbsp;}())</pre> 
+<p><span style="line-height: 1.8;">篮框已经做好了，下面该到篮球了，用一个圆形的自定义UIImageView子类视图，如同Ellipse类：</span></p> 
+<p>然后，我们可以将球作为一个普通的UIImageView实例化：</p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">let&nbsp;ball:&nbsp;Ball&nbsp;=&nbsp;{
+&nbsp;&nbsp;let&nbsp;ball&nbsp;=&nbsp;Ball(frame:&nbsp;CGRect(x:&nbsp;0,&nbsp;y:&nbsp;0,&nbsp;width:&nbsp;28,&nbsp;height:&nbsp;28))
+&nbsp;&nbsp;ball.image&nbsp;=&nbsp;UIImage(named:&nbsp;"ball")
+&nbsp;&nbsp;return&nbsp;ball
+}()</pre> 
+<p><span style="color: rgb(37, 37, 37); font-family: 'Helvetica Neue', Helvetica, STheiti, 微软雅黑, 黑体, Arial, Tahoma, sans-serif, serif; font-size: 14px; line-height: 25px; background-color: rgb(250, 250, 250);">最后我们设置他的 物理属性：</span></p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">//&nbsp;Set&nbsp;the&nbsp;elasticity&nbsp;and&nbsp;density&nbsp;of&nbsp;the&nbsp;ball
+animator?.addBehavior({
+&nbsp;&nbsp;let&nbsp;behavior&nbsp;=&nbsp;UIDynamicItemBehavior(items:&nbsp;[ball])
+&nbsp;&nbsp;behavior.elasticity&nbsp;=&nbsp;1
+&nbsp;&nbsp;behavior.density&nbsp;=&nbsp;3
+&nbsp;&nbsp;behavior.action&nbsp;=&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;!CGRectIntersectsRect(self.ball.frame,&nbsp;self.view.frame)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.setupBehaviors()
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.ball.center&nbsp;=&nbsp;CGPoint(x:&nbsp;40,&nbsp;y:&nbsp;self.view.frame.size.height&nbsp;-&nbsp;100)
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;}
+&nbsp;&nbsp;return&nbsp;behavior
+&nbsp;&nbsp;}())</pre> 
+<p><span style="color: rgb(37, 37, 37); font-family: 'Helvetica Neue', Helvetica, STheiti, 微软雅黑, 黑体, Arial, Tahoma, sans-serif, serif; font-size: 14px; line-height: 25px; background-color: rgb(250, 250, 250);"></span></p> 
+<p><span style="line-height: 1.8;">这段代码里我设置了弹性大小（碰撞后反弹的幅度）、密度（就把它看作重量吧），还有当球超出弹跳范围时立即结束游戏的事件，即为重置游戏状态（在主视图中）。</span></p> 
+<p><strong>Collisions and gravity（碰撞和重力）</strong></p> 
+<p>我提到了UIDynamicItemBehavior的新属性anchored，即禁用了对象的动态behavior，同时将其保留在在碰撞循环里。听起来用它来搭建一个坚固的地板会很不错：</p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">//&nbsp;Anchor&nbsp;the&nbsp;floor
+animator?.addBehavior({
+&nbsp;&nbsp;let&nbsp;behavior&nbsp;=&nbsp;UIDynamicItemBehavior(items:&nbsp;[floor])
+&nbsp;&nbsp;behavior.anchored&nbsp;=&nbsp;true
+&nbsp;&nbsp;return&nbsp;behavior
+&nbsp;&nbsp;}())</pre> 
+<p><span style="line-height: 1.8;">如果你忘了设置这个属性，你就会抓耳挠腮。反正我是这样的。</span></p> 
+<p>好吧，一切都设置好啦，现在只需要一些重力和一组碰撞事件了：</p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">animator?.addBehavior(UICollisionBehavior(items:&nbsp;[leftHoop,&nbsp;rightHoop,&nbsp;floor,&nbsp;ball]))
+animator?.addBehavior(UIGravityBehavior(items:&nbsp;[ball]))</pre> 
+<p><span style="color: rgb(37, 37, 37); font-family: 'Helvetica Neue', Helvetica, STheiti, 微软雅黑, 黑体, Arial, Tahoma, sans-serif, serif; font-size: 14px; line-height: 25px; background-color: rgb(250, 250, 250);">重力是应用在默认每秒一点作为的向下的力的场景behavior。碰撞behavior 作为相互碰撞的view的参数。游戏已经搭建好啦，现在我们可以在球上施加一个瞬发力，并用我们的手指划过屏幕：</span></p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">let&nbsp;push&nbsp;=&nbsp;UIPushBehavior(items:&nbsp;[ball],&nbsp;mode:&nbsp;.Instantaneous)push.angle&nbsp;=&nbsp;-1.35push.magnitude&nbsp;=&nbsp;1.56animator?.addBehavior(push)</pre> 
+<p><span style="color: rgb(37, 37, 37); font-family: 'Helvetica Neue', Helvetica, STheiti, 微软雅黑, 黑体, Arial, Tahoma, sans-serif, serif; font-size: 14px; line-height: 25px; background-color: rgb(250, 250, 250);"></span></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16135040_caYg.gif" title="1436953028205665.gif" alt="ball.gif"></p>
+<p><span style="line-height: 1.8;">这下你该明白了吧，虽然场景边缘真的画的很low，但是搭建它真的很有趣（是的，云朵和灌木丛都是一样的勾画，就像&nbsp;<a href="https://www.youtube.com/watch?v=ai7d1K4Yf6A" target="_blank" rel="nofollow">超级马里奥</a>&nbsp;里中的）。</span></p> 
+<p><span style="color: rgb(37, 37, 37); font-family: 'Helvetica Neue', Helvetica, STheiti, 微软雅黑, 黑体, Arial, Tahoma, sans-serif, serif; font-size: 14px; line-height: 28px; background-color: rgb(250, 250, 250);">老规矩，你可以在我们的&nbsp;</span><a href="https://github.com/FancyPixel/BallSwift" target="_blank" rel="nofollow">GitHub页面</a><span style="color: rgb(37, 37, 37); font-family: 'Helvetica Neue', Helvetica, STheiti, 微软雅黑, 黑体, Arial, Tahoma, sans-serif, serif; font-size: 14px; line-height: 28px; background-color: rgb(250, 250, 250);">&nbsp;找到源代码。</span></p>]]></body>
+		<author><![CDATA[包灬子]]></author>
+		<authorid>1048271</authorid>
+		<documentType>0</documentType>
+        <pubDate>2015-07-16 13:50:40</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

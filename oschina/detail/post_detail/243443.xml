@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>243443</id>
+      <title><![CDATA[ireport中的交叉报表边框问题]]></title>
+      <url><![CDATA[http://www.oschina.net/question/2273594_243443]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1136/2273594_50.jpg?t=1432604474000</portrait>
+      <event>
+			  </event>
+      <body>
+		<![CDATA[
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+					</style>
+				<p> 在使用ireport制作交叉报表的时候，在ireport中预览的话边框之间一切都是正常的，但是，在web项目中看的话就不正常了，如下图所示： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/180620_fG5U_2273594.png" alt=""> </p>
+<p> <br> </p> 
+<p> 不知道哪位大神知道该如何设置才能将中间的空隙给消除掉，十分感谢！ </p>						]]>
+	  </body>
+      <author><![CDATA[碧波荡漾]]></author>
+      <authorid>2273594</authorid>
+      <answerCount>0</answerCount>
+      <viewCount>19</viewCount>
+      <pubDate>2015-07-16 18:07:27</pubDate>
+	  <favorite>0</favorite>
+	  		<tags>
+		            <tag><![CDATA[iReport]]></tag>
+		        </tags>
+	    </post>
+</oschina>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479539</id>
+		<title><![CDATA[SVN安装，SVN服务搭建与eclipse里插件安装]]></title>
+		<url><![CDATA[http://my.oschina.net/u/588341/blog/479539]]></url>
+		<where><![CDATA[技术文章]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px;">&nbsp; &nbsp; &nbsp;关于SVN与Git的比较，还是不做比较了吧。 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p> 
+<p><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px; line-height: 24px; text-indent: 28px; background-color: rgb(255, 255, 255);">&nbsp;&nbsp; &nbsp;&nbsp;SVN是Subversion的简称，是一个开放源代码的版本控制系统，相较于RCS、CVS，它采用了分支管理系统，它的设计目标就是取代CVS。互联网上很多版本控制服务已从CVS迁移到Subversion。欲知更多介绍请问度娘(￣_,￣ )</span></p> 
+<p><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px; line-height: 24px; text-indent: 28px; background-color: rgb(255, 255, 255);">&nbsp;一、先上win下服务器端的搭建</span></p> 
+<p><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px; line-height: 24px; text-indent: 28px; background-color: rgb(255, 255, 255);">&nbsp; &nbsp; &nbsp;1. 首先，你需要下载win版本的安装包：<a href="http://subversion.apache.org/packages.html" rel="nofollow">http://subversion.apache.org/packages.html</a></span></p> 
+<p><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px;">&nbsp; &nbsp; 个人习惯使用<a href="http://www.sliksvn.com/en/download" rel="nofollow">SlikSVN</a>&nbsp;，下载后正常安装，一直下一步到完成，安装后不需要配置path~</span></p> 
+<p><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;2. 软件安装完成还不能使用哦，做为服务器端，你需要创建一个SVN仓库来作为项目的容身之处，其实就是一个包含一些配置文件的文件夹。操作：</span><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei';"><br></span></p> 
+<p><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px;">&nbsp; &nbsp; &nbsp;打开cmd（分享一个win7/8 在当前目录path打开cmd的方法，进入到指定文件夹后，点击path地址栏，把路径全删了输入cmd回车即可），然后使用命令 "<span style="color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei';">svnadmin create [pathname]" 创建你的svn仓库,例如<span style="color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei';">svnadmin create D:\svnrepo 。</span></span></span></p> 
+<p><span style="font-family: 微软雅黑, 'Microsoft YaHei'; color: rgb(51, 51, 51); font-size: 16px;">&nbsp; &nbsp; &nbsp;3. ok，svn仓库创建好了，在cmd窗口中使用命令<span style="font-family: Calibri, sans-serif; color: rgb(51, 51, 51); font-size: 16px;">svnserve -d -r [svnrepo path]<span style="font-family: 微软雅黑, 'Microsoft YaHei'; color: rgb(51, 51, 51); font-size: 16px;">即可启动svn服务开始使用了（cmd窗口不能关闭），当然这只是最简易的，项目中我们并不能这么用，还需要配置访问权限，用户名密码等，而且让cmd窗口一直那么</span></span>挂着也不是个事呀。</span></p> 
+<p><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 16px;">&nbsp; &nbsp; &nbsp;4. SVN安装到系统服务,新建一个文本文件，名字改为svnserver.bat（注意后缀名），然后用记事本打开svnserver.bat，里面输入如下内容：</span></p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">sc&nbsp;create&nbsp;SVNServer&nbsp;binpath=&nbsp;"[svn安装路径]\svnserve.exe&nbsp;--service&nbsp;-r&nbsp;[svnrepo&nbsp;path]"&nbsp;displayname=&nbsp;"SVNService"&nbsp;depend=&nbsp;Tcpip&nbsp;start=&nbsp;auto
+pause</pre> 
+<p><span style="font-size:16px"></span>比如：注意“=”后面的空格是必须要有的</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">sc&nbsp;create&nbsp;SVNServer&nbsp;binpath=&nbsp;"D:\SVN\bin\svnserve.exe&nbsp;--service&nbsp;-r&nbsp;D:\svnrepo"&nbsp;displayname=&nbsp;"SVNService"&nbsp;depend=&nbsp;Tcpip&nbsp;start=&nbsp;auto&nbsp;
+pause</pre> 
+<p><span style="color: rgb(51, 51, 51); font-family: 宋体; font-size: 16px;"><br></span><span style="font-family: 微软雅黑, 'Microsoft YaHei';">然后保存并关闭记事本，在右键管理员方式运行即可创建svn服务，start= auto指定服务开机自动启动。</span></p> 
+<p><span style="display: none; line-height: 0px;">‍</span><span style="font-family: 微软雅黑, 'Microsoft YaHei';">&nbsp; &nbsp; <span style="font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px;">&nbsp;</span></span><span style="font-family: 宋体, SimSun;"><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="font-size: 14px; font-family: 微软雅黑, 'Microsoft YaHei';">5.&nbsp;权限配置：打开svn仓库下conf目录里的svnserve.conf文件，里面常用的有# anon-access = read（匿名访问权限，值read为只读，write为可写）&nbsp; # auth-access = write（认证用户访问权限，即通过用户名密码登录的用户）&nbsp;&nbsp; # password-db = passwd（开启<span style="color: rgb(69, 69, 69); line-height: 24px; background-color: rgb(255, 255, 255);">访问时需要输入密码</span>），需要开启只</span><span style="font-family: 微软雅黑, 'Microsoft YaHei';"><span style="font-size: 14px;">需去掉注释</span><span style="font-size: 16px;"><span style="font-size: 16px;">（#）。用户密码配置：</span>在conf目录里的password文件里配置键值对，参照password文件里给出的示<span style="font-size: 16px;">例即</span>可。</span></span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;"></span></span></p> 
+<p><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 16px;">&nbsp; &nbsp;</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span><span style="display: none; line-height: 0px;">‍</span></p> 
+<p><span style="font-size: 16px;">二、使用SVN</span><span style="font-size: 16px; font-family: 宋体;">集成到</span><span style="font-size: 16px;">eclipse</span></p> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; line-height: 22.5px;">方法1.通过下载的zip文件离线安装</span></p> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">下载主页</span><span style="font-size:16px"><a href="http://subclipse.tigris.org/servlets/ProjectProcess?pageID=p4wYuA" rel="nofollow">http://subclipse.tigris.org/servlets/ProjectProcess?pageID=p4wYuA</a> </span></p> 
+<p><span style="line-height: 22.5px; font-size: 16px;">eclipse</span><span style="line-height: 22.5px; font-size: 16px; font-family: 宋体;">安装：打开</span><span style="line-height: 22.5px; font-size: 16px;">eclipse-&gt;Help-&gt;Install New Sortware…</span><span style="line-height: 22.5px; font-size: 16px; font-family: 宋体;">，点</span><span style="line-height: 22.5px; font-size: 16px;">add，然后点Archive...选择刚下载的文件。name输入svn，然后点击OK，然后展开加载出来的列表（与我图中样子不同，因为我已经安装过了），点击下面select all，然后去掉“&nbsp;Subclipse Integration for Mylyn 3.x (Optional) &nbsp;3.0.0”前面的勾，这一项可能会导致安装失败。</span></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/224718_Iceq_588341.png"></p>
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">然后确认下面“Contact all update . . . ” 这项为未勾选状态，勾选问检查更新，安装会比较慢</span><span style="font-size:16px;font-family:宋体"><br></span></p> 
+<p><span style="font-size:16px;font-family:宋体"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/225438_lbWY_588341.png"></span></p>
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">然后点击Next，勾选同意条款，finish完成。现在即可在项目中使用svn了。<br></span></p> 
+<p><span style="font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 16px;">方法2，eclipse里在线安装：如方法一步骤，只是Loations里输入SVN的在线安装地址即可：</span></p> 
+<p><span style="display: none; line-height: 0px;">‍</span><span style="font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 14px;">1.10：</span><a href="http://subclipse.tigris.org/update_1.10.x" rel="nofollow"><span style="font-size: 14px; font-family: 微软雅黑, 'Microsoft YaHei'; background: white;">http://subclipse.tigris.org/update_1.10.x</span></a><span style="display: none; line-height: 0px;">‍</span></p> 
+<p><br></p> 
+<p>Linux上SVN服务搭建候补~</p> 
+<p><span style="font-size: 16px;"><br></span><br></p> 
+<p><span style="color: rgb(51, 51, 51); font-family: Calibri, sans-serif; font-size: 16px;"><br></span></p>]]></body>
+		<author><![CDATA[白小衣]]></author>
+		<authorid>588341</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 23:00:23</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

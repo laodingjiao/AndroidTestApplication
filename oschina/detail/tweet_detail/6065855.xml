@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6065855</id>
+	<body><![CDATA[
+		谁知道 git 和 gitHub 标准的该怎么读。貌似好几种读法？        	]]></body>
+    <author><![CDATA[唯风]]></author>
+	<authorid>1397471</authorid>
+    <appclient>3</appclient>
+    <commentCount>10</commentCount>
+	<portrait></portrait>
+    <pubDate>2015-07-17 13:20:32</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>1</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[ranran__90]]></name>
+				<uid>2344629</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1172/2344629_50.jpg?t=1428541059000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

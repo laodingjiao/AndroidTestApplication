@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>472474</id>
+		<title><![CDATA[Zabbix使用总结1——认识zabbix监控从Template开始]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2375576/blog/472474]]></url>
+		<where><![CDATA[zabbix]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>zabbix监控服务器功能很强大，当然配置也极为复杂。今天总结一下zabbix监控体系中的各个元素的作用以及他们之间的关系。当然，这个总结看起来可能是十分杂乱的，需要耐心梳理。以下内容均以zabbix2.4.1版本为例。</p> 
+<p><span style="color: rgb(0, 176, 80);">想要了解zabbix的监控体系，从Template开始，下面简单剖析一下Template：</span></p> 
+<p>1，zabbix中的Template就是一整套定制好的监控方案。这个方案中可以包含预定义好的Applications 、Items、Triggers 、Graphs 、Screens 、Discovery 、Web 。</p> 
+<p>2，可以在Configuration-&gt;Templates中看到zabbix自带的Template，如对Linux系统、mysql等的监控方案。这些可以在直接使用。也可以在这里定义自己的Template，<span style="line-height: 22.5px;">个性化</span>监控自己想要监控服务，这点非常强大。</p> 
+<p>3，以监控Linux系统为例说明怎么使用Template。首先要在被监控的机器上安装zabbix客户端程序（安装方法另行总结吧）。打开zabbix页面，登录管理员帐号，依次点击Configuration-&gt;Hosts-&gt;create host，添加要监控的主机信息。Host name和Visible name建议使用监控对象的IP，选择机器所在的group，Agent interfaces中添加被监控主机的IP，端口默认。惦记Templates选项，点击Link new templates后面的select，选择Templates组中的Template OS Linux，依次点击<span style="line-height: 22.5px;">Link new templates框中的</span>ADD和页面下方的ADD。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/111230_j362_2375576.png"></p>
+<p>这样对目标主机的linux系统监控就配置好了。点击Monitoring-&gt;Latest data就可以看到监控结果了：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/112021_qMlz_2375576.png"></p>
+<p>zabbix是如何在按照Template的指示工作的呢？<br></p> 
+<p><span style="color: rgb(0, 176, 80);">Template里面各个元素的功能和关系：</span></p> 
+<p>4，Template的几大要素：<br></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0630/134258_Km7D_2375576.png"></p>
+<p>比较重要的两个：</p> 
+<p>Application：简单的说Application就是分组，对服务端监控项目的分组。比如上面用到的Linux系统监控Template中就有CPU,Memory等分组，分别对应一系列针对CPU和内存的监控项。将这些彼此有密切联系的监控项放一个分组（即同一个Application）中，看起来十分直观。</p> 
+<p>Items：就是Application分组中具体的一个个监控项。还是一上文<span style="line-height: 22.5px;">Linux系统监控Template的CPU Application为例，里面包含了CPU system time、CPU idle time、CPU interrupt time等等多项CPU监控指标。Items最重要的一个参数是key。zabbix客户端就是根据这个key去寻找对应的shell脚本，运行并获取对应的值，返回页面展示给用户。正如前面所说，一个<span style="line-height: 22.5px;">Application对应1到多个Items。一个Application就是一个Items族群。另外Items必须放到某一个Application中去，否则在监控页面是看不到这个Items对应的监控结果的。</span></span></p> 
+<p><span style="line-height: 22.5px;"><span style="line-height: 22.5px;">5，关联（Link to）与被关联（Linked）：前面说过，新建一个监控对象Host时，可以关联一个Template，这样这台机器对应这个Template的监控信息就会展现在监控结果页面中。此外，zabbix还提供了Template关联Template。假设Template A 关联了Template B。那么关联了A的主机同样也就关联了B。在这个主机的监控页面上，就会有A,B两个监控结果同时展现出来。这极大了增加了监控配置的灵活性和多样性。</span></span></p> 
+<p><br></p> 
+<p>上面简单总结了Template的用法、构成。以及Template中间的关联。zabbix给了用户极大的自由去定制自己的监控计划，同时也使得这件事变得有点杂乱无章，没有头绪。以后继续总结其他功能。</p>]]></body>
+		<author><![CDATA[光影之间的lyy]]></author>
+		<authorid>2375576</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-30 14:21:45</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

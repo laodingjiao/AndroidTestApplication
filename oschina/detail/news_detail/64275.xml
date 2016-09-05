@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64275</id>
+      <title><![CDATA[Gitlab 7.13.0 RC2 发布，Git 版本控制系统]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64275/gitlab-7-13-0-rc1]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Gitlab 7.13.0 RC2 发布，这次发布暂未有相关说明，该的下载地址请点<a target="_blank" href="https://github.com/gitlabhq/gitlabhq/releases" rel="nofollow">这里</a>。关于最终版 7.13.0 （未发布）的更新内容，请查看<a target="_blank" href="https://github.com/gitlabhq/gitlabhq/blob/master/CHANGELOG" rel="nofollow">更新日志</a>。</p> 
+<p>GitLab是一个利用 <a href="http://www.oschina.net/p/ruby+on+rails" target="_blank" rel="nofollow">Ruby on Rails</a> 开发的开源应用程序，实现一个自托管的<a href="http://www.oschina.net/p/git" rel="nofollow">Git</a>项目仓库，可通过Web界面进行访问公开的或者私人项目。</p> 
+<p><span style="color: rgb(255, 0, 0);">开源中国代码托管平台 </span><a target="_blank" href="http://git.oschina.net/" rel="nofollow"><span style="color: rgb(255, 0, 0);">git.oschina.net</span></a><span style="color: rgb(255, 0, 0);"> 就是基于 GitLab 项目搭建。</span></p> 
+<p><br></p>]]></body>
+      <commentCount>3</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 07:49:58</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/gitlab]]></softwarelink>
+	  <softwarename><![CDATA[GitLab]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Gitlab 7.13.0 RC1 发布，Git 版本控制系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/64239/gitlab-7-3-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git 2.5.0 RC2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64215/git-2-5-0-rc2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[GitLab 募集 150 万美元种子资金扩大业务]]></rtitle>
+			<rurl>http://www.oschina.net/news/64111/1-5m-raised-in-seed-funding-for-gitlab</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 1.7.1 RC2 发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/64065/docker-1-7-1-rc2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PyCharm 4.5.3 RC2 发布，Python 集成开发环境]]></rtitle>
+			<rurl>http://www.oschina.net/news/64028/pycharm-4-5-3-rc2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Gitlab 启用全新 Logo]]></rtitle>
+			<rurl>http://www.oschina.net/news/63962/gitlab-new-logo</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[GitLab 7.12.2 发布，新 LOGO 意见征询]]></rtitle>
+			<rurl>http://www.oschina.net/news/63914/gitlab-7-12-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[libgit2 v0.23.0 RC2 发布，Git 开发包]]></rtitle>
+			<rurl>http://www.oschina.net/news/63913/libgit2-0-23-0-rc2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[GitLab 7.12.1 发布，代码托管平台]]></rtitle>
+			<rurl>http://www.oschina.net/news/63859/gitlab-7-12-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[VirtualBox 5.0 RC2 发布，开源虚拟机]]></rtitle>
+			<rurl>http://www.oschina.net/news/63732/virtualbox-5-0-rc2</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

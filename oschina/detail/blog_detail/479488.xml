@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479488</id>
+		<title><![CDATA[color属性是否具有继承性]]></title>
+		<url><![CDATA[http://my.oschina.net/u/1468670/blog/479488]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>1</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><strong>color属性是否具有继承性:</strong></p> 
+<p>这个问题应该比较简单，但是还是注意一下，否则可能造成颜色的混乱。先看一段代码实例:</p> 
+<pre class="brush:html;toolbar: true; auto-links: false;">&lt;!DOCTYPE&nbsp;html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta&nbsp;charset="utf-8"&gt;
+&lt;meta&nbsp;name="author"&nbsp;content="http://www.51texiao.cn/"&nbsp;/&gt;
+&lt;title&gt;蚂蚁部落&lt;/title&gt;
+&lt;style&nbsp;type="text/css"&gt;
+div{
+&nbsp;&nbsp;color:red;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div&gt;
+&nbsp;&nbsp;&lt;span&gt;蚂蚁部落&lt;/span&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre> 
+<p>以上代码虽然是给div元素设置了字体颜色，但是仍然能够作用于span子元素内的文本，所以color属性具有继承性。</p> 
+<p>原文地址是:<a href="http://www.51texiao.cn/div_cssjiaocheng/2015/0503/590.html" rel="nofollow">http://www.51texiao.cn/div_cssjiaocheng/2015/0503/590.html</a> </p> 
+<p>最为原始地址是:http://www.softwhy.com</p>]]></body>
+		<author><![CDATA[一落叶而知秋]]></author>
+		<authorid>1468670</authorid>
+		<documentType>0</documentType>
+        <pubDate>2015-07-16 20:08:38</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

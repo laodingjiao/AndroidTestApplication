@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479468</id>
+		<title><![CDATA[MongoDB3.0集群配置文件自动生成器]]></title>
+		<url><![CDATA[http://my.oschina.net/jockchou/blog/479468]]></url>
+		<where><![CDATA[NoSQL]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h1>MongoDB3.0集群配置文件自动生成器</h1> 
+<p>请到此下载：<br><a href="https://github.com/jockchou/mongodb-conf-generator" rel="nofollow">项目Github地址</a><br><a href="https://github.com/jockchou/mongodb-conf-generator" rel="nofollow">项目Github地址</a> </p> 
+<h2><a href="https://github.com/jockchou/mongodb-conf-generator" rel="nofollow">https://github.com/jockchou/mongodb-conf-generator</a></h2> 
+<h1>MongoDB3.0集群配置文件自动生成器</h1> 
+<hr> 
+<h2>文件说明：</h2> 
+<pre><code>	-- cfg.conf.template
+	-- mongod.conf.template
+	-- mongos.conf.template
+
+</code></pre> 
+<blockquote> 
+ <p>cfg.conf.template ： 集群配制服务器配制文件模板<br>mongod.conf.template： mongod进程配制文件模板<br>mongos.conf.template： mongos路由进程配制文件模板<br>generator.php ： 自动生成配制文件的PHP脚本 </p> 
+</blockquote> 
+<h2>脚本使用方法：</h2> 
+<p>在你的Linux服务器上创建一个新目录，我这里创建的目录是/data/mongo</p> 
+<pre><code>mkdir -p /data/mongo
+</code></pre> 
+<p>复制本项目录下上述四个文件到/data/mongo目录中，执行php generator.php。执行前先确保机器上已经安装PHP。</p> 
+<h2>配制说明：</h2> 
+<p>generator.php文件的上面定义了一些常量，你可以修改这些常量的值。</p> 
+<pre><code>//帮定IP
+define("BIND_IP", "127.0.0.1,192.168.100.18");
+
+//配置服务器IP，IP个数与配置服务器个数保持相同
+define("CFG_IP", "192.168.100.10,192.168.100.11,192.168.100.12");
+
+//mongodb bin目录
+define("BINPATH", "/usr/local/mongodb/bin");
+
+//超始端口号
+define("START_PORT", 4000);
+
+//配置服务器个数
+define("CFG_SVR_NUM", 3);
+
+//分片个数
+define("RS_NUM", 3);
+
+//复制集节点数
+define("RS_NODE_NUM", 3);
+</code></pre> 
+<h2>模板修改:</h2> 
+<p>三个模板文件定义了MongoDB各进程的常见配置，你可以修改这些配置项。##是将被替换的动态部分。</p> 
+<h2>脚本输出：</h2> 
+<p>运行脚本后，你将看到类似以下输出：</p> 
+<pre><code>C:\data\GitRoot\mongodb-conf-generator&gt;php generator.php
+
+cfg-&gt;node0-&gt;4000
+cfg-&gt;node1-&gt;4001
+cfg-&gt;node2-&gt;4002
+
+rs0-&gt;node0-&gt;4003
+rs0-&gt;node1-&gt;4004
+rs0-&gt;node2-&gt;4005
+
+rs1-&gt;node0-&gt;4006
+rs1-&gt;node1-&gt;4007
+rs1-&gt;node2-&gt;4008
+
+rs2-&gt;node0-&gt;4009
+rs2-&gt;node1-&gt;4010
+rs2-&gt;node2-&gt;4011
+
+mongos-----&gt;4012
+</code></pre> 
+<ul> 
+ <li>cfg： 表示配置服务器</li> 
+ <li>node： 表示节点</li> 
+ <li>rs： 示是复制集</li> 
+ <li>4000： 最右边的数字是端口号</li> 
+</ul>]]></body>
+		<author><![CDATA[jockchou]]></author>
+		<authorid>946034</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 19:30:37</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>471057</id>
+		<title><![CDATA[CentOS6.6下安装vim7.4]]></title>
+		<url><![CDATA[http://my.oschina.net/zhmlvft/blog/471057]]></url>
+		<where><![CDATA[linux]]></where>
+		<commentCount>4</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>最近在学习linux，买了本vim实用技巧，边看边练习的过程中发现有些命令在我的环境下(CentOS6.6_64位)并不支持。</p> 
+<p>例如：书上的例子，当光标定位在一个单词的末尾，这时需要删除这个单词。可以有3种方式来删除。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0626/100613_46hm_925404.png"></p>
+<p>第一种反向删除：按下“dbx”，解释：“db”命令删除从光标起始位置到单词开头的内容，但会原封不动的留下最后一个字符“h”,再按下“x”键就可以删除这个捣乱的字符。(该命令环境支持)</p> 
+<p>第二种正向删除：按下“bdw”，解释：先用“b”命令吧光标移动到单词的开头，然后就可以用“dw”命令删除整个单词。（该命令环境支持）</p> 
+<p>第三种删除整个单词：按下“daw”，解释：字面意思很好理解，“delete a word”。但是，这么牛的一个命令居然在我的环境下不支持。</p> 
+<p>用“yum list installed | grep vim”发现系统自带的是minimal，</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0626/102211_UJ5D_925404.png"></p>
+<p>而且我配置了显示行号与高亮显示。这个版本的里面显示的格式居然是这样的。<br></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0626/102717_ZscE_925404.png"></p>
+<p>太丑啦。。。。</p> 
+<p>于是，决定删除该版本的vim。“yum -y remove vim*”。之后去&nbsp;<a href="http://www.vim.org/sources.php" target="_self" rel="nofollow">http://www.vim.org/sources.php</a>官方网站下载最新版的源码。</p> 
+<p>下载列表为：<span style="font-family: arial, helvetica, sans-serif; font-size: medium; background-color: rgb(255, 255, 255);">&nbsp;</span><a href="ftp://ftp.vim.org/pub/vim/unix/vim-7.4.tar.bz2" rel="nofollow">vim-7.4.tar.bz2</a>&nbsp;&nbsp;<a href="ftp://ftp.vim.org/pub/vim/extra/vim-7.2-extra.tar.gz" rel="nofollow">vim-7.2-extra.tar.gz</a> &nbsp; &nbsp;<a href="ftp://ftp.vim.org/pub/vim/extra/vim-7.2-lang.tar.gz" rel="nofollow">vim-7.2-lang.tar.gz</a></p> 
+<p>上传至服务器，解压。</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">tar&nbsp;jxvf&nbsp;vim-7.4.tar.bz2
+tar&nbsp;zxvf&nbsp;vim-7.2-extra.tar.gz
+tar&nbsp;zxvf&nbsp;vim-7.2-lang.tar.gz
+mv&nbsp;vim72&nbsp;vim74
+yum&nbsp;install&nbsp;ncurses-devel
+cd&nbsp;vim74/src
+./configure&nbsp;--enable-multibyte&nbsp;\--with-features=huge&nbsp;\--disable-selinux
+make
+make&nbsp;install</pre> 
+<p>安装完毕。输入“vim --version”，不出意外已经成功升级至vim7.4。</p> 
+<p>还需要执行下这个命令：</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">echo&nbsp;"export&nbsp;TERM=xterm-color"&nbsp;&gt;&gt;&nbsp;/etc/profile
+source&nbsp;/etc/profile</pre> 
+<p>试一下新版本的vim。</p> 
+<p>“vim ~/.vimrc”</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0626/103550_fOsI_925404.png"></p>
+<p>好清新！再测试下上面说的“daw”命令，ok，可以运行。搞定！</p> 
+<p>安装新版发现vim的别名vi命令没有了。可以自己重新设定</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">echo&nbsp;"alias&nbsp;vi='vim'"&nbsp;&gt;&gt;&nbsp;/etc/profile
+source&nbsp;/etc/profile</pre> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[爱兔一生]]></author>
+		<authorid>925404</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-26 10:38:21</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

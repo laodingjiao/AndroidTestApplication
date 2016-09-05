@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64257</id>
+      <title><![CDATA[OSC 第 83 期高手问答 — Docker 开发实践]]></title>
+      <url><![CDATA[http://www.oschina.net/question/865233_243103]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> OSCHINA 本期高手问答 ( 7月14日- 7月20日 ) 我们请来了《Docker开发实践》的作者<a target="_blank" href="http://my.oschina.net/u/2406944" rel="nofollow">@zengjinlong</a>（<strong><strong>曾金龙</strong></strong>）为大家解答关于&nbsp;Docker 开发实践方面的问题。</p> 
+<p> <strong>曾金龙</strong>，计算机硕士，中山大学毕业，就职于迅雷网络，国内覆盖面最广的“迅雷P2P引擎”核心研发成员。研究方向为P2P网络、音视频传输和CEP<span style="font-family:微软雅黑;">系统。对</span>Docker技术有着深入的理解，是国内较早将Docker引入到实际软件开发、测试和部署中的人。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0701/161058_jZtX_865233.jpg"><br></p>]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 08:23:36</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/docker]]></softwarelink>
+	  <softwarename><![CDATA[Docker]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[【每日一博】使用 Docker 组件开发 Django 项目]]></rtitle>
+			<rurl>http://my.oschina.net/oneapmofficial/blog/478840</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 1.7.1 正式发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/64267/docker-1-7-1-final</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 1.7.1 RC3 发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/64119/docker-1-7-1-rc3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 普及活动，只要动手做我们就给纪念品]]></rtitle>
+			<rurl>http://www.oschina.net/news/64013/git-osc-docker-image-maker</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 1.7.1 RC2 发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/64065/docker-1-7-1-rc2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 逗你玩儿 --- 在线 Dockerfile 征集活动]]></rtitle>
+			<rurl>http://www.oschina.net/news/64013/git-osc-docker-image-maker</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[glot —— 基于 Docker 的代码片段执行平台]]></rtitle>
+			<rurl>http://www.oschina.net/p/glot</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— WordPress 博客导入 OSC]]></rtitle>
+			<rurl>http://git.oschina.net/lijialong1314/WP2OSC</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 1.7.1 RC1 发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/63899/docker-1-7-1-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[cSphere 希云 Docker 实训第四讲开始报名]]></rtitle>
+			<rurl>http://www.oschina.net/news/63849/csphere-docker-4th-training</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

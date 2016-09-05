@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64271</id>
+      <title><![CDATA[WordPress 4.3 Beta 3 发布]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64271/wordpress-4-3-beta3]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>WordPress 4.3 Beta 3 发布，这是开发版本，不建议在生产环境使用。如果要测试 WordPress 4.3 Beta 版本，可以使用 <a target="_blank" href="https://wordpress.org/plugins/wordpress-beta-tester/" rel="nofollow">WordPress Beta Tester</a> 插件或者 <a target="_blank" href="https://wordpress.org/wordpress-4.3-beta3.zip" rel="nofollow">download the beta here</a> (zip)。</p> 
+<p>WordPress 4.3 Beta 3 主要更新如下：</p> 
+<ul> 
+ <li><p>Performance improvements for <strong>Menus in the Customizer</strong>, as well as bug fixes and visual enhancements.</p></li> 
+ <li><p>Added&nbsp;<strong>Site Icon</strong>&nbsp;to the Customizer. The feature is now complete and requires lots of testing. Please help us ensure the site icon feature works well in both Settings and the Customizer.</p></li> 
+ <li><p>The improvements to <strong>Passwords</strong> have been added to the installation flow.&nbsp;When installing and setting up WordPress, a strong password will be suggested to site administrators.&nbsp;Please test and let us know if you encounter issues.</p></li> 
+ <li><p>Improved <strong>accessibility of comments and media list tables</strong>.&nbsp;If you use a screen reader, please let us know if you encounter any issues.</p></li> 
+ <li><p>Lots and lots of code documentation improvements.</p></li> 
+ <li><p><strong>Various other bug fixes</strong>. We’ve made <a href="https://core.trac.wordpress.org/log?action=stop_on_copy&amp;mode=stop_on_copy&amp;rev=33286&amp;stop_rev=33141&amp;limit=150" rel="nofollow">more than 140 changes</a> in the last week.</p></li> 
+</ul> 
+<p>更多详细内容请查看<a target="_blank" href="https://wordpress.org/news/2015/07/wordpress-4-3-beta-3/" rel="nofollow">这里</a>。</p>]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 07:21:53</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/wordpress]]></softwarelink>
+	  <softwarename><![CDATA[WordPress]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[WordPress 4.3 Beta 2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64055/wordpress-4-3-beta2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— WordPress 博客导入 OSC]]></rtitle>
+			<rurl>http://git.oschina.net/lijialong1314/WP2OSC</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WordPress 4.3 Beta 1 发布，编辑器改进]]></rtitle>
+			<rurl>http://www.oschina.net/news/63871/wordpress-4-3-beta1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WordPress 安卓应用 4.1 版本发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63870/wordpress-for-android-41-release</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WordPress 4.2.2 发布安全和维护版本更新]]></rtitle>
+			<rurl>http://www.oschina.net/news/62210/wordpress-4-2-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WordPress 4.3 将用 Node.js 重写]]></rtitle>
+			<rurl>http://www.oschina.net/news/61994/wordpress-4-3-will-be-rewritten-in-node-js</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WordPress 4.2.1 安全更新，强烈建议立即升级]]></rtitle>
+			<rurl>http://www.oschina.net/news/61914/wordpress-4-2-1-security-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— WordPress 的 Docker 映像]]></rtitle>
+			<rurl>https://git.oschina.net/long_608/docker_wordpress</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WordPress 4.2 （Powell）现已开放下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/61827/wordpress-4-2-powell</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WordPress 4.1.2 发布安全更新]]></rtitle>
+			<rurl>http://www.oschina.net/news/61749/wordpress-4-1-2-security-patch</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

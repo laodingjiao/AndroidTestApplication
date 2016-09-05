@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64316</id>
+      <title><![CDATA[Apache Whirr 因长时间未更新遭下课]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64316/apache-whirr-retired]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Apache Whirr 因长时间更新而被退出 Apache Attic 项目。</p> 
+<p>Apache Whirr 提供了一组 Java 类库用来运行云服务，基于 <a href="http://www.oschina.net/p/jclouds" rel="nofollow"><strong>jclouds</strong></a> 开发。<br><br>Apache Whirr 下课不仅仅是关闭项目，还要让现有的用户保留他们自己的开发成功和必要的信息。<br><br>项目的资源将会已只读的状态继续提供给用户，网站，wiki，svn/git，下载和 bug 追踪这些都不会修改 URL。<br>&nbsp;<br>更多内容请看 <a target="_blank" href="http://attic.apache.org/projects/whirr.html" rel="nofollow">http://attic.apache.org/projects/whirr.html</a>&nbsp; <br></p> 
+<p>了解 Apache Attic： <a href="http://attic.apache.org/" rel="nofollow">http://attic.apache.org/</a>&nbsp; <br><br>Thanks,<br><br>Henri Yandell<br>on behalf of the Apache Attic and the now retired Apache Whirr project</p>]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 08:08:20</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/whirr]]></softwarelink>
+	  <softwarename><![CDATA[Apache Whirr]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Apache 2.4.16 发布，改进 HTTP ]]></rtitle>
+			<rurl>http://www.oschina.net/news/64268/apache-2-4-16</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Ignite vs Apache Spark ]]></rtitle>
+			<rurl>http://www.oschina.net/translate/apache-ignite-vs-apache-spark</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Commons Validator 1.4.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/58778/apache-commons-validator-1-4-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Jackrabbit Oak 1.1.4 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/58753/apache-jackrabbit-oak-1-1-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Knox Gateway 0.5.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/58710/apache-knox-gateway-0-5-1-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Clownfish 0.4.2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/58420/apache-clownfish-0-4-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Commons Pool 2.3 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/58407/apache-commons-pool-2-3-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Commons Math 3.4 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/58324/apache-commons-math-3-4-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache DeltaSpike 1.2.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/58273/apache-deltaspike-1-2-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Jackrabbit Oak 1.0.9 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/58193/apache-jackrabbit-oak-1-0-9-released</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

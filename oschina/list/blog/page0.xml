@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <pagesize>20</pagesize>
+  <blogs>
+  					<blog>
+		<id>479601</id>
+		<title><![CDATA[恩布企业IM PC端，服务端发布 1.16 版本]]></title>
+        <body><![CDATA[恩布企业IM PC端，服务端发布1.16版本，开源企业IM，免费企业即时通讯软...]]></body>
+		<url><![CDATA[http://my.oschina.net/akee/blog/479601]]></url>
+        <pubDate>2015-07-17 10:02:44</pubDate>
+        <authoruid>67747</authoruid>
+        <authorname><![CDATA[akee]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479587</id>
+		<title><![CDATA[	DevExpress v15.1：DevExtreme控件升级（三）]]></title>
+        <body><![CDATA[1. HTML5/JS数据可视化 1.1 增强工具提示 支持HTML：现在您可以使用HTM...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2317468/blog/479587]]></url>
+        <pubDate>2015-07-17 09:38:57</pubDate>
+        <authoruid>2317468</authoruid>
+        <authorname><![CDATA[Miss_Hello_World]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479573</id>
+		<title><![CDATA[在Python的Django框架中加载模版的方法]]></title>
+        <body><![CDATA[在Python的Django框架中加载模版的方法 为了减少模板加载调用过程及模板...]]></body>
+		<url><![CDATA[http://my.oschina.net/os2015/blog/479573]]></url>
+        <pubDate>2015-07-17 09:17:29</pubDate>
+        <authoruid>2321543</authoruid>
+        <authorname><![CDATA[开元中国2015]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479570</id>
+		<title><![CDATA[stm32 获取有效字符串]]></title>
+        <body><![CDATA[void USART2_IRQHandler()   {  
+     if(USART_GetITStatu...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2252538/blog/479570]]></url>
+        <pubDate>2015-07-17 09:04:31</pubDate>
+        <authoruid>2252538</authoruid>
+        <authorname><![CDATA[青春无极限]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479568</id>
+		<title><![CDATA[是否必须每次添加ssh-add]]></title>
+        <body><![CDATA[首先我得说和 ssh 相关的一切机制的确比较复杂，很容易让人晕头转向，...]]></body>
+		<url><![CDATA[http://my.oschina.net/surjur/blog/479568]]></url>
+        <pubDate>2015-07-17 09:01:27</pubDate>
+        <authoruid>941259</authoruid>
+        <authorname><![CDATA[Surjur]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479559</id>
+		<title><![CDATA[判断js和css是否加载完成]]></title>
+        <body><![CDATA[发现在OSC上面用MD写代码比较爽 忍不住试啦一下 判断CSS是否加载完成 在...]]></body>
+		<url><![CDATA[http://my.oschina.net/diqye/blog/479559]]></url>
+        <pubDate>2015-07-17 07:45:42</pubDate>
+        <authoruid>590489</authoruid>
+        <authorname><![CDATA[diqye]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479555</id>
+		<title><![CDATA[在 Java EE 组件中使用 Camel Routes]]></title>
+        <body><![CDATA[摘要：你可以通过集成 Camel 和 WildFly 应用服务器（使用 WildFly-Came...]]></body>
+		<url><![CDATA[http://my.oschina.net/oneapmofficial/blog/479555]]></url>
+        <pubDate>2015-07-17 02:53:23</pubDate>
+        <authoruid>2365986</authoruid>
+        <authorname><![CDATA[OneAPM蓝海讯通]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479553</id>
+		<title><![CDATA[Redis 与网络流量整形]]></title>
+        <body><![CDATA[1、需求背景 我们希望服务器能在请求流量的控制上有一定的自动控制能力；...]]></body>
+		<url><![CDATA[http://my.oschina.net/leejun2005/blog/479553]]></url>
+        <pubDate>2015-07-17 02:33:55</pubDate>
+        <authoruid>568818</authoruid>
+        <authorname><![CDATA[xrzs]]></authorname>
+        <commentCount>1</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479552</id>
+		<title><![CDATA[byte[]数组和int之间的转换]]></title>
+        <body><![CDATA[unsigned char head[2];            //标识头    0x6...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/261246/blog/479552]]></url>
+        <pubDate>2015-07-17 02:17:14</pubDate>
+        <authoruid>261246</authoruid>
+        <authorname><![CDATA[铂金蛋蛋]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479548</id>
+		<title><![CDATA[Debian Sid 基本配置（从stable/testing升级）]]></title>
+        <body><![CDATA[关于 Debian 版本 Debian GNU/Linux 包括有三个版本：stable、testing、...]]></body>
+		<url><![CDATA[http://my.oschina.net/wxfvm/blog/479548]]></url>
+        <pubDate>2015-07-17 00:12:15</pubDate>
+        <authoruid>1758121</authoruid>
+        <authorname><![CDATA[kriry]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479543</id>
+		<title><![CDATA[Maven学习 (一) 搭建Maven环境]]></title>
+        <body><![CDATA[http://www.cnblogs.com/quanyongan/category/471332.html...]]></body>
+		<url><![CDATA[http://my.oschina.net/wangchongya/blog/479543]]></url>
+        <pubDate>2015-07-16 23:28:37</pubDate>
+        <authoruid>120108</authoruid>
+        <authorname><![CDATA[有事没事]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479542</id>
+		<title><![CDATA[走进Python世界（二）搭建Python环境]]></title>
+        <body><![CDATA[Python 的环境配置 TODO Python 的执行模式 命令行交互模式： 搭建好pyt...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/1041012/blog/479542]]></url>
+        <pubDate>2015-07-16 23:27:27</pubDate>
+        <authoruid>1041012</authoruid>
+        <authorname><![CDATA[Marco_Fu]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479540</id>
+		<title><![CDATA[上班的第五百二十八天——上班的生涯暂时结束]]></title>
+        <body><![CDATA[    今天不出我预料，一大早主程就不停地赶我走，生怕我再多呆一会儿...]]></body>
+		<url><![CDATA[http://my.oschina.net/chrisforbt/blog/479540]]></url>
+        <pubDate>2015-07-16 23:07:30</pubDate>
+        <authoruid>576122</authoruid>
+        <authorname><![CDATA[chrisforbt]]></authorname>
+        <commentCount>10</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479539</id>
+		<title><![CDATA[SVN安装，SVN服务搭建与eclipse里插件安装]]></title>
+        <body><![CDATA[     关于SVN与Git的比较，还是不做比较了吧。            ...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/588341/blog/479539]]></url>
+        <pubDate>2015-07-16 23:00:23</pubDate>
+        <authoruid>588341</authoruid>
+        <authorname><![CDATA[白小衣]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479537</id>
+		<title><![CDATA[微软发布2015年7月安全公告 安全狗提醒及时修复]]></title>
+        <body><![CDATA[ 7月15日消息，微软“周二补丁日”如期发布2015年7月安全更新公告，此次...]]></body>
+		<url><![CDATA[http://my.oschina.net/safedog/blog/479537]]></url>
+        <pubDate>2015-07-16 22:59:18</pubDate>
+        <authoruid>569022</authoruid>
+        <authorname><![CDATA[小猪猪的风]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479522</id>
+		<title><![CDATA[python抓取QQ空间的日志]]></title>
+        <body><![CDATA[# -*- coding: utf-8 -*-
+
+
+
+from HttpRequestModule import * ...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/557955/blog/479522]]></url>
+        <pubDate>2015-07-16 21:51:26</pubDate>
+        <authoruid>557955</authoruid>
+        <authorname><![CDATA[lvshudao]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479519</id>
+		<title><![CDATA[浅析hadoop 简历就写这个了]]></title>
+        <body><![CDATA[  为什么选择hadoop    下面列举hadoop主要的一些特点: 1)扩容能力(...]]></body>
+		<url><![CDATA[http://my.oschina.net/loveleaf/blog/479519]]></url>
+        <pubDate>2015-07-16 21:45:37</pubDate>
+        <authoruid>2342806</authoruid>
+        <authorname><![CDATA[疯狂的单纯酱]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479517</id>
+		<title><![CDATA[MyCnCart图片水印]]></title>
+        <body><![CDATA[1. 可以添加图片水印， png和jp格式； 2. 可以添加文本水印； 3. 可以自...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/991572/blog/479517]]></url>
+        <pubDate>2015-07-16 21:35:54</pubDate>
+        <authoruid>991572</authoruid>
+        <authorname><![CDATA[OpenCart中国]]></authorname>
+        <commentCount>1</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479515</id>
+		<title><![CDATA[Is it too late to learn to code?]]></title>
+        <body><![CDATA[Erin Parker, Founder Spitfire Athlete, iOS Engineer 9k upvotes b...]]></body>
+		<url><![CDATA[http://my.oschina.net/lpe234/blog/479515]]></url>
+        <pubDate>2015-07-16 21:33:06</pubDate>
+        <authoruid>1170156</authoruid>
+        <authorname><![CDATA[明天以后]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479499</id>
+		<title><![CDATA[单例模式]]></title>
+        <body><![CDATA[一 单例模式--基本实现 作用：可以保证在程序运行过程，一个类只有一个实...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2346786/blog/479499]]></url>
+        <pubDate>2015-07-16 21:00:46</pubDate>
+        <authoruid>2346786</authoruid>
+        <authorname><![CDATA[Ethan-GOGO]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+		    </blogs>
+</oschina>	

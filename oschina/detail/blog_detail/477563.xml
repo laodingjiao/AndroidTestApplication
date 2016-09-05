@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>477563</id>
+		<title><![CDATA[将Vim打造成Python快速开发环境（一）]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2413670/blog/477563]]></url>
+		<where><![CDATA[日常记录]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>一直以来博主都是用阳春版的Vim来撸Python的，vimrc里只有些配色、键位、tab设置之类的小功能。中间也被安利过一些高大上的IDE，试用过JetBrains PyCharm CE、Wing IDE和eclipse+pydev，感觉这些软件里诸如code navigation，refactor，documentation这些功能的确非常强大，但是IDE的工作模式始终为我所不喜：本来可以快速开始干活的，非要经历等个好几秒钟（甚至好几分钟如果是公司的PC）打开软件，新建project，选择interpreter，取个名字，选个目录，添加文件……这一系列动作以后，一开始想的什么已经全然不记得了。我们使用Python的一大理由就是<span style="text-decoration:line-through;">人生苦短我用Python</span>能快速抓住灵感，立刻动手建模。需要Python日常处理的问题有可能一个小脚本就解决了，这种情况最好用的工具其实是文本编辑器。只有当问题解决了，灵感抓住了，原型建立起来了之后，我们发现需要进一步完善，或者可以修改以增强通用性，或者需要发布给别人使用时，才需要动用到IDE。所以说呢，在博主看来，类似Vim的，具备基本到高阶代码编辑功能，可以快速打开先写程序再保存的文本编辑器才是能让你第一时间进入需要处理问题的领域绝佳的工具。</p> 
+<p>好吧，吐槽结束。本文将假设您跟我类似，是一位有经验的Vim用户，能熟练运用C-w、C-v、m、q等较为高阶的功能，却很少折腾配置（所以这篇博文还能对您有些价值）。这样的话，您可能会发现，当Python文件大于500行，import的module多于10个且有些不是很熟悉之后，用Vim所提升的那部分工作效率，会被不停地查文档给降了下来。而您跟我一样，又觉得在源代码小于5000行的情况下用IDE简直是杀鸡用牛刀，所以对500到5000行的活儿找不到合适的工具这件事非常苦恼。这样的话，就跟我一起开始折腾吧。<br></p> 
+<h1>编译64-bit的Vim</h1> 
+<p>首先呢，由于有的Vim插件使用了Python（比如等会我们要用到的python-mode），我们的Vim必须支持Python。如果您跟我一样从来都是从<a target="_self" href="http://www.vim.org/download.php" rel="nofollow">Vim官网的下载页</a>下载Vim的话，这个官方编译版本已经附带了Python支持，只是这个Vim是32位的。用:version命令可以看到Vim的版本和编译选项，如下图。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0712/154003_zytg_2413670.png"></p>
+<p>使用命令:echo has('python')可以看到是否运作正常。但是很不幸，由于种种原因博主使用了Anaconda的64-bit套装，输入命令:echo has('python')显示的是 0。Vim官网并未提供编译好的64位Vim安装文件，只提到如果需要64位支持请使用alternative distribution，而<a target="_self" href="https://code.google.com/p/vim-win3264/" rel="nofollow">官网给出的64位第三方发布版本页面</a>已经申明停止维护（汗），并把博主带到了<a target="_self" href="http://vim.wikia.com/wiki/Where_to_download_Vim" rel="nofollow">这里</a>。看来看去，这些第三方发布的版本无非是集成了patch，既然这样，我们为何不按自己的要求编译一个最适合自己的版本呢？</p> 
+<p>然后博主找到了<a target="_self" href="http://wenliangcan.github.io/blog/2013/04/21/vim-compilation/" rel="nofollow">尹良灿先生博客上的这篇文章</a>，试验了一下，发现编译Vim其实非常简单。</p> 
+<h2>工作环境</h2> 
+<p>我们需要patch，C编译器，资源编译器，make等整套工具以及一个shell，这里博主使用的是<a target="_self" href="http://sourceforge.net/projects/mingw-w64/" rel="nofollow">msys64</a>，也就是新的mingw和msys的64位版。（关于msys64的安装和配置，博主后面有时间会再说明。）<br></p> 
+<h2>下载Vim源代码和补丁</h2> 
+<p>首先要下载Vim的源代码和补丁，鉴于国内的网络连<a target="_self" href="ftp://ftp.vim.org/pub/vim/pc/" rel="nofollow">Vim官网FTP</a>简直慢到令人发指，我们还是用中科大的Vim镜像（顺便称赞一下中科大、北理工等高校和机构，他们真是国内开源事业的基石啊！）</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">mkdir&nbsp;~/makevim
+cd&nbsp;~/makevim
+wget&nbsp;-c&nbsp;http://mirrors.ustc.edu.cn/vim/pc/vim74src.zip
+wget&nbsp;-c&nbsp;http://mirrors.ustc.edu.cn/vim/pc/vim74rt.zip
+unzip&nbsp;vim74src.zip
+unzip&nbsp;vim74rt.zip
+mkdir&nbsp;patches
+cd&nbsp;patches
+wget&nbsp;-c&nbsp;-r&nbsp;-np&nbsp;-nd&nbsp;-e&nbsp;robots=off&nbsp;https://mirrors.ustc.edu.cn/vim/patches/7.4/
+cd&nbsp;..
+tar&nbsp;cvf&nbsp;patches.tar&nbsp;patches/</pre> 
+<p>打包patches其实没啥意义，是为了万一弄错好备用，因为下载778个补丁文件真的有点麻烦（笑）。</p> 
+<h2>给源代码打补丁</h2> 
+<p>接下来就是把这778个补丁打进源代码，确保cwd是~/makevim/vim/vim74，然后使用下面的命令。</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">cd&nbsp;vim/vim74
+for&nbsp;file&nbsp;in&nbsp;../../patches/*;&nbsp;do&nbsp;patch&nbsp;-f&nbsp;-s&nbsp;-Np0&nbsp;-i&nbsp;$file;&nbsp;done</pre> 
+<p>由于我们下载了所有的补丁文件，里面包含了对其他系统（如OS/2什么的）的补丁，如果只是</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">patch&nbsp;-Np0&nbsp;-i&nbsp;&lt;patch_file&gt;</pre> 
+<p>的话，中间patch会因为找不到文件频繁提问让我们skip。所以这里直接加上-f -s选项，就是为了省下敲键盘的时间。</p> 
+<h2>开始编译<br></h2> 
+<p>补丁打好之后就可以开始编译了。用下面的make命令就可以。博主不会使用Ruby、Perl或者Lua（电脑上也没有装，也不知道缺少了这些会怎么样，反正要的时候再编译一遍也很容易）Python也只用2.7，所以这里就没加上这些语言的支持（如果您需要的话，也可以很容易添加）。</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">make&nbsp;-f&nbsp;Make_cyg_ming.mak&nbsp;CC=x86_64-w64-mingw32-gcc&nbsp;RC=windres&nbsp;ARCH=x86-64&nbsp;PYTHON=/c/Users/NicholasYF/Anaconda&nbsp;PYTHON_VER=27&nbsp;DYNAMIC_PYTHON=yes&nbsp;-j5&nbsp;GUI=yes&nbsp;STATIC_STDCPLUS=yes&nbsp;OLE=yes&nbsp;FEATURES=HUGE&nbsp;USERNAME=NicholasYfZhou&nbsp;USERDOMAIN=msys64</pre> 
+<p>编译速度还算快，好了以后我们得到gvim.exe等文件，就算完成了。由于编译选项里已经指定了Python的目录，所以这一次用:version命令我们可以看到：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0712/162659_YHIk_2413670.png"><br></p>
+<p>看到Included patches: 1-778了吗？第一步即将大功告成！</p> 
+<p>需要命令行vim.exe的话，还可以改一下编译开关GUI=no，再make一下。如果要集成到Windows系统，先移动几个文件：</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">mv&nbsp;*.exe&nbsp;..
+mv&nbsp;GvimExt/gvim.dll&nbsp;..</pre> 
+<p>再以管理员身份运行~/vim/vim74/install.exe，选择d，install.exe将会在桌面和开始菜单建立快捷方式，在windows目录建立批处理文件，并将“Edit with Vim”集成到右键菜单。<br></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[from0toinfinity]]></author>
+		<authorid>2413670</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-12 16:42:54</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

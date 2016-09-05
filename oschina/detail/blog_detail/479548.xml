@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479548</id>
+		<title><![CDATA[Debian Sid 基本配置（从stable/testing升级）]]></title>
+		<url><![CDATA[http://my.oschina.net/wxfvm/blog/479548]]></url>
+		<where><![CDATA[Linux]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h2>关于 Debian 版本</h2> 
+<p>Debian GNU/Linux 包括有三个版本：stable、testing、unstable 三个版本(还有experimental)。</p> 
+<p>Unstable：开发中的版本，更新频繁，代号永为 sid。Ubuntu 每次版本发布，皆是基于 Debian sid。</p> 
+<p>&nbsp;Debian 开发生命周期：experimental —&gt; unstable(sid) —&gt; testing —&gt; stable</p> 
+<p>如果您果真勇敢，不怕折腾，则选择 experimental，experimental 并不是一个完整的发行版本。选择 unstable 基本可以，没有什么大问题，更新比 testing 快很多，stable 基本就是安全更新。</p> 
+<h2>下载</h2> 
+<p>建议从&nbsp;<a href="http://cdimage.debian.org/cdimage/weekly-builds/" rel="nofollow">Weekly build</a>下载每周生成的 testing CD/DVD。如果 GNOME/KDE 消耗资源太多， Xfce 或 LXDE 则是较好的选择。</p> 
+<h2>更新源配置</h2> 
+<p>Debian Wheezy(testing)，文件位置 /etc/apt/sources.list，以中科大镜像为例：</p> 
+<pre>deb&nbsp;http://ftp.cn.debian.org/debian&nbsp;jessie&nbsp;main&nbsp;non-free&nbsp;contrib
+deb&nbsp;http://ftp.cn.debian.org/debian&nbsp;jessie-proposed-updates&nbsp;main&nbsp;contrib&nbsp;non-free
+deb-src&nbsp;http://ftp.cn.debian.org/debian&nbsp;jessie&nbsp;main&nbsp;non-free&nbsp;contrib
+deb-src&nbsp;http://ftp.cn.debian.org/debian&nbsp;jessie-proposed-updates&nbsp;main&nbsp;contrib&nbsp;non-free
+deb&nbsp;http://ftp.cn.debian.org/debian&nbsp;jessie-updates&nbsp;main&nbsp;contrib&nbsp;non-free
+deb-src&nbsp;http://ftp.cn.debian.org/debian&nbsp;jessie-updates&nbsp;main&nbsp;contrib&nbsp;non-free
+
+deb&nbsp;http://security.debian.org&nbsp;jessie/updates&nbsp;main&nbsp;contrib&nbsp;non-free
+deb-src&nbsp;http://security.debian.org&nbsp;jessie/updates&nbsp;main&nbsp;contrib&nbsp;non-free</pre> 
+<p>如果将 testing 改为 Sid，则可将更新列表改为：</p> 
+<pre>deb&nbsp;http://ftp.cn.debian.org/debian&nbsp;sid&nbsp;main&nbsp;contrib&nbsp;non-free
+deb-src&nbsp;http://ftp.cn.debian.org/debian&nbsp;sid&nbsp;main&nbsp;contrib&nbsp;non-free</pre> 
+<p>然后，更新软件列表并安装更新：</p> 
+<pre>sudo&nbsp;aptitudet&nbsp;update
+sudo&nbsp;aptitudet&nbsp;upgrade</pre> 
+<h2>其他</h2> 
+<ul> 
+ <li><p>安装过程中选择简体中文，系统安装完成进入系统，界面乱码</p><p>可安装字体：sudo apt-get install ttf-wqy-microhei</p></li> 
+ <li><p>在命令前无法使用 sudo</p><p>** su #切换到根用户</p><p>** apt-get install sudo</p><p>** nano /etc/sudoers #文件的 User privilege specification 部分添加：</p><pre>&nbsp;debian&nbsp;ALL=(ALL:ALL)&nbsp;ALL#将&nbsp;debian&nbsp;换位您的用户名</pre></li> 
+ <li><p>如何安装 Adobe Flash 插件</p><p>$ sudo apt-get purge gnash # Gnash 是自由的 Flash 播放器</p><p>$ sudo apt-get install flashplugin-nonfree #安装 Adode Flash 插件</p></li> 
+ <li><p>中文输入法 Fcitx（IBus可选）</p><p>$ sudo apt-get install ibus #安装 IBUS（可选）</p><p>$ sudo apt-get install fcitx fcitx-rime #安装 Fcitx 和中州韵输入法</p></li> 
+</ul> 
+<p><br></p>]]></body>
+		<author><![CDATA[kriry]]></author>
+		<authorid>1758121</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-17 00:12:15</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479519</id>
+		<title><![CDATA[浅析hadoop 简历就写这个了]]></title>
+		<url><![CDATA[http://my.oschina.net/loveleaf/blog/479519]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>&nbsp;</p> 
+<h2>为什么选择hadoop</h2> 
+<p>&nbsp;&nbsp; 下面列举hadoop主要的一些特点:</p> 
+<p>1)扩容能力(Scalable):能可靠地(reliably)存储和处理千兆字节(PB)数据。</p> 
+<p>2)成本低(Economical):可以通过普通机器组成的服务器群来分发以及处理数据。这些服务器群总计可达数千个节点。</p> 
+<p>3)高效率(Efficient):通过分发数据,hadoop可以在数据所在的节点上并行地(parallel)处理它们,这使得处理非常的快速。</p> 
+<p>4)可靠性(Reliable):hadoop能自动地维护数据的多份复制,并且在任务失败后能自动地重新部署(redeploy)计算任务。</p> 
+<ul> 
+ <li><p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">Hadoop核心</span></p></li> 
+</ul> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; Hadoop的核心就是HDFS和MapReduce，而两者只是理论基础，不是具体可使用的高级应用，Hadoop旗下有很多经典子项目，比如 HBase、Hive等，这些都是基于HDFS和MapReduce发展出来的。要想了解Hadoop，就必须知道HDFS和MapReduce是什么。</span></p> 
+<p>&nbsp;</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16225958_ksQX.jpg" alt=""></p>
+<ul> 
+ <li><p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">HDFS</span></p></li> 
+</ul> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">HDFS（Hadoop Distributed File System，Hadoop分布式文件系统），它是一个高度容错性的系统，适合部署在廉价的机器上。HDFS能提供高吞吐量的数据访问，适合那些有着超大数据集（large data set）的应用程序。</span></p> 
+<p>&nbsp;</p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">HDFS的设计特点是：</span></p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">1、大数据文件，非常适合上T级别的大文件或者一堆大数据文件的存储，如果文件只有几个G甚至更小就没啥意思了。</span></p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">2、文件分块存储，HDFS会将一个完整的大文件平均分块存储到不同计算器上，它的意义在于读取文件时可以同时从多个主机取不同区块的文件，多主机读取比单主机读取效率要高得多得都。</span></p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">3、流式数据访问，一次写入多次读写，这种模式跟传统文件不同，它不支持动态改变文件内容，而是要求让文件一次写入就不做变化，要变化也只能在文件末添加内容。</span></p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">4、廉价硬件，HDFS可以应用在普通PC机上，这种机制能够让给一些公司用几十台廉价的计算机就可以撑起一个大数据集群。</span></p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">5、硬件故障，HDFS认为所有计算机都可能会出问题，为了防止某个主机失效读取不到该主机的块文件，它将同一个文件块副本分配到其它某几个主机上，如果其中一台主机失效，可以迅速找另一块副本取文件。</span></p> 
+<p>&nbsp;</p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">HDFS的关键元素：</span></p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">Block：将一个文件进行分块，通常是64M。</span></p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">NameNode： 保存整个文件系统的目录信息、文件信息及分块信息，这是由唯一一台主机专门保存，当然这台主机如果出错，NameNode就失效了。在Hadoop2.* 开始支持activity-standy模式----如果主NameNode失效，启动备用主机运行NameNode。</span></p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">DataNode：分布在廉价的计算机上，用于存储Block块文件。</span></p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;"><img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16214538_6B9H.jpg"></span><br><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">&nbsp;</span></p>
+<p>&nbsp;</p> 
+<ul> 
+ <li><p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">MapReduce</span></p></li> 
+</ul> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">通俗说MapReduce是一套从海量·源数据提取分析元素最后返回结果集的编程模型，将文件分布式存储到硬盘是第一步，而从海量数据中提取分析我们需要的内容就是MapReduce做的事了。</span></p> 
+<p>&nbsp;</p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">下面以一个计算海量数据最大值为例：一个银行有上亿储户，银行希望找到存储金额最高的金额是多少，按照传统的计算方式，我们会这样：</span></p> 
+<p>Java代码 &nbsp;<a rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16214538_dx5z.png" alt="收藏代码"></a></p>
+<ol> 
+ <li><p>Long&nbsp;moneys[]&nbsp;...&nbsp;&nbsp;</p></li> 
+ <li><p>Long&nbsp;max&nbsp;=&nbsp;0L;&nbsp;&nbsp;</p></li> 
+ <li><p>for(int&nbsp;i=0;i&lt;moneys.length;i++){&nbsp;&nbsp;</p></li> 
+ <li><p>&nbsp;&nbsp;if(moneys[i]&gt;max){&nbsp;&nbsp;</p></li> 
+ <li><p>&nbsp;&nbsp;&nbsp;&nbsp;max&nbsp;=&nbsp;moneys[i];&nbsp;&nbsp;</p></li> 
+ <li><p>&nbsp;&nbsp;}&nbsp;&nbsp;</p></li> 
+ <li><p>}&nbsp;&nbsp;</p></li> 
+</ol> 
+<p>&nbsp;</p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">&nbsp;如果计算的数组长度少的话，这样实现是不会有问题的，还是面对海量数据的时候就会有问题。</span></p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">MapReduce会这样做：首先数字是分布存储在不同块中的，以某几个块为一个Map，计算出Map中最大的值，然后将每个Map中的最大值做Reduce操作，Reduce再取最大值给用户。</span></p> 
+<p><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;"><img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16214538_vb5A.jpg"></span><br><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; MapReduce的基本原理就是：将大的数据分析分成小块逐个分析，最后再将提取出来的数据汇总分析，最终获得我们想要的内容。当然怎么分块分析，怎么 做Reduce操作非常复杂，Hadoop已经提供了数据分析的实现，我们只需要编写简单的需求命令即可达成我们想要的数据。</span></p>
+<p><br><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;"></span></p> 
+<p><strong><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;">上面是给大家一个大致的概念下面是各部分的详细描述。</span></strong><span style="font-family: 'Microsoft YaHei', 微软雅黑, SimHei, tahoma, arial, helvetica, sans-serif;"><br></span></p> 
+<p>我们这里简单的理解为Hadoop主要由三部分组成：<strong>HDFS(Hadoop Distributed File System)，MapReduce与Hbase</strong></p> 
+<p><span style="font-size: larger;"><span style="font-size: medium;">1.<strong>Hadoop组件之一：HDFS分布式文件系统具有哪些优点?</strong></span></span></p> 
+<p>　　HDFS作为一种分布式文件系统，它和现有的分布式文件系统有很多共同点。比如，Hadoop文件系统管理的物理存储资源不一定直接连接在本地 节点上，而是通过计算机网络与节点相连。对于Client端而言，HDFS就像一个传统的分级文件系统，可以创建、删除、移动或重命名文件等等。与此同 时，HDFS与其他的分布式文件系统的区别也是显而易见的。</p> 
+<p>　　首先，HDFS设计目标之一是适合运行在通用硬件(commodity hardware)上的分布式文件系统。HDFS假设的硬件错误不是异常，而是常态。因为HDFS面向的是成百上千的服务器集群，每台服务器上存储着文件 系统的部分数据，并且这些机器的价格都很低廉。这就意味着总是有一部分硬件因各种原因而无法工作。因此，错误检测和快速、自动的恢复是HDFS最核心的架 构目标。从这个角度说，HDFS具有高度的容错性。</p> 
+<p>　　第二，HDFS的另一个设计目标是支持大文件存储。与普通的应用不同，HDFS应用具有很大的数据集，一个典型HDFS文件大小一般都在G字节 至T字节。这就意味着HDFS应该能提供比较高的数据传输带宽与数据访问吞吐量。相应的，HDFS开放了一些POSIX的必须接口，容许流式访问文件系统 的数据。</p> 
+<p>　　第三，HDFS还要解决的一个问题是高数据吞吐量。HDFS采用的是“一次性写，多次读”这种简单的数据一致性模型。换句话说，文件一旦建立后写入，就不需要再更改了。网络爬虫程序就很适合使用这样的模型。</p> 
+<p>　　第四，移动计算环境比移动数据划算。HDFS提供了API，以便把计算环境移动到数据存储的地方，而不是把数据传输到计算环境运行的地方。这对于数据大文件尤其适用，可以有效减少网络的拥塞、提高系统的吞吐量。</p> 
+<p>　　<strong>HDFS的体系结构与工作流程</strong></p> 
+<p>　　下面简单看一下HDFS的结构。图1所示为HDFS的体系结构图。HDFS采用的是Master/Slave架构。</p> 
+<p>　　NameNode节点作为Master服务器，有三部分功能。第一：处理来自客户端的文件访问。第二：管理文件系统的命名空间操作，如'打开'、'关闭'、'重命名'等。第三：负责数据块到数据节点之间的映射。从这个意义上说，它扮演中心服务器的角色。</p> 
+<p>　　DataNode节点作为Slave服务器，同样有三部分功能。第一：管理挂载在节点上的存储设备。第二：响应客户端的读写请求。第三：从内部 看，每个文件被分成一个或多个数据块，被存放到一组DataNode，在Namenode的统一调度下进行数据块的创建、删除和复制。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16225958_sRyK.gif" alt="IT168：深入浅出Hadoop"></p>
+<p>　　图1 HDFS体系结构图</p> 
+<p>　　HDFS采用Java语言开发，因此任何支持Java的机器都可以部署Namenode或Datanode。相应地，GNU/Linux操作系 统支持Namenode与Datanode。一个典型的部署场景是，一台GNU/Linux操作系统上运行一个Namenode实例，作为Master中 心服务器。而集群中的其它GNU/Linux操作系统分别运行一个Datanode实例，作为Slave服务器集群。</p> 
+<p><strong><span style="font-size: medium;">2.Hadoop组件之二：什么是MapReduce编程模型， MapReduce的工作流程是什么?</span></strong></p> 
+<p>　　MapReduce是一种编程模型，用于大规模数据集(大于1TB)的并行运算。MapReduce的设计目标是方便编程人员在不熟悉分布式并行编程的情况下,将自己的程序运行在分布式系统上。</p> 
+<p>　　MapReduce的命名规则由两个术语组成，分别是Map(映射)与Reduce(化简)。这些术语来自于列表处理语言， 如：LISP，Scheme，或ML。从概念上来讲，MapReduce将输入元素列表(Input List)转换成输出元素列表(Output List)，按照Map与Reduce规则各一次。</p> 
+<table> 
+ <tbody> 
+  <tr> 
+   <td><br></td> 
+  </tr> 
+ </tbody> 
+</table> 
+<p>　　从MapReduce框架的实现角度看，MapReduce程序有着两个组件：一个实现了 Mapper，另一个实现了Reducer。</p> 
+<p>　　第一次叫Mapping，如图2所示。MapReduce将Input List作为Mapping函数的输入参数，经过处理，把结果返回给Output List。举例来说，有一个函数toUpper(str)，用来返回输入字符串的大写版本。那么这里的Input List指的是转换前的常规字符串列表，Mapping Function指的是toUpper函数，而Output List指的是转换后的大写字符串列表。值得注意的是，在这里Mapping并没有改变输入字符串列表，而是返回一个新的字符串列表。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16225958_ubia.gif" alt="IT168：深入浅出Hadoop"></p>
+<p>　　图2 Map函数处理</p> 
+<p>　　第二次叫Reducing，如图3所示。MapReduce将Input List作为Reducing函数的输入参数，经过迭代处理，把这些数据汇集，返回一个输出值给Output Value。从这个意义上来说，Reducing一般用来生成”总结“数据，把大规模的数据转变成更小的总结数据。例如，"+"可以用来作一个 reducing函数，去返回输入数据列表的值的总和。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16225958_OezM.gif" alt="IT168：深入浅出Hadoop"></p>
+<p>　　图3 Reduce函数处理</p> 
+<p>　　从工作流程来讲，MapReduce对应的作业Job首先把输入的数据集切分为若干独立的数据块，并由Map组件以Task的方式并行处理。处 理结果经过排序后，依次输入给Reduce组件，并且以Task的形式并行处理。MapReduce对应的输入输出数据由HDFS的DataNode存 储。MapReduce对应的Job部署在Master服务器，由Master JobTracker负责Task的调度，监控，重新执行失败的任务等等。MapReduce对应的Job部署在若干不同的Slave服务器，每个集群节 点含一个slave TaskTracker，负责执行由master指派的任务。</p> 
+<p>　　Hadoop框架由Java实现的，它提供了两种主要工具。Hadoop Streaming是一种运行作业的实用工具，它允许用户创建和运行任何可执行程序(例如：Shell工具)来做为mapper和reducer。 Hadoop Pipes是一个与SWIG兼容的C++ API (没有基于JNITM技术)，它也可用于实现Map/Reduce应用程序。这样，开发人员就可以利用MapReduce框架，开发分布式应用程序，运行 在由上千个商用机器组成的大型集群上，并以一种可靠容错的方式并行处理上T级别的数据集。</p> 
+<p><span style="font-size: larger;"><strong><span style="font-size: medium;">3.Hadoop组件之三：什么是面向列开源分布式数据库Hbase?</span></strong></span></p> 
+<p>　　HBase是一个分布式的、面向列的开源数据库，由Apache基金会开发。HBase不同于一般的关系数据库，它是一个适合于非结构化数据存 储的数据库。它基于列的而不是基于行的模式。用户存储数据行在一个表里。一个数据行拥有一个可选择的键和任意数量的列。用户可根据键访问行，以及对于一系 列的行进行扫描和过滤。HBase一个可以横向扩张的表存储系统，能够为大规模数据提供速度极快的低等级更新。主要用于需要随机访问，实时读写大数据 (Big Data)。这正是信息系统所需要的功能。</p> 
+<table> 
+ <tbody> 
+  <tr> 
+   <td><br></td> 
+  </tr> 
+ </tbody> 
+</table> 
+<p>　　下面的例子演示的是将原来存放在MySQL中Blog中的数据迁移到HBase中的过程：</p> 
+<p>　　图4为MySQL中现有的表结构：表Blogtable表示博客本身，包括5个字段，BlogId为每位用户对应的博客ID号，类型为Int， 作为主键字段;Author为该用户的博客名称，类型为Varchar;Title为该用户的博客签名，类型为Varchar;URL为博客网址链接，类 型为Varchar;Text为博客的内容，类型为Varchar。Comment表示博客评论，包括5个字段。ID为发表评论的用户ID，类型为 Int，作为主键字段;BlogId为博客的原文ID，类型为Varchar。其中，BlogId作为Comment表的外键，指向表Blogtable 的主键。Title为评论标题，类型为Varchar;Author为发表该评论的用户名称，类型为Varchar;Text字段为评论内容，类型为 Varchar。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16225958_wffd.gif" alt="IT168：深入浅出Hadoop"></p>
+<p>　　图4 MySQL表结构</p> 
+<p>　　图5 为迁移HBase中的表结构：HBase以表的形式存储数据。表有行和列组成。列划分为若干个列族(row family)。表Blogtable表示博客本身。ID为Row Key，即Table的主键，用来检索记录。Table在水平方向有一个或者多个Column Family组成。表BlogTable包含5个Column Family， Info的数据结构分为Info:Author，Info:Title，Info:URL。如果想添加其它属性X，则对应的结构为Info:X。需要说明 的是，Column Family支持动态扩展，无需预先定义Column的数量以及类型，但是，所有Column均以二进制格式存储，用户需要自行进行类型转换。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16225958_s2cy.gif" alt="IT168：深入浅出Hadoop"></p>
+<p>　　图5 HBase表结构</p> 
+<p>　　总之，Hbase目标主要依靠横向扩展，通过不断增加廉价的商用服务器，来增加计算和存储能力。简单的理解，Hbase介于nosql和 RDBMS之间。Hbase仅能通过主键(row key)和主键的range来检索数据，不支持条件查询以及排序等，仅支持单行事务。Habase主要用来存储非结构化和半结构化的松散数据。针对 Hbase的不足，Hadoop的一个数据仓库工具Hive对此做出了弥补。Hive可以将结构化的数据文件映射为一张数据库表，并提供完整的SQL查询 功能，并将SQL语句转换为MapReduce任务运行。针对Hbase单行事务的限制，Hive也提供了扩展。据说，Facebook之所以选择了 Hbase，是因为他们HBase适用于处理以下两种类型的数据模式：1.一小组经常变化的临时数据;2.一组不断增加但很少访问的数据。</p> 
+<p><br></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[疯狂的单纯酱]]></author>
+		<authorid>2342806</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 21:45:37</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

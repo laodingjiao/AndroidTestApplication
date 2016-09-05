@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64296</id>
+      <title><![CDATA[Ceph 9.0.2 发布，分布式文件系统]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64296/ceph-9-0-2]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Ceph 9.0.2 发布，此版本现已提供下载：</p> 
+<ul> 
+ <li><p><a href="http://ceph.com/download/ceph-9.0.2.tar.gz" rel="nofollow">http://ceph.com/download/ceph-9.0.2.tar.gz</a> <br></p></li> 
+ <li><p><a href="http://ceph.com/download/ceph-9.0.2.tar.bz2" rel="nofollow">http://ceph.com/download/ceph-9.0.2.tar.bz2</a> <br></p></li> 
+ <li><p><a href="https://github.com/ceph/ceph/archive/v9.0.2.zip" rel="nofollow">https://github.com/ceph/ceph/archive/v9.0.2.zip</a>&nbsp;</p></li> 
+</ul> 
+<p>改进内容请看：<a target="_blank" href="https://github.com/ceph/ceph/compare/v9.0.2...master" rel="nofollow">https://github.com/ceph/ceph/compare/v9.0.2...master</a>&nbsp; <br></p> 
+<p>Ceph是加州大学Santa Cruz分校的Sage Weil（DreamHost的联合创始人）专为博士论文设计的新一代自由软件分布式文件系统。自2007年毕业之后，Sage开始全职投入到Ceph开 发之中，使其能适用于生产环境。Ceph的主要目标是设计成基于POSIX的没有单点故障的分布式文件系统，使数据能容错和无缝的复制。2010年3 月，Linus Torvalds将Ceph client合并到内 核2.6.34中。IBM开发者园地的一篇文章 <a target="_blank" href="http://www.oschina.net/translate/ceph" rel="nofollow">探讨了Ceph的架构</a>，它的容错实现和简化海量数据管理的功能。</p> 
+<p>Ceph 中文文档：<a target="_blank" href="http://docs.openfans.org/ceph" rel="nofollow">http://docs.openfans.org/ceph</a></p> 
+<p>Ceph 的 4 个模块：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201403/31131522_BG5R.gif"></p>
+<p>Ceph 生态系统：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201403/31131705_M6YN.gif"></p>
+<p><img alt="Block diagram showing a simplified layered view of the Ceph ecosystem, including the server, metadata servers, and object storage ddaemon" src="http://192.168.79.254:8080/oschina/images/uploads/img/201403/31131522_NnUo.gif"></p>]]></body>
+      <commentCount>12</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 13:16:52</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/ceph]]></softwarelink>
+	  <softwarename><![CDATA[Ceph]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[【每日一博】Ceph 在高 IO 下的死锁故障]]></rtitle>
+			<rurl>http://my.oschina.net/brinlike/blog/472783</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ceph v0.94.1.3 发布，分布式文件系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63698/ceph-0-94-1-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ceph 0.80.10 发布，分布式文件系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63506/ceph-0-80-10</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ceph 0.80.8.2/0.94.2/9.0.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63290/ceph-0-80-8-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Calamari 1.3.0.1 发布，Ceph 管理和监控服务]]></rtitle>
+			<rurl>http://www.oschina.net/news/63272/calamari</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[6月14日上海OSC源创会 —— 赠开源无码内裤]]></rtitle>
+			<rurl>http://www.oschina.net/question/1765084_236572</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ceph v0.94.1.2 发布，分布式文件系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/62862/ceph-0-94-1-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ceph 9.0.0 发布，分布式文件系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/62175/ceph-9-0-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ceph 0.87.2 Giant 发布，分布式文件系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/61919/ceph-0-87-2-giant-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ceph v0.94.1 发布，分布式文件系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/61503/ceph-0-94-1</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64290</id>
+      <title><![CDATA[CakePHP 2.6.9 发布，PHP 开发框架]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64290/cakephp-2-6-9]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>CakePHP 2.6.9 发布，此版本是 2.6 系列最新的维护版本，建议升级到 2.7 版本。</p> 
+<p>此版本主要是 bug 修复：</p> 
+<ul> 
+ <li><p>深度保存 hasMany 关联可以正确处理验证错误<br></p></li> 
+ <li><p>改进 API 文档</p></li> 
+ <li><p>修复 DboSource::rawQuery() <br></p></li> 
+</ul> 
+<p>完整改进请看<a target="_blank" href="http://cakephp.org/changelogs/2.6.9" rel="nofollow">更新日志</a>，现已提供<a target="_blank" href="https://github.com/cakephp/cakephp/releases" rel="nofollow">下载</a>。</p> 
+<p>CakePHP是一个运用了诸如ActiveRecord、Association Data Mapping、Front Controller和MVC等著名设计模式的快速开发框架。该项目主要目标是提供一个可以让各种层次的PHP开发人员快速地开发出健壮的Web应用，而 又不失灵活性。主要特性：</p> 
+<p>基于MVC架构<br>视图支持Ajax<br>内置校验框架<br>提供应用程序的基础模块和CRUD 代码自动生成功能<br>提供处理session,request,security的组件<br>灵活的视图缓存功能<br>面向对象<br>无需配置：只要安装好数据库<br>兼容PHP4和PHP5。</p>]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 12:59:50</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/cakephp]]></softwarelink>
+	  <softwarename><![CDATA[CakePHP]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[CakePHP 2.7.0 发布，PHP 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/64184/cakephp-2-7-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PhpStorm 9.0 发布， PHP 集成开发环境]]></rtitle>
+			<rurl>http://www.oschina.net/news/64077/phpstorm-9-0-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[CakePHP 2.6.8 发布，PHP 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63797/cakephp-2-6-8</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[CakePHP 3.0.8 发布，PHP 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63750/cakephp-3-0-8</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Hprose PHP 扩展 1.5.5 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63686/hprose-php-1-5-5</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PHP 7.0.0 Alpha 2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63668/php-7-alpha-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Smarty 3.1.27 发布，PHP 模板引擎]]></rtitle>
+			<rurl>http://www.oschina.net/news/63556/smarty-3-1-27</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[让你的 PHP 7 更快 (GCC PGO)]]></rtitle>
+			<rurl>http://www.oschina.net/news/63532/make-php-7-faster</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Smarty 3.1.25 发布，PHP 模板引擎]]></rtitle>
+			<rurl>http://www.oschina.net/news/63514/smarty-3-1-25</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Lumen 5.1 发布，微型 PHP 框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63442/lumen-5-1</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

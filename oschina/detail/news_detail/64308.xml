@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64308</id>
+      <title><![CDATA[微软给安全环境恶劣的 XP 用户再补上一刀]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64308/windows-xp-virus-killer-no-sign]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>科技博客ZDNet报道称，微软已不再向Windows XP用户提供杀毒软件签名，Windows XP安全环境继续恶化。<br><br>尽管Windows XP生命周期已经于2014年4月8日结束，但微软依然为XP用户提供恶意软件移除工具，并为用户提供Microsoft Security Essentials（简称MSE）更新。就在昨天，微软不再提供这些服务。<br><br>生命周期结束之后，Windows XP用户就无法下载MSE，但在过去16个月时间，已安装MSE的PC依然可以收到反恶意软件签名更新。由于MSE可以关联微软反恶意软件引擎和签名，因此这些Windows XP用户依然可以使用MSE。<br><br>微软强调，这两款工具不足以保护旧式系统的安全。“2014年4月8日之后，由于Windows XP系统缺少安全更新，任何运行Windows XP的PC不能被视为安全。”微软警告称。<br><br>微软表示：“我们强烈建议大家尽快迁移到受支持操作系统，这样你才能定期收到安全更新，以防电脑受到恶意软件攻击。”<br><br>Windows XP于2001年问世，多年来它深受企业用户和普通用户的喜爱。事实上，从Windows XP升级新式系统并不容易。为了延长Windows XP技术支持期限，美国海军每年向微软支付900万美元费用。市场研究公司NetMarketShare统计显示，多达12%的上网PC依然运行Windows XP。<br><br>美国安全专家格雷厄姆·克鲁利（Graham Cluley）表示：“别再用Windows XP，更不要使用联网的XP电脑，这是我最好的建议。为Windows XP安装其他杀毒软件只是权宜之计，毕竟杀软不会一直更新下去。”</p>]]></body>
+      <commentCount>32</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 07:39:01</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/windows]]></softwarelink>
+	  <softwarename><![CDATA[Windows]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[彻底裸奔：微软终止 Windows XP 安全防护]]></rtitle>
+			<rurl>http://www.oschina.net/news/64243/windows-xp-end-of-life</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[坚持用 XP 的代价：美国海军付给微软上千万]]></rtitle>
+			<rurl>http://www.oschina.net/news/63614/navy-re-ups-with-microsoft-for-more-windows-xp-support</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Google Chrome 将在年底停止支持 Windows XP]]></rtitle>
+			<rurl>http://www.oschina.net/news/61638/providing-updates-for-chrome-for-xp</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[盘点那些死于 2014 的技术，Windows XP 没死]]></rtitle>
+			<rurl>http://www.oschina.net/news/58521/tech-died-in-2014</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Win 8.1 终于干掉了 XP！但微软还是想哭……]]></rtitle>
+			<rurl>http://www.oschina.net/news/57502/windows-8-1-kill-xp</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ReactOS 0.3.17 发布，类 XP 操作系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/56255/reactos-0-3-17</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Pale Moon 25.0 发布，放弃支持 Windows XP]]></rtitle>
+			<rurl>http://www.oschina.net/news/56045/pale-moon-25-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Windows XP 救星：非官方 SP4 补丁包来了]]></rtitle>
+			<rurl>http://www.oschina.net/news/54752/windows-xp-not-offcial-sp4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[研究表明74％的企业机构仍运行Windows XP]]></rtitle>
+			<rurl>http://www.oschina.net/news/53653/74-percent-enterprise-running-windows-xp</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[远离极限编程 (Don’t do XP)]]></rtitle>
+			<rurl>http://www.oschina.net/news/52876/dont-do-xp</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479401</id>
+		<title><![CDATA[利用ZjDroid对 <捕鱼达人3> 脱壳及破解过程]]></title>
+		<url><![CDATA[http://my.oschina.net/1590538xiaokai/blog/479401]]></url>
+		<where><![CDATA[转载美文]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> <span>&lt;捕鱼达人3&gt; 刚出来不久，就被鬼哥Dump出来dex，随之破解也就轻而易举。一开始我用ZjDroid神器试验过，但是没Dump成功一直耿耿于怀，终于有一天逆袭 不仅提取出来了smali文件，继而修复 更是在破解的时候 另辟蹊径，不弹支付界面亦可破解了还支持离线模式。就记录一下。<br> 程序是从移动MM商城下载的。</span> </p> 
+<p> <span>一、脱壳。<br> 这个壳的关键词是 chaosvmp ，据说是看雪一位版主所在的公司开发的。在手机上安装好程序并运行，依据教程，脱壳的步骤是：<br> 1、打开命令行 输入查看 LogCat&nbsp;&nbsp;：<br> adb shell logcat -s zjdroid-shell-org.cocos2d.fishingjoy3<br> 如下图所示：</span> </p> 
+<p> <a href="http://photo.blog.sina.com.cn/showpic.html#blogid=92b6d74d0102uyz1&amp;url=http://album.sina.com.cn/pic/002GA1cxgy6L7h7FNHe84" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171403_HxPk.jpg" alt="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程" title="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程"></a><br> <span>记下hook的pid=13108<br> 2、再打开一个命令行 用来向手机发送执行命令。首先要在 adb shell 获取APK当前加载DEX文件的信息 输入命令：<br> am broadcast -a com.zjdroid.invoke --ei target 13108 --es cmd '{"action":"dump_dexinfo"}'</span> </p>
+<p> <a href="http://photo.blog.sina.com.cn/showpic.html#blogid=92b6d74d0102uyz1&amp;url=http://album.sina.com.cn/pic/002GA1cxgy6L7haScDkc6" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171403_mEhX.jpg" alt="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程" title="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程"></a><br> <span>如图，会出现两个路径，第一次Dump可能不知道应该用哪一个，我用的是apk后缀的。我的看法是如果路径中有 **.classes.dex 路径，则优先选择；否则可以试试apk后缀的路径。那我们开始dump dex：<br> am broadcast -a com.zjdroid.invoke --ei target 13108 --es cmd '{"action":"backsmali","dexpath":"/data/app/org.cocos2d.fishingjoy3-1.apk"}'</span> </p>
+<p> <a href="http://photo.blog.sina.com.cn/showpic.html#blogid=92b6d74d0102uyz1&amp;url=http://album.sina.com.cn/pic/002GA1cxgy6L7hmTXax41" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171403_o0Ba.jpg" alt="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程" title="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程"></a><br> <span>运行几分钟，提示无错误dump dex完成。</span> </p>
+<p> <a href="http://photo.blog.sina.com.cn/showpic.html#blogid=92b6d74d0102uyz1&amp;url=http://album.sina.com.cn/pic/002GA1cxgy6L7htryEx71" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171403_CWjz.jpg" alt="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程" title="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程"></a><br> <span>到指定的文件夹查看dex文件，大小却为0字节是不是就说明我们dump失败了呢？其实 /file/smali 是可以提出来完全可以用的。</span> </p>
+<p> &nbsp; </p> 
+<p> <span>二、修复。<br> 上面已经提取出来smali文件了 用IDE反编译原程序，将smali文件替换为dump出来的 看能否编译成功。果然出错如下图，</span> </p> 
+<p> <a href="http://photo.blog.sina.com.cn/showpic.html#blogid=92b6d74d0102uyz1&amp;url=http://album.sina.com.cn/pic/002GA1cxgy6L7hHOs9deb" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171403_fE2H.jpg" alt="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程" title="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程"></a><br> <span>试着修复一下，找到报错的地方：</span> </p>
+<p> <a href="http://photo.blog.sina.com.cn/showpic.html#blogid=92b6d74d0102uyz1&amp;url=http://album.sina.com.cn/pic/002GA1cxgy6L7hK7es6ce" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171403_rsmt.jpg" alt="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程" title="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程"></a><br> <span>将这两行删除，同样修复接下来的报错提示。然后就能编译成功了。<br> 安装试试能不能正常打开，果然秒退o(╯□╰)o&nbsp;<br> 咦 这到底是为什么尼？我们是把壳脱了 猜想，是不是程序运行时 仍然调用了与壳有关的代码 导致了闪退？终于不负有心人在AndroidManifest.xml文件中 看到了：</span> </p>
+<p> <a href="http://photo.blog.sina.com.cn/showpic.html#blogid=92b6d74d0102uyz1&amp;url=http://album.sina.com.cn/pic/002GA1cxgy6L7hNo0ve00" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171403_ZPPS.jpg" alt="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程" title="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程"></a><br> <span>果断将 Application 的 name 属性删除。然后完美修复完成。</span> </p>
+<p> &nbsp; </p> 
+<p> <span>三、破解。<br> 按照以前的陈旧思路 移动MM商城的短信支付几乎可以说是秒破，但是今天换一种思路 探索更完美的破解手段——不让其弹支付界面直接购买成功。（还是天哥的教程给了我动力 膜拜..）怎么个思路呢？还是得先分析关键.Method onBillingFinish，定位到短信发送成功调用的代码：</span> </p> 
+<p> <a href="http://photo.blog.sina.com.cn/showpic.html#blogid=92b6d74d0102uyz1&amp;url=http://album.sina.com.cn/pic/002GA1cxgy6L7hPTwMyda" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171404_K6gT.jpg" alt="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程" title="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程"></a> </p>
+<p> <span>（其实，这段代码出现支付界面只不过显示“发送成功”），结合下面代码很容易识别，交易成功与否的关键词为：“didCompleteTransaction”“didCancelledTransaction”<br> 那就直接搜索关键词呗 找到；类org/cocos2dx/IAP/IAPWrapper，里面的方法有：</span> </p> 
+<p> <a href="http://photo.blog.sina.com.cn/showpic.html#blogid=92b6d74d0102uyz1&amp;url=http://album.sina.com.cn/pic/002GA1cxgy6L7hVyg235f" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171404_PlPL.jpg" alt="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程" title="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程"></a> </p>
+<p> <span>根据方法名猜测 addpayment ，有添加支付弹窗的嫌疑，那我们就试着 将.method didCompleteTransaction 里的代码全部复制到.method addPayment。安装试验。结果却出现了：</span> </p> 
+<p> <a href="http://photo.blog.sina.com.cn/showpic.html#blogid=92b6d74d0102uyz1&amp;url=http://album.sina.com.cn/pic/002GA1cxgy6L7i3enKU78" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171404_tkH8.jpg" alt="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程" title="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程"></a> </p>
+<p> <span>一定是方法 didCompleteTransaction 另有判断，查看代码 只有一个判断，修改即可。</span> </p> 
+<p> <a href="http://photo.blog.sina.com.cn/showpic.html#blogid=92b6d74d0102uyz1&amp;url=http://album.sina.com.cn/pic/002GA1cxgy6L7ibCz5x63" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171405_xrSB.jpg" alt="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程" title="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程"></a><br> <span>然后保存，测试成功。</span> </p>
+<p> <a href="http://photo.blog.sina.com.cn/showpic.html#blogid=92b6d74d0102uyz1&amp;url=http://album.sina.com.cn/pic/002GA1cxgy6L7ioDdBC98" target="_blank" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171405_YIVU.jpg" alt="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程" title="利用ZjDroid对&nbsp;<wbr><捕鱼达人3>&nbsp;<wbr>脱壳及破解过程"></a> </p>]]></body>
+		<author><![CDATA[科技创造]]></author>
+		<authorid>1590538</authorid>
+		<documentType>0</documentType>
+        <pubDate>2015-07-16 17:14:04</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

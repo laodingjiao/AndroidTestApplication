@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479248</id>
+		<title><![CDATA[C#窗口实现单例模式]]></title>
+		<url><![CDATA[http://my.oschina.net/somereasons/blog/479248]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>主要是应对这种需求：软件只允许启动一次。</p> 
+<p>将这个问题转化一下，可以这样描述：对于一个软件，在启动一个进程之后，不允许启动其它进程，如果第二次打开程序，就把已经启动的那个进程的窗口放到最前端显示。</p> 
+<p>C# winfrom应用在启动之后会首先执行program.cs里的代码，所以需要在这里下手。启动后，检测是否有相同进程名的进程，如果有，就把那个进程的窗口提到前端，然后关闭自己。</p> 
+<p>用法：把你的program.cs改造成这个样子：</p> 
+<pre class="brush:c#;toolbar: true; auto-links: false;">&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;class&nbsp;Program
+&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//windows&nbsp;api,用于显示代码
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[DllImport("user32.dll")]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[return:&nbsp;MarshalAs(UnmanagedType.Bool)]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;extern&nbsp;bool&nbsp;SetForegroundWindow(IntPtr&nbsp;hWnd);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;&lt;summary&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;The&nbsp;main&nbsp;entry&nbsp;point&nbsp;for&nbsp;the&nbsp;application.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;&lt;/summary&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[STAThread]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;void&nbsp;Main()
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//核心代码
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Process&nbsp;currProc&nbsp;=&nbsp;Process.GetCurrentProcess();
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Process[]&nbsp;runningProc&nbsp;=&nbsp;Process.GetProcesses();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//检查规则，看进程名是否相同。可以自己灵活定制，比如需要检查用户名之类的。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;searchedProc=from&nbsp;a&nbsp;in&nbsp;runningProc
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;a.ProcessName&nbsp;==&nbsp;currProc.ProcessName
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;a;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(searchedProc.Count()&nbsp;&gt;&nbsp;1)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//选出和当前进程进程名相同，但是id不同的那个进程
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Process&nbsp;firstProc&nbsp;=&nbsp;searchedProc.FirstOrDefault(a&nbsp;=&gt;&nbsp;a.Id&nbsp;!=&nbsp;currProc.Id);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IntPtr&nbsp;firstProcWindow&nbsp;=&nbsp;firstProc.MainWindowHandle;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetForegroundWindow(firstProcWindow);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currProc.Kill();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//-------end---------
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Application.EnableVisualStyles();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Application.SetCompatibleTextRenderingDefault(false);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Application.Run(new&nbsp;Form1());
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;}</pre> 
+<p>====================================================</p> 
+<p>附赠内容，以下为转载：</p> 
+<p>关于窗口前端显示和置顶，一共涉及到3个windows的API</p> 
+<pre class="sycode">//显示窗口
+ShowWindow(hWnd,&nbsp;SW_NORMAL);
+
+//前端显示
+SetForegroundWindow(hWnd);
+
+//窗口置顶
+SetWindowPos(hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE);</pre> 
+<p>其中这个SetWindowPos最常用，用于设定窗口的位置，最常见用途是给窗口设定为置顶，等同于winform里的this.TopMost=true;</p> 
+<p>用法：</p> 
+<p>WinAPI: SetWindowPos - 改变窗口的位置与状态</p> 
+<p>SetWindowPos(<br>hWnd: HWND; {窗口句柄}<br>hWndInsertAfter: HWND; {窗口的 Z 顺序}<br>X, Y: Integer; {位置}<br>cx, cy: Integer; {大小}<br>uFlags: UINT {选项}<br>): BOOL;</p> 
+<p>//hWndInsertAfter 参数可选值:<br>HWND_TOP = 0; {在前面}<br>HWND_BOTTOM = 1; {在后面}<br>HWND_TOPMOST = HWND(-1); {在前面, 位于任何顶部窗口的前面}<br>HWND_NOTOPMOST = HWND(-2); {在前面, 位于其他顶部窗口的后面}</p> 
+<p>//uFlags 参数可选值:<br>SWP_NOSIZE = 1; {忽略 cx、cy, 保持大小}<br>SWP_NOMOVE = 2; {忽略 X、Y, 不改变位置}<br>SWP_NOZORDER = 4; {忽略 hWndInsertAfter, 保持 Z 顺序}<br>SWP_NOREDRAW = 8; {不重绘}<br>SWP_NOACTIVATE = $10; {不激活}<br>SWP_FRAMECHANGED = $20; {强制发送 WM_NCCALCSIZE 消息, 一般只是在改变大小时才发送此消息}<br>SWP_SHOWWINDOW = $40; {显示窗口}<br>SWP_HIDEWINDOW = $80; {隐藏窗口}</p> 
+<p><br></p>]]></body>
+		<author><![CDATA[夜风聆雨]]></author>
+		<authorid>212203</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 12:04:36</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

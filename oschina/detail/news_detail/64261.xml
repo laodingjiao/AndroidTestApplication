@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64261</id>
+      <title><![CDATA[Google Chrome v43.0.2357.134 正式版发布]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64261/chrome-43-0-2357-134]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>谷歌浏览器 Chrome Stable 稳定版迎来例行升级，新版本号为 v43.0.2357.134，本次更新了稳定性改进及 Bug 修复！Google Chrome，又称 Google 浏览器，是个由 Google（谷歌）公司开发的网页浏览器。该浏览器是基于其他开源软件所撰写，包括 WebKit，目标是 提升稳定性、速度和安全性，并创造出简单且有效率的界面。</p> 
+<p><strong><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/15144430_sDJE.jpg" alt="25_1kfyjBbHr.jpg"></strong></p>
+<p><strong>Google Chrome 新版更新了什么？</strong></p> 
+<p>- 新增海量应用扩展和 Web 平台 API；</p> 
+<p>- V42 已正式停止对 NPAPI 插件的支持，现在默认安装仅支持 5 款 PPAPI 插件；</p> 
+<p>启 NPAPI 插件方法：请地址栏输入：chrome://flags/#enable-npapi 启用</p> 
+<p><strong>官方更新日志</strong></p> 
+<p><a target="_blank" href="http://googlechromereleases.blogspot.com" rel="nofollow">http://googlechromereleases.blogspot.com</a></p> 
+<p><strong>64 位版 Google Chrome 有什么区别？</strong></p> 
+<p>64位 Chrome 能更好地利用当今的硬件，并且对速度、安全性、稳定性进行了改善！</p> 
+<p>速度：64 位 Chrome 能利用最新的处理器和编译器优化、更现代的指令集、更快的调用协议，从而实现了速度大提升，尤其是在图形和多媒体内容方面，性能提升25%。</p> 
+<p>安全性：Chrome 能够利用最新的 OS 功能，例如 Windows 8 的 High Entropy ASLR，64 位 Chrome 在安全性上也实现了大幅提升。</p> 
+<p>稳定性：Google 还在 32 位 Chrome 的基础上增强了 64 位 Chrome 的稳定性，尤其是，渲染器处理中的崩溃率大大降低，是 32 位 Chrome 的一半。</p> 
+<p>N软网提示大家有些插件还不支持 64 位版谷歌浏览器。</p> 
+<p><strong>Google Chrome 稳定版 官方本地下载地址：</strong></p> 
+<p><strong>Google Chrome v43.0.2357.134 32位版 离线包</strong></p> 
+<p><a href="http://dl.google.com/chrome/win/4ED6DD719811795B/43.0.2357.134_chrome_installer.exe" rel="nofollow">http://dl.google.com/chrome/win/4ED6DD719811795B/43.0.2357.134_chrome_installer.exe</a><br><a href="http://redirector.gvt1.com/edgedl/chrome/win/4ED6DD719811795B/43.0.2357.134_chrome_installer.exe" rel="nofollow">http://redirector.gvt1.com/edgedl/chrome/win/4ED6DD719811795B/43.0.2357.134_chrome_installer.exe</a></p> 
+<p><strong>Google Chrome v43.0.2357.134 64位版 离线包</strong></p> 
+<p><a href="http://dl.google.com/chrome/win/F29FC9F33ABB2EC3/43.0.2357.134_chrome64_installer.exe" rel="nofollow">http://dl.google.com/chrome/win/F29FC9F33ABB2EC3/43.0.2357.134_chrome64_installer.exe</a><br><a href="http://redirector.gvt1.com/edgedl/chrome/win/F29FC9F33ABB2EC3/43.0.2357.134_chrome64_installer.exe" rel="nofollow">http://redirector.gvt1.com/edgedl/chrome/win/F29FC9F33ABB2EC3/43.0.2357.134_chrome64_installer.exe</a></p> 
+<p><span>稿源：<a href="http://www.nruan.com/" target="_blank" rel="nofollow">N软网</a></span><br></p>]]></body>
+      <commentCount>24</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 14:44:29</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/chrome]]></softwarelink>
+	  <softwarename><![CDATA[Chrome]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Microsoft Edge 和 Chrome 你选哪个？]]></rtitle>
+			<rurl>http://www.oschina.net/news/64297/microsoft-edge-or-chrome</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[MDL —— Google 开源的前端开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/p/mdl</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Google 透露有 10 亿 Chrome 活跃用户]]></rtitle>
+			<rurl>http://www.oschina.net/news/62932/google-chrome-tops-1-billion-users</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Chrome Stable 43.0.2357.81 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/62751/chrome43-0-2357-81</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Lovefield —— Google 的 IndexedDB 查询引擎]]></rtitle>
+			<rurl>http://www.oschina.net/p/lovefield</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Google Chrome 对 HTTPS 的双重标准？]]></rtitle>
+			<rurl>http://www.oschina.net/news/61751/google-com-is-still-sha-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Intel® INDE for Google Android Studio ]]></rtitle>
+			<rurl>http://www.oschina.net/translate/intel-inde-for-google-android-studio</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Google Chrome 将在年底停止支持 Windows XP]]></rtitle>
+			<rurl>http://www.oschina.net/news/61638/providing-updates-for-chrome-for-xp</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Chrome 43 beta 发布，支持 Web MIDI ]]></rtitle>
+			<rurl>http://www.oschina.net/news/61602/chrome-43-beta</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Chrome 的推送通知现已可用（42.0 版本）]]></rtitle>
+			<rurl>http://www.oschina.net/news/61524/chrome-stable-gets-push-notifications</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

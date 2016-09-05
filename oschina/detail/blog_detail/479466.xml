@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479466</id>
+		<title><![CDATA[Angular 监听路由变化事件]]></title>
+		<url><![CDATA[http://my.oschina.net/jack088/blog/479466]]></url>
+		<where><![CDATA[AngularJs]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="line-height: 0px;">﻿</span>app.run(['$rootScope', '$location' ,'$cookieStore', '$state', 'CacheManager', &nbsp;function($rootScope, $location, $cookieStore, $state,CacheManager){<br>//监听路由事件</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; $rootScope.$on('$stateChangeStart',</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; function(event, toState, toParams, fromState, fromParams){</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(toState.name=="tabs.post"&amp;&amp;fromState.name=="tabs.orderList"){</p> 
+<p><span style="line-height: 22.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//</span><span style="line-height: 22.5px;">$location.path();//获取路由地址</span></p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $location.path('/tabs/home');//设置路由地址</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; })</p> 
+<p>}]);</p> 
+<p>ps:</p> 
+<p>使用event.preventDefault()可以阻止模板解析的发生<br></p> 
+<p>&nbsp;$rootScope.$on('$stateChangeStart',</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; function(event, toState, toParams, fromState, fromParams){</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; event.preventDefault();</p> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp; })</p> 
+<p><br></p> 
+<ul> 
+ <li><p>$stateNotFound-<code>v0.3.0</code>- 在 transition 时通过状态名查找状态，当状态无法找到时发生。该事件在 scope 链上广播，只允许一次处理错误的机会。<code>unfoundState</code>将作为参数传入事件监听函数，下面例子中可以看到<code>unfoundState</code>的三个属性。使用<code>event.preventDefault()</code>来阻止模板解析，<br></p></li> 
+</ul> 
+<pre class="brush:js;toolbar: true; auto-links: false;">//&nbsp;somewhere,&nbsp;assume&nbsp;lazy.state&nbsp;has&nbsp;not&nbsp;been&nbsp;defined$state.go("lazy.state",&nbsp;{a:1,&nbsp;b:2},&nbsp;{inherit:false});//&nbsp;somewhere&nbsp;else$scope.$on('$stateNotFound',function(event,&nbsp;unfoundState,&nbsp;fromState,&nbsp;fromParams){console.log(unfoundState.to);&nbsp;//&nbsp;"lazy.state"console.log(unfoundState.toParams);&nbsp;//&nbsp;{a:1,&nbsp;b:2}console.log(unfoundState.options);&nbsp;//&nbsp;{inherit:false}&nbsp;+&nbsp;default&nbsp;options})</pre> 
+<ul> 
+ <li><p>$stateChangeSuccess- 当模板解析完成后触发</p></li> 
+</ul> 
+<pre class="brush:js;toolbar: true; auto-links: false;">$rootScope.$on('$stateChangeSuccess',function(event,&nbsp;toState,&nbsp;toParams,&nbsp;fromState,&nbsp;fromParams){&nbsp;...&nbsp;})</pre> 
+<ul> 
+ <li><p>$stateChangeError- 当模板解析过程中发生错误时触发</p></li> 
+</ul> 
+<pre class="brush:js;toolbar: true; auto-links: false;">$rootScope.$on('$stateChangeError',function(event,&nbsp;toState,&nbsp;toParams,&nbsp;fromState,&nbsp;fromParams,&nbsp;error){&nbsp;...&nbsp;})</pre> 
+<p><span style="color: rgb(51, 51, 51); font-family: 'Microsoft Yahei', tahoma, arial, 'Hiragino Sans GB', sans-serif; font-size: 13px; line-height: 25px; background-color: rgb(255, 255, 255);">View Load Events 视图加载事件</span></p> 
+<ul> 
+ <li><p>$viewContentLoading- 当视图开始加载，DOM渲染完成之前触发，该事件将在<code>$scope</code>链上广播此事件。</p></li> 
+</ul> 
+<pre class="brush:js;toolbar: true; auto-links: false;">$scope.$on('$viewContentLoading',function(event,&nbsp;viewConfig){//&nbsp;Access&nbsp;to&nbsp;all&nbsp;the&nbsp;view&nbsp;config&nbsp;properties.//&nbsp;and&nbsp;one&nbsp;special&nbsp;property&nbsp;'targetView'//&nbsp;viewConfig.targetView&nbsp;});</pre> 
+<ul> 
+ <li><p>$viewContentLoaded- 当视图加载完成，DOM渲染完成之后触发，视图所在的<code>$scope</code>发出该事件。</p></li> 
+</ul> 
+<pre class="brush:js;toolbar: true; auto-links: false;">$scope.$on('$viewContentLoading',$scope.$on('$viewContentLoaded',function(event){&nbsp;...&nbsp;});</pre> 
+<p>ps:参考文献<br></p> 
+<p>http://www.aichengxu.com/view/44576</p>]]></body>
+		<author><![CDATA[jack088]]></author>
+		<authorid>2320053</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 19:27:58</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

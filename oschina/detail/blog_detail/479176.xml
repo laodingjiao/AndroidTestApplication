@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479176</id>
+		<title><![CDATA[Libgdx之封装简单的脚本机制]]></title>
+		<url><![CDATA[http://my.oschina.net/oahcfly/blog/479176]]></url>
+		<where><![CDATA[LibGdx]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>需求：</p> 
+<p>游戏中，在开始前经常会用到，ready-&gt;go-&gt;start game，或者其他情况。</p> 
+<p>简单的说，就是游戏一些UI展示需要按照步骤执行。</p> 
+<p>于是乎，为了让逻辑清晰，自己写了简单执行脚本，方便以后的开发。</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">package&nbsp;com.oahcfly.chgame.core.script;
+//&nbsp;接口
+public&nbsp;interface&nbsp;IScript&nbsp;{
+
+	public&nbsp;void&nbsp;addSteps(String...&nbsp;args);
+
+	public&nbsp;void&nbsp;run(final&nbsp;Runnable&nbsp;callBackRunnable);
+}</pre> 
+<pre class="brush:java;toolbar: true; auto-links: false;">package&nbsp;com.oahcfly.chgame.core.script;
+
+import&nbsp;java.lang.reflect.InvocationTargetException;
+import&nbsp;java.lang.reflect.Method;
+
+import&nbsp;com.badlogic.gdx.Gdx;
+import&nbsp;com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import&nbsp;com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
+import&nbsp;com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import&nbsp;com.badlogic.gdx.utils.Array;
+import&nbsp;com.oahcfly.chgame.core.mvc.CHActor;
+import&nbsp;com.oahcfly.chgame.core.mvc.CHScreen;
+
+/**
+&nbsp;*&nbsp;
+&nbsp;*&nbsp;CH脚本:
+&nbsp;*&nbsp;1.add(方法名)
+&nbsp;*&nbsp;2.run(回调函数)
+&nbsp;*&nbsp;
+&nbsp;*&nbsp;@author&nbsp;haocao
+&nbsp;*
+&nbsp;*/
+public&nbsp;class&nbsp;CHScript&nbsp;implements&nbsp;IScript&nbsp;{
+
+	private&nbsp;Array&lt;String&gt;&nbsp;stepArr&nbsp;=&nbsp;new&nbsp;Array&lt;String&gt;();
+
+	private&nbsp;CHScreen&nbsp;parentScreen;
+
+	private&nbsp;CHActor&nbsp;actor;
+
+	public&nbsp;CHScript(CHScreen&nbsp;screen)&nbsp;{
+		this.parentScreen&nbsp;=&nbsp;screen;
+		actor&nbsp;=&nbsp;new&nbsp;CHActor();
+	}
+
+	@Override
+	public&nbsp;void&nbsp;run(final&nbsp;Runnable&nbsp;callBackRunnable)&nbsp;{
+
+		//&nbsp;调用screen内，一系列的方法名。method1，mthod2，method3...
+		this.parentScreen.addActor(actor);
+
+		SequenceAction&nbsp;sequenceAction&nbsp;=&nbsp;new&nbsp;SequenceAction();
+		for&nbsp;(int&nbsp;i&nbsp;=&nbsp;0,&nbsp;size&nbsp;=&nbsp;stepArr.size;&nbsp;i&nbsp;&lt;&nbsp;size;&nbsp;i++)&nbsp;{
+			final&nbsp;String&nbsp;methodName&nbsp;=&nbsp;stepArr.get(i);
+			RunnableAction&nbsp;runnableAction&nbsp;=&nbsp;new&nbsp;RunnableAction()&nbsp;{
+
+				@Override
+				public&nbsp;void&nbsp;run()&nbsp;{
+					invokeMethod(methodName);
+				}
+
+			};
+			sequenceAction.addAction(runnableAction);
+		}
+
+		sequenceAction.addAction(Actions.run(new&nbsp;Runnable()&nbsp;{
+
+			@Override
+			public&nbsp;void&nbsp;run()&nbsp;{
+				parentScreen.removeActor(actor);
+				CHScript.this.stepArr.clear();
+				callBackRunnable.run();
+			}
+		}));
+		actor.addAction(sequenceAction);
+
+	}
+
+	private&nbsp;void&nbsp;invokeMethod(String&nbsp;methodName)&nbsp;{
+
+		final&nbsp;Class&lt;?&gt;&nbsp;screenClass&nbsp;=&nbsp;parentScreen.getClass();
+		Method&nbsp;method;
+		try&nbsp;{
+			method&nbsp;=&nbsp;screenClass.getDeclaredMethod(methodName);
+			method.invoke(parentScreen);
+		}&nbsp;catch&nbsp;(NoSuchMethodException&nbsp;e)&nbsp;{
+			//&nbsp;TODO&nbsp;Auto-generated&nbsp;catch&nbsp;block
+			Gdx.app.error(getClass().getSimpleName(),&nbsp;e.getLocalizedMessage());
+		}&nbsp;catch&nbsp;(SecurityException&nbsp;e)&nbsp;{
+			//&nbsp;TODO&nbsp;Auto-generated&nbsp;catch&nbsp;block
+			Gdx.app.error(getClass().getSimpleName(),&nbsp;e.getLocalizedMessage());
+		}&nbsp;catch&nbsp;(IllegalAccessException&nbsp;e)&nbsp;{
+			//&nbsp;TODO&nbsp;Auto-generated&nbsp;catch&nbsp;block
+			Gdx.app.error(getClass().getSimpleName(),&nbsp;e.getLocalizedMessage());
+		}&nbsp;catch&nbsp;(IllegalArgumentException&nbsp;e)&nbsp;{
+			//&nbsp;TODO&nbsp;Auto-generated&nbsp;catch&nbsp;block
+			Gdx.app.error(getClass().getSimpleName(),&nbsp;e.getLocalizedMessage());
+		}&nbsp;catch&nbsp;(InvocationTargetException&nbsp;e)&nbsp;{
+			//&nbsp;TODO&nbsp;Auto-generated&nbsp;catch&nbsp;block
+			Gdx.app.error(getClass().getSimpleName(),&nbsp;e.getLocalizedMessage());
+		}
+	}
+
+	/**
+	&nbsp;*&nbsp;方法需要public。
+	&nbsp;*/
+	@Override
+	public&nbsp;void&nbsp;addSteps(String...&nbsp;args)&nbsp;{
+		for&nbsp;(String&nbsp;methodName&nbsp;:&nbsp;args)&nbsp;{
+			stepArr.add(methodName);
+		}
+	}
+}</pre> 
+<p><br></p> 
+<p>功能核心是依靠libgdx中的SequenceAction，顺序执行Action。最后给出一个结束的回调。</p> 
+<p>用法简介：<br></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">CHScript&nbsp;script&nbsp;=&nbsp;new&nbsp;CHScript(this);
+script.addSteps("step1",&nbsp;"step2",&nbsp;"step3");
+script.run(new&nbsp;Runnable()&nbsp;{
+			@Override
+			public&nbsp;void&nbsp;run()&nbsp;{
+				//&nbsp;TODO&nbsp;Auto-generated&nbsp;method&nbsp;stub
+				//&nbsp;System.out.print("step执行完毕");
+			}
+});</pre> 
+<p><br></p> 
+<p>在Screen中，加入上面的代码，同时需要添加 3个方法：</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">public&nbsp;void&nbsp;step1()&nbsp;{
+		System.out.println(System.currentTimeMillis()&nbsp;+&nbsp;"&nbsp;&nbsp;step1");
+	}
+
+	public&nbsp;void&nbsp;step2()&nbsp;{
+		System.out.println(System.currentTimeMillis()&nbsp;+&nbsp;"&nbsp;&nbsp;step2");
+	}
+
+	public&nbsp;void&nbsp;step3()&nbsp;{
+		System.out.println(System.currentTimeMillis()&nbsp;+&nbsp;"&nbsp;&nbsp;step3");
+	}</pre> 
+<p>这样就实现了我们需求。</p> 
+<p><br></p> 
+<p>欢迎关注CHGame框架（基于Libgdx二次封装快速开发框架）：</p> 
+<p><a href="https://git.oschina.net/oahcfly/CHGame.git" target="_self" rel="nofollow">https://git.oschina.net/oahcfly/CHGame.git</a><br></p>]]></body>
+		<author><![CDATA[flyoahc]]></author>
+		<authorid>1866808</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 10:41:48</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

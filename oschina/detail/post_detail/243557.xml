@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>243557</id>
+      <title><![CDATA[开源中国 android 客户端 请教问题]]></title>
+      <url><![CDATA[http://www.oschina.net/question/163141_243557]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/81/163141_50.png?t=1437118601000</portrait>
+      <event>
+			  </event>
+      <body>
+		<![CDATA[
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+					</style>
+				<p> <a href="http://my.oschina.net/LittleDY" target="_blank" rel="nofollow">@火蚁</a> 你好，想跟你请教个问题： 客户端中使用了异步HTTP，我这里有个问题请教下，在某个界面中，比如用户详细信息界面，更换图像这里，通过异步HTTP请求更换图像，如果说因为网络问题，在还没有收到服务器返回的数据前，用户通过返回键关掉了对话框以及当前界面后，此时服务器返回了数据，那么界面已经销毁了，代码执行了回调发送成功或者失败的方法，例如执行发送成功回调，继续执行回调函数中更新图片的方法，但此时界面已经销毁了，那么这个控件就找不到了，按理应该会报错。针对这类问题，是怎么处理的？如代码MyInformationFragmentDetail类中的&nbsp;uploadNewPhoto()函数 </p>						]]>
+	  </body>
+      <author><![CDATA[姬鑫]]></author>
+      <authorid>163141</authorid>
+      <answerCount>1</answerCount>
+      <viewCount>68</viewCount>
+      <pubDate>2015-07-17 15:53:13</pubDate>
+	  <favorite>0</favorite>
+	  		<tags>
+		            <tag><![CDATA[Android]]></tag>
+		        </tags>
+	    </post>
+</oschina>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>475061</id>
+		<title><![CDATA[CaaS环境下实践经验总结（一）：ELK Stack部署]]></title>
+		<url><![CDATA[http://my.oschina.net/alauda/blog/475061]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>【编者按】“在审视任何一个新东西的时候，我都会先去尝试发现它与production ready之间到底有多少距离”，这是杜航写作本文的初衷。杜航首先考虑到的是log的处理，尤其对于Docker这个短暂存在的运行环境，log的处理更为重要。Volume虽然可以解决这个问题，但是随着容器数量的增多，工作量也会剧增。杜航决定在灵雀云上搭建一个ELK stack（<strong>ELK是一套常用的开源日志监控和分析系统，包括一个分布式索引与搜索服务Elasticsearch，一个管理日志和事件的工具logstash，和一个数据可视化服务Kibana</strong>）。</p> 
+<p>&nbsp;</p> 
+<p>作者杜航，Websense云基础架构组开发经理，专注于OpenStack和Docker。<strong>以下为原文：</strong></p> 
+<p><span style="box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent;"></span></p> 
+<p>&nbsp;</p> 
+<p>第一次接触CaaS这个概念，第一次接触灵雀云的时候，我并没有像很多人一样马上推送一个应用以体验Docker所带来的快感。因为我从不怀疑docker的出现所解决环境依赖性问题，提高了产品部署速度。我也从不怀疑灵雀云作为一个CaaS共有云平台对容易的管理，调度，运行的能力。这就是Docker以及CaaS平台出现带来的优势，一分钟之前我还刚把代码提交到github，一分钟之后我提交的代码已经在生产环境上线。可能是因为我长期和一个十分严谨又追求完美的英国团队，特别是英国运维团队合作的背景，在审视任何一个新东西的时候我都会先去尝试发现它与production ready之间到底有多少距离。所以当我准备把应用推送到灵雀云之前，我首先考虑的是除了应用之外我还需要部署什么样的服务来达到生产环境的标准。</p> 
+<p>&nbsp;</p> 
+<p>第一点考虑到的是log的处理。我想我不需要花太多篇幅解释log的重要性，大家应该都有体会。Docker作为一个短暂存在（ephemeral）的运行环境，数据的持久化是一个要解决的问题。CaaS平台不会像IaaS那样给你vm的登录管理权限，所以你不能想把docker容器运行在物理主机或者虚拟主机上那样通过将存储卷映射到主机上或者链接一个数据容器（data-only container）来保存log数据。灵雀云平台提供了存储卷的功能，可以将log数据存放在一个稳定的云存储平台（从链接看是AWS S3）并提供下载。当时当你管理上百个甚至上千个容器的时候，这种方式也会给你带来很大的工作量。综合以上原因，我决定在灵雀云上搭建一个ELK stack。（E – Elasticsearch， L – Logstash， K – Kibana）</p> 
+<p>&nbsp;</p> 
+<p>我没有使用网上现有的ELK image，原因有三：</p> 
+<ol> 
+ <li><p>深度CentOS依赖者；</p></li> 
+ <li><p>体验一下灵雀云提供的代码仓库集成的功能；</p></li> 
+ <li><p>将容器镜像存储在灵雀云镜像仓库可以提高服务启动速度</p></li> 
+</ol> 
+<p>&nbsp;</p> 
+<p>代码可以在github找到<a href="https://github.com/darkheaven1983/elk" target="_blank" rel="nofollow">https://github.com/darkheaven1983/elk</a></p> 
+<p>&nbsp;</p> 
+<p>以下是如何在灵雀云上部署ELK stack的具体步骤：</p> 
+<p>1. 关联github代码仓库与灵雀云构建系统，指明Dockerfile在github的路径，并创建一个构建</p> 
+<p><a href="http://homepage.s3.cn-north-1.amazonaws.com.cn/wp-content/uploads/2015/06/1811bdf1f7374c908cf2eda3a43589ea.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06111137_umXY.jpg" alt="1811bdf1f7374c908cf2eda3a43589ea"></a></p>
+<p>&nbsp;</p> 
+<p>2. git push代码到github触发灵雀云构建docker镜像</p> 
+<p><a href="http://homepage.s3.cn-north-1.amazonaws.com.cn/wp-content/uploads/2015/06/a22b6ca5ff2501f7e46dd0158ee33be1.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06111137_WsGM.jpg" alt="a22b6ca5ff2501f7e46dd0158ee33be1"></a></p>
+<p>&nbsp;</p> 
+<p>镜像build成功之后会出现在个人镜像参仓库里面</p> 
+<p><a href="http://homepage.s3.cn-north-1.amazonaws.com.cn/wp-content/uploads/2015/06/8bb24c1c82e55361485803f1f65d595f.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06111137_etVB.jpg" alt="8bb24c1c82e55361485803f1f65d595f"></a></p>
+<p>&nbsp;</p> 
+<p>3. 通过灵雀云CLI提供的compose功能一键部署ELK stack。Alauda支持的compose在docker compose yaml文件的基础之上做了一些针对自己平台的改动。</p> 
+<p><a href="http://homepage.s3.cn-north-1.amazonaws.com.cn/wp-content/uploads/2015/06/77733b8875fe960b7ec26965aba91fcc.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06111137_uN52.jpg" alt="77733b8875fe960b7ec26965aba91fcc"></a></p>
+<p>&nbsp;</p> 
+<p>以下是elk-alauda.yml的内容</p> 
+<pre class="prettyprint">elasticsearch:
+extends:
+file:&nbsp;./docker-compose.yml
+service:&nbsp;elasticsearch
+expose:
+-&nbsp;"9200"
+volumes:
+-&nbsp;/var/lib/elasticsearch:10
+kibana:
+extends:
+file:&nbsp;./docker-compose.yml
+service:&nbsp;kibana
+ports:
+-&nbsp;"5601/http"
+links:
+-&nbsp;elasticsearch:elasticsearch
+logstash:
+extends:
+file:&nbsp;./docker-compose.yml
+service:&nbsp;logstash
+ports:
+-&nbsp;"5000"
+links:
+-&nbsp;elasticsearch:elasticsearch</pre> 
+<p>&nbsp;</p> 
+<p>extends：关联docker compose yaml文件当中对此容器的配置。<br>expose：指定一个只有Alauda内部才能访问的端口，我将elsaticsearch的9200端口声明为内部端口保证了数据的安全性，避免将9200端口暴露在公网上。<br>volumes：创建一个存储卷，确保数据的持久化 – 可以通过alauda CLI中backup功能定期保存存储卷，并且从某一个指定的存储卷恢复数据。<br>ports：指定一个公网可访问的端口，此端口可以为load balance之后的http端口（80），也可以是load balance之后的TCP端口（随机）。<br>links：容器之间的连接 – 通过Alauda提供的服务发现功能链接多个容器是容器间可以互相访问。</p> 
+<p>&nbsp;</p> 
+<p>至此，ELK stack在alauda平台的搭建已经结束。由于本实验只是一个PoC的功能，所以logstash的输入是tcp，欢迎大家加入更加复杂的logstash配置。</p> 
+<p>&nbsp;</p> 
+<p><strong>测试结果：</strong></p> 
+<p>nc logstash-darkheaven.myalauda.cn 62316 &lt; /var/log/yum.log</p> 
+<p><a href="http://homepage.s3.cn-north-1.amazonaws.com.cn/wp-content/uploads/2015/06/27712aacdb1f04ba909edb5c8ae1d957.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/06111139_dkq8.jpg" alt="27712aacdb1f04ba909edb5c8ae1d957"></a></p>
+<p><br></p>]]></body>
+		<author><![CDATA[小璐]]></author>
+		<authorid>2341792</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-06 11:11:39</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

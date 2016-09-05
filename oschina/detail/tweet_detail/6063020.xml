@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6063020</id>
+	<body><![CDATA[
+		好多妹纸在楼下cosplay，黑丝细腰，奇装异服，美腿美胸        	]]></body>
+    <author><![CDATA[FogMoon]]></author>
+	<authorid>737370</authorid>
+    <appclient>1</appclient>
+    <commentCount>18</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/368/737370_50.jpg?t=1347522334000</portrait>
+    <pubDate>2015-07-17 09:29:03</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>3</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[xwtdroid]]></name>
+				<uid>2355291</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1177/2355291_50.jpg?t=1431436035000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[FogMoon]]></name>
+				<uid>737370</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/368/737370_50.jpg?t=1347522334000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[kernel64]]></name>
+				<uid>179535</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/89/179535_50.jpg?t=1362411496000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

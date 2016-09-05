@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <pagesize>20</pagesize>
+  <blogs>
+  					<blog>
+		<id>475061</id>
+		<title><![CDATA[CaaS环境下实践经验总结（一）：ELK Stack部署]]></title>
+        <body><![CDATA[【编者按】“在审视任何一个新东西的时候，我都会先去尝试发现它与produ...]]></body>
+		<url><![CDATA[http://my.oschina.net/alauda/blog/475061]]></url>
+        <pubDate>2015-07-06 11:11:39</pubDate>
+        <authoruid>2341792</authoruid>
+        <authorname><![CDATA[小璐]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>474918</id>
+		<title><![CDATA[分布式文件系统HDFS简要介绍]]></title>
+        <body><![CDATA[HDFS 的设计主要基于以下六点考虑： (1)容错 独立计算机的硬件错误不能当...]]></body>
+		<url><![CDATA[http://my.oschina.net/OliverYY/blog/474918]]></url>
+        <pubDate>2015-07-05 21:58:58</pubDate>
+        <authoruid>1581528</authoruid>
+        <authorname><![CDATA[Oliver鱼]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>474660</id>
+		<title><![CDATA[2015.7.4 阿里移动技术峰会 分享]]></title>
+        <body><![CDATA[            第一次参加移动互联网的峰会，起初感觉是一个华丽丽...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/939952/blog/474660]]></url>
+        <pubDate>2015-07-04 22:43:54</pubDate>
+        <authoruid>939952</authoruid>
+        <authorname><![CDATA[leslytt]]></authorname>
+        <commentCount>4</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>474615</id>
+		<title><![CDATA[avalonjs 实现简单购物车]]></title>
+        <body><![CDATA[    因为最近有在做购物车，然后我们是用avalon来实现一些模块的，所以...]]></body>
+		<url><![CDATA[http://my.oschina.net/tearlight/blog/474615]]></url>
+        <pubDate>2015-07-04 18:10:26</pubDate>
+        <authoruid>143411</authoruid>
+        <authorname><![CDATA[subying]]></authorname>
+        <commentCount>1</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>474530</id>
+		<title><![CDATA[使用Eclipse-Maven-git做Java开发(3)--Eclipse的安装和配置]]></title>
+        <body><![CDATA[        本文的内容需要先安装JDK和maven，也就是前面两篇的步骤...]]></body>
+		<url><![CDATA[http://my.oschina.net/songxinqiang/blog/474530]]></url>
+        <pubDate>2015-07-04 13:40:16</pubDate>
+        <authoruid>932586</authoruid>
+        <authorname><![CDATA[阿信sxq]]></authorname>
+        <commentCount>14</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>474323</id>
+		<title><![CDATA[我是如何设计文件系统 LFS 的]]></title>
+        <body><![CDATA[    LFS 超快的文件系统，可以同时存储海量大文件和小文件。并且不单单...]]></body>
+		<url><![CDATA[http://my.oschina.net/courage/blog/474323]]></url>
+        <pubDate>2015-07-03 19:28:43</pubDate>
+        <authoruid>85589</authoruid>
+        <authorname><![CDATA[Courage]]></authorname>
+        <commentCount>6</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>474004</id>
+		<title><![CDATA[java图片压缩，使用ImageIO代替JPEGImageEncoder]]></title>
+        <body><![CDATA[最近做项目需要图片压缩处理，网上找的方法大都使用了 com.sun.image.co...]]></body>
+		<url><![CDATA[http://my.oschina.net/JustLoveIT/blog/474004]]></url>
+        <pubDate>2015-07-03 12:26:47</pubDate>
+        <authoruid>260372</authoruid>
+        <authorname><![CDATA[zqz0125]]></authorname>
+        <commentCount>3</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>473919</id>
+		<title><![CDATA[Android HAL模块实现]]></title>
+        <body><![CDATA[1. HAL介绍 Android的HAL（Hardware Abstract Layer硬件抽象层）是为了保...]]></body>
+		<url><![CDATA[http://my.oschina.net/haomcu/blog/473919]]></url>
+        <pubDate>2015-07-03 10:56:35</pubDate>
+        <authoruid>80542</authoruid>
+        <authorname><![CDATA[HAOMCU]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>473832</id>
+		<title><![CDATA[MariaDB Galera Cluster 部署（如何快速部署MariaDB集群）]]></title>
+        <body><![CDATA[MariaDB作为Mysql的一个分支，在开源项目中已经广泛使用，例如大热的ope...]]></body>
+		<url><![CDATA[http://my.oschina.net/oneapmofficial/blog/473832]]></url>
+        <pubDate>2015-07-03 00:53:20</pubDate>
+        <authoruid>2365986</authoruid>
+        <authorname><![CDATA[OneAPM蓝海讯通]]></authorname>
+        <commentCount>9</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>473598</id>
+		<title><![CDATA[用Redis实现微博关注关系]]></title>
+        <body><![CDATA[用Redis实现微博关注关系的分析 关注关系产生的四种关系状态 关注 粉丝 ...]]></body>
+		<url><![CDATA[http://my.oschina.net/jockchou/blog/473598]]></url>
+        <pubDate>2015-07-02 16:32:36</pubDate>
+        <authoruid>946034</authoruid>
+        <authorname><![CDATA[jockchou]]></authorname>
+        <commentCount>25</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>473255</id>
+		<title><![CDATA[MyBatis笔记（一）——带你入门带你飞]]></title>
+        <body><![CDATA[MyBatis(原名是ibatis)简介 MyBatis是支持普通SQL查询，存储过程和高级映...]]></body>
+		<url><![CDATA[http://my.oschina.net/happyBKs/blog/473255]]></url>
+        <pubDate>2015-07-02 11:12:00</pubDate>
+        <authoruid>1156339</authoruid>
+        <authorname><![CDATA[HappyBKs]]></authorname>
+        <commentCount>4</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>473150</id>
+		<title><![CDATA[Flume入门]]></title>
+        <body><![CDATA[1、Flume是什么？     ○ Flume是由cloudera开发的实时日志收集系统...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2377453/blog/473150]]></url>
+        <pubDate>2015-07-02 03:03:09</pubDate>
+        <authoruid>2377453</authoruid>
+        <authorname><![CDATA[datapro]]></authorname>
+        <commentCount>2</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>473027</id>
+		<title><![CDATA[jenkins简单入门使用（WEB）]]></title>
+        <body><![CDATA[一 安装 首先保证系统中已经安装了jdk，最好是jdk1.5以上。 http://jen...]]></body>
+		<url><![CDATA[http://my.oschina.net/xinson/blog/473027]]></url>
+        <pubDate>2015-07-01 17:48:14</pubDate>
+        <authoruid>1412997</authoruid>
+        <authorname><![CDATA[xinson]]></authorname>
+        <commentCount>19</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>472783</id>
+		<title><![CDATA[Ceph在高IO下的死锁故障]]></title>
+        <body><![CDATA[在一台高性能PC服务器上，使用ceph做虚拟机镜像的存储。在做压力测试的情...]]></body>
+		<url><![CDATA[http://my.oschina.net/brinlike/blog/472783]]></url>
+        <pubDate>2015-07-01 10:16:01</pubDate>
+        <authoruid>1378360</authoruid>
+        <authorname><![CDATA[Brin想写程序]]></authorname>
+        <commentCount>31</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>472644</id>
+		<title><![CDATA[docker-reviewboard（让reviewboard安装、迁移更简单）]]></title>
+        <body><![CDATA[ReviewBoard是个开源的、可扩展的、友好的基于Web的代码评审工具，是用P...]]></body>
+		<url><![CDATA[http://my.oschina.net/donhui/blog/472644]]></url>
+        <pubDate>2015-06-30 19:24:29</pubDate>
+        <authoruid>1588291</authoruid>
+        <authorname><![CDATA[donhui]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>472631</id>
+		<title><![CDATA[驳狗屎文 "我为什么放弃Go语言"]]></title>
+        <body><![CDATA[驳狗屎文 “我为什么放弃Go语言” 此篇文章流传甚广, 其实里面没啥干货，...]]></body>
+		<url><![CDATA[http://my.oschina.net/chai2010/blog/472631]]></url>
+        <pubDate>2015-06-30 18:17:09</pubDate>
+        <authoruid>586550</authoruid>
+        <authorname><![CDATA[chai2010]]></authorname>
+        <commentCount>51</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>472474</id>
+		<title><![CDATA[Zabbix使用总结1——认识zabbix监控从Template开始]]></title>
+        <body><![CDATA[zabbix监控服务器功能很强大，当然配置也极为复杂。今天总结一下zabbix监...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2375576/blog/472474]]></url>
+        <pubDate>2015-06-30 14:21:45</pubDate>
+        <authoruid>2375576</authoruid>
+        <authorname><![CDATA[光影之间的lyy]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>472442</id>
+		<title><![CDATA[Redis3.0与Jedis2.7.2 客户端与Spring整合]]></title>
+        <body><![CDATA[网上一堆jedis2.1.0的配置教程，说实话看到都觉得太老了，而且非常不方便...]]></body>
+		<url><![CDATA[http://my.oschina.net/91jason/blog/472442]]></url>
+        <pubDate>2015-06-30 13:10:25</pubDate>
+        <authoruid>567296</authoruid>
+        <authorname><![CDATA[明舞]]></authorname>
+        <commentCount>8</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>472432</id>
+		<title><![CDATA[Nodejs负载均衡：haproxy，slb以及node-slb]]></title>
+        <body><![CDATA[我的线上环境是阿里云，既然阿里云有SLB，比自己运维一个要省事儿的多，...]]></body>
+		<url><![CDATA[http://my.oschina.net/nodeonly/blog/472432]]></url>
+        <pubDate>2015-06-30 12:48:10</pubDate>
+        <authoruid>2269918</authoruid>
+        <authorname><![CDATA[i5ting]]></authorname>
+        <commentCount>10</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>472385</id>
+		<title><![CDATA[Tiny前端展现框架开源了~~~]]></title>
+        <body><![CDATA[以前发表过一篇文章：TinyAdmin前端展现框架，其在线演示路径为：http:...]]></body>
+		<url><![CDATA[http://my.oschina.net/tinyframework/blog/472385]]></url>
+        <pubDate>2015-06-30 11:15:53</pubDate>
+        <authoruid>1245989</authoruid>
+        <authorname><![CDATA[悠悠然然]]></authorname>
+        <commentCount>94</commentCount>
+		<documentType>1</documentType>
+	</blog>
+		    </blogs>
+</oschina>	

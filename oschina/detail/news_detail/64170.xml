@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64170</id>
+      <title><![CDATA[Hacking Team 被黑，这些事儿你可能还不知道]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64170/hacking-team-being-hacked]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>近日，被称为“全球最臭名昭著的意大利黑客公司”Hacking Team 曝出被黑，有400G种子文件流出。针对此次事件，雷锋网作者从安全专业角度出发，为我们解构Hacking Team 被黑的前因后果，作为小白又该如何防范？&nbsp;<img src="http://leiphone.qiniudn.com/uploads/new/article/740_740/201507/55a1393e9f0ef.jpg"><strong>Hacking Team是什么？</strong></p> 
+<p>Hacking Team是一家专注于开发网络监听软件的公司，他们开发的软件可以监听几乎所有的桌面计算机和智能手机，包括Windows、Linux、Mac OS、iOS 、Android、Blackberry、Symbian等等，Hacking Team不仅提供监听程序，还提供能够协助偷偷安装监听程序的未公开漏洞（0day），真是全套服务。</p> 
+<p>Hacking Team的客户不乏各国的执法机构，甚至包括了联合国武器禁运清单上的国家，不愧为新时代的IT军火供应商。搞笑的事情发生了，在我们的印象 中，军火商都应该是荷枪实弹、戒备森严的，可是Hacking Team的老板一觉醒来，却发现自己的军火仓库和帐房被偷了个底朝天。</p> 
+<p><strong>那么，Hacking Team被盗了什么？</strong><strong>简单来说，就是军火库、帐房和衣橱都被洗劫了：</strong></p> 
+<blockquote> 
+ <p>1、各种平台的木马程序（含源代码）<br>2、协助各种木马植入的未公开漏洞（0day）<br>3、大量电子邮件，包括各种商业合同<br>4、Hacking Team内部部分员工的个人资料和密码<br>5、其他资料，包括项目资料和一些监听的录音</p> 
+</blockquote> 
+<p><strong>Hacking Team为什么会被黑？</strong></p> 
+<p>其 实Hacking Team并非第一家被黑的"网络军火"公司，去年英国的另外一家监控软件公司Gama也是同样被黑。而一年之前，另一家科技监控公司Finfisher遭 遇了同样方式的黑客入侵，泄露400GB的内部文件。"网络军火"业务一方面游走在法律的边缘，虽然能满足一部分执法部门的需求，但也非常容易被滥用，从 而容易引发其他国家和一些组织的敌视。有消息显示，目前HT被部分政府部门用于监听记者信息系统。此外，作为一家以网络监听为主营业务的公司，在自身的信 息安全防护上如此大意，也是本次事件的重要起因。</p> 
+<blockquote> 
+ <p><strong>首先，Hacking Team的系统管理员疏忽大意导致个人电脑被入侵。</strong></p> 
+</blockquote> 
+<p>正常情况下，系统管理员用来进行维护的电脑应该和办公电脑隔离，并且不要轻易接入互联网，但是Hacking Team的系统管理员显然是在同一台机器上既进行公司的IT系统管理，还访问互联网，甚至用来管理个人的视频和照片，这就给了攻击者渗透入侵的机会。</p> 
+<blockquote> 
+ <p><strong>其次，系统缺少严格的身份认证授权使得攻击者顺藤摸瓜进入内网。</strong></p> 
+</blockquote> 
+<p>安 全防护级别较高的网络，并不会简单地对某个设备进行信任，而是采用“双因素认证”来双重检查访问者的身份，而Hacking Team显然并没有这么做，这使得攻击者在控制了管理员的个人电脑后，无需经过再次认证（比如动态令牌）， 就可以访问Hacking Team的所有资源。<br><br>因为没有严格的网络审计或者异常流量监测，所以400GB数据被拖都未能及时发现。从攻击者入侵内网，到攻击者将所 有的资料全部偷走，需要一个较长的时间 ，在这个时间内，任何异常行为或者异常流量的报警都可以提醒Hacking Team的员工，自己公司的网络正在被入侵。而实际上，却是直到攻击者公布了所有资料，Hacking Team才知道自己被黑。</p> 
+<blockquote> 
+ <p><strong>不使用数据加密技术导致所有敏感数据都是明文存放。</strong></p> 
+</blockquote> 
+<p>为了防止数据泄密，有较高安全级别的组织一般都会采用数据加密技术，对敏感程度较高的数据进行防护，这些数据一旦脱离了公司内网，就无法打开，但是本次泄露的数据均为明文，说明Hacking Team几乎没有采用数据加密手段去保护合同、客户信、设计文档、攻击工具等。<br><br>上述的所有疏忽导致了今天的结局，中国有句俗话：终日打雁，反被雁啄了眼。这句话用来形容Hacking Team再适当不过了。<br><br><strong>这次失窃会产生哪些影响？<br><br></strong>本 次Hacking Team泄漏事件的后果十分严重，过去无论是漏洞还是病毒木马，在互联网上的传播都是小范围的，白帽子黑客固然会严守职业道德，在厂商提供补丁前尽可能不 公布漏洞细节，黑帽子也只是在地下圈子内进行漏洞交易，有点像：人人都曾经听说过黑火药的配方，但要制作出军用炸药还遥遥无期。</p> 
+<p><em><strong>而此次事件一下就把已经工程化的漏洞和后门代码全部公开了，等于数万吨TNT炸药让恐怖分子随意领取。</strong></em></p> 
+<blockquote> 
+ <p>1、首当其冲的是普通用户，本次泄露包括了Flash player、Windows字体、IE、Chrome、Word、PPT、Excel、Android的未公开漏洞，覆盖了大部分的桌面电脑和超过一半的智能手机。&nbsp;</p> 
+ <p>这 些漏洞很可能会被黑色产业链的人利用来进行病毒蠕虫传播或者挂马盗号。上述的漏洞可以用于恶意网站，用户一旦使用IE或者Chrome访问恶意网站，很有 可能被植入木马。而Office Word、PPT、Excel则会被用于邮件钓鱼，用户一旦打开邮件的附件，就有可能被植入木 马。</p> 
+ <p>&nbsp;2、本次泄露的各平台的木马后门程序，会把整个灰色产业链的平均技术水平提高一个档次。</p> 
+ <p>例如全平台的监控能力，以及对微信、whatsapp、skype的监控功能等等。在此次事件之前，灰色产业链的软件工程能力并不高，木马以隐藏为主，但是界面友好程度和易用性都还有很大的差距，但是本次事件后， 任意一个木马编写者都可以轻易地掌握这些技术能力。<br><br>3、掀起一波清查恶意软件后门的行动，相关的信息安全公司和国家政府职能部门会对PC、智能手机进行清查，同时对Hacking Team的服务器进行扫描定位，也会进一步排查各种应用程序市场，智能手机的安全会引起大家的进一步重视。</p> 
+</blockquote> 
+<p><strong>普通用户如何做好防范？</strong></p> 
+<blockquote> 
+ <p>1、跟踪此次事件的发展，各厂商发布补丁后及时升级。在没有安装相应补丁前，暂停使用相关的应用和插件。（例如，暂时删除或者禁用Flash Playe）</p> 
+ <p>&nbsp;2、 无论是手机还是电脑，暂时不要访问不可信的网站（因为本次泄露的0day中有针对浏览器的攻击方法），暂时不要用公开的Wi-Fi，也最好不要暴露在公网 上，将手机连接到电脑要慎重（Hacking Team提供了利用企业证书植入智能手机的木马程序），对第三方发送的邮件附件，要谨慎打开（本次泄露涉及到Office Word、excel、ppt的漏洞利用）。</p> 
+ <p>3、安卓用户可以去下载西雅图0xid小组发布的HT木马查杀工具：点击<a target="_blank" href="https://cnappscan.0xid.com/htrm/HTRemovalTool.apk" rel="nofollow">这里</a></p> 
+</blockquote> 
+<p><br></p> 
+<p>作者：<span style="font-family: 微软雅黑,Microsoft YaHei;">shot gun</span></p> 
+<p><span style="font-family: 微软雅黑,Microsoft YaHei;">稿源：<a href="http://www.leiphone.com/news/201507/llRZEqQ5yDhoS3q6.html" rel="nofollow">雷锋网</a></span><br></p>]]></body>
+      <commentCount>27</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-12 08:37:21</pubDate>
+	  <softwarelink><![CDATA[]]></softwarelink>
+	  <softwarename><![CDATA[]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Hacking Team 武器库 ]]></rtitle>
+			<rurl>http://www.oschina.net/news/64144/hacking-team-arsenal</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[开源中国 iPhone 客户端 3.3 发布，支持 Team]]></rtitle>
+			<rurl>http://www.oschina.net/news/63679/oschina-iphone-app-3-3-with-team-support</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Team@OSC 更新，让代码跟任务自动关联]]></rtitle>
+			<rurl>http://www.oschina.net/news/62943/team-osc-updated-with-code-and-task</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Team 协作开发平台更新，支持任务看板]]></rtitle>
+			<rurl>http://www.oschina.net/news/62320/team-osc-updated-with-kanban-supported</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PESCMS TEAM 1.0 发布，开源任务管理程序]]></rtitle>
+			<rurl>http://www.oschina.net/news/61692/pescms-team-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Team 团队协作开发平台启用 HTTPS 方式访问]]></rtitle>
+			<rurl>http://www.oschina.net/news/61343/team-https</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 — Team@OSC的 MD 编辑器]]></rtitle>
+			<rurl>http://git.oschina.net/benhail/thinker-md</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OSC安卓客户端2.0.5发布，支持Team团队协作]]></rtitle>
+			<rurl>http://www.oschina.net/news/60830/osc-android-app-2-0-5-with-team-support</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Team 文档协作功能重磅推出，你讨厌写文档吗？]]></rtitle>
+			<rurl>http://www.oschina.net/news/60599/team-document</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Team 团队协作平台更新，任务大幅增强！]]></rtitle>
+			<rurl>http://www.oschina.net/news/59282/team-osc-updated</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

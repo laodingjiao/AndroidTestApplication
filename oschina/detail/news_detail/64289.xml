@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64289</id>
+      <title><![CDATA[Xampps 1.9.7 发布，PHP win 环境包]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64289/xampps-1-9-7-released]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>正值 apache 更新了2.4.16后，我们也随之而来.<br><br>1.9.7更新日志:<br>&nbsp; 1: mysql 正式默认为 utf8mb4, 以支持表情符号插入及性能优化.<br>&nbsp; 2: cgi, perl正式可以使用.&nbsp; 后缀名分别为 .phpc&nbsp;&nbsp; .pl<br>&nbsp; 3: 集成vc11, vc14两运库.<br>&nbsp; 4: 各组件版本号继续提升.<br>&nbsp; 5: 集成全网独有的FileZilla 0.9.53中文版. (一直我在汉化)<br>&nbsp; 6: 控制面板做了许多细节, bug修复. <br>&nbsp; 7: 其它细节修复.<br><br>标准版本组件如下:<br>&nbsp;&nbsp; + Apache 2.4.16 (VC14)<br>&nbsp;&nbsp;&nbsp;&nbsp; (IPv6 Crypto apr-1.5.1 apr-util-1.5.4 apr-iconv-1.2.1 openssl-1.0.2d zlib-1.2.8 pcre-8.37 libxml2-2.9.2 lua-5.1.5 expat-2.1.0)<br>&nbsp;&nbsp; + MySQL 5.6.25 (x64 Community Server) User: root, Pass: root<br>&nbsp;&nbsp; + PHP 5.6.11 (VC11 thread safe)<br>&nbsp;&nbsp; + phpMyAdmin 4.4.11<br>&nbsp; + perl 5.22.0.1<br>&nbsp; + OpenSSL 1.0.2d<br>&nbsp; + FileZilla FTP Server 0.9.53<br>&nbsp; + tomcat 8.0.24 (The need to support JDK)<br>&nbsp;&nbsp;&nbsp;&nbsp; downlink: <a target="_blank" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" rel="nofollow">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a><br>&nbsp;&nbsp; + SerAPI 1.0.1 <br></p> 
+<p>下载地址: 约100MB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x86: <a target="_blank" href="http://www.fenanr.com/ajax/jump/link_21.html" rel="nofollow">http://www.fenanr.com/ajax/jump/link_21.html</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x64: <a target="_blank" href="http://www.fenanr.com/ajax/jump/link_22.html" rel="nofollow">http://www.fenanr.com/ajax/jump/link_22.html</a></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/Data/attachments/201507/d6ce0d37cb9c6cf32c0a316cb422c45e.jpg" alt="1.jpg" title="1.jpg"></p>
+<p>xampp 产品 官网首页公告表明目前已经转由他司维护, 更新速度明显放缓. 鉴于每次php, mysql升级, 都要手工调整配置很长时间. 所以决定要做二次开发版本, 此版本非作者:&nbsp;&nbsp;<a href="http://oswaldism.de/" target="_blank" rel="nofollow">Kai 'Oswald' Seidler</a>所创, 仅仅是一位xampp多年使用及爱好者的一次升级加工. 版权所有归原作者.<br><br>分享工作室做xampp定制, 优化版本更新, 解决旧版本在各win平台运行时所产生的问题, 更新所有组件, 自动检测安装vc库等工作, 为后期维护做足准备, 目前64/32位版本已经全部上线发布, 相信此工具在windows下性能更优. 工作室凭借多年php,mysql开发经验, 为用户提供优化版xampps环境包, 用户在使用过程中遇到问题, 可以与我们Q群联系:<br>&nbsp;<br>什么是xampps? 与原xampp有何区别?<br>&nbsp;&nbsp;xampps 拥有中文控制面板, 更兼容的运行模式.<br>&nbsp;&nbsp;xampps 组件无错误,异常日志运行, 最优化运行.<br>&nbsp;&nbsp;xampps 版本更新.<br>&nbsp;&nbsp;xampps 解决旧版的众多问题<br>&nbsp;&nbsp;xampps 兼容win xp, 2003, win7, win8, win8.1</p>]]></body>
+      <commentCount>13</commentCount>
+      <author><![CDATA[Tuesday]]></author>
+      <authorid>998019</authorid>
+      <pubDate>2015-07-16 09:52:37</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/xampps]]></softwarelink>
+	  <softwarename><![CDATA[Xampps]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[CakePHP 2.6.9 发布，PHP 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/64290/cakephp-2-6-9</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[CakePHP 2.7.0 发布，PHP 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/64184/cakephp-2-7-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PhpStorm 9.0 发布， PHP 集成开发环境]]></rtitle>
+			<rurl>http://www.oschina.net/news/64077/phpstorm-9-0-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[CakePHP 2.6.8 发布，PHP 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63797/cakephp-2-6-8</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[CakePHP 3.0.8 发布，PHP 开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63750/cakephp-3-0-8</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Hprose PHP 扩展 1.5.5 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63686/hprose-php-1-5-5</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PHP 7.0.0 Alpha 2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63668/php-7-alpha-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Smarty 3.1.27 发布，PHP 模板引擎]]></rtitle>
+			<rurl>http://www.oschina.net/news/63556/smarty-3-1-27</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[让你的 PHP 7 更快 (GCC PGO)]]></rtitle>
+			<rurl>http://www.oschina.net/news/63532/make-php-7-faster</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Smarty 3.1.25 发布，PHP 模板引擎]]></rtitle>
+			<rurl>http://www.oschina.net/news/63514/smarty-3-1-25</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

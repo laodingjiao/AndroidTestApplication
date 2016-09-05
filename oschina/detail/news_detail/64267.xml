@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64267</id>
+      <title><![CDATA[Docker 1.7.1 正式发布下载]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64267/docker-1-7-1-final]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Docker 1.7.1 正式发布下载，此版本更新内容如下：</p> 
+<h4>运行期</h4> 
+<ul> 
+ <li><p>Fix default user spawning exec process with <code>docker exec</code></p></li> 
+ <li><p>Make <code>--bridge=none</code> not to configure the network bridge</p></li> 
+ <li><p>Publish networking stats properly</p></li> 
+ <li><p>Fix implicit devicemapper selection with static binaries</p></li> 
+ <li><p>Fix socket connections that hung intermittently</p></li> 
+ <li><p>Fix bridge interface creation on CentOS/RHEL 6.6</p></li> 
+ <li><p>Fix local dns lookups added to resolv.conf</p></li> 
+ <li><p>Fix copy command mounting volumes</p></li> 
+ <li><p>Fix read/write privileges in volumes mounted with --volumes-from</p></li> 
+</ul> 
+<h4>远程 API<br></h4> 
+<ul> 
+ <li><p>Fix unmarshalling of Command and Entrypoint</p></li> 
+ <li><p>Set limit for minimum client version supported</p></li> 
+ <li><p>Validate port specification</p></li> 
+ <li><p>Return proper errors when attach/reattach fail</p></li> 
+</ul> 
+<h4>分布式</h4> 
+<ul> 
+ <li><p>Fix pulling private images</p></li> 
+ <li><p>Fix fallback between registry V2 and V1</p></li> 
+</ul> 
+<p>更多改进内容请看<a target="_blank" href="https://github.com/docker/docker/blob/a35c4988e5f67cc4c8454f2e1afdda59e04f9542/CHANGELOG.md" rel="nofollow">发行说明。</a><br></p> 
+<p>下载：<br></p> 
+<ul> 
+ <li><p>Ubuntu/Debian: curl -sSL <a href="https://get.docker.com" target="_blank" rel="nofollow">https://get.docker.com</a> | sh</p></li> 
+ <li><p>Linux 64bit binary: <a href="https://get.docker.com/builds/Linux/x86_64/docker-1.7.1" target="_blank" rel="nofollow">https://get.docker.com/builds/Linux/x86_64/docker-1.7.1</a></p></li> 
+ <li><p>Darwin/OSX 64bit client binary: <a href="https://get.docker.com/builds/Darwin/x86_64/docker-1.7.1" target="_blank" rel="nofollow">https://get.docker.com/builds/Darwin/x86_64/docker-1.7.1</a></p></li> 
+ <li><p>Darwin/OSX 32bit client binary: <a href="https://get.docker.com/builds/Darwin/i386/docker-1.7.1" target="_blank" rel="nofollow">https://get.docker.com/builds/Darwin/i386/docker-1.7.1</a></p></li> 
+ <li><p>Linux 64bit tgz: <a href="https://get.docker.com/builds/Linux/x86_64/docker-1.7.1.tgz" target="_blank" rel="nofollow">https://get.docker.com/builds/Linux/x86_64/docker-1.7.1.tgz</a></p></li> 
+ <li><p>Windows 64bit client binary: <a href="https://get.docker.com/builds/Windows/x86_64/docker-1.7.1.exe" target="_blank" rel="nofollow">https://get.docker.com/builds/Windows/x86_64/docker-1.7.1.exe</a></p></li> 
+ <li><p>Windows 32bit client binary: <a href="https://get.docker.com/builds/Windows/i386/docker-1.7.1.exe" target="_blank" rel="nofollow">https://get.docker.com/builds/Windows/i386/docker-1.7.1.exe</a></p></li> 
+ <li><p>Centos 6/RHEL 6: <a href="https://get.docker.com/rpm/1.7.1/centos-6/RPMS/x86_64/docker-engine-1.7.1-1.el6.x86_64.rpm" target="_blank" rel="nofollow">https://get.docker.com/rpm/1.7.1/centos-6/RPMS/x86_64/docker-engine-1.7.1-1.el6.x86_64.rpm</a></p></li> 
+ <li><p>Centos 7/RHEL 7: <a href="https://get.docker.com/rpm/1.7.1/centos-7/RPMS/x86_64/docker-engine-1.7.1-1.el7.centos.x86_64.rpm" target="_blank" rel="nofollow">https://get.docker.com/rpm/1.7.1/centos-7/RPMS/x86_64/docker-engine-1.7.1-1.el7.centos.x86_64.rpm</a></p></li> 
+ <li><p>Fedora 20:&nbsp;<a href="https://get.docker.com/rpm/1.7.1/fedora-20/RPMS/x86_64/docker-engine-1.7.1-1.fc20.x86_64.rpm" target="_blank" rel="nofollow">https://get.docker.com/rpm/1.7.1/fedora-20/RPMS/x86_64/docker-engine-1.7.1-1.fc20.x86_64.rpm</a></p></li> 
+ <li><p>Fedora 21:&nbsp;<a href="https://get.docker.com/rpm/1.7.1/fedora-21/RPMS/x86_64/docker-engine-1.7.1-1.fc21.x86_64.rpm" target="_blank" rel="nofollow">https://get.docker.com/rpm/1.7.1/fedora-21/RPMS/x86_64/docker-engine-1.7.1-1.fc21.x86_64.rpm</a></p></li> 
+ <li><p>Fedora 22:&nbsp;<a href="https://get.docker.com/rpm/1.7.1/fedora-22/RPMS/x86_64/docker-engine-1.7.1-1.fc22.x86_64.rpm" target="_blank" rel="nofollow">https://get.docker.com/rpm/1.7.1/fedora-22/RPMS/x86_64/docker-engine-1.7.1-1.fc22.x86_64.rpm</a><br></p></li> 
+</ul>]]></body>
+      <commentCount>7</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 15:11:27</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/docker]]></softwarelink>
+	  <softwarename><![CDATA[Docker]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[【每日一博】使用 Docker 组件开发 Django 项目]]></rtitle>
+			<rurl>http://my.oschina.net/oneapmofficial/blog/478840</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OSC 第 83 期高手问答 — Docker 开发实践]]></rtitle>
+			<rurl>http://www.oschina.net/question/865233_243103</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 1.7.1 RC3 发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/64119/docker-1-7-1-rc3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 普及活动，只要动手做我们就给纪念品]]></rtitle>
+			<rurl>http://www.oschina.net/news/64013/git-osc-docker-image-maker</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 1.7.1 RC2 发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/64065/docker-1-7-1-rc2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 逗你玩儿 --- 在线 Dockerfile 征集活动]]></rtitle>
+			<rurl>http://www.oschina.net/news/64013/git-osc-docker-image-maker</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[glot —— 基于 Docker 的代码片段执行平台]]></rtitle>
+			<rurl>http://www.oschina.net/p/glot</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 1.7.1 RC1 发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/63899/docker-1-7-1-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[cSphere 希云 Docker 实训第四讲开始报名]]></rtitle>
+			<rurl>http://www.oschina.net/news/63849/csphere-docker-4th-training</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Eclipse Mars 支持全新的 Docker 工具]]></rtitle>
+			<rurl>http://www.oschina.net/news/63789/eclipse-for-docker-has-arrived</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

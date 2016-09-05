@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479245</id>
+		<title><![CDATA[seci-log 1.09 发布 增加了多个报表和功能点]]></title>
+		<url><![CDATA[http://my.oschina.net/secisland/blog/479245]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="color: rgb(51, 51, 51); font-family: 'Microsoft YaHei', Verdana, sans-serif, 宋体; font-size: 13.63636302948px; line-height: 20.3636360168457px; background-color: rgb(255, 255, 255);">日志分析软件 seci-log 1.09发布，增加了多个报表和功能点。上篇文章</span><a href="http://www.oschina.net/news/64015/seci-log-1-08" target="_self" rel="nofollow">http://www.oschina.net/news/64015/seci-log-1-08</a><span style="color: rgb(51, 51, 51); font-family: 'Microsoft YaHei', Verdana, sans-serif, 宋体; font-size: 13.63636302948px; line-height: 20.3636360168457px; background-color: rgb(255, 255, 255);">，</span><span style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: 'Microsoft YaHei', Verdana, sans-serif, 宋体; font-size: 12.5px;">有兴趣可以了解一下。</span></p> 
+<p><span style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: 'Microsoft YaHei', Verdana, sans-serif, 宋体; font-size: 12.5px;">1、增加用户的时候密码可以自己输入，以前是默认密码，然后可以登录修改。<br></span></p> 
+<p>2、资产管理增加了资产导入功能。</p> 
+<p>3、增加了告警导出功能。</p> 
+<p>4、增加了三方接口配置，可以配置邮件，syslog、snmp trap。这样当产生新的告警的时候就可以向第三方接口发送告警信息。<br></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/114429_U9k3_247205.png"></p>
+<p>5、告警规则增加了编辑功能，增加了告警输出第三方接口的能力。如果是linux并且<span style="line-height: 22.5px;">在资产中配置ip，端口，账号，密码，</span>开通了防火墙可以远程这是封攻击源ip。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/113422_JmRX_247205.png"></p>
+<p>6、增加了审计监控和系统监控两个大模块。</p> 
+<p>审计监控包括整体报告和日志审计两部分。</p> 
+<p>整体监控。包括采集协议分布，日志源排行，攻击告警分布和攻击源排行。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/112457_z2NH_247205.png"></p>
+<p>日志审计主要完成了window和linux常用的审计报告。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/115244_PF3H_247205.png"></p>
+<p>7，增加了系统监控功能，系统监控主要包括系统状态和事件监控。</p> 
+<p>系统状态主要包括系统的cpu，内存，硬盘的使用情况和采集器的采集告警情况。<br></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/115603_j7Wx_247205.png"></p>
+<p>事件监控主要监控时时事件的采集数量。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/170957_L5KY_247205.png"></p>
+<p><br></p>]]></body>
+		<author><![CDATA[赛克蓝德]]></author>
+		<authorid>247205</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 12:02:17</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

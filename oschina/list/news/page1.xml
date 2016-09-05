@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <catalog>1</catalog>
+  <newsCount>0</newsCount>
+  <pagesize>20</pagesize>
+  <newslist>
+						    <news>
+      	  	        <id>64310</id>
+      <title><![CDATA[Piwik 2.14.1 发布，网站访问统计系统]]></title>
+	        <body><![CDATA[Piwik 2.14.1 发布，这个版本着重修复前个版本报告的一些问题，此外还有...]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 07:48:12</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64309</id>
+      <title><![CDATA[Groovy 加入 Apache 基金会发布 2.4.4 版本]]></title>
+	        <body><![CDATA[Groovy 发布了 2.4.4 版本，这是 Groovy 加入 Apache 基金会，处于孵化阶...]]></body>
+      <commentCount>4</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 07:47:48</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64308</id>
+      <title><![CDATA[微软给安全环境恶劣的 XP 用户再补上一刀]]></title>
+	        <body><![CDATA[科技博客ZDNet报道称，微软已不再向Windows XP用户提供杀毒软件签名，W...]]></body>
+      <commentCount>29</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 07:39:01</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64306</id>
+      <title><![CDATA[Tsuru 0.11.3 发布，开源 PaaS 平台]]></title>
+	        <body><![CDATA[开源 PaaS 平台 Tsuru 0.11.3 发布了，该版本主要是修复了部署过程的一些...]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 07:32:54</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64305</id>
+      <title><![CDATA[JBoss Forge 2.17.0.Final (Ring) 发布]]></title>
+	        <body><![CDATA[JBoss Forge 2.17.0.Final (Ring) 发布，值得关注的更新如下： Support ...]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 07:29:33</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64304</id>
+      <title><![CDATA[Teiid 8.11.1 发布，数据虚拟化系统]]></title>
+	        <body><![CDATA[Teiid 8.11.1 发布，这次有5项重要的改进： [TEIID-3502] - Teiid retur...]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 07:25:35</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64303</id>
+      <title><![CDATA[puma 2.12.1 发布，Ruby 的 Web 服务器]]></title>
+	        <body><![CDATA[puma 2.12.1 发布了，与其他Ruby web服务器不同的是，Puma是为速度与并发...]]></body>
+      <commentCount>2</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-17 07:24:43</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64302</id>
+      <title><![CDATA[GCC 5.2 发布，C/C++ 编译器]]></title>
+	        <body><![CDATA[GNU项目和GCC开发人员很高兴地宣布GCC 5.2发布。 The GNU project and ...]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[茶壶]]></author>
+	  <authorid>660460</authorid>
+      <pubDate>2015-07-17 04:53:47</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>660460</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64301</id>
+      <title><![CDATA[SourceForge.net 网站暂时在静态离线模式]]></title>
+	        <body><![CDATA[http://sourceforge.net/ 他们在干什么？登录不了了。登录页面出这样的信...]]></body>
+      <commentCount>6</commentCount>
+      <author><![CDATA[茶壶]]></author>
+	  <authorid>660460</authorid>
+      <pubDate>2015-07-17 04:39:35</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>660460</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+									    <news>
+      	        
+      	  															        
+	        <id>64300</id>
+      <title><![CDATA[【北京】2015 中国系统架构师大会开始报名]]></title>
+	        <body><![CDATA[一年一度的中国系统架构师大会震撼来袭了！SACC2015将于10月22日-24日在...]]></body>
+      <commentCount>6</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-16 18:49:28</pubDate>
+      <url>http://www.oschina.net/question/1032619_242356</url>
+	  <newstype>
+	    <type>2</type>
+	    <attachment>242356</attachment>		<authoruid2>1032619</authoruid2>
+				<eventurl>http://city.oschina.net/beijing/event/242356</eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64299</id>
+      <title><![CDATA[ECharts-Java 类库 2.2.6 版本发布]]></title>
+	        <body><![CDATA[ECharts - Java类库 当前版本2.2.6 本项目是一个供Java开发使用的EChar...]]></body>
+      <commentCount>8</commentCount>
+      <author><![CDATA[Liuzh_533]]></author>
+	  <authorid>560908</authorid>
+      <pubDate>2015-07-16 15:08:57</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>560908</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64297</id>
+      <title><![CDATA[Microsoft Edge 和 Chrome 你选哪个？]]></title>
+	        <body><![CDATA[日前，微软向 Windows Insiders 注册用户推送了 Windows 10 Build 10240...]]></body>
+      <commentCount>119</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-16 14:15:24</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64296</id>
+      <title><![CDATA[Ceph 9.0.2 发布，分布式文件系统]]></title>
+	        <body><![CDATA[Ceph 9.0.2 发布，此版本现已提供下载： http://ceph.com/download/cep...]]></body>
+      <commentCount>12</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-16 13:16:52</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64295</id>
+      <title><![CDATA[Git 2.4.6 发布，版本控制系统]]></title>
+	        <body><![CDATA[Git 2.4.6 发布，更新内容如下：  * "git fetch --depth=&lt;depth&gt;" and...]]></body>
+      <commentCount>5</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-16 13:11:55</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64294</id>
+      <title><![CDATA[Socket.IO 1.3.6 发布，bug 修复版本]]></title>
+	        <body><![CDATA[Socket.IO 1.3.6 发布，此版本修复了 Windows 上 ws 模块的一个构建问题...]]></body>
+      <commentCount>3</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-16 13:08:03</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64292</id>
+      <title><![CDATA[Seafile 4.3.0 发布，开源文件云存储]]></title>
+	        <body><![CDATA[Seafile 4.3.0 发布，此版本主要改进： [seaf-server] 如果没在 config...]]></body>
+      <commentCount>2</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-16 13:04:12</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64291</id>
+      <title><![CDATA[SmartGit 7 preview 12 发布，Git 客户端]]></title>
+	        <body><![CDATA[SmartGit 7 preview 12 发布，此版本更新内容如下： 新特性和改进
+----...]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-16 13:01:12</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64290</id>
+      <title><![CDATA[CakePHP 2.6.9 发布，PHP 开发框架]]></title>
+	        <body><![CDATA[CakePHP 2.6.9 发布，此版本是 2.6 系列最新的维护版本，建议升级到 2....]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-16 12:59:50</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64289</id>
+      <title><![CDATA[Xampps 1.9.7 发布，PHP win 环境包]]></title>
+	        <body><![CDATA[正值 apache 更新了2.4.16后，我们也随之而来. 1.9.7更新日志:   1: m...]]></body>
+      <commentCount>13</commentCount>
+      <author><![CDATA[Tuesday]]></author>
+	  <authorid>998019</authorid>
+      <pubDate>2015-07-16 09:52:37</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>998019</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+											    <news>
+      	  	        <id>64288</id>
+      <title><![CDATA[Git@OSC 项目推荐 —— JS 路由注册/解析器]]></title>
+	        <body><![CDATA[route.js 是 JavaScript 路由注册/解析器，它在不刷新页面的情况下，利用...]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-16 08:14:29</pubDate>
+      <url>http://git.oschina.net/diqye/route.js</url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+		  </newslist>	
+</oschina>

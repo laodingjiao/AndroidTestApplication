@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479238</id>
+		<title><![CDATA[JSP打入jar包]]></title>
+		<url><![CDATA[http://my.oschina.net/zhaoyun1985/blog/479238]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 由于在Servlet3.0中，可以支持将JSP文件打入jar包，只需在src/main/resources中加入META-INF/resources文件夹，然后在其中编写对应的JSP即可访问。如：</p> 
+<p>&nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/113552_HRas_2290151.png"></p>
+<p>该工程为一个maven的jar工程，还有另外一个名为webtest的工程为maven的war工程，这个web工程依赖这个jar工程。启动这个war工程，我们即可以通过<a href="http://localhost:8080/webtest/test.jsp" rel="nofollow">http://localhost:8080/webtest/test.jsp</a>访问jar包中的test.jsp页面。</p> 
+<p>&nbsp;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 如果在一个SpringMVC环境下，该如何调整一下呢。首先需要看一下SpringMVC的配置文件，如：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/114301_M0AQ_2290151.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 需要注意的是前缀的配置：/WEB-INF/jsp/，那在jar包中则需要调整刚才的目录结构则可以访问，如：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/114550_DJhU_2290151.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 如果不对jar中的目录进行调整，则SpringMVC则会去/WEB-INF/jsp目录中寻找对应的jsp。调整目录结构后，test.jsp就能够正常访问了。</p>]]></body>
+		<author><![CDATA[脚下的节奏]]></author>
+		<authorid>2290151</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 11:51:00</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

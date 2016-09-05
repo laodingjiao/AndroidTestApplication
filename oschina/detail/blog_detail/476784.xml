@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>476784</id>
+		<title><![CDATA[Swift调用sha1算法]]></title>
+		<url><![CDATA[http://my.oschina.net/lijialong/blog/476784]]></url>
+		<where><![CDATA[Swift]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> 在Swift中通过调用OC的CommonCrypto库可以很方便的实现String字符串转换为sha1。 </p> 
+<p> 在一个swift项目中，需要使用桥接头文件（Bridging header）的方式来引入一个OC库，才能调用OC中的内容。 </p> 
+<p> 本文也将作为Swift项目中如何调用Objective-C代码的一个介绍。 </p> 
+<h3> 标准实现步骤 </h3> 
+<p> 1、新建一个<strong>Objective-C &nbsp;m</strong>文件 </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09204004_GfFH.png" alt=""> </p>
+<p> 2、点击Next，输入文件名（这个文件后面可以删掉），选择保存位置，默认直接确定即可，保存在当前项目目录，然后Xcode会自动提示我们是否要创建桥接文件： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09204005_xaJ1.png" alt=""> </p>
+<p> 3、yes后，xode自动为我们创建了一个swift和OC桥接的文件：项目名-Bridging-Header.h </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09204005_P9Ay.png" alt=""> </p>
+<p> 在这里，我们可以把test.m文件删除，调用sha1用不到自己在m中实现什么。 </p> 
+<p> 4、在Bridging-Header.h文件中输入： </p> 
+<pre class="brush:cpp;">// Swift中使用sha1算法  引入这个库
+#import &lt;CommonCrypto/CommonCrypto.h&gt;</pre> 就像这样： 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09204005_rRvA.png" alt=""> </p>
+<p> 5、在您的项目中（比如在一个swift文件中）写上一个String类的扩展（extension），代码如下： </p> 
+<pre class="brush:cpp;">extension String {
+    func sha1() -&gt; String {
+        let data = self.dataUsingEncoding(NSUTF8StringEncoding)!
+        var digest = [UInt8](count:Int(CC_SHA1_DIGEST_LENGTH), repeatedValue: 0)
+        CC_SHA1(data.bytes, CC_LONG(data.length), &amp;digest)
+        let hexBytes = map(digest) { String(format: "%02hhx", $0) }
+        return "".join(hexBytes)
+    }
+}</pre> 6、开始使用啦，代码: 
+<pre class="brush:cpp;">var password = txtPasswd.text
+password = password.sha1()</pre> 从一个输入框中获得用户输入的密码，然后直接调用sha1方法，即可得到该密码的sha1值。 
+<p> 非常的方便哦。 </p> 
+<h3> 处女座手动实现步骤 </h3> 
+<p> 1、在标准步骤中，我们是通过新建m文件，然后Xcode自动提示为我们创建一个桥接头文件的，这里我们可以忽略这一步，直接创建一个h文件，手动将这个h文件作为桥接头文件。 </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09204005_xeMK.png" alt=""> </p>
+<p> 2、选择项目根节点，在右边的配置中选择【Build Settings】，然后在下面找到【Swift Compiler】节点，选择【Objective-C Bridging Header】项，双击输入刚才新建的h文件的路径： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/09204005_96tR.png" alt=""> </p>
+<p> 3、现在，和标准步骤中一样，在Header.h文件中引入CommonCrypto库，创建String类的extension，即可开始使用！ </p> 
+<h3> 参考资料 </h3> 
+<p> <a href="http://stackoverflow.com/questions/25761344/how-to-crypt-string-to-sha1-with-swift" target="_blank" rel="nofollow">http://stackoverflow.com/questions/25761344/how-to-crypt-string-to-sha1-with-swift</a> </p> 
+<p> tips： </p> 
+<p> <em>本文由</em><a href="http://devonios.com/wp2osc.html" target="_blank" rel="nofollow"><em>wp2osc</em></a><em>导入，原文链接：<a href="http://devonios.com/swift-sha1.html" target="_blank" rel="nofollow">http://devonios.com/swift-sha1.html</a></em> </p> 
+<p> <em>由于OSChina的OpenAPI在处理content参数时会自动过滤img标签，所以无法显示图片，</em><a href="http://www.oschina.net/question/108780_241820" target="_blank" rel="nofollow"><em>详见</em></a><em>。</em> </p>]]></body>
+		<author><![CDATA[DragonFK]]></author>
+		<authorid>108780</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-09 20:37:47</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479462</id>
+		<title><![CDATA[Crypto++应用：非对称加密RSA]]></title>
+		<url><![CDATA[http://my.oschina.net/xlplbo/blog/479462]]></url>
+		<where><![CDATA[C/C++]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><strong><span style="font-size: 13px;font-family: 微软雅黑, sans-serif">1，非对称加密RSA：</span></strong></p> 
+<p><span style="font-size: 13px;font-family: 微软雅黑, sans-serif">&nbsp;&nbsp;&nbsp;&nbsp;（1）乙方生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。</span></p> 
+<p><span style="font-size: 13px;font-family: 微软雅黑, sans-serif">&nbsp;&nbsp;&nbsp;&nbsp;（2）甲方获取乙方的公钥，然后用它对信息加密。</span></p> 
+<p><span style="font-size: 13px;font-family: 微软雅黑, sans-serif">&nbsp;&nbsp;&nbsp;&nbsp;（3）乙方得到加密后的信息，用私钥解密。</span></p> 
+<p><strong>2，使用CryptoPP实现RSA：</strong><br></p> 
+<p><span style="font-size: 13px;">&nbsp;&nbsp;&nbsp;&nbsp;CryptoPP是一套非常完整的加密解密开源解决方案，如何使用这里就不多说了，请自行Google。</span></p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">#include&nbsp;"..\cryptopp562\randpool.h"
+#include&nbsp;"..\cryptopp562\osrng.h"
+#include&nbsp;"..\cryptopp562\rsa.h"
+
+//自动生成随机数据
+byte&nbsp;seed[1024]&nbsp;=&nbsp;"";
+AutoSeededRandomPool&nbsp;rnd;
+rnd.GenerateBlock(seed,&nbsp;sizeof(seed));
+printf("seed&nbsp;=&nbsp;%s\n",&nbsp;(char&nbsp;*)seed,&nbsp;strlen((char&nbsp;*)seed));
+
+//生成加密的高质量伪随机字节播种池一体化后的熵
+RandomPool&nbsp;randPool;
+randPool.Put(seed,&nbsp;sizeof(seed));
+
+//待加密的字符串
+string&nbsp;message&nbsp;=&nbsp;"http://my.oschina.net/xlplbo/blog";
+printf("message&nbsp;=&nbsp;%s,&nbsp;length&nbsp;=&nbsp;%d\n",&nbsp;message.c_str(),&nbsp;strlen(message.c_str()));
+
+//使用OAEP模式
+RSAES_OAEP_SHA_Decryptor&nbsp;pri(randPool,&nbsp;sizeof(seed));
+RSAES_OAEP_SHA_Encryptor&nbsp;pub(pri);
+printf("max&nbsp;plaintext&nbsp;Length&nbsp;=&nbsp;%d,%d\n",&nbsp;pri.FixedMaxPlaintextLength(),&nbsp;pub.FixedMaxPlaintextLength());
+//待加密文本不能大于最大加密长度
+if&nbsp;(pub.FixedMaxPlaintextLength()&nbsp;&gt;&nbsp;message.length())
+{
+	string&nbsp;chilper;
+	StringSource(message,&nbsp;true,&nbsp;new&nbsp;PK_EncryptorFilter(randPool,&nbsp;pub,&nbsp;new&nbsp;StringSink(chilper)));
+	printf("chilper&nbsp;=&nbsp;%s,&nbsp;length&nbsp;=&nbsp;%d\n",&nbsp;chilper.c_str(),&nbsp;strlen(chilper.c_str()));
+
+	string&nbsp;txt;
+	StringSource(chilper,&nbsp;true,&nbsp;new&nbsp;PK_DecryptorFilter(randPool,&nbsp;pri,&nbsp;new&nbsp;StringSink(txt)));
+	printf("txt&nbsp;=&nbsp;%s,&nbsp;length&nbsp;=&nbsp;%d\n",&nbsp;txt.c_str(),&nbsp;strlen(txt.c_str()));
+}
+
+//使用PKCS1v15模式
+RSAES_PKCS1v15_Decryptor&nbsp;pri1(randPool,&nbsp;sizeof(seed));
+RSAES_PKCS1v15_Encryptor&nbsp;pub1(pri1);
+printf("max&nbsp;plaintext&nbsp;Length&nbsp;=&nbsp;%d,%d\n",&nbsp;pri1.FixedMaxPlaintextLength(),&nbsp;pub1.FixedMaxPlaintextLength());
+//待加密文本不能大于最大加密长度
+if&nbsp;(pub1.FixedMaxPlaintextLength()&nbsp;&gt;&nbsp;message.length())
+{
+	string&nbsp;chilper;
+	StringSource(message,&nbsp;true,&nbsp;new&nbsp;PK_EncryptorFilter(randPool,&nbsp;pub1,new&nbsp;StringSink(chilper)));
+	printf("chilper&nbsp;=&nbsp;%s,&nbsp;length&nbsp;=&nbsp;%d\n",&nbsp;chilper.c_str(),&nbsp;strlen(chilper.c_str()));
+
+	string&nbsp;txt;
+	StringSource(chilper,&nbsp;true,&nbsp;new&nbsp;PK_DecryptorFilter(randPool,&nbsp;pri1,&nbsp;new&nbsp;StringSink(txt)));
+	printf("txt&nbsp;=&nbsp;%s,&nbsp;length&nbsp;=&nbsp;%d\n",&nbsp;txt.c_str(),&nbsp;strlen(txt.c_str()));
+}</pre> 
+<p><span style="font-family: 微软雅黑, 'Microsoft YaHei';">&nbsp; &nbsp;<span style="font-size: 12px;">&nbsp;</span></span><span style="line-height: 22.5px; font-size: 14px;">Cryptopp提供两种RSA的padding模式，分别是OAEP和PK1v15，padding模式跟安全性其实是紧密挂钩的，有兴趣的朋友可以去了解一下。</span><br><span style="font-size: 13px;"></span></p> 
+<p><span style="font-size: 14px;">&nbsp; &nbsp; 值得注意的是seed的大小决定了能够加密的文本长度，可以通过修改seed的大小，运行查看结果。seed越大，安全性越好，消耗的时间也越长，超过2048一般就能明显感觉到时间很长了，一般使用1024已经具有足够的安全性，反之seed太小的话FixedMaxPlaintextLength为0，将不能加密任何文本，测试数据参照下表：<br></span></p> 
+<p><span style="font-size: 14px;"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/185828_FKHN_70773.png"></span></p>
+<p><span style="font-size: 14px;">&nbsp; &nbsp; 当然CryptoPP不只是提供加密解密算法，还提供很多易用的工具，如AutoSeededRandomPool， RandomPool， StringSource，StringSink，SocketSource，SocketSink，FileSource，FileSink等类，RSAES_OAEP_SHA_Decryptor， RSAES_OAEP_SHA_Encryptor等宏定义，具体使用方法请阅读源码。</span><br></p> 
+<p><span style="font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 12px;"></span><br></p> 
+<p><span style="font-size: 13px; font-family: 微软雅黑, 'Microsoft YaHei';">参考链接：</span></p> 
+<p><span style="font-size: 13px; font-family: 微软雅黑, 'Microsoft YaHei';">&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.cryptopp.com/" target="_blank" rel="nofollow">http://www.cryptopp.com/</a></span></p> 
+<p><span style="font-size: 13px;font-family: 微软雅黑, sans-serif">&nbsp; &nbsp;&nbsp;<a href="http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html" target="_blank" rel="nofollow">http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html</a></span></p> 
+<p><span style="font-size: 13px;font-family: 微软雅黑, sans-serif">&nbsp; &nbsp;&nbsp;<a href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html" target="_blank" rel="nofollow">http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html</a></span></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[borey]]></author>
+		<authorid>70773</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 19:00:17</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+		  <tweet>
+    <id>6065625</id>
+	<body><![CDATA[
+		It is me        	]]></body>
+    <author><![CDATA[小小编辑]]></author>
+	<authorid>1428332</authorid>
+    <appclient>1</appclient>
+    <commentCount>5</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/714/1428332_50.jpg?t=1400110163000</portrait>
+    <pubDate>2015-07-17 12:53:37</pubDate>
+	<imgSmall>http://192.168.79.254:8080/oschina/images/uploads/space/2015/0717/125333_FX64_1428332_thumb.jpg</imgSmall>
+	<imgBig>http://192.168.79.254:8080/oschina/images/uploads/space/2015/0717/125333_FX64_1428332.jpg</imgBig>
+    <attach></attach>
+    
+    	<likeCount>3</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[我爱小笼包]]></name>
+				<uid>156070</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/78/156070_50.jpg?t=1372671504000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[贫道法号-乱来]]></name>
+				<uid>614755</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/307/614755_50.png?t=1401239687000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[EvaKing]]></name>
+				<uid>1424343</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/712/1424343_50.jpg?t=1389751972000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>475066</id>
+		<title><![CDATA[利用Karma、Jasmine 做前端单元测试]]></title>
+		<url><![CDATA[http://my.oschina.net/pingjiangyetan/blog/475066]]></url>
+		<where><![CDATA[AngularJS]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h3><span style="font-family: Consolas; orphans: 2; text-align: -webkit-auto; widows: 2; font-size: medium;">&lt;一&gt; 使用技术</span></h3> 
+<ul> 
+ <li><p>karma</p></li> 
+ <li><p>jasmine</p></li> 
+ <li><p>karma-coverage</p></li> 
+</ul> 
+<h3><br></h3> 
+<h3>&lt;二&gt; 安装插件</h3> 
+<h4>1.nodejs</h4> 
+<h4>2.安装karma</h4> 
+<ul> 
+ <li><p>npm install&nbsp;-g&nbsp;karma&nbsp;</p></li> 
+ <li><p>npm install&nbsp;-g&nbsp;karma-cli&nbsp;</p></li> 
+</ul> 
+<h4>3.安装jasmine</h4> 
+<ul> 
+ <li><p>npm install -g jasmine</p></li> 
+</ul> 
+<h4>4.安装karma-coverage</h4> 
+<ul> 
+ <li><p>npm install -g karma-coverage</p></li> 
+</ul> 
+<h3><br></h3> 
+<h3>&lt;三&gt;跑起一个程序</h3> 
+<h4>1.项目的目录结构：</h4> 
+<p>&nbsp; &nbsp; &nbsp;<img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0706/111354_1f9K_583145.png"></p>
+<h4>2.add.js 文件</h4> 
+<pre class="brush:js;toolbar: true; auto-links: false;">function&nbsp;add&nbsp;(a,&nbsp;b)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;a&nbsp;+&nbsp;b;
+}</pre> 
+<h4>3.add-test.js</h4> 
+<pre class="brush:js;toolbar: true; auto-links: false;">describe("my&nbsp;great&nbsp;and&nbsp;huge&nbsp;math&nbsp;lib",&nbsp;function&nbsp;()&nbsp;{
+&nbsp;&nbsp;it("should&nbsp;perfectly&nbsp;complete&nbsp;complex&nbsp;addition",&nbsp;function&nbsp;()&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;result&nbsp;=&nbsp;add(3,&nbsp;5);
+&nbsp;&nbsp;&nbsp;&nbsp;expect(result).toEqual(8);
+&nbsp;&nbsp;});
+});</pre> 
+<h4>4.conf 文件</h4> 
+<p>可以这样，在karma-my-proj 目录下</p> 
+<p><span style="background-color: rgb(255, 250, 165);">karma init pro-conf.js</span></p> 
+<h4>5.启动程序</h4> 
+<p>karma start pro-conf.js</p> 
+<p>根据提示，选择js目录、chrome、jasmine等</p> 
+<h4>6.也可以编辑conf.js 如下：</h4> 
+<p>&lt;1&gt;.files</p> 
+<pre class="brush:js;toolbar: true; auto-links: false;">&nbsp;//&nbsp;list&nbsp;of&nbsp;files&nbsp;/&nbsp;patterns&nbsp;to&nbsp;load&nbsp;in&nbsp;the&nbsp;browser
+&nbsp;&nbsp;&nbsp;&nbsp;files:&nbsp;[
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'js/**/*.js',
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'test/**/*.js'
+&nbsp;&nbsp;&nbsp;&nbsp;],</pre> 
+<p>&lt;2&gt;.coverage</p> 
+<pre class="brush:js;toolbar: true; auto-links: false;">//&nbsp;test&nbsp;results&nbsp;reporter&nbsp;to&nbsp;use
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;possible&nbsp;values:&nbsp;'dots',&nbsp;'progress'
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;available&nbsp;reporters:&nbsp;https://npmjs.org/browse/keyword/karma-reporter
+&nbsp;&nbsp;&nbsp;&nbsp;reporters:&nbsp;['progress','coverage'],
+&nbsp;&nbsp;&nbsp;&nbsp;preprocessors&nbsp;:&nbsp;{'js/**/*.js':&nbsp;'coverage'},
+&nbsp;&nbsp;&nbsp;&nbsp;coverageReporter:&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;:&nbsp;'html',
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dir&nbsp;:&nbsp;'coverage/'
+&nbsp;&nbsp;&nbsp;&nbsp;},</pre> 
+<h3><span style="line-height: 24.0000019073486px; font-size: 12.5px;"><br></span></h3> 
+<h3><span style="line-height: 24.0000019073486px; font-size: 12.5px;">&lt;四&gt; 运行结果：</span><br></h3> 
+<h4>1.终端：</h4> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0706/111524_K6aE_583145.png"></p>
+<h4>2.浏览器</h4> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0706/111541_GsBP_583145.png"></p>
+<h4><span style="line-height: 24.0000019073486px; font-size: 12.5px;">3.覆盖报告：</span></h4> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0706/111622_1btf_583145.png"></p>
+<p><br></p>]]></body>
+		<author><![CDATA[平江夜弹]]></author>
+		<authorid>583145</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-06 11:17:53</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

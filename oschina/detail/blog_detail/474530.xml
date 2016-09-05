@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>474530</id>
+		<title><![CDATA[使用Eclipse-Maven-git做Java开发(3)--Eclipse的安装和配置]]></title>
+		<url><![CDATA[http://my.oschina.net/songxinqiang/blog/474530]]></url>
+		<where><![CDATA[maven-git-eclipse]]></where>
+		<commentCount>14</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本文的内容需要先安装JDK和maven，也就是前面两篇的步骤完成之后再按照本文所述步骤进行才可；</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然说很多人都说使用 IDEA 更巴适，但是用了Eclipse很久了，很多习惯都已经养成了，尝试过使用 IDEA，但是没能适应，相信还是有很多人喜欢使用Eclipse的，那么接下来我就说明一下怎么安装和配置 Eclipse；</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;前面的博客发布了已经很长时间了，本想之前发的，草稿也已经写好了，但是这不是新版本发布了嘛，所以就干脆更新为最新版本的再发布好啦；<br></p> 
+<h1>0、说明</h1> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我平时都是在 Windows 7上面使用STS(Spring Tool Suites，一个针对spring开发的定制eclipse)，所以说本文讲的平台都是基于 Windows 7系统的，eclipse也将先说明官方版本，然后主要以STS为讲解对象，但是他们大体上都是一致的，所以说操作上都是一样的；</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同时，推荐大家使用STS，真的很好用，至于myeclipse，也就推荐大家不要用了吧；</p> 
+<h1>1、准备资源</h1> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先是官网地址：<a target="_self" href="http://www.eclipse.org/downloads/" rel="nofollow">http://www.eclipse.org/downloads/</a><br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提供了很多的打包版本，针对不同的使用环境，整合了不同的开发插件，由于广大的开发人员都是倾向于开发web相关的程序的，所以说建议大家下载Java EE的版本：<a target="_self" href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/marsr" rel="nofollow">http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/marsr</a><br></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/111218_Lkha_932586.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里也给出几个镜像地址：</p> 
+<p><a target="_self" href="http://mirror.hust.edu.cn/eclipse/technology/epp/downloads/release/" rel="nofollow">http://mirror.hust.edu.cn/eclipse/technology/epp/downloads/release/</a><br></p> 
+<p><a target="_self" href="http://mirrors.neusoft.edu.cn/eclipse/technology/epp/downloads/release/" rel="nofollow">http://mirrors.neusoft.edu.cn/eclipse/technology/epp/downloads/release/</a><br></p> 
+<p><a target="_self" href="http://mirror.bit.edu.cn/eclipse/technology/epp/downloads/release/" rel="nofollow">http://mirror.bit.edu.cn/eclipse/technology/epp/downloads/release/</a><br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大家按照需要下载适合的版本就好啦；</p> 
+<p><br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于STS的下载地址，由于STS是由spring官方提供的，所以需要在官方网站下载：<a target="_self" href="http://spring.io/tools/sts/all" rel="nofollow">http://spring.io/tools/sts/all</a><br></p> 
+<p>下载时也需要选择正确的操作系统和架构，</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/111720_MPos_932586.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面给出各种版本的下载链接，直接迅雷吧，不谢：</p> 
+<pre class="brush:html;toolbar: true; auto-links: false;">http://dist.springsource.com/release/STS/3.7.0.RELEASE/dist/e4.5/spring-tool-suite-3.7.0.RELEASE-e4.5-win32-x86_64.zip
+http://dist.springsource.com/release/STS/3.7.0.RELEASE/dist/e4.5/spring-tool-suite-3.7.0.RELEASE-e4.5-macosx-cocoa-x86_64.tar.gz
+http://dist.springsource.com/release/STS/3.7.0.RELEASE/dist/e4.5/spring-tool-suite-3.7.0.RELEASE-e4.5-linux-gtk.tar.gz
+http://dist.springsource.com/release/STS/3.7.0.RELEASE/dist/e4.5/spring-tool-suite-3.7.0.RELEASE-e4.5-linux-gtk-x86_64.tar.gz</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于某些特定需求的，历史版本下载：<a target="_self" href="http://spring.io/tools/sts/legacy" rel="nofollow">http://spring.io/tools/sts/legacy</a>，不过我不太建议使用历史版本；<br></p> 
+<h1>2、安装官方版本Eclipse</h1> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其实Eclipse是不需要“安装”的，只需要将下载得来的文件解压即可，当然，需要找一个固定的目录，同时最好不要有汉字、空格、特殊字符等，否则有可能会出现一些不可理解的问题；</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我下载的是eclipse-jee-mars-R-win32-x86_64.zip来演示的，解压到D盘的根目录下，其实每一个版本的eclipse下载来解压之后文件结构都是一样的——一个叫做“eclipse”的根目录，然后子目录有</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/112057_7s1E_932586.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这个目录中的“eclipse.exe”就是启动文件，可以建立快捷方式到桌面，以后方便启动；</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;启动时，出现eclipse的logo，然后需要等一会儿，然后就会出现选择工作空间的窗口，这个路径需要选择一个固定的路径，将来所有的eclipse工程和配置都是默认保存在这里的</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0615/003236_LMGx_932586.png"><br></p>
+<h1>3、安装STS</h1> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其实STS和官方版本的eclipse是一样的，也是不需要“安装”，只需要解压即可，解压之后目录结构也是一样的，子不过在官方下载的包里面还有一些其他的东西，拿我下载的spring-tool-suite-3.7.0.RELEASE-e4.5-win32-x86_64.zip来说，打开压缩包，里面有一个文件夹，像这样</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/114207_K7Wx_932586.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;再打开这个文件夹，里面有3个文件夹，像这样</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/114255_Dn3i_932586.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们只需要里面的“sts-3.7.0.RELEASE”,如果你下载的是其他的版本，那这个文件夹的名字就不一样了，这个文件夹我也解压到D盘的根目录；<br></p> 
+<h1>4、配置eclipse</h1> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;启动之后默认有一个欢迎界面，关闭它，然后大致情况是这样的</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0615/003511_vBPh_932586.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配置eclipse首先需要进入“首选项”配置，在顶部的菜单栏找到“Window”操作起来是这样的Window-&gt;Preferences</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/114712_Qj5B_932586.png"></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/114739_vqNr_932586.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要配置的项目有：</p> 
+<pre class="brush:html;toolbar: true; auto-links: false;">1、文本显示的字号（默认的字号显示中文太小了，个人认为设置成12号合适）；
+2、打开各种类型文件的默认编辑器（比如打开html，默认是使用带有实时预览功能的编辑器，太慢了不实用）；
+3、工作空间的默认字符编码（默认GBK,需要修改为UTF-8）；
+4、默认的启动项（默认会启动一些不需要的东西，拖慢速度）；
+5、JRE；
+6、代码格式；
+7、maven；
+8、server（Java&nbsp;EE&nbsp;Server环境）；
+9、web文件的字符编码、模板；
+10、其他的各种杂项；</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配置的很多有木有？只不过慢慢来还是可以的，下面就简单的截图几张，仅供大家参考</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/120046_yCbs_932586.png"><br></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/120306_lmAu_932586.png"><br></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/120436_Lj0W_932586.png"><br></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/120653_LhAK_932586.png"></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/121013_Kbfa_932586.png"></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/121127_fWPK_932586.png"><br></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/121225_MOMg_932586.png"><br></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/121338_Wkpu_932586.png"><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;按照以上的配置，大约就好了，具体还有一些东西，就需要在使用中不断根据自己的喜好调整了</p> 
+<p><br></p> 
+<h1>5、安装实用的插件</h1> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eclipse是基于插件的，包括我们平时使用的所有功能其实都是一些插件来完成的，只不过这些插件是发布者一开始就打包好了的，包括我所说 的STS，其实也就是Spring加了一些插件进去的版本，但是要想用得舒服，我们就需要再添加一些插件，下面我就列举一下我认为需要安装的插件，顺便说一下怎么安装插件；</p> 
+<h2>①使用url在线安装</h2> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里演示一个properties editor的插件的安装，这个插件可以自动实现汉语或者其他非英语字符的unicode转换，从而实现properties文件的直接编辑，地址是</p> 
+<pre class="brush:html;toolbar: true; auto-links: false;">http://propedit.sourceforge.jp/eclipse/updates/</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;菜单栏Help-&gt;Install New Software，在弹出框之中：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/123500_WUu7_932586.png"></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/125939_qmU8_932586.png"><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;选择要安装的插件之后，一路next，同意安装许可，重启就行啦</p> 
+<h2>②直接使用安装包安装</h2> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有的插件提供有离线安装包，可以直接离线安装而不用在线安装，这里以一个反编译工具JD为例，他的离线安装包在这个地址有</p> 
+<pre class="brush:html;toolbar: true; auto-links: false;">https://github.com/java-decompiler/jd-eclipse/releases</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们下载名称里面带有“site的”，我下载的是“jd-eclipse-site-1.0.0-RC2.zip”</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用上一步的弹出框中的“Archive...”的按钮找到这个文件，然后后面的步骤就和使用url在线安装是一样的了</p> 
+<h2>③直接将插件文件放置在指定目录</h2> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种方式安装有一些插件是有问题的，所以并不是很推荐，但是有一些很小的插件这样安装却是很有效很方便的，OpenExplorer就是其中一个，这个插件可以打开工作空间内的文件所在的系统位置，使用起来也是很方便的</p> 
+<pre class="brush:html;toolbar: true; auto-links: false;">https://github.com/samsonw/OpenExplorer/releases</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将下载得到的文件放置在eclipse安装目录的“dropins”目录然后重启eclipse就可以了，有些插件下载得到的文件需要先解压才行哦；</p> 
+<h2>④使用eclipse marketplace安装</h2> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在“市场”中提供了大量的插件，官方的非官方的，免费的收费的，自己输入关键搜索即可，进入的方式为Help-&gt;Eclipse Marketplace...</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/130948_FPs5_932586.png"><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搜索到自己需要的插件后点击后面的install，然后按照“下一步”来做就是了</p> 
+<h1>6、配置有逼格的黑色主题</h1> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前eclipse是没有黑色主题的，在4.4中加入了黑色主题，但是还有一些不太完美的地方，在新的4.5里面已经很完美了，用起来自然是相当的不错，重点是有逼格啊，</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;进入“首选项”，然后按照下图的方式设置使用黑色主题</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/131406_baia_932586.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确认之后的效果就是这样的啦</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/131504_ybXu_932586.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是具体的文字配色还是不是很舒服，在eclipse marketplace中有一个插件eclipse color theme提供各种编辑区的配色组合方案，经过使用发现一个名叫Obsidian的方案特别舒服，于是就使用了起来，但是后来发现和黑色主题有一点冲突的意思在里面，表现为：每次重启eclipse之后需要重新选择应用一下那个配色方案。在忍受了一段时间之后，实在是受不了啦，只不过最终还是找到了解决办法---------直接导入配色的选项配置，下面说明一下做法</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该插件提供的各种配色方案在这里</p> 
+<pre class="brush:html;toolbar: true; auto-links: false;">http://eclipsecolorthemes.org/</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;看准喜欢的主题之后进入页面，下载对应的epf文件，如我下载的就是Obsidian的文件</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/132151_S2sp_932586.png"><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;导入的方法是：菜单栏File-&gt;Import...</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/132322_bw9o_932586.png"></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/132404_YqOr_932586.png"><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后找到下载的文件，勾选中import all，</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/132525_MkbY_932586.png"><br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应用之后就会见到效果啦，经过实际测试，重启之后不会再需要重新选择应用配色方案啦，附效果：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/132837_K7ie_932586.png"></p>
+<h1>7、总结</h1> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;详细介绍了eclipse的下载、安装、配置、插件安装等使用eclipse的基础准备工作，虽然还有一些细节的地方没有降到，但是大家在具体使用过程中应该会触类旁通的，大家就在以后的使用中慢慢摸索体会吧；</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在文中也说了，STS是基于eclipse、添加了一些便于spring开发的插件，虽然文中大量截图是使用的官方的eclipse，但是以后的博文的截图、说明都将以STS为基础，但是这中间的差别几乎可以忽略不计，大家也无需太过于关心，这里只是说明一下，免得以后看到程序图标不一样产生疑惑；</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enjoy！<br></p> 
+<p><span style="font-size: 14px;"><strong>下一篇开始将介绍在eclipse中建立工程和编写代码</strong></span><br></p>]]></body>
+		<author><![CDATA[阿信sxq]]></author>
+		<authorid>932586</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-04 13:40:16</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <friends>
+              	    	        <friend>
+	  <name><![CDATA[iLaoda]]></name> 
+	  <userid>1245930</userid>
+	  <portrait><![CDATA[http://192.168.79.254:8080/oschina/images/uploads/user/622/1245930_100.jpg?t=1436671975000]]></portrait>
+      <from><![CDATA[陕西 宝鸡]]></from>
+	  <expertise><![CDATA[<无>]]></expertise>
+	  <gender>1</gender>
+	</friend>
+          <friend>
+	  <name><![CDATA[heima程序员]]></name> 
+	  <userid>2418638</userid>
+	  <portrait><![CDATA[http://192.168.79.254:8080/oschina/images/uploads/user/1209/2418638_100.jpg?t=1437278343000]]></portrait>
+      <from><![CDATA[北京 昌平]]></from>
+	  <expertise><![CDATA[<无>]]></expertise>
+	  <gender>2</gender>
+	</friend>
+    
+  </friends>
+</oschina>

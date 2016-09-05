@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64281</id>
+      <title><![CDATA[OSC iPhone 3.4.1 发布，紧急修复活动签到闪退]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64281/osc-iphone-app-3-4-1]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>值此 7月18日 <a target="_blank" href="http://city.oschina.net/hangzhou/event/240713" rel="nofollow">杭州 OSC 源创会</a>召开之际，突然发现 iPhone 客户端扫描活动签到二维码的时候闪退的问题。没办法我们只要通过 App Store 的紧急更新通道提交了一个修复版本 —— 3.4.1 。</p> 
+<p>如果你本周六即将参加杭州 OSC 源创会，请即刻更新该版本，避免签到的闪退问题。</p> 
+<p>杭州 OSC 源创会活动报名地址：</p> 
+<p><a target="_blank" href="http://city.oschina.net/hangzhou/event/240713" rel="nofollow">http://city.oschina.net/hangzhou/event/240713</a></p> 
+<p>OSC iPhone 客户端的完整源码：</p> 
+<p><a target="_blank" href="http://git.oschina.net/oschina/iphone-app" rel="nofollow">http://git.oschina.net/oschina/iphone-app</a></p>]]></body>
+      <commentCount>5</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 08:06:05</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/oschina-iphone-app]]></softwarelink>
+	  <softwarename><![CDATA[OSCHINA iPhone 客户端]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[OSC 第 83 期高手问答 — Docker 开发实践]]></rtitle>
+			<rurl>http://www.oschina.net/question/865233_243103</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— Android 企业通讯录]]></rtitle>
+			<rurl>https://git.oschina.net/yso/SmartCall</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— web 开发框架 Pond ]]></rtitle>
+			<rurl>http://git.oschina.net/edwinyxc/pond</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC项目推荐 —— 简单的 PaaS 系统 Sdp]]></rtitle>
+			<rurl>https://git.oschina.net/staugur/Sdp</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[开源中国 iPhone 客户端 3.4 发布，支持夜间模式]]></rtitle>
+			<rurl>http://www.oschina.net/news/64041/osc-iphone-app-3-4-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— WordPress 博客导入 OSC]]></rtitle>
+			<rurl>http://git.oschina.net/lijialong1314/WP2OSC</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— Tiny 前端展现框架]]></rtitle>
+			<rurl>https://git.oschina.net/tinyframework/TinyUiEnterprise</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 再次遭受攻击]]></rtitle>
+			<rurl>http://www.oschina.net/news/63796/git-osc-down-again</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 遭受攻击，正在紧急联系机房处理]]></rtitle>
+			<rurl>http://www.oschina.net/news/63768/gitosc-ddos</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OSC 高手问答 — React Native 开发原生 App]]></rtitle>
+			<rurl>http://www.oschina.net/question/865233_241314</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

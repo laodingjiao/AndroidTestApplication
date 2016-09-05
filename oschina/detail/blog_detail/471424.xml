@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>471424</id>
+		<title><![CDATA[Nodejs开源项目里怎么样写测试、CI和代码测试覆盖率]]></title>
+		<url><![CDATA[http://my.oschina.net/nodeonly/blog/471424]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>wx 是一个不错的微信应用框架，接口和网站做的也不错，和wechat-api是类似的项目</p> 
+<p>群里有人问哪个好</p> 
+<p>朴灵说：“不写测试的项目都不是好项目”</p> 
+<p>确实wx目前还没有测试，对于一个开源项目来说，没有测试和代码覆盖率是不完善的，而且从技术选型来说，大多是不敢选的。</p> 
+<p>那么Nodejs开源项目里怎么样写测试、CI和代码测试覆盖率呢？</p> 
+<h2>测试</h2> 
+<p>目前主流的就bdd和tdd，自己查一下差异</p> 
+<p>推荐</p> 
+<ul> 
+ <li>mocha和tape</li> 
+</ul> 
+<p>另外Jasmine也挺有名，angularjs用它，不过挺麻烦的，还有一个选择是qunit，最初是为jquery测试写的，在nodejs里用还是觉得怪怪的。</p> 
+<p>如果想简单可以tap，它和tape很像，下文会有详细说明</p> 
+<h3>mocha</h3> 
+<p>mocha是tj写的</p> 
+<p><a href="https://github.com/mochajs/mocha" rel="nofollow">https://github.com/mochajs/mocha</a></p> 
+<pre><code>var assert = require("assert")
+describe('truth', function(){
+  it('should find the truth', function(){
+    assert.equal(1, 1);
+  })
+})
+</code></pre> 
+<p>断言风格，这里默认是assert，推荐使用chaijs这个模块，它提供3种风格</p> 
+<ul> 
+ <li>Should</li> 
+ <li>Expect</li> 
+ <li>Assert</li> 
+</ul> 
+<p>rspec里推荐用expect，其实看个人习惯</p> 
+<p>比较典型一个mocha例子</p> 
+<pre><code>var assert = require('chai').assert;
+var expect = require('chai').expect;
+require('chai').should();
+
+
+describe('Test', function(){
+    before(function() {
+    // runs before all tests in this block
+
+  })
+  after(function(){
+    // runs after all tests in this block
+  })
+  beforeEach(function(){
+    // runs before each test in this block
+  })
+  afterEach(function(){
+    // runs after each test in this block
+  })
+
+  describe('#test()', function(){
+    it('should return ok when test finished', function(done){
+      assert.equal('sang_test2', 'sang_test2');
+      var foo = 'bar';
+      expect(foo).to.equal('bar');
+      done()
+    })
+  })
+})
+</code></pre> 
+<p>说明</p> 
+<ul> 
+ <li>理解测试生命周期</li> 
+ <li>理解bdd测试写法</li> 
+</ul> 
+<p>单元测试需要的各个模块说明</p> 
+<ul> 
+ <li>mocha（Mocha is a feature-rich JavaScript test framework running on node.js and the browser, making asynchronous testing simple and fun.）</li> 
+ <li>chai（Chai is a BDD / TDD assertion library for node and the browser that can be delightfully paired with any javascript testing framework.）</li> 
+ <li>sinon（Standalone test spies, stubs and mocks for JavaScript.）</li> 
+ <li>zombie (页面事件模拟Zombie.js is a lightweight framework for testing client-side JavaScript code in a simulated environment. No browser required.)</li> 
+ <li>supertest(接口测试 Super-agent driven library for testing node.js HTTP servers using a fluent API)</li> 
+</ul> 
+<p>更多的看 <a href="http://nodeonly.com/2014/11/24/mongoose-test.html" rel="nofollow">http://nodeonly.com/2014/11/24/mongoose-test.html</a></p> 
+<p>如果你想真正的玩敏捷，从用户故事开始，那么下面这2个库非常必要</p> 
+<ul> 
+ <li><a href="http://vowsjs.org/" rel="nofollow">http://vowsjs.org/</a></li> 
+ <li><a href="https://github.com/cucumber/cucumber-js" rel="nofollow">https://github.com/cucumber/cucumber-js</a></li> 
+</ul> 
+<p>啊，黄瓜。。。。</p> 
+<h3>tape：像代码一样跑测试</h3> 
+<p>tape是substack写的测试框架</p> 
+<p><a href="https://github.com/substack/tape" rel="nofollow">https://github.com/substack/tape</a></p> 
+<pre><code>var test = require('tape').test;
+test('equivalence', function(t) {
+    t.equal(1, 1, 'these two numbers are equal');
+    t.end();
+});
+</code></pre> 
+<p>tape是非常简单的测试框架，核心价值观是”Tests are code”，所以你可以像代码一样跑测试，</p> 
+<p>比如</p> 
+<pre><code>node test/test.js
+</code></pre> 
+<p>写个脚本就无比简单了。当然如果你想加’test runner’ 库也有现成的。</p> 
+<h3>The Test Anything Protocol</h3> 
+<p>TAP全称是<a href="https://en.wikipedia.org/wiki/Test_Anything_Protocol" rel="nofollow">Test Anything Protocol</a></p> 
+<p>它是可靠性测试的一种（tried &amp; true）实现</p> 
+<p>从1987就有了，有很多语言都实现了。</p> 
+<p>它说白点就是用贼简单的方式来格式化测试结果，比如</p> 
+<pre><code>TAP version 13
+# equivalence
+ok 1 these two numbers are equal
+
+1..1
+# tests 1
+# pass  1
+
+# ok
+</code></pre> 
+<p>比如node里的实现https://github.com/isaacs/node-tap</p> 
+<pre><code>var tap = require('tap')
+
+// you can test stuff just using the top level object.
+// no suites or subtests required.
+
+tap.equal(1, 1, 'check if numbers still work')
+tap.notEqual(1, 2, '1 should not equal 2')
+
+// also you can group things into sub-tests.
+// Sub-tests will be run in sequential order always,
+// so they're great for async things.
+
+tap.test('first stuff', function (t) {
+  t.ok(true, 'true is ok')
+  t.similar({a: [1,2,3]}, {a: [1,2,3]})
+  // call t.end() when you're done
+  t.end()
+})
+</code></pre> 
+<p>一定要区分tap和tape，不要弄混了</p> 
+<h2>科普一下什么是CI</h2> 
+<p>科普一下，CI = Continuous integration 持续集成</p> 
+<p>Martin Fowler对持续集成是这样定义的:</p> 
+<p>持续集成是一种软件开发实践，即团队开发成员经常集成他们的工作，通常每个成员每天至少集成一次，也就意味着每天可能会发生多次集成。每次集成都通过自动化的构建（包括编译，发布，自动化测试)来验证，从而尽快地发现集成错误。许多团队发现这个过程可以大大减少集成的问题，让团队能够更快的开发内聚的软件。</p> 
+<p>它可以</p> 
+<ul> 
+ <li>减少风险</li> 
+ <li>减少重复过程</li> 
+ <li>任何时间、任何地点生成可部署的软件</li> 
+ <li>增强项目的可见性</li> 
+ <li>建立团队对开发产品的信心</li> 
+</ul> 
+<p>要素</p> 
+<p>1.统一的代码库<br>2.自动构建<br>3.自动测试<br>4.每个人每天都要向代码库主干提交代码<br>5.每次代码递交后都会在持续集成服务器上触发一次构建<br>6.保证快速构建<br>7.模拟生产环境的自动测试<br>8.每个人都可以很容易的获取最新可执行的应用程序<br>9.每个人都清楚正在发生的状况<br>10.自动化的部署</p> 
+<p>也就是说，测试不通过不能部署，只有提交到服务器上，就可以自动跑测试，测试通过后，就可以部署到服务器上了（注意是“staging”, 而非“production”）。</p> 
+<p>一般最常的ci软件是jenkins</p> 
+<p>举个大家熟悉的例子iojs开发中的持续集成就是用的jenkins</p> 
+<p><a href="https://jenkins-iojs.nodesource.com/" rel="nofollow">https://jenkins-iojs.nodesource.com/</a></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFhwCcCO-S3ux_wurD3oICDF3GwfH" alt="4.png"></p>
+<p>jenkins是自建环境下用的比较多，如果是开源项目，推荐travis-ci</p> 
+<p><a href="https://travis-ci.org/" rel="nofollow">https://travis-ci.org/</a></p> 
+<p>对开源项目做持续集成是免费的（非开源的好贵），所以在github集成的基本是最多的。</p> 
+<p>对nodejs支持的也非常好。</p> 
+<p>举2个例子</p> 
+<ul> 
+ <li>express <a href="https://travis-ci.org/strongloop/express" rel="nofollow">https://travis-ci.org/strongloop/express</a></li> 
+ <li>koa <a href="https://travis-ci.org/koajs/koa" rel="nofollow">https://travis-ci.org/koajs/koa</a></li> 
+</ul> 
+<h2>测试报告</h2> 
+<p>近年随着tdd/bdd，开源项目，和敏捷开发的火热，程序员们不再满足说，我贡献了一个开源项目</p> 
+<p>要有高要求，我要加测试</p> 
+<p>要有更高要求，我要把每一个函数都测试到，让别人相信我的代码没有任何问题</p> 
+<p>上一小节讲的ci，实际上解决了反复测试的自动化问题。但是如何看我的程序里的每一个函数都测试了呢？</p> 
+<p>答案是测试覆盖率</p> 
+<p>在nodejs里，推荐<a href="https://github.com/gotwarlost/istanbul" rel="nofollow">istanbul</a></p> 
+<p>Istanbul - 官方介绍 a JS code coverage tool written in JS</p> 
+<p>它可以通过3种途径生成覆盖报告</p> 
+<ul> 
+ <li>cli</li> 
+ <li>代码</li> 
+ <li>gulp插件</li> 
+</ul> 
+<p>安装</p> 
+<pre><code>$ npm install -g istanbul
+</code></pre> 
+<p>执行</p> 
+<pre><code>$ istanbul cover my-test-script.js -- my test args
+</code></pre> 
+<p>它会生成<code>./coverage</code>目录，这里面就是测试报告</p> 
+<p>比如我的项目里</p> 
+<pre><code>./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly
+    #MongooseDao()
+      ✓ should return ok when record create
+      ✓ should return ok when record delete fixture-user
+      ✓ should return ok when record deleteById
+      ✓ should return ok when record removeById
+      ✓ should return ok when record getById
+      ✓ should return ok when record getAll
+      ✓ should return ok when record all
+      ✓ should return ok when record query
+
+
+  8 passing (50ms)
+
+=============================================================================
+Writing coverage object [/Users/sang/workspace/moa/mongoosedao/coverage/coverage.json]
+Writing coverage reports at [/Users/sang/workspace/moa/mongoosedao/coverage]
+=============================================================================
+
+=============================== Coverage summary ===============================
+Statements   : 47.27% ( 26/55 )
+Branches     : 8.33% ( 1/12 )
+Functions    : 60% ( 9/15 )
+Lines        : 47.27% ( 26/55 )
+================================================================================
+</code></pre> 
+<p>默认，它会生成coverage.json和Icov.info，如果你想生成html也可以的。</p> 
+<p>比如说，上面的结果47.27%是我测试覆盖的占比，即55个函数，我的测试里只覆盖了26个。</p> 
+<p>那么我需要有地方能够展示出来啊</p> 
+<h2>实践</h2> 
+<p>我们以<a href="https://github.com/moajs/mongoosedao" rel="nofollow">mongoosedao</a>项目为例，介绍一下如何集成测试，ci和测试覆盖率</p> 
+<p>最终效果如图<br> <img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFvD-MxdYvJYzCxQAGXX-udUb_VKX" alt="5.png"></p>
+<h3>npm run</h3> 
+<p>package.json里定义自定义执行脚本</p> 
+<pre><code>"scripts": {
+  "start": "npm publish .",
+  "test": "./node_modules/.bin/gulp",
+  "mocha": "./node_modules/.bin/mocha -u bdd",
+  "cov":"./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec &amp;&amp; cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js &amp;&amp; rm -rf ./coverage"
+},
+</code></pre> 
+<p>除了start和test外，都是自定义任务，其他都要加run命令</p> 
+<pre><code>npm run mocha
+npm run cov
+</code></pre> 
+<p>更多见<a href="https://cnodejs.org/topic/54646c7f88b869cc33a97924" rel="nofollow">npm-run-test教程</a></p> 
+<h3>gulp watch</h3> 
+<pre><code>var gulp = require('gulp');
+var watch = require('gulp-watch');
+
+var path = 'test/**/*.js';
+
+gulp.task('watch', function() {
+  gulp.watch(['test/**/*.js', 'lib/*.js'], ['mocha']);
+});
+
+var mocha = require('gulp-mocha');
+
+gulp.task('mocha', function () {
+    return gulp.src(path , {read: false})
+        // gulp-mocha needs filepaths so you can't have any plugins before it 
+        .pipe(mocha({reporter: 'spec'}));
+});
+
+
+gulp.task('default',['mocha', 'watch']);
+</code></pre> 
+<p>这样就可以执行gulp的时候，当文件变动，会自动触发mocha测试，简化每次都输入npm test这样的操作。</p> 
+<p>当然你可以玩更多的gulp，如果不熟悉，参考</p> 
+<ul> 
+ <li><a href="https://cnodejs.org/topic/5508f03d3135610a365b013d" rel="nofollow">介绍gulp的一张不错的图</a></li> 
+ <li><a href="https://github.com/streakq/js-tools-best-practice/blob/master/doc/Gulp.md" rel="nofollow">gulp实践</a></li> 
+</ul> 
+<h3>创建<code>.travis.yml</code></h3> 
+<p>项目根目录下，和package.json平级</p> 
+<pre><code>language: node_js
+repo_token: COVERALLS.IO_TOKEN
+services: mongodb
+node_js:
+  - "0.12"
+  - "0.11"
+  - "0.10"
+script: npm run mocha
+after_script:
+  npm run cov
+</code></pre> 
+<p>说明</p> 
+<ul> 
+ <li>如果依赖mongo等数据库，一定要写services</li> 
+ <li>把测试覆盖率放到执行测试之后，避免报402错误</li> 
+</ul> 
+<p>在travis-ci.org上，github授权，添加repo都比较简单</p> 
+<p>添加之后，就可以看到，比如</p> 
+<p><a href="https://travis-ci.org/moajs/mongoosedao" rel="nofollow">https://travis-ci.org/moajs/mongoosedao</a></p> 
+<p>travis-ci实际上根据github的代码变动进行自动持续构建,但是有的时候它不一定更新，或者说，你需要手动选一下：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFpvl9NVDe4SjTUQwy0p8lj6S5zBC" alt="1.png"></p>
+<p>点击<code># 10 passed</code>,这样就可以强制它手动集成了。</p> 
+<p>其他都很简单，注意替换COVERALLS.IO_TOKEN即可。</p> 
+<h3>创建 <code>.coveralls.yml</code></h3> 
+<p><a href="https://coveralls.io/是一个代码测试覆盖率的网站，" rel="nofollow">https://coveralls.io/是一个代码测试覆盖率的网站，</a></p> 
+<p>nodejs下面的代码测试覆盖率，原理是通过<a href="https://github.com/gotwarlost/istanbul" rel="nofollow">istanbul</a>生成测试数据，上传到coveralls网站上，然后以badge的形式展示出来</p> 
+<p>比如</p> 
+<p><a href="https://coveralls.io/r/moajs/mongoosedao" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=https%3A%2F%2Fcoveralls.io%2Frepos%2Fmoajs%2Fmongoosedao%2Fbadge.png" alt="Coverage Status"></a></p>
+<p>具体实践和travis-ci类似，用github账号登陆，然后添加repo，然后在项目根目录下，和package.json平级，增加<code>.coveralls.yml</code></p> 
+<pre><code>service_name: travis-pro
+repo_token: 99UNur6O7ksBqiwgg1NG1sSFhmu78A0t7
+</code></pre> 
+<p>在上，第一次添加repo，显示的是“SET UP COVERALLS”，里面有token，需要放到<code>.coveralls.yml</code>里，</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFiVMpMwSpnKU9ogQ5gYNW9wKI1Xw" alt="2.png"></p>
+<p>如果成功提交了，就可以看到数据了</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFmiaA3qsh6ThyvIS2mFUL2d17rzY" alt="3.png"></p>
+<h3>在readme.md里增加badge</h3> 
+<pre><code>[![Build Status](https://travis-ci.org/moajs/mongoosedao.png?branch=master)](https://travis-ci.org/moajs/mongoosedao)
+[![Coverage Status](https://coveralls.io/repos/moajs/mongoosedao/badge.png)](https://coveralls.io/r/moajs/mongoosedao)
+</code></pre> 
+<p>它就会显示如下</p> 
+<p><a href="https://travis-ci.org/moajs/mongoosedao" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=https%3A%2F%2Ftravis-ci.org%2Fmoajs%2Fmongoosedao.png%3Fbranch%3Dmaster" alt="Build Status"></a><br><a href="https://coveralls.io/r/moajs/mongoosedao" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=https%3A%2F%2Fcoveralls.io%2Frepos%2Fmoajs%2Fmongoosedao%2Fbadge.png" alt="Coverage Status"></a></p>
+<h2>另外一种用Makefile的玩法实践</h2> 
+<p>举例：https://github.com/node-webot/wechat-api/blob/master/Makefile</p> 
+<pre><code>TESTS = test/*.js
+REPORTER = spec
+TIMEOUT = 20000
+ISTANBUL = ./node_modules/.bin/istanbul
+MOCHA = ./node_modules/mocha/bin/_mocha
+COVERALLS = ./node_modules/coveralls/bin/coveralls.js
+
+test:
+    @NODE_ENV=test $(MOCHA) -R $(REPORTER) -t $(TIMEOUT) \
+       $(MOCHA_OPTS) \
+       $(TESTS)
+
+test-cov:
+    @$(ISTANBUL) cover --report html $(MOCHA) -- -t $(TIMEOUT) -R spec $(TESTS)
+
+test-coveralls:
+    @$(ISTANBUL) cover --report lcovonly $(MOCHA) -- -t $(TIMEOUT) -R spec $(TESTS)
+    @echo TRAVIS_JOB_ID $(TRAVIS_JOB_ID)
+    @cat ./coverage/lcov.info | $(COVERALLS) &amp;&amp; rm -rf ./coverage
+
+test-all: test test-coveralls
+
+.PHONY: test
+</code></pre> 
+<p>我个人更喜欢npm+gulp的写法，总是有一种make是c里古老的东东。。。</p> 
+<h2>总结</h2> 
+<p>本文讲了</p> 
+<ul> 
+ <li>nodejs里常用框架</li> 
+ <li>mocha</li> 
+ <li>tape</li> 
+ <li>tap</li> 
+ <li>前沿技术：cucumber和vowsjs</li> 
+ <li>科普一下CI</li> 
+ <li>测试报告</li> 
+ <li>istanbul</li> 
+ <li>实践</li> 
+ <li>gulp + npm run</li> 
+ <li>mocha</li> 
+ <li>travis-ci</li> 
+ <li>coveralls</li> 
+ <li>介绍了基于makefile的另一种玩法</li> 
+</ul> 
+<p>全文完</p> 
+<p>欢迎关注我的公众号【node全栈】</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFtALxsauUkYDGdzcuA5y6BaIdUMC" alt="node全栈.png"></p>]]></body>
+		<author><![CDATA[i5ting]]></author>
+		<authorid>2269918</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-27 09:15:08</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

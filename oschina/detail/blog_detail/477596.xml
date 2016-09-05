@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>477596</id>
+		<title><![CDATA[Learn Gradle - CH 2  基本的构建脚本介绍]]></title>
+		<url><![CDATA[http://my.oschina.net/hassan/blog/477596]]></url>
+		<where><![CDATA[Gradle]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h3><span style="font-size: 16px;"><strong>1、项目和任务</strong></span></h3> 
+<p><span style="font-size: 14px;">Gradle 构建脚本包括两个最基本的概念，就是项目（projects）和任务（tasks）。</span></p> 
+<p><span style="font-size: 14px;">项目是指我们的构建产物（比如jar包）或实施产物（比如web application等）。<strong><span style="font-size: 14px; line-height: 22.5px;">Gradle构建脚本包含一个或多个项目</span></strong>。</span></p> 
+<p><span style="font-size: 14px;">任务是指不可分的最小工作单元，执行构建工作（比如编译一些类文件、创建jar文件、生成javadoc以及发布架构文档到仓库等）。<strong><span style="font-size: 14px; font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 25.2000007629395px; background-color: rgb(255, 255, 255);">一个项目包含一个或多个任务</span></strong><span style="font-size: 14px; font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 25.2000007629395px; background-color: rgb(255, 255, 255);">。</span></span></p> 
+<h3><span style="font-size: 16px;"><strong><span style="font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 25.2000007629395px; background-color: rgb(255, 255, 255);">2、Hello World！！</span></strong></span></h3> 
+<p><span style="font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 25.2000007629395px; background-color: rgb(255, 255, 255);">下面我们学习一个简单的hello world例子来简单认识一下Gradle构建脚本。</span></p> 
+<p><span style="font-size: 14px;">新建文件：build.gradle&nbsp;</span></p> 
+<p><span style="font-size: 14px;">添加内容：</span></p> 
+<pre class="brush:groovy;toolbar: true; auto-links: false;">task&nbsp;hello&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;doLast&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;'Hello&nbsp;world!'
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}</pre> 
+<p><span style="font-size: 14px;">使用命令行进入<span style="font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 25.2000007629395px; background-color: rgb(255, 255, 255);">build.gradle所在目录，执行：<span style="line-height: 22.5px;">gradle hello ，输出：</span></span></span></p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">:hello
+Hello&nbsp;world!
+
+BUILD&nbsp;SUCCESSFUL</pre> 
+<p><span style="line-height: 22.5px;">在这个例子中<span style="font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 25.2000007629395px; background-color: rgb(255, 255, 255);">build.gradle 文件就是一个构建脚本（严格的说，这是一个构建配置脚本），这个脚本定义了一个项目以及项目包含的任务。</span></span></p> 
+<p><span style="font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22.5px; background-color: rgb(255, 255, 255);"></span></p> 
+<p>Gradle是领域驱动设计的构建工具，在它的实现当中，Project接口对应上面的project概念，Task接口对应上面的task概念，实际上除此之外还有一个重要的领域对象，即Action，对应的是task里面具体的某一个操作。一个project由多个task组成，一个task也是由多个action组成。</p> 
+<p>当执行gradle hello的时候，Gradle就会去调用这个hello task来执行给定操作(Action)。这个操作其实就是一个用Groovy代码写的闭包，代码中的task是Project类里的一个方法，通过调用这里的task方法创建了一个Task对象，并在对象的doLast方法中传入 println 'Hello world!' 这个闭包。这个闭包就是一个Action。</p> 
+<p>Task是Gradle里定义的一个接口，表示上述概念中的task。它定义了一系列的诸如doLast, doFirst等抽象方法，具体可以看gradle api里org.gradle.api.Task的文档。</p> 
+<p><span style="font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22.5px; background-color: rgb(255, 255, 255);"></span></p> 
+<h3><span style="font-size: 16px;"><strong><span style="line-height: 25.2000007629395px; font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">3、使用<span style="font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 25.2000007629395px; background-color: rgb(255, 255, 255);">快捷键定义</span>任务</span></strong></span></h3> 
+<p><span style="font-size: 14px; line-height: 25.2000007629395px; font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">doLast还有另外一种简单的写法：</span><br></p> 
+<pre class="brush:groovy;toolbar: true; auto-links: false;">task&nbsp;hello&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;'Hello&nbsp;world!'
+}</pre> 
+<p><span style="font-size: 14px;">执行<span style="font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">gradle hello 命令，输出结果与之前的相同。也就是我们把像doLast这样的代码，直接简化为&lt;&lt;这个符号了。这其实是Gradle利用了Groovy的操作符重载的特性，把左位移操作符实现为将action加到task的最后，相当于调用doLast方法。看Gradle的api文档里对doLast()和leftShift()这两个方法的介绍，可知它们的作用是一样的，所以在这里，&lt;&lt;左移操作符即doLast的简写方式。</span></span></p> 
+<h3><span style="font-size: 16px;"><strong><span style="font-family: 'Microsoft YaHei', 宋体, 'Myriad Pro', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">4、脚本即代码</span></strong></span></h3> 
+<p><span style="font-size: 14px;">在Gradle的构建脚本中，可以使用Groovy代码以实现更强大的功能。<br></span></p> 
+<p><span style="font-size: 14px;">例1：</span><br></p> 
+<pre class="brush:groovy;toolbar: true; auto-links: false;">task&nbsp;upper&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;someString&nbsp;=&nbsp;'mY_nAmE'
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;"Original:&nbsp;"&nbsp;+&nbsp;someString&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;"Upper&nbsp;case:&nbsp;"&nbsp;+&nbsp;someString.toUpperCase()
+}</pre> 
+<p><span style="font-size: 14px;">执行gradle upper，输出：</span></p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">:upper
+Original:&nbsp;mY_nAmE
+Upper&nbsp;case:&nbsp;MY_NAME
+
+BUILD&nbsp;SUCCESSFUL</pre> 
+<p><span style="font-size: 14px;">例2：</span><br></p> 
+<pre class="brush:groovy;toolbar: true; auto-links: false;">task&nbsp;count&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;4.times&nbsp;{&nbsp;print&nbsp;"$it&nbsp;"&nbsp;}
+}</pre> 
+<p><span style="font-size: 14px;">执行gradle count，输出：</span></p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">:count
+0&nbsp;1&nbsp;2&nbsp;3
+BUILD&nbsp;SUCCESSFUL</pre> 
+<h3><span style="font-size: 16px;"><strong>5、任务依赖</strong></span><br></h3> 
+<p><span style="font-size: 14px;">1、在脚本中定义任务依赖：</span><br></p> 
+<pre class="brush:groovy;toolbar: true; auto-links: false;">task&nbsp;hello&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;'Hello&nbsp;world!'
+}
+task&nbsp;intro(dependsOn:&nbsp;hello)&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;"I'm&nbsp;Gradle"
+}</pre> 
+<p><span style="line-height: 22.5px; font-size: 14px;">执行gradle intro，输出：</span></p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">:hello
+Hello&nbsp;world!
+:intro
+I'm&nbsp;Gradle
+
+BUILD&nbsp;SUCCESSFUL</pre> 
+<p><span style="line-height: 22.5px;"></span><span style="font-size: 14px;">2、任务可以依赖尚未出现的任务：</span><br></p> 
+<pre class="brush:groovy;toolbar: true; auto-links: false;">task&nbsp;taskX(dependsOn:&nbsp;'taskY')&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;'taskX'
+}
+task&nbsp;taskY&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;'taskY'
+}</pre> 
+<p><span style="font-size: 14px;">本例中任务taskX依赖taskY，但是taskY在taskX之后才定义。执行gradle taskX，输出：</span></p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">:taskY
+taskY
+:taskX
+taskX
+
+BUILD&nbsp;SUCCESSFUL</pre> 
+<h3><span style="font-size: 16px;"><strong>6、动态任务</strong></span></h3> 
+<p><span style="font-size: 14px;">我们可以使用Groovy的语法<span style="line-height: 22.5px;">动态</span>创建任务，例如：</span><br></p> 
+<pre class="brush:groovy;toolbar: true; auto-links: false;">4.times&nbsp;{&nbsp;counter&nbsp;-&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;"task$counter"&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;"I'm&nbsp;task&nbsp;number&nbsp;$counter"
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}</pre> 
+<p><span style="font-size: 14px;">执行gradle -q task1，输出：</span></p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">:task1
+I'm&nbsp;task&nbsp;number&nbsp;1
+
+BUILD&nbsp;SUCCESSFUL</pre> 
+<h3><span style="font-size: 16px;"><strong>7、操纵任务</strong></span><br></h3> 
+<p><span style="font-size: 14px;">已经创建的任务可以通过api（例1用到的api是dependsOn ）进行访问。</span></p> 
+<p><span style="font-size: 14px;">例1：给一个任务添加依赖</span></p> 
+<pre class="brush:groovy;toolbar: true; auto-links: false;">4.times&nbsp;{&nbsp;counter&nbsp;-&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;"task$counter"&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;"I'm&nbsp;task&nbsp;number&nbsp;$counter"
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}
+task0.dependsOn&nbsp;task2,&nbsp;task3</pre> 
+<p><span style="font-size: 14px;">执行gradle task0 ，输出</span></p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">:task2
+I'm&nbsp;task&nbsp;number&nbsp;2
+:task3
+I'm&nbsp;task&nbsp;number&nbsp;3
+:task0
+I'm&nbsp;task&nbsp;number&nbsp;0
+
+BUILD&nbsp;SUCCESSFUL</pre> 
+<p><span style="font-size: 14px;">例2：给一个任务添加行为</span><br></p> 
+<pre class="brush:groovy;toolbar: true; auto-links: false;">task&nbsp;hello&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;'Hello&nbsp;Earth'
+}
+hello.doFirst&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;'Hello&nbsp;Venus'
+}
+hello.doLast&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;'Hello&nbsp;Mars'
+}
+hello&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;'Hello&nbsp;Jupiter'
+}</pre> 
+<p><span style="font-size: 14px;">执行gradle hello，输出：</span></p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">:hello
+Hello&nbsp;Venus
+Hello&nbsp;Earth
+Hello&nbsp;Mars
+Hello&nbsp;Jupiter
+
+BUILD&nbsp;SUCCESSFUL</pre> 
+<p><span style="font-size: 14px;">任务先执行了doFirst，再按顺序执行了doLast（"&lt;&lt;"可以理解为doLast的别名，所以相同的api方法将按照配置文件顺序执行）</span><br></p> 
+<h3><span style="font-size: 16px;"><strong>8、自定义属性</strong></span><br></h3> 
+<pre class="brush:groovy;toolbar: true; auto-links: false;">task&nbsp;myTask&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;ext.myProperty&nbsp;=&nbsp;"myValue"
+}
+
+task&nbsp;printTaskProperties&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;myTask.myProperty
+}</pre> 
+<p><span style="font-size: 14px;">执行gradle printTaskProperties，输出：</span></p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">:printTaskProperties
+myValue
+
+BUILD&nbsp;SUCCESSFUL</pre> 
+<h3><strong><span style="font-size: 16px;">9、默认任务</span></strong><br></h3> 
+<p><span style="font-size: 14px;">gradle允许在构建过程中配置一个或多个任务作为默认任务来执行，例如：</span></p> 
+<pre class="brush:groovy;toolbar: true; auto-links: false;">defaultTasks&nbsp;'clean',&nbsp;'run'
+
+task&nbsp;clean&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;'Default&nbsp;Cleaning!'
+}
+
+task&nbsp;run&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;'Default&nbsp;Running!'
+}
+
+task&nbsp;other&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;"I'm&nbsp;not&nbsp;a&nbsp;default&nbsp;task!"
+}</pre> 
+<p><span style="font-size: 14px;">执行 gradle ，输出：</span></p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">:clean
+Default&nbsp;Cleaning!
+:run
+Default&nbsp;Running!
+
+BUILD&nbsp;SUCCESSFUL</pre> 
+<h3><strong><span style="font-size: 16px;">10、DAG（Directed acyclic graph，有向非循环图）配置</span></strong></h3> 
+<p><span style="font-size: 14px;">Gradle构建的生命周期包含初始化阶段、配置阶段和执行阶段。Gradle使用DAG来记录任务执行的顺序。配置阶段完成后，Gradle就明确了所有需要被执行是任务，这些任务将被存储到<span style="font-family: Consolas, 'Courier New', Courier, mono, serif; line-height: 18px; background-color: rgb(255, 255, 255);">taskGraph</span>。Gradle提供了一个<span style="font-family: 微软雅黑, 'Microsoft YaHei';">钩子来使用这个（<span style="line-height: 18px; background-color: rgb(255, 255, 255);">taskGraph</span>）信息。下面这个例子我们将判断<span style="line-height: 18px; background-color: rgb(255, 255, 255);">taskGraph是否包含release任务来确定项目发布的版本号。</span></span></span></p> 
+<pre class="brush:groovy;toolbar: true; auto-links: false;">task&nbsp;distribution&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;"We&nbsp;build&nbsp;the&nbsp;zip&nbsp;with&nbsp;version=$version"}
+
+task&nbsp;release(dependsOn:&nbsp;'distribution')&nbsp;&lt;&lt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;println&nbsp;'We&nbsp;release&nbsp;now'}
+
+gradle.taskGraph.whenReady&nbsp;{taskGraph&nbsp;-&gt;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(taskGraph.hasTask(release))&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;version&nbsp;=&nbsp;'1.0'
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;version&nbsp;=&nbsp;'1.0-SNAPSHOT'
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}</pre> 
+<p><span style="font-family: Consolas, 'Courier New', Courier, mono, serif; font-size: 12px; line-height: 18px; background-color: rgb(255, 255, 255);"></span>执行 gradle&nbsp;distribution ，输出：</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">:distribution
+We&nbsp;build&nbsp;the&nbsp;zip&nbsp;with&nbsp;version=1.0-SNAPSHOT
+
+BUILD&nbsp;SUCCESSFUL</pre> 
+<p>执行gradle&nbsp;release ，输出：</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">:distribution
+We&nbsp;build&nbsp;the&nbsp;zip&nbsp;with&nbsp;version=1.0
+:release
+We&nbsp;release&nbsp;now
+
+BUILD&nbsp;SUCCESSFUL</pre> 
+<p><br></p>]]></body>
+		<author><![CDATA[Hassan]]></author>
+		<authorid>869170</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-12 18:50:18</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

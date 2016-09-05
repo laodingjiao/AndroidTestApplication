@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>473027</id>
+		<title><![CDATA[jenkins简单入门使用（WEB）]]></title>
+		<url><![CDATA[http://my.oschina.net/xinson/blog/473027]]></url>
+		<where><![CDATA[Server]]></where>
+		<commentCount>19</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h3>一 安装</h3> 
+<p>首先保证系统中已经安装了jdk，最好是jdk1.5以上。</p> 
+<p><a href="http://jenkins-ci.org/" rel="nofollow">http://jenkins-ci.org/</a>&nbsp; 下载本机<span style="line-height: 22.5px;">环境</span>相对应包安装。</p> 
+<p><span style="font-family: verdana, 'ms song', 宋体, Arial, 微软雅黑, Helvetica, sans-serif; font-size: 12px; line-height: 21.6000003814697px; background-color: rgb(255, 255, 255);"><span style="font-family: verdana, 'ms song', 宋体, Arial, 微软雅黑, Helvetica, sans-serif; font-size: 12px; line-height: 21.6000003814697px; background-color: rgb(255, 255, 255);">在浏览器中输入&nbsp;</span><a href="http://localhost:8080/" rel="nofollow">http://localhost:8080</a><span style="line-height: 22.5px; font-family: verdana, 'ms song', 宋体, Arial, 微软雅黑, Helvetica, sans-serif;"><span style="font-size: 12px; line-height: 21.6000003814697px; background-color: rgb(255, 255, 255);">&nbsp;访问。</span></span></span></p> 
+<p><span style="font-family: verdana, 'ms song', 宋体, Arial, 微软雅黑, Helvetica, sans-serif; font-size: 12px; line-height: 21.6000003814697px; background-color: rgb(255, 255, 255);"><span style="line-height: 22.5px; font-family: verdana, 'ms song', 宋体, Arial, 微软雅黑, Helvetica, sans-serif;"><span style="font-size: 12px; line-height: 21.6000003814697px; background-color: rgb(255, 255, 255);"><br></span></span></span></p> 
+<p>我本机是安装在虚拟机CentOS上面。<br></p> 
+<p>安装JAVA<br></p> 
+<pre class="brush:php;toolbar: true; auto-links: false;">sudo&nbsp;wget&nbsp;-O&nbsp;/etc/yum.repos.d/jenkins.repo&nbsp;http://pkg.jenkins-ci.org/redhat/jenkins.repo
+sudo&nbsp;rpm&nbsp;--import&nbsp;https://jenkins-ci.org/redhat/jenkins-ci.org.key
+sudo&nbsp;yum&nbsp;install&nbsp;jenkins</pre> 
+<p>安装GIT</p> 
+<pre class="brush:php;toolbar: true; auto-links: false;">yum&nbsp;update
+yum&nbsp;-y&nbsp;install&nbsp;zlib-devel&nbsp;openssl-devel&nbsp;perl&nbsp;cpio&nbsp;expat-devel&nbsp;gettext-devel&nbsp;
+yum&nbsp;install&nbsp;curl-devel
+yum&nbsp;install&nbsp;autoconf&nbsp;
+
+wget&nbsp;http://git-core.googlecode.com/files/git-1.8.3.2.tar.gz
+tar&nbsp;xzvf&nbsp;git-1.8.3.2.tar.gz&nbsp;
+cd&nbsp;git-1.8.3.2&nbsp;
+autoconf&nbsp;
+./configure&nbsp;--with-curl=/opt/git&nbsp;
+make&nbsp;
+make&nbsp;install</pre> 
+<p>修改etc/passwd文件,让jenkins用户有ssh操作权限。<br></p> 
+<pre class="brush:php;toolbar: true; auto-links: false;">jenkins:x:496:496:Jenkins&nbsp;Continuous&nbsp;Integration&nbsp;Server:/var/lib/jenkins:/bin/bash</pre> 
+<p>使用jenkins用户</p> 
+<pre class="brush:php;toolbar: true; auto-links: false;">su&nbsp;jenkins</pre> 
+<p>然后 生成ssh-key (是在jenkens这个用户的根目录)</p> 
+<pre class="brush:php;toolbar: true; auto-links: false;">ssh&nbsp;-keygen&nbsp;-t&nbsp;rsa&nbsp;-C&nbsp;"youremail@example.com"</pre> 
+<p><br></p> 
+<p>在浏览器中输入<a href="http://192.168.0.120:8000" rel="nofollow">http://你的IP:8080</a> </p> 
+<p><br></p> 
+<h3>二 使用</h3> 
+<p>系统管理--管理插件--可选插件 &nbsp; 搜索git</p> 
+<p>安装Git plugin和GitHub plugin插件</p> 
+<p>进入"系统管理-&gt;系统设置"设置Jenkins的相关参数。<span style="line-height: 22.5px;">（这里只用设置GIT）</span></p> 
+<p>设置GIT<br></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0701/151855_z2Fg_1412997.png"></p>
+<p><br></p> 
+<p>配置ssh key</p> 
+<p>Credentials--Global credentials (unrestricted)--Add Credentials （让Jenkins自动找key）</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0701/152032_3aqG_1412997.png"></p>
+<p><br></p> 
+<p>新建项目<br></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0519/165933_46E4_1412997.png"></p>
+<p><br></p> 
+<p>配置项目 &nbsp;<span style="line-height: 22.5px;">Repository URL输入Repository的Git地址（代码地址，<span style="line-height: 22.5px;">Credentials 选择上文加jenkins。</span></span></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0701/152155_SryG_1412997.png"></p>
+<p><span style="line-height: 22.5px;"><br></span></p> 
+<p><span style="line-height: 22.5px;">填写shell命令</span></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0701/174509_gp7D_1412997.png"></p>
+<pre class="brush:php;toolbar: true; auto-links: false;">ls&nbsp;-la&nbsp;//列出文件
+rsync&nbsp;-auv&nbsp;--delete&nbsp;--exclude=/.git&nbsp;--exclude-from=./deployignore&nbsp;
+//rsync同步&nbsp;&nbsp;删除&nbsp;过滤/.git&nbsp;&nbsp;&nbsp;设置过滤文件&nbsp;./deployignore&nbsp;
+./&nbsp;root@192.168.97.243:/root/www/
+//&nbsp;用ssh登陆&nbsp;目标服务器
+ssh&nbsp;root@192.168.97.243&nbsp;ls&nbsp;-la&nbsp;/root/www/
+//列出文件</pre> 
+<p>设置下更新目标的的服务器（也就是192.168.97.243），使他支持ssh<br></p> 
+<pre class="brush:php;toolbar: true; auto-links: false;">vim&nbsp;/etc/ssh/sshd_config</pre> 
+<pre class="brush:php;toolbar: true; auto-links: false;">RSAAuthentication&nbsp;yes
+PubkeyAuthentication&nbsp;yes
+AuthorizedKeysFile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.ssh/authorized_keys</pre> 
+<p>安装rsync</p> 
+<pre class="brush:php;toolbar: true; auto-links: false;">yum&nbsp;-y&nbsp;install&nbsp;rsync</pre> 
+<p>新建ssh目录<br></p> 
+<pre class="brush:php;toolbar: true; auto-links: false;">mkdir&nbsp;.ssh</pre> 
+<pre class="brush:php;toolbar: true; auto-links: false;">chmod&nbsp;755&nbsp;.ssh/</pre> 
+<p>然后在.ssh目录下创建authorized_keys 文件</p> 
+<pre class="brush:php;toolbar: true; auto-links: false;">touch&nbsp;authorized_keys</pre> 
+<pre class="brush:php;toolbar: true; auto-links: false;">chmod&nbsp;600&nbsp;authorized_keys</pre> 
+<p>把jenkins的key保存在这个文件。</p> 
+<p>点击构建，显示为蓝色就表示成功，红色为错误。<br></p>]]></body>
+		<author><![CDATA[xinson]]></author>
+		<authorid>1412997</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-01 17:48:14</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

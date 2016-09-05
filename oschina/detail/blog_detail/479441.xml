@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479441</id>
+		<title><![CDATA[HDFS目录（文件 ）权限管理]]></title>
+		<url><![CDATA[http://my.oschina.net/drl/blog/479441]]></url>
+		<where><![CDATA[技术分享]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h2>用户身份</h2> 
+<p>在1.0.4这个版本的Hadoop中，客户端用户身份是通过宿主操作系统给出。对类Unix系统来说，</p> 
+<ul> 
+ <li><p>用户名等于<span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 14px;">`whoami`</span>；</p></li> 
+ <li><p>组列表等于<span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 14px;">`bash -c groups`</span>。</p></li> 
+</ul> 
+<p>将来会增加其他的方式来确定用户身份（比如Kerberos、LDAP等）。期待用上文中提到的第一种方式来防止一个用户假冒另一个用户是不现实的。这种用户身份识别机制结合权限模型允许一个协作团体以一种有组织的形式共享文件系统中的资源。</p> 
+<p><span style="color: rgb(255, 0, 0); font-size: 16px;">不管怎样，用户身份机制对HDFS本身来说只是外部特性。HDFS并不提供创建用户身份、创建组或处理用户凭证等功能。</span></p> 
+<p>HDFS本身是没有用户和用户组的概念的，如果想要将HDFS上的某个文件或者目录权限更改为某个特定的用户和用户组，只需要在登陆HDFS集群的宿主操作系统上，用特定的用户登陆然后创建即可，默认创建的目录或者文件属于该用户和supergroup用户组。</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;如果想更改目录或者文件所属的用户组，如果用默认的用户来修改所属用户组，会提示</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">chgrp:&nbsp;changing&nbsp;owership&nbsp;of&nbsp;'***':&nbsp;User&nbsp;does&nbsp;not&nbsp;belong&nbsp;to&nbsp;***&nbsp;的错误</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;可以用hdfs用户来修改，具体的操作命令</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">sudo&nbsp;-u&nbsp;hdfs&nbsp;hdfs&nbsp;dfs&nbsp;-chgrp&nbsp;-R&nbsp;[GROOP]&nbsp;Path</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;或者</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">sudo&nbsp;su&nbsp;hdfs&nbsp;&nbsp;
+
+hdfs&nbsp;dfs&nbsp;-chgrp&nbsp;-R&nbsp;[GROOP]&nbsp;Path</pre> 
+<p></p>]]></body>
+		<author><![CDATA[General_du]]></author>
+		<authorid>995723</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 18:01:54</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

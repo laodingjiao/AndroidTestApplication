@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64303</id>
+      <title><![CDATA[puma 2.12.1 发布，Ruby 的 Web 服务器]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64303/puma-2-12-1]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>puma 2.12.1 发布了，与其他Ruby web服务器不同的是，Puma是为速度与并发而生的。Puma是一个为Ruby web程序提供高速处理以及HTTP 1.1并发的服务器小型库。它被设计只用来运行Rack程序</p> 
+<p>速度对比：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2012/0330/140201_Gewy_89964.png" alt=""></p>
+<p>该版本主要改进内容包括：</p> 
+<p>* 2 bug fixes:<br>&nbsp; * Use a constant format. Fixes #737<br>&nbsp; * Use strerror for Windows sake. Fixes #733<br><br>* 1 doc change:<br>&nbsp; * typo fix: occured -&gt; occurred<br><br>* 1 PR merged:<br>&nbsp; * Merge pull request #736 from paulanunda/paulanunda/typo-fix</p>]]></body>
+      <commentCount>2</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 07:24:43</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/puma]]></softwarelink>
+	  <softwarename><![CDATA[puma]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Octopress 3.0.11 发布，Ruby 博客网站]]></rtitle>
+			<rurl>http://www.oschina.net/news/64293/octopress-3-0-11</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[JRuby 9.0.0.0.rc2 发布，Java 版 Ruby 解释器]]></rtitle>
+			<rurl>http://www.oschina.net/news/64117/jruby-9-0-rc2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[JRuby 1.7.21 发布，Java 版的 Ruby 解释器]]></rtitle>
+			<rurl>http://www.oschina.net/news/64026/jruby-1-7-21</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Rugged 0.23.0b4 发布，Git 的 Ruby 开发包]]></rtitle>
+			<rurl>http://www.oschina.net/news/63772/rugged-0-23-0b4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ruby 2.2 的增量垃圾收集机制 ]]></rtitle>
+			<rurl>http://www.oschina.net/translate/incremental-gc-in-ruby-2-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Rugged 0.23.0b3 发布，Git 的 Ruby 开发包]]></rtitle>
+			<rurl>http://www.oschina.net/news/63715/rugged-0-23-0b3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RubyMine 7.1.3 发布， Ruby开发工具]]></rtitle>
+			<rurl>http://www.oschina.net/news/63642/rubymine-7-1-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Lotus v0.4.0 发布，全堆栈Ruby框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63615/lotus-0-4-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[TorqueBox 4 Beta1 发布，Ruby 应用平台]]></rtitle>
+			<rurl>http://www.oschina.net/news/63255/torquebox-4-beta-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[神啊，苹果手表可以运行 ruby 脚本了]]></rtitle>
+			<rurl>http://www.oschina.net/news/62923/run-ruby-on-apple-watch</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

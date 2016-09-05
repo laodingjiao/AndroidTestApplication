@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479405</id>
+		<title><![CDATA[思达BI软件StyleIntelligence实例教程—股票分析（2）]]></title>
+		<url><![CDATA[http://my.oschina.net/tianzhen/blog/479405]]></url>
+		<where><![CDATA[报表工具-报表制作打印]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><br></p> 
+<p>教程视频：<a target="_blank" href="http://v.youku.com/v_show/id_XMTI4Mzk0MjEzMg==.html" rel="nofollow">http://v.youku.com/v_show/id_XMTI4Mzk0MjEzMg==.html</a><br></p> 
+<p>本文将在<a href="http://www.inetsoft.com.cn/products/StyleIntelligence/" rel="nofollow">思达商业智能平台Style Intelligence</a>对15年6月29日至15年7月8日股市情况进行分析。</p> 
+<p>新建工作表，导入数据，如图：</p> 
+<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171837_BE2g.jpg" alt="思达BI工具Style">
+<p>一、跌停/停牌股票数对比柱状图</p> 
+<p>拖拽图表控件到编辑区，绑定数据。图标样式选择柱状图，切换到单图模式</p> 
+<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171837_rwuV.jpg" alt="思达BI工具Style">
+<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171837_c0r1.jpg" alt="思达BI工具Style">
+<p>二、振幅折线图</p> 
+<p>继续拖拽图表到编辑区，绑定数据。图表样式选择折线图</p> 
+<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171837_lahQ.jpg" alt="思达BI工具Style">
+<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171837_HnAc.jpg" alt="思达BI工具Style">
+<p>最后将两张图表组合起来，如图</p> 
+<img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16171837_VuoN.jpg" alt="思达BI工具Style">
+<p><br></p>]]></body>
+		<author><![CDATA[敏捷商业智能]]></author>
+		<authorid>88726</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 17:18:36</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

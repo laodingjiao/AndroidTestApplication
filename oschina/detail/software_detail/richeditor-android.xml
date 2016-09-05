@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+    <software>
+		                                	        	                        	                	        		        			        		        	                	                        			        		        		        								<id>35669</id>
+        <title><![CDATA[RichEditor for Android]]></title>
+		<url><![CDATA[http://www.oschina.net/p/richeditor-android]]></url>
+        <extensionTitle><![CDATA[]]></extensionTitle>
+        <authorid>0</authorid>
+				        <recommended>4</recommended>
+        <license><![CDATA[Apache]]></license>
+        <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>RichEditor for Android 是 Android 平台下一个所见即所得的文本编辑器控件。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201504/03081146_nvM6.gif" alt="Demo"></p>
+<p>可以从 <a target="_blank" href="https://play.google.com/store/apps/details?id=jp.wasabeef.sample" rel="nofollow">Google Play</a> 下载演示程序。</p> 
+<p>使用示例：</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">RichEditor&nbsp;editor&nbsp;=&nbsp;(RichEditor)&nbsp;findViewById(R.id.editor);
+editor.&nbsp;setOnTextChangeListener(new&nbsp;RichEditor.OnTextChangeListener()&nbsp;{
+&nbsp;&nbsp;@Override
+&nbsp;&nbsp;public&nbsp;void&nbsp;onTextChange(String&nbsp;text)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Do&nbsp;omething
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log.d("RichEditor",&nbsp;"Preview&nbsp;"&nbsp;+&nbsp;text);
+&nbsp;&nbsp;}
+});</pre>]]></body>
+        <homepage><![CDATA[http://www.oschina.net/action/project/go?id=35669&p=home]]></homepage>
+        <document><![CDATA[http://www.oschina.net/action/project/go?id=35669&p=doc]]></document>
+        <download><![CDATA[http://www.oschina.net/action/project/go?id=35669&p=download]]></download>
+        <logo><![CDATA[http://www.oschina.net/img/logo/default.gif?t=1399607809000]]></logo>
+        <language><![CDATA[Java]]></language>
+        <os><![CDATA[Android]]></os>
+		<recordtime><![CDATA[2015年04月03日]]></recordtime>
+	    <favorite>0</favorite>
+        <tweetCount>7</tweetCount>
+		    </software>
+</oschina>

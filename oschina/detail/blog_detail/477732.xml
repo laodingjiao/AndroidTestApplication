@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>477732</id>
+		<title><![CDATA[HBase RowKey设计的那些事]]></title>
+		<url><![CDATA[http://my.oschina.net/lanzp/blog/477732]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>8</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>在说<span>rowkey</span>设计之前，先回答一下大家配置<span>HBase</span>时可能有的疑问，关于<span>HBase</span>是否需要单独的<span>ZooKeeper</span>托管？嗯，如果只是部署<span>HBase</span>，我建议不要用单独的<span>ZooKeeper</span>进行托管，用<span>HBase</span>自带的<span>ZooKeeper</span>就可以，假如要部署其他应用，比如<span>Spark</span>等可以单独部署一个<span>ZooKeeper</span>集群。好，废话不多说了，下面说说<span>RowKey</span>设计的事。 </p> 
+<h2> 先谈<span>HBase</span>底层架构 </h2> 
+<p> <span>&nbsp;&nbsp;&nbsp; </span>对于新手来说，<span>RowKey</span>的设计是比较陌生的一件事，看上去很简单的东西，其实非常复杂，<span>RowKey</span>的设计基本上可以划分成两大影响，分别是分析维度、查询性能。为什么要这样分呢？我们再回头看看<span>HBase</span>系统架构图： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0713/100618_jUOc_580695.jpg" alt=""> </p>
+<p> <span></span> </p> 
+<p> 这种设计看上去并没有什么问题，但是这种设计隐藏了非常多陷阱，假如<span>CompanyCode</span>字段非常固定，而<span>TimeStamp</span>变化比较大的话，会造成单个<span>Region</span>连续地存储这些数据，数据量非常大的时候，这个<span>Region</span>会集中了这些数据，当有应用需要访问这些数据时，造成了<span>RPC timeout</span>，甚至应用程序直接报错，无法执行。 </p> 
+<h2> 合理的<span>RowKey</span>设计方法 </h2> 
+<p> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>基于上面的原因，我们需要考虑单点集中以及数据查询两方面的因素，因此，在<span>RowKey</span>上我们要针对这两个问题进行方案设计。 </p> 
+<p> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>首先是单点集中问题，我们出现这样单点集中的原因大概有以下几种： </p> 
+<p> l&nbsp; <span>RowKey</span>前面的字符过于固定 </p> 
+<p> l&nbsp; 集群结点数量过少 </p> 
+<p> 集群结点数量是由我们自身硬件资源限制的，这个我们不考虑在内，我们主要考虑<span>RowKey</span>设计。既然是因为前面字符过于集中，那么我们可以通过在<span>RowKey</span>前面添加随机的一个字符串，下面是引自《<span>HBase Essential</span>》里面的一个随机字符计算方法： </p> 
+<p> <b>int saltNumber = new Long(new Long(timestamp).hashCode()) %&lt;number of region servers&gt;</b> </p> 
+<p> 用这种方法，我们在插入数据的时候可以人为地随机把一断时间内的数据打散，分布到各个<span>RegionServer</span>下的<span>Region</span>中，充分利用分布式的优势，这样做不紧可以加快数据的读写访问，也解决了数据集中的问题。 </p> 
+<h2> 改良后的<span>RowKey</span>设计方案 </h2> 
+<p> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>通过上面的技术研讨，可以制定出以下的<span>RowKey</span>设计方案了： </p> 
+<p> <b>随机字符<span>(2</span></b><b>位<span>) + </span></b><b>时间位（<span>14</span></b><b>位）<span>+&nbsp; CompanyCode</span></b><b>（<span>4</span></b><b>位）<span></span></b> </p> 
+<p> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>我在实际测试过程中，前后两种方案对比，前者的<span>MR</span>程序跑了<span>1</span>个小时，后者只花了<span>5</span>分钟。 </p> 
+<h2> 合理地编写查询代码 </h2> 
+<p> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>我们完成数据存储之后，假如要取出某部分数值，需要设置<span>Scan</span>查询，以下是我在实战中用到的部分代码，仅供参考： </p> 
+<p> </p> 
+<pre class="brush:java; toolbar: true; auto-links: false;">public class HBaseTableDriver extends Configured implements Tool {
+
+ 
+
+    public int run(String[] arg0) throws Exception {
+
+       if(arg0.length &lt; 4 || arg0.length &gt; 5)
+
+           throw new IllegalArgumentException("The input argument need:start &amp;&amp; stop &amp;&amp; farmid &amp;&amp; turbineNum &amp;&amp; calid");
+
+       if(arg0[0].length() != 8 || arg0[1].length() != 8)
+
+           throw new IllegalArgumentException("The date format should be yyyyMMdd");
+
+      
+
+       Configuration conf = HBaseConfiguration.create();
+
+       conf.set("hbase.zookeeper.quorum", ConstantValues.QUOREM);
+
+       conf.set("hbase.zookeeper.property.clientPort", ConstantValues.CLIENT_PORT);
+
+      
+
+       //extract table &amp;&amp; tagid &amp;&amp; start time &amp;&amp; end time
+
+       conf.set("start", arg0[0]);
+
+       conf.set("stop", arg0[1]);
+
+        conf.set("farmid", arg0[2]);
+
+       conf.set("turbineNum", arg0[3]);
+
+       conf.set("calid", arg0[4]);
+
+       String startRow = "0" + arg0[0] + " 000000" + arg0[2] + "001";
+
+       String stopRow = "2" + arg0[1] + " 235959" + arg0[2] + RowKeyGenerator.addZero(Integer.parseInt(arg0[3]));
+
+      
+
+       String targetKpiTableName = "kpi2";
+
+      
+
+       Job job = Job.getInstance(conf, "KPIExtractor");
+
+        job.setJarByClass(KPIExtractor.class);
+
+        job.setNumReduceTasks(6);
+
+        Scan scan = new Scan();
+
+        scan.addColumn("f".getBytes(), "v".getBytes());
+
+        String regEx = "^\\d{1}(?:" + arg0[0].substring(0, 4) + "|" + arg0[1].substring(0, 4) + ")\\d{17}";
+
+        switch(arg0[4]){
+
+        case "1":
+
+               regEx = regEx + "(?:823|834)$";
+
+               startRow = startRow + "823";
+
+               stopRow = stopRow + "834";
+
+            break;
+
+        case "2":
+
+            regEx = regEx + "211$";
+
+            startRow = startRow + "211";
+
+           stopRow = stopRow + "211";
+
+            break;
+
+        case "3":
+
+            regEx = regEx + "544$";
+
+            startRow = startRow + "544";
+
+           stopRow = stopRow + "544";
+
+            break;
+
+        case "4":
+
+            regEx = regEx + "208$";
+
+            startRow = startRow + "208";
+
+           stopRow = stopRow + "208";
+
+            break;
+
+        case "5":
+
+            regEx = regEx + "(?:739|823)$";
+
+            startRow = startRow + "739";
+
+           stopRow = stopRow + "823";
+
+            break;
+
+        case "6":
+
+            regEx = regEx + "(?:211|823)$";
+
+            startRow = startRow + "211";
+
+           stopRow = stopRow + "823";
+
+            break;
+
+        case "7":
+
+            regEx = regEx + "708$";
+
+            startRow = startRow + "708";
+
+           stopRow = stopRow + "708";
+
+            break;
+
+        case "8":
+
+            regEx = regEx + "822$";
+
+            startRow = startRow + "822";
+
+           stopRow = stopRow + "822";
+
+            break;
+
+        case "9":
+
+            regEx = regEx + "211$";
+
+            startRow = startRow + "211";
+
+           stopRow = stopRow + "211";
+
+            break;
+
+        default:
+
+            throw new IllegalArgumentException("UnKnown Argument calid:"+arg0[4]+",it should be between 1~9");
+
+        }
+
+        scan.setStartRow(startRow.getBytes());
+
+        scan.setStopRow(stopRow.getBytes());
+
+        scan.setFilter(new RowFilter(CompareOp.EQUAL, new RegexStringComparator(regEx)));
+
+        TableMapReduceUtil.initTableMapperJob("hellowrold", scan , KPIMapper.class, ImmutableBytesWritable.class, ImmutableBytesWritable.class, job);
+
+        TableMapReduceUtil.initTableReducerJob(targetKpiTableName, KPIReducer.class, job);
+
+        job.waitForCompletion(true);
+
+       return 0;
+
+    }
+
+   
+
+}</pre> 
+<p> <br> </p> 
+<p> <br> </p> 
+<p></p> 
+<p> 注意点： </p> 
+<p> l&nbsp; 这里主要用到了RowFilter对RowKey进行过滤，并且我在查阅相关资料的时候，别人建议不要在大数据量下使用ColumnFilter，性能非常低。 </p> 
+<p> l&nbsp; 可以通过Configuration为Map/Reduce传输参数值。 </p>]]></body>
+		<author><![CDATA[loki_lan]]></author>
+		<authorid>580695</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-13 10:07:42</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

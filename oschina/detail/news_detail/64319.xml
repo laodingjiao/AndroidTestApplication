@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64319</id>
+      <title><![CDATA[针对 HTTPS 的理论攻击正变得实用]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64319/https-practice]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>计算机科学家<a target="_blank" href="http://arstechnica.com/security/2015/07/once-theoretical-crypto-attack-against-https-now-verges-on-practicality/" rel="nofollow"><span style="text-decoration:underline;">警告</span></a>，利用弱点破解加密Web连接的技术正日益变得实用。而针对<a target="_blank" href="http://en.wikipedia.org/wiki/RC4" rel="nofollow"><span style="text-decoration:underline;"> RC4</span></a> 加密算法的攻击也可用于破解使用<a target="_blank" href="http://en.wikipedia.org/wiki/Temporal_Key_Integrity_Protocol" rel="nofollow"><span style="text-decoration:underline;">WPA-TKIP</span></a> 协议保护的无线网络。研究人员早就知道，RC4中的统计偏差让攻击者可能预测出加密算法编码信息使用的部分伪随机比特。2013年，科学家设计出利用弱点的 攻击方法，但需要2000小时才能正确猜测出认证cookie包含的字符。现在，在改进技术之后研究人员将破解所需的时间降低到75小时，正确率达到 94%。而对 WPA-TKIP网络的类似攻击只需要一个小时。研究人员建议停止使用RC4加密算法。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>]]></body>
+      <commentCount>7</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 08:11:05</pubDate>
+	  <softwarelink><![CDATA[]]></softwarelink>
+	  <softwarename><![CDATA[]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Let&apos;s Encrypt 发布时间表，让网站都能用 HTTPS]]></rtitle>
+			<rurl>http://www.oschina.net/news/63463/lets-encrypt-launch-schedule</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[维基百科将默认开启 HTTPS 以强化安全]]></rtitle>
+			<rurl>http://www.oschina.net/news/63324/securing-wikimedia-sites-with-https</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[美国政府所有网站开始使用 HTTPS 加密]]></rtitle>
+			<rurl>http://www.oschina.net/news/63232/us-gov-ask-https</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[理解 HTTPS 协议]]></rtitle>
+			<rurl>http://www.oschina.net/translate/understanding-https-protocol</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 升级 HTTPS 证书，使用 SHA256 签名]]></rtitle>
+			<rurl>http://www.oschina.net/news/61973/git-osc-upgrade-https-certificate</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Google Chrome 对 HTTPS 的双重标准？]]></rtitle>
+			<rurl>http://www.oschina.net/news/61751/google-com-is-still-sha-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[HTTPS 漏洞导致 1500 项 iOS 应用存在安全隐患]]></rtitle>
+			<rurl>http://www.oschina.net/news/61744/https-affect-ios-apps</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OSChina 技术周刊第29期 —— HTTP比HTTPS好？]]></rtitle>
+			<rurl>http://www.oschina.net/question/2012764_231744</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Team 团队协作开发平台启用 HTTPS 方式访问]]></rtitle>
+			<rurl>http://www.oschina.net/news/61343/team-https</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[为什么 HTTP 有时候比 HTTPS 好？]]></rtitle>
+			<rurl>http://www.oschina.net/translate/why-http-is-sometimes-better-than-https</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>472783</id>
+		<title><![CDATA[Ceph在高IO下的死锁故障]]></title>
+		<url><![CDATA[http://my.oschina.net/brinlike/blog/472783]]></url>
+		<where><![CDATA[技术讨论]]></where>
+		<commentCount>31</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="font-size: 16px;">在一台高性能PC服务器上，使用ceph做虚拟机镜像的存储。在做压力测试的情况下，出现了该服务器所有虚拟机不能访问的故障。</span></p> 
+<p><span style="font-size: 16px;">引发原因：</span></p> 
+<p><span style="font-size: 16px;">1.在虚拟机当中安装了一个网站服务，网站服务中使用了redis作为缓存服务器。在压力比较大的情况下（8000千次访问每秒），发生了宿主机所有的虚拟机全部不能访问的情况</span></p> 
+<p><span style="font-size: 16px;">2.发生故障时，部分虚拟机不能ping到，部分虚拟机是能ping到，但是不能ssh登陆</span></p> 
+<p><br></p> 
+<p><span style="font-size: 16px;">开始以为是网桥故障，KVM的virtio的网卡故障非常著名，在使用网桥的情况下，会出现内存溢出。导致网桥失效。 Xen给的解决方案是关闭网桥的tso 支持。</span></p> 
+<p><span style="font-size: 16px;">（运行命令ethtool --offload &lt;network device&gt;&nbsp; tso off ）<br></span></p> 
+<p><span style="font-size: 16px;">但是重启网络服务后，该故障没有消失。</span></p> 
+<p><span style="font-size: 16px;">因此排除网桥故障。</span></p> 
+<p><br></p> 
+<p><span style="font-size: 16px;">多次重现故障之后，有一个虚拟机的ssh没有断掉，所以还能执行cd命令，但是ls命令无法执行，报告input/output error,此错误为文件系统故障的表现。</span></p> 
+<p><span style="font-size: 16px;">所以开始怀疑文件系统出现问题 。</span></p> 
+<p><span style="font-size: 16px;">此文件系统为ceph，查看ceph日志，发现在发生故障的同时，ceph报大量一下的故障日志：</span></p> 
+<p><span style="font-size: 16px;">2015-06-30 16:36:28.493424 osd.0 172.23123123:6800/96711 9195 : cluster [WRN] 6 slow requests, 6 included below;<br>oldest blocked for &gt; 30.934796 secs</span></p> 
+<p><span style="font-size: 16px;">还有</span></p> 
+<p><span style="font-size: 16px;">2015-06-26 18:46:45.192215 osd.2 172.132131231:6800/68644 5936 : cluster [WRN] slow request 240.415451 seconds old<br>, received at 2015-06-26 18:42:44.776646: osd_op(13213213500 [<br>stat,set-alloc-hint object_size 4194304 write_size 4194304,write 2269184~524288] 0.5652b278 ack+ondisk+write+kno<br>wn_if_redirected e48545) currently waiting for rw locks</span></p> 
+<p><span style="font-size: 16px;">明显出现了死锁。</span></p> 
+<p><span style="font-size: 16px;">查看磁盘IO记录，发现redis服务器，在故障发生时又大量的磁盘写入操作，发现在高操作频率的情况下，会比较频繁的触发rbd的持久化，因此引起了大量磁盘io，这些磁盘IO导致了其他磁盘操作得不到足够的写入时间，引起了ceph对osd的死锁。</span></p> 
+<p><span style="font-size: 16px;">解决方案是关闭了redis的rbd持久化，该问题不再出现。</span></p> 
+<p><span style="font-size: 16px;">长久的解决办法是不让redis持久化直接往ceph上的分区上写入。还有就是不要再ceph上的虚拟机镜像进行高IO的写入或者读取（好不靠谱。。。）</span></p> 
+<p><span style="font-size: 16px;">经验总结：</span></p> 
+<p><span style="font-size: 16px;">1.Ceph在高IO下存在死锁的风险，Ceph没有提供解锁机制，官方的解决方案是不要在ceph上放虚拟机镜像。。。无语。。</span></p> 
+<p><span style="font-size: 16px;">（链接地址：<span style="color: rgb(0, 0, 170); font-family: 幼圆, Verdana, sans-serif, 宋体; font-size: 12px; background-color: rgb(255, 255, 255);">http://ceph.com/docs/master/rados/troubleshooting/troubleshooting-osd/</span>）</span></p> 
+<p><span style="font-size: 16px;">2.在系统设计的时候，应该将存储网络和业务网络隔离和分开。一个系统服务，应该分为，外网，业务网，存储网，心跳网，管理网，五种网络组建形式。</span></p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[Brin想写程序]]></author>
+		<authorid>1378360</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-01 10:16:01</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

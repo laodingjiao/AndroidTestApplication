@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64311</id>
+      <title><![CDATA[XWiki 7.2 Milestone 1 发布，Java 的 Wiki 系统]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64311/xwiki-7-2-m1]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>XWiki 7.2 Milestone 1 发布，这次主要更新是 XWiki's UI 对 Nested Documents 的支持，同时还有一系列平台方面和默认扩展的更新。</p> 
+<p>详细内容请查看：<a target="_blank" href="http://www.xwiki.org/xwiki/bin/view/ReleaseNotes/ReleaseNotesXWiki72M1" rel="nofollow">发行日志</a>。<br></p> 
+<p><br></p> 
+<p>XWiki是一个由Java编写的基于LGPL协议发布的开源wiki和应用平台。它的开发平台特性允许创建协作式Web应用，同时也提供了构建于平台之上的打包应用（第二代wiki）。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2013/1207/071224_i7jU_12.png" alt=""></p>]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 07:55:09</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/xwiki]]></softwarelink>
+	  <softwarename><![CDATA[XWiki]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[XWiki 7.1.1 发布，Java Wiki 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63454/xwiki-7-1-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[XWiki 7.1发布，Java Wiki 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63388/xwiki-7-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[XWiki 7.1 Candidate 1 发布，Java  Wiki 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63102/xwiki-7-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[禅道 7.2.stable 版本发布，优化细节增强自定义]]></rtitle>
+			<rurl>http://www.oschina.net/news/62762/zentao-7-2-stable</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[XWiki 7.1 Milestone 2 发布，Java 的 Wiki 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/62558/xwiki-7-1-m2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[XWiki 6.4.5 发布，Java 的 Wiki 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/62342/xwiki-6-4-5-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[XWiki 7.1 Milestone 1 发布，Java 的Wiki 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/62186/xwiki-7-1-milestone-1-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[XWiki 6.4.4 发布，Java 的 Wiki 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/61593/xwiki-6-4-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[XWiki 7.0 发布，Java 的 Wiki 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/61048/xwiki-7-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[XWiki 7.0 RC1 发布，Java 的 Wiki 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/60858/xwiki-7-0-rc1</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

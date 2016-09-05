@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479537</id>
+		<title><![CDATA[微软发布2015年7月安全公告 安全狗提醒及时修复]]></title>
+		<url><![CDATA[http://my.oschina.net/safedog/blog/479537]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>&nbsp;7月15日消息，微软“周二补丁日”如期发布2015年7月安全更新公告，此次共包含14枚补丁，4枚为“严重”级别，10枚为“重要”级别，修复了Vista、Win7、Win8.1以及Windows&nbsp;Server服务器系统，Office等组件的漏洞。其中也包括两个HackingTeam泄露的0day。目前<a href="http://www.safedog.cn" target="_self" rel="nofollow">服务器安全</a>狗已第一时间推送安全更新，为避免漏洞被利用遭到攻击，请及时修复安全狗示给您的系统高危漏洞！</p> 
+<p>另外，在美国当地时间7月14日“停服”的Windows&nbsp;Server&nbsp;2003也收到了最后一批补丁。</p> 
+<p>同时，在2014年4月8日结束了生命周期的Windows&nbsp;XP，当地时间7月14日，微软在发布7月份安全和更新补丁时，也最后一次为XP&nbsp;MSE提供了更新维护，再往后就彻底不闻不问了。对于企业用户而言，XP版本的System&nbsp;Center&nbsp;Endpoint&nbsp;Protection、Forefront&nbsp;Client&nbsp;Security、Forefront&nbsp;Endpoint&nbsp;Protection、Microsoft&nbsp;Intune等等也都不再更新。如果您还要继续使用Windows&nbsp;XP，请一定记得安装第三方安全软件。</p> 
+<p><strong>部分微软更新公告简介：</strong></p> 
+<p>MS15-071：Netlogon服务的权限提升漏洞，影响WindowsServer&nbsp;2003及以后。</p> 
+<p>MS15-072：Windows图形组建的权限提升漏洞，影响Windows&nbsp;Server&nbsp;2003,2008,2012,Server&nbsp;Core&nbsp;以及WindowsVista&nbsp;,Windows&nbsp;7&nbsp;,Windows&nbsp;8和Windows&nbsp;RT。</p> 
+<p>MS15-073：修复了6个Windows内核驱动中的权限提升及信息泄露漏洞，影响Windows&nbsp;Server&nbsp;2003&nbsp;和Windows&nbsp;Vista&nbsp;及以后的版本。</p> 
+<p>MS15-074：修复了Windows&nbsp;Installer中的权限提升漏洞，影响Server2003&nbsp;和Vista及以后的版本。</p> 
+<p>MS15-075：Windows&nbsp;OLE中的两处权限提升漏洞，影响Server2003&nbsp;和Vista及以后的版本。</p> 
+<p>MS15-076：权限提升漏洞，影响WindowsServer&nbsp;2003和Windows&nbsp;Vista及以后的版本。</p> 
+<p>MS15-077：Hacking&nbsp;Team泄露的WindowsAdobe&nbsp;字体驱动的权限提升漏洞，允许程序提升权限到管理员。存在于Server&nbsp;2003&nbsp;级Vista之后的版本。改漏洞被标识为”重要”，因为已经用公开的利用代码。</p> 
+<p>MS15-058：SQL&nbsp;Server&nbsp;中的漏洞可能允许远程执行代码，此安全更新解决了&nbsp;Microsoft&nbsp;SQL&nbsp;Server&nbsp;中的漏洞。如果经身份验证的攻击者运行旨在通过错误地址执行虚拟函数的经特殊设计的查询，导致函数调用未初始化的内存，则最严重的漏洞可能允许远程执行代码。要利用此漏洞，攻击者必须具有创建或修改数据库的权限。对于&nbsp;Microsoft&nbsp;SQL&nbsp;Server&nbsp;2008、Microsoft&nbsp;SQL&nbsp;Server&nbsp;2008&nbsp;R2、Microsoft&nbsp;SQL&nbsp;Server&nbsp;2012&nbsp;和&nbsp;Microsoft&nbsp;SQL&nbsp;Server&nbsp;2014&nbsp;的受支持版本，此安全更新的等级为“重要”。</p> 
+<p>MS15-065：IE补丁包，修复了29个CVE漏洞，其中包括远程代码执行。该补丁被标记为”Critical”，其中也修复了Hacking&nbsp;Team&nbsp;泄露的相关漏洞。</p> 
+<p>MS15-068：修复了Hyper-V中的俩处远程代码执行漏洞，影响Windows&nbsp;Server&nbsp;2008,Windows&nbsp;8/8.1，Server&nbsp;2012&nbsp;，Server&nbsp;Core，运行在客户机上的程序可利用这个漏洞在宿主机上造成代码执行，实现虚拟机逃逸，该漏洞由Microsoft的&nbsp;Thomas&nbsp;Garner发现。</p> 
+<p>MS15-067：远程桌面服务的远程代码执行漏洞，影响Windows&nbsp;7&nbsp;,Windows&nbsp;8&nbsp;,Server&nbsp;2012,&nbsp;Server&nbsp;Core&nbsp;。</p> 
+<p>MS15-066：VBScript&nbsp;脚本引擎中的远程代码执行漏洞，影响IE&nbsp;6,7,8。由来自Palo&nbsp;Alto&nbsp;Networks&nbsp;的曲波(Bo&nbsp;Qu)发现并提交。</p> 
+<p>MS15-069：涉及RTF和DLL文件的两处远程代码执行，影响Windows&nbsp;Server&nbsp;2003，2012和Windows&nbsp;Vista&nbsp;到Windows&nbsp;8.1&nbsp;RT，由来自&nbsp;McAfee&nbsp;Labs&nbsp;IPS&nbsp;Team&nbsp;的&nbsp;Haifei&nbsp;Li&nbsp;和&nbsp;HP&nbsp;ZDI的Ashutosh&nbsp;Mehra发现并提交。</p> 
+<p>MS15-070：修复了Office中的8个CVE漏洞，涉及Office2007,2010,2013和Office&nbsp;fro&nbsp;Mac。其中可能存在能造成代码执行的漏洞。</p> 
+<p>更多微软更新公告：https://technet.microsoft.com/library/security/ms15-jul</p> 
+<p><br></p>]]></body>
+		<author><![CDATA[小猪猪的风]]></author>
+		<authorid>569022</authorid>
+		<documentType>0</documentType>
+        <pubDate>2015-07-16 22:59:18</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

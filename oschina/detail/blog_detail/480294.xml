@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>480294</id>
+		<title><![CDATA[反编译Android应用源码成java文件, 保留资源id]]></title>
+		<url><![CDATA[http://my.oschina.net/u/993896/blog/480294]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><strong>利用开源项目jadx反编译Android应用</strong></p> 
+<ul> 
+ <li>利用Github开源项目jadx可以直接对 .dex, .apk, .jar, .class 类型的文件进行直接反编译 </li> 
+ <li>对比之前 apktool(解包apk) + dex2jar(将.dex转换成.jar) + jd-gui (查看.jar文件)反编译三件套, jadx的优点在于:</li> 
+</ul> 
+<strong>1. 可以一行命令直接反编译恢复出.java文件</strong> 
+<blockquote> 
+ <p>命令: jadx -d out calc.apk <br>需要先把apk拷贝到bin目录下, 如图:</p> 
+ <p><img border="0" alt="" src="http://192.168.79.254:8080/oschina/images/20150531192320707"></p>
+</blockquote> 
+<strong>2. 可以一行命令直接以窗口形式查看源码</strong> 
+<blockquote> 
+ <p>命令: jadx-gui calc.apk <br>需要先把apk拷贝到bin目录下, 如图:</p> 
+ <p><img border="0" alt="" src="http://192.168.79.254:8080/oschina/images/20150531192354316"></p>
+</blockquote> 
+<ul> 
+ <li> <p>注意:执行命令行的时候需要进入到bin目录下, 也可以配置到path路径中.</p> </li> 
+ <li> <p>此工具下载页面:<a href="https://drone.io/github.com/skylot/jadx/files" rel="nofollow">https://drone.io/github.com/skylot/jadx/files</a></p> </li> 
+ <li>也可以点此<a href="https://drone.io/github.com/skylot/jadx/files/build/jadx-0.6.1-dev-build196.zip" rel="nofollow">直接下载zip</a></li> 
+ <li>有兴趣的可以自己下载github上此反编译工具的<a href="https://github.com/skylot/jadx" rel="nofollow">工程源码</a>进行编译, 详细参数见页面介绍.</li> 
+</ul>]]></body>
+		<author><![CDATA[itheima]]></author>
+		<authorid>993896</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-19 12:13:59</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

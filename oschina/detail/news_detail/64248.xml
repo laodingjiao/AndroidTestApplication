@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64248</id>
+      <title><![CDATA[PureScript 0.7.1 发布，静态类型语言]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64248/purescript-0-7-1]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>PureScript 0.7.1 发布，更新内容如下：</p> 
+<p><strong>对 0.7.0 的一些修复:</strong></p> 
+<ul> 
+ <li><p><a href="https://github.com/hdgarrood" rel="nofollow">@hdgarrood</a> has worked on improvements to <code>psc-publish</code> to support the new Pursuit website.</p></li> 
+ <li><p><a href="https://github.com/mjgpy3" rel="nofollow">@mjgpy3</a> has improved warning messages</p></li> 
+ <li><p><a href="https://github.com/wuzzeb" rel="nofollow">@wuzzeb</a> has improved the pretty printers</p></li> 
+ <li><p><a href="https://github.com/hdgarrood" rel="nofollow">@hdgarrood</a> has added CI builds for GHC 7.10 and 7.6</p></li> 
+</ul> 
+<p><strong>提升：</strong></p> 
+<p><a href="https://github.com/nicodelpiano" rel="nofollow">@nicodelpiano</a> has added exhaustivity checking as a new warning type. Incomplete pattern matches will now generate warnings like this: <br></p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">&nbsp;Warning&nbsp;in&nbsp;module&nbsp;Data.Either.Unsafe:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Warning&nbsp;in&nbsp;value&nbsp;declaration&nbsp;fromRight:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Warning&nbsp;at&nbsp;src/Data/Either/Unsafe.purs&nbsp;line&nbsp;14,&nbsp;column&nbsp;1&nbsp;-&nbsp;line&nbsp;15,&nbsp;column&nbsp;1:
+&nbsp;&nbsp;&nbsp;&nbsp;Pattern&nbsp;could&nbsp;not&nbsp;be&nbsp;determined&nbsp;to&nbsp;cover&nbsp;all&nbsp;cases.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;definition&nbsp;has&nbsp;the&nbsp;following&nbsp;uncovered&nbsp;cases:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Data.Either.Left&nbsp;_)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;https://github.com/purescript/purescript/wiki/Error-Code-NotExhaustivePattern&nbsp;for&nbsp;more&nbsp;information,&nbsp;or&nbsp;to&nbsp;contribute&nbsp;content&nbsp;related&nbsp;to&nbsp;this&nbsp;error.</pre> 
+<p><br></p> 
+<p>下载地址请点<a target="_blank" href="https://github.com/purescript/purescript/releases/tag/v0.7.1" rel="nofollow">这里</a>。<br></p> 
+<p>PureScript 是个小巧而强大的静态类型语言，可以编译成 JavaScript。purescript 主要是由 Haskell 和 PureScript 编写的。</p>]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 07:55:46</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/purescript]]></softwarelink>
+	  <softwarename><![CDATA[PureScript]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[PureScript 0.7.0 &quot;MELTDOWN&quot; 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63800/purescript-0-7-0-meltdown</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Kylin (Incubating) 0.7.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63363/apache-kylin-0-7-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Tessera 0.7.1 发布，Graphite 前端界面]]></rtitle>
+			<rurl>http://www.oschina.net/news/63316/tessera-0-7-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PureScript 0.7.0 RC1 发布，静态类型语言]]></rtitle>
+			<rurl>http://www.oschina.net/news/61676/purescript-0-7-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Purescript 0.6.9.5 发布，静态类型语言]]></rtitle>
+			<rurl>http://www.oschina.net/news/61559/purescript-0-6-9-5-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PureScript 0.6.9.3 发布，静态类型语言]]></rtitle>
+			<rurl>http://www.oschina.net/news/60649/purescript-0-6-9-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PureScript 0.6.9 发布，静态类型语言]]></rtitle>
+			<rurl>http://www.oschina.net/news/60641/purescript-0-6-9</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PureScript 0.6.8 发布，静态类型语言]]></rtitle>
+			<rurl>http://www.oschina.net/news/59863/purescript-0-6-8</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PureScript 0.6.7.1 发布，静态类型语言]]></rtitle>
+			<rurl>http://www.oschina.net/news/59687/purescript-0-6-7-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PureScript 0.6.6 发布，静态类型语言]]></rtitle>
+			<rurl>http://www.oschina.net/news/59574/purescript-0-6-6</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479568</id>
+		<title><![CDATA[是否必须每次添加ssh-add]]></title>
+		<url><![CDATA[http://my.oschina.net/surjur/blog/479568]]></url>
+		<where><![CDATA[GIT]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> 首先我得说和&nbsp;<em>ssh</em>&nbsp;相关的一切机制的确比较复杂，很容易让人晕头转向，如果你想彻底掌握这个知识体系就必须系统的学习一下相关的知识。所以 first thing first，我推荐一本书给你，不妨抽时间把它一劳永逸了： </p> 
+<p> <a href="http://book.douban.com/subject/2299605/" target="_blank" rel="nofollow">SSH, The Secure Shell</a>，这本书的第一版有中文的。 </p> 
+<p> 接着说你的这个特定的问题。 </p> 
+<p> 你首先得了解一件事：<em>ssh-add</em>&nbsp;这个命令不是用来永久性的记住你所使用的私钥的。实际上，它的作用只是把你指定的私钥添加到&nbsp;<em>ssh-agent</em>&nbsp;所管理的一个&nbsp;<em>session</em>&nbsp;当中。而&nbsp;<em>ssh-agent</em>&nbsp;是一个<strong>用于存储私钥的临时性的 session 服务</strong>，也就是说当你重启之后，<em>ssh-agent</em>&nbsp;服务也就重置了。 </p> 
+<p> 如果是为了永久记住对应的私钥是哪个，我们不能依赖&nbsp;<em>ssh-agent</em>&nbsp;服务。能依赖什么则取决于以下哪些方案适合你的使用场景。 </p> 
+<h3> 使用某种安全的秘钥管理机制 </h3> 
+<p> 你没有在问题里描述你所使用的操作系统，所以我以我日常使用的&nbsp;<em>Mac OS X</em>&nbsp;为例。Mac 系统内置了一个<em>Keychain</em>&nbsp;的服务及其管理程序，可以方便的帮你管理各种秘钥，其中包括 ssh 秘钥。<em>ssh-add</em>&nbsp;默认将制定的秘钥添加在当前运行的&nbsp;<em>ssh-agent</em>&nbsp;服务中，但是你可以改变这个默认行为让它添加到&nbsp;<em>keychain</em>&nbsp;服务中，让 Mac 来帮你记住、管理并保障这些秘钥的安全性。 </p> 
+<p> 你所要做的就是执行下面的命令： </p> 
+<pre class="hljs ruby"><span style="color:#B58900;">$ </span>ssh-add -<span style="color:#B58900;">K</span> [path/to/your/ssh-key]</pre> 
+<p> 之后，其他的程序请求 ssh 秘钥的时候，会通过 Keychain 服务来请求。下面的截图里你可以看到我当前的机器上 Keychain 为我管理的有关 ssh 的秘钥，这其中包括我自己生成的四个，以及 Github Client App 自己使用的一个——前者几个都是供 ssh 相关的命令所使用，而后者则指明了仅供&nbsp;<em>Github.app</em>&nbsp;这个应用程序使用。 另外，它们都是&nbsp;<em>login keychains</em>&nbsp;也就是只有当前用户登录之后才会生效的，换了用户或是未登录状态是不能使用的，这就是 Keychain 服务所帮你做的事情。 </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/17090126_CcfH.jpg" alt="Mac Keychain Access"> </p>
+<h3> 如何使用多个 ssh 秘钥并对应不同的应用程序？ </h3> 
+<p> 这个问题也是我没有完全吃透的，按照某些资料描述，做了以上的工作之后，应用程序应该能够自动匹配适用的 ssh 秘钥了。但是在我学习的过程中也遇到过非得手动指定的情况（那个时候我还不了解 Keychain 的作用，都是手动去&nbsp;<em>ssh-add</em>&nbsp;的），于是另外一种机制可以帮你解决这个问题，即&nbsp;<em>ssh config</em>。 </p> 
+<p> 一言蔽之，<em>ssh config</em>&nbsp;就是一个配置文件，描述不同的秘钥对应的设置——包括主机名、用户名、访问策略等等。 </p> 
+<p> 以下我截取了本地配置的两个片段： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/17090126_zNcZ.jpg" alt="ssh config 1"> </p>
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/17090127_efj8.jpg" alt="ssh config 2"> </p>
+<p> 这两段配置分别对应 Github 和 Coding 这两个服务所使用的秘钥。第一行的&nbsp;<em>Host</em>&nbsp;只是一个名字，第三行的<em>Hostname</em>&nbsp;才是对应的真实地址，但是两者最好保持一致，这样不用在脑袋里转换。 </p> 
+<p> 用这样的配置，当我&nbsp;git clone https://github.com/user/repo&nbsp;的时候，id_rsa&nbsp;秘钥会被使用，当我git clone https://coding.net/user/repo&nbsp;的时候，很显然&nbsp;nightire&nbsp;秘钥会被使用。 </p> 
+<p> 当然，此配置不局限于 Git，所有底层使用 SSH 的应用和命令都会遵照配置文件的指示来找到对应的私钥。 </p> 
+<p> 回到本节开始的话题，我相信有了 Keychain 做管理应该是不需要这个配置文件的，但是我还没有机会去做测试。目前的环境一切正常，等到我换新机器重新配置环境的时候我会试一试看。 </p> 
+<blockquote> 
+ <p> 关于 Host 和 Hostname 的对应关系，如果 Hostname 是域名则最好保持一致。但是这里有两个诀窍：<br> 1. 如果同一域名下有两个不同的配置怎么办？<br> 以 Github 为例，如果我有两个账户，一个个人的，一个组织的，并且要使用不同的秘钥，那么我可以这么写：<br> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/17090127_uCmF.jpg" alt="图片描述"><br> 这里 Host 后面对应的是 Github 的两个用户名，也就是&nbsp;<em>github.com/nightire</em>&nbsp;和&nbsp;<em>github.com/very-geek</em><br> 2. 如果域名是数字 IP，是否可以简化呢？<br> Host 可以帮助你把对应的 IP 变成好记的名字。比如说我在公司内部配置了 Git Server（基于 gitolite 或 Gitlab 或任何工具），正常的访问地址是：git://xxx.xxx.xxx.xxx:repo.git，如下的配置则可以帮你把它简化成：git.visionet:repo.git<br> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/17090127_iYz8.jpg" alt="图片描述"><br> 非常有用。 </p>
+</blockquote> 
+<h3> 有没有简单点的办法？ </h3> 
+<p> 有。如果&nbsp;<em>ssh-add</em>&nbsp;已经可以满足你的要求（除了启动以后还要再来一遍以外），那么你完全可以用脚本自动化这件事。简单地把你输入的&nbsp;<em>ssh-add</em>&nbsp;命令的内容写进&nbsp;.bashrc&nbsp;或&nbsp;.bash_profile（或其他任何你使用的 shell 环境配置文件）中去，这样只要你打开终端，就等于自动做了这件事情。 </p> 
+<p> 不过如我之前所说，这个机制是依赖&nbsp;<em>ssh-agent</em>&nbsp;服务的，并且只能在终端下有效。而用 Keychain 机制的话，是整个系统内都有效的（包括不依赖终端的应用程序）并且无需开启&nbsp;<em>ssh-agent</em>&nbsp;服务。 </p> 
+<p> 最后 Keychain 服务不是只有 Mac 才有的，我刚才搜索了一下，Windows 和 各种 Linux 都有对应的机制，不过我没用过，只能以 Mac 为例了。了解了这些概念，相信你可以自己查得到具体的方法。 </p>]]></body>
+		<author><![CDATA[Surjur]]></author>
+		<authorid>941259</authorid>
+		<documentType>0</documentType>
+        <pubDate>2015-07-17 09:01:27</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479373</id>
+		<title><![CDATA[100万并发连接服务器笔记之Java Netty处理1M连接会怎么样]]></title>
+		<url><![CDATA[http://my.oschina.net/vdroid/blog/479373]]></url>
+		<where><![CDATA[jmeter]]></where>
+		<commentCount>1</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h2>前言</h2> 
+<p>每一种该语言在某些极限情况下的表现一般都不太一样，那么我常用的Java语言，在达到100万个并发连接情况下，会怎么样呢，有些好奇，更有些期盼。 &nbsp;<br>这次使用经常使用的顺手的 &nbsp;<strong> &nbsp; <a href="http://netty.io/" rel="nofollow">netty</a></strong> NIO框架（netty-3.6.5.Final），封装的很好，接口很全面，就像它现在的域名 &nbsp; <strong>netty.io</strong>，专注于网络IO。 &nbsp;<br>整个过程没有什么技术含量，浅显分析过就更显得有些枯燥无聊，准备好，硬着头皮吧。</p> 
+<h2>测试服务器配置</h2> 
+<p>运行在VMWare Workstation 9中，64位Centos 6.2系统，分配14.9G内存左右，4核。 &nbsp;<br>已安装有Java7版本：</p> 
+<pre>&nbsp;&nbsp;java&nbsp;version&nbsp;"1.7.0_21"
+Java(TM)&nbsp;SE&nbsp;Runtime&nbsp;Environment&nbsp;(build&nbsp;1.7.0_21-b11)
+Java&nbsp;HotSpot(TM)&nbsp;64-Bit&nbsp;Server&nbsp;VM&nbsp;(build&nbsp;23.21-b01,&nbsp;mixed&nbsp;mode)</pre> 
+<p></p> 
+<h2>测试端</h2> 
+<p>测试端和以前一样的程序，翻看前几篇博客就可以看到client5.c的源码。</p> 
+<p>在/etc/sysctl.conf中添加如下配置：</p> 
+<pre>&nbsp;&nbsp;fs.file-max&nbsp;=&nbsp;1048576
+net.ipv4.ip_local_port_range&nbsp;=&nbsp;1024&nbsp;65535
+net.ipv4.tcp_mem&nbsp;=&nbsp;786432&nbsp;2097152&nbsp;3145728
+net.ipv4.tcp_rmem&nbsp;=&nbsp;4096&nbsp;4096&nbsp;16777216
+net.ipv4.tcp_wmem&nbsp;=&nbsp;4096&nbsp;4096&nbsp;16777216
+
+net.ipv4.tcp_tw_reuse&nbsp;=&nbsp;1
+net.ipv4.tcp_tw_recycle&nbsp;=&nbsp;1</pre> 
+<p></p> 
+<h2>服务器程序</h2> 
+<p>这次也是很简单呐，没有业务功能，客户端HTTP请求，服务端输出chunked编码内容。</p> 
+<h3>入口HttpChunkedServer.java：</h3> 
+<h3>唯一的自定义处理器HttpChunkedServerHandler.java:</h3> 
+<h3>启动脚本start.sh</h3> 
+<h2>达到100万并发连接时的一些信息</h2> 
+<p>每次服务器端达到一百万个并发持久连接之后，然后关掉测试端程序，断开所有的连接，等到服务器端日志输出在线用户为0时，再次重复以上步骤。在这反反复复的情况下，观察内存等信息的一些情况。以某次断开所有测试端为例后，当前系统占用为（设置为 &nbsp;<code>list_free_1</code>）:</p> 
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared&nbsp;&nbsp;&nbsp;&nbsp;buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cached
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15189&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7736&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7453&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;120
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-/+&nbsp;buffers/cache:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7597&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7592
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Swap:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4095&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;948&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3147</pre> 
+<p></p> 
+<p>通过top观察，其进程相关信息</p> 
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PID&nbsp;USER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PR&nbsp;&nbsp;NI&nbsp;&nbsp;VIRT&nbsp;&nbsp;RES&nbsp;&nbsp;SHR&nbsp;S&nbsp;%CPU&nbsp;%MEM&nbsp;&nbsp;&nbsp;&nbsp;TIME+&nbsp;&nbsp;COMMAND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;4925&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;&nbsp;0&nbsp;8206m&nbsp;4.3g&nbsp;2776&nbsp;S&nbsp;&nbsp;0.3&nbsp;28.8&nbsp;&nbsp;50:18.66&nbsp;java</pre> 
+<p></p> 
+<p>在启动脚本start.sh中，我们设置堆内存为6G。</p> 
+<p><strong>ps aux|grep java</strong>命令获得信息：</p> 
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4925&nbsp;38.0&nbsp;28.8&nbsp;8403444&nbsp;4484764&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sl&nbsp;&nbsp;&nbsp;15:26&nbsp;&nbsp;50:18&nbsp;java&nbsp;-server...HttpChunkedServer&nbsp;8000</pre> 
+<p></p> 
+<p>RSS占用内存为4484764K/1024K=4379M</p> 
+<p>然后再次启动测试端，在服务器接收到 &nbsp;<strong>online user 1023749</strong>时， &nbsp;<code>ps aux|grep java</code>内容为：</p> 
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4925&nbsp;43.6&nbsp;28.4&nbsp;8403444&nbsp;4422824&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sl&nbsp;&nbsp;&nbsp;15:26&nbsp;&nbsp;62:53&nbsp;java&nbsp;-server...</pre> 
+<p></p> 
+<p>查看当前网络信息统计</p> 
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;ss&nbsp;-s
+&nbsp;&nbsp;Total:&nbsp;1024050&nbsp;(kernel&nbsp;1024084)
+&nbsp;&nbsp;TCP:&nbsp;&nbsp;&nbsp;1023769&nbsp;(estab&nbsp;1023754,&nbsp;closed&nbsp;2,&nbsp;orphaned&nbsp;0,&nbsp;synrecv&nbsp;0,&nbsp;timewait&nbsp;0/0),&nbsp;ports&nbsp;12
+
+&nbsp;&nbsp;Transport&nbsp;Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IPv6
+&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;1024084&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;RAW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;UDP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;TCP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1023767&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1023755&nbsp;&nbsp;
+&nbsp;&nbsp;INET&nbsp;&nbsp;&nbsp;&nbsp;1023774&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1023756&nbsp;&nbsp;
+&nbsp;&nbsp;FRAG&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</pre> 
+<p></p> 
+<p>通过top查看一下</p> 
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;top&nbsp;-p&nbsp;4925
+&nbsp;&nbsp;top&nbsp;-&nbsp;17:51:30&nbsp;up&nbsp;&nbsp;3:02,&nbsp;&nbsp;4&nbsp;users,&nbsp;&nbsp;load&nbsp;average:&nbsp;1.03,&nbsp;1.80,&nbsp;1.19
+&nbsp;&nbsp;Tasks:&nbsp;&nbsp;&nbsp;1&nbsp;total,&nbsp;&nbsp;&nbsp;0&nbsp;running,&nbsp;&nbsp;&nbsp;1&nbsp;sleeping,&nbsp;&nbsp;&nbsp;0&nbsp;stopped,&nbsp;&nbsp;&nbsp;0&nbsp;zombie
+&nbsp;&nbsp;Cpu0&nbsp;&nbsp;:&nbsp;&nbsp;0.9%us,&nbsp;&nbsp;2.6%sy,&nbsp;&nbsp;0.0%ni,&nbsp;52.9%id,&nbsp;&nbsp;1.0%wa,&nbsp;13.6%hi,&nbsp;29.0%si,&nbsp;&nbsp;0.0%st
+&nbsp;&nbsp;Cpu1&nbsp;&nbsp;:&nbsp;&nbsp;1.4%us,&nbsp;&nbsp;4.5%sy,&nbsp;&nbsp;0.0%ni,&nbsp;80.1%id,&nbsp;&nbsp;1.9%wa,&nbsp;&nbsp;0.0%hi,&nbsp;12.0%si,&nbsp;&nbsp;0.0%st
+&nbsp;&nbsp;Cpu2&nbsp;&nbsp;:&nbsp;&nbsp;1.5%us,&nbsp;&nbsp;4.4%sy,&nbsp;&nbsp;0.0%ni,&nbsp;80.5%id,&nbsp;&nbsp;4.3%wa,&nbsp;&nbsp;0.0%hi,&nbsp;&nbsp;9.3%si,&nbsp;&nbsp;0.0%st
+&nbsp;&nbsp;Cpu3&nbsp;&nbsp;:&nbsp;&nbsp;1.9%us,&nbsp;&nbsp;4.4%sy,&nbsp;&nbsp;0.0%ni,&nbsp;84.4%id,&nbsp;&nbsp;3.2%wa,&nbsp;&nbsp;0.0%hi,&nbsp;&nbsp;6.2%si,&nbsp;&nbsp;0.0%st
+&nbsp;&nbsp;Mem:&nbsp;&nbsp;15554336k&nbsp;total,&nbsp;15268728k&nbsp;used,&nbsp;&nbsp;&nbsp;285608k&nbsp;free,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3904k&nbsp;buffers
+&nbsp;&nbsp;Swap:&nbsp;&nbsp;4194296k&nbsp;total,&nbsp;&nbsp;1082592k&nbsp;used,&nbsp;&nbsp;3111704k&nbsp;free,&nbsp;&nbsp;&nbsp;&nbsp;37968k&nbsp;cached
+
+&nbsp;&nbsp;&nbsp;&nbsp;PID&nbsp;USER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PR&nbsp;&nbsp;NI&nbsp;&nbsp;VIRT&nbsp;&nbsp;RES&nbsp;&nbsp;SHR&nbsp;S&nbsp;%CPU&nbsp;%MEM&nbsp;&nbsp;&nbsp;&nbsp;TIME+&nbsp;&nbsp;COMMAND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;4925&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;&nbsp;0&nbsp;8206m&nbsp;4.2g&nbsp;2220&nbsp;S&nbsp;&nbsp;3.3&nbsp;28.4&nbsp;&nbsp;62:53.66&nbsp;java</pre> 
+<p></p> 
+<p>四核都被占用了，每一个核心不太平均。这是在虚拟机中得到结果，可能真实服务器会更好一些。 因为不是CPU密集型应用，CPU不是问题，无须多加关注。</p> 
+<p>系统内存状况</p> 
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;-m
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared&nbsp;&nbsp;&nbsp;&nbsp;buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cached
+&nbsp;&nbsp;Mem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15189&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14926&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;263&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;56
+&nbsp;&nbsp;-/+&nbsp;buffers/cache:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14864&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;324
+&nbsp;&nbsp;Swap:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4095&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1057&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3038</pre> 
+<p></p> 
+<p>物理内存已经无法满足要求了，占用了1057M虚拟内存。</p> 
+<p>查看一下堆内存情况</p> 
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;jmap&nbsp;-heap&nbsp;4925
+&nbsp;&nbsp;Attaching&nbsp;to&nbsp;process&nbsp;ID&nbsp;4925,&nbsp;please&nbsp;wait...
+&nbsp;&nbsp;Debugger&nbsp;attached&nbsp;successfully.
+&nbsp;&nbsp;Server&nbsp;compiler&nbsp;detected.
+&nbsp;&nbsp;JVM&nbsp;version&nbsp;is&nbsp;23.21-b01
+
+&nbsp;&nbsp;using&nbsp;parallel&nbsp;threads&nbsp;in&nbsp;the&nbsp;new&nbsp;generation.
+&nbsp;&nbsp;using&nbsp;thread-local&nbsp;object&nbsp;allocation.
+&nbsp;&nbsp;Concurrent&nbsp;Mark-Sweep&nbsp;GC
+
+&nbsp;&nbsp;Heap&nbsp;Configuration:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MinHeapFreeRatio&nbsp;=&nbsp;40
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MaxHeapFreeRatio&nbsp;=&nbsp;70
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MaxHeapSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6442450944&nbsp;(6144.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NewSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;629145600&nbsp;(600.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MaxNewSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;629145600&nbsp;(600.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OldSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5439488&nbsp;(5.1875MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NewRatio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SurvivorRatio&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PermSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;52428800&nbsp;(50.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MaxPermSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;52428800&nbsp;(50.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G1HeapRegionSize&nbsp;=&nbsp;0&nbsp;(0.0MB)
+
+&nbsp;&nbsp;Heap&nbsp;Usage:
+&nbsp;&nbsp;New&nbsp;Generation&nbsp;(Eden&nbsp;+&nbsp;1&nbsp;Survivor&nbsp;Space):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capacity&nbsp;=&nbsp;419430400&nbsp;(400.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;308798864&nbsp;(294.49354553222656MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;110631536&nbsp;(105.50645446777344MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;73.62338638305664%&nbsp;used
+&nbsp;&nbsp;Eden&nbsp;Space:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capacity&nbsp;=&nbsp;209715200&nbsp;(200.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;103375232&nbsp;(98.5863037109375MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;106339968&nbsp;(101.4136962890625MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;49.29315185546875%&nbsp;used
+&nbsp;&nbsp;From&nbsp;Space:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capacity&nbsp;=&nbsp;209715200&nbsp;(200.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;205423632&nbsp;(195.90724182128906MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4291568&nbsp;(4.0927581787109375MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;97.95362091064453%&nbsp;used
+&nbsp;&nbsp;To&nbsp;Space:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capacity&nbsp;=&nbsp;209715200&nbsp;(200.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0&nbsp;(0.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;209715200&nbsp;(200.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0%&nbsp;used
+&nbsp;&nbsp;concurrent&nbsp;mark-sweep&nbsp;generation:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capacity&nbsp;=&nbsp;5813305344&nbsp;(5544.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4213515472&nbsp;(4018.321487426758MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1599789872&nbsp;(1525.6785125732422MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;72.48054631000646%&nbsp;used
+&nbsp;&nbsp;Perm&nbsp;Generation:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capacity&nbsp;=&nbsp;52428800&nbsp;(50.0MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5505696&nbsp;(5.250640869140625MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;46923104&nbsp;(44.749359130859375MB)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10.50128173828125%&nbsp;used
+
+&nbsp;&nbsp;1439&nbsp;interned&nbsp;Strings&nbsp;occupying&nbsp;110936&nbsp;bytes.</pre> 
+<p></p> 
+<p>老生代占用内存为72%，较为合理，毕竟系统已经处理100万个连接。</p> 
+<p>再次断开所有测试端，看看系统内存（free -m）</p> 
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared&nbsp;&nbsp;&nbsp;&nbsp;buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cached
+&nbsp;&nbsp;Mem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15189&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7723&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7466&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;120
+&nbsp;&nbsp;-/+&nbsp;buffers/cache:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7589&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7599
+&nbsp;&nbsp;Swap:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4095&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;950&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3145</pre> 
+<p></p> 
+<p>记为 &nbsp;<code>list_free_2</code>。</p> 
+<p><code>list_free_1</code>和 &nbsp;<code>list_free_2</code>两次都释放后的内存比较结果，系统可用物理已经内存已经降到7589M，先前可是7597M物理内存。 &nbsp;<br>总之，我们的JAVA测试程序在内存占用方面已经，最低需要7589 + 950 = 8.6G内存为最低需求内存吧。</p> 
+<h2>GC日志</h2> 
+<p>我们在启动脚本处设置的一大串参数，到底是否达到目标，还得从gc日志处获得具体效果，推荐使用 &nbsp;<a href="https://github.com/chewiebug/GCViewer" rel="nofollow">GCViewer</a>。</p> 
+<p>GC事件概览： &nbsp;<br> &nbsp;<a href="http://www.blogjava.net/images/blogjava_net/yongboy/Windows-Live-Writer/bf3eb5ad9dd9_9C7F/gc_eventdetails_2.png" rel="nofollow"> &nbsp; <img alt="gc_eventdetails" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16163100_e2JT.png" title="gc_eventdetails"></a></p>
+<p>其它: &nbsp;<br> &nbsp;<a href="http://www.blogjava.net/images/blogjava_net/yongboy/Windows-Live-Writer/bf3eb5ad9dd9_9C7F/gc_total_1_2.png" rel="nofollow"> &nbsp; <img alt="gc_total_1" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16163101_JUqC.png" title="gc_total_1"></a>&nbsp; &nbsp;<a href="http://www.blogjava.net/images/blogjava_net/yongboy/Windows-Live-Writer/bf3eb5ad9dd9_9C7F/gc_total_2_2.png" rel="nofollow"> &nbsp; <img alt="gc_total_2" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16163101_vaO5.png" title="gc_total_2"></a> &nbsp; <a href="http://www.blogjava.net/images/blogjava_net/yongboy/Windows-Live-Writer/bf3eb5ad9dd9_9C7F/gc_total_3_2.png" rel="nofollow"> &nbsp; <img alt="gc_total_3" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16163101_Onu8.png" title="gc_total_3"></a></p>
+<p>总之：</p> 
+<ul> 
+ <li><p>只进行了一次Full GC，代价太高，停顿了12秒。</p></li> 
+ <li><p>PartNew成为了停顿大户，导致整个系统停顿了41秒之久，不可接受。</p></li> 
+ <li><p>当前JVM调优喜忧参半，还得继续努力等</p></li> 
+</ul> 
+<h2>小结</h2> 
+<p>Java与与Erlang、C相比，比较麻烦的事情，需要在程序一开始就得准备好它的堆栈到底需要多大空间，换个说法就是JVM启动参数设置堆内 存大小，设置合适的垃圾回收机制，若以后程序需要更多内存，需停止程序，编辑启动参数，然后再次启动。总之一句话，就是麻烦。单单JVM的调优，就得持续 不断的根据检测、信息、日志等进行适当微调。</p> 
+<ul> 
+ <li><p>JVM需要提前指定堆大小，相比Erlang/C，这可能是个麻烦</p></li> 
+ <li><p>GC(垃圾回收)，相对比麻烦，需要持续不断的根据日志、JVM堆栈信息、运行时情况进行JVM参数微调</p></li> 
+ <li><p>设置一个最大连接目标，多次测试达到顶峰，然后释放所有连接，反复观察内存占用，获得一个较为合适的系统运行内存值</p></li> 
+ <li><p>Eclipse Memory Analyzer结合jmap导出堆栈DUMP文件，分析内存泄漏，还是很方便的</p></li> 
+ <li><p>想修改运行时内容，或者称之为热加载，默认不可能</p></li> 
+ <li><p>真实机器上会有更好的反映</p></li> 
+</ul> 
+<p>吐槽一下： &nbsp;<br>JAVA OSGI，相对比Erlang来说，需要人转换思路，不是那么原生的东西，总是有些别扭，社区或商业公司对此的修修补补，不过是实现一些面向对象所不具备的热加载的企业特性。</p> 
+<p>测试源代码， &nbsp;<a href="http://www.blogjava.net/Files/yongboy/just_test.zip" rel="nofollow">下载just_test</a>。</p> 
+<p><br></p>]]></body>
+		<author><![CDATA[今幕明]]></author>
+		<authorid>927877</authorid>
+		<documentType>0</documentType>
+        <pubDate>2015-07-16 16:31:01</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

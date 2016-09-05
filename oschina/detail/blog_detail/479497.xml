@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479497</id>
+		<title><![CDATA[通过web获取到“OSD%E6%B5%8B%E8%AF%95”OSD测试的字符处理代码]]></title>
+		<url><![CDATA[http://my.oschina.net/renyongke/blog/479497]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>本仅调试中记录：</p> 
+<pre><code>#include &lt;stdio.h&gt;  
+#include &lt;stdlib.h&gt;  
+#include &lt;iconv.h&gt;  
+#include&lt;errno.h&gt; 
+#include&lt;string.h&gt;
+static int Utf8ToGb2312(char *sOut, int iMaxOutLen/*BYTE*/, const char *sIn, int iInLen/*BYTE*/)  
+{    
+	char *pIn = (char *)sIn;    
+	char *pOut = sOut;    
+	size_t ret;    
+	size_t iLeftLen=iMaxOutLen;    
+	iconv_t cd = iconv_open("gb2312", "utf-8");    
+	if (cd == (iconv_t) - 1)    
+	{    
+		perror("iconv_open()");  
+		return -1;    
+	}    
+	size_t iSrcLen=iInLen;  
+	ret = iconv(cd, &amp;pIn,&amp;iSrcLen, &amp;pOut,&amp;iLeftLen);    
+	if (ret == (size_t) - 1)    
+	{    
+		perror("iconv()");  
+		iconv_close(cd);    
+		return -1;    
+	}    
+	iconv_close(cd);    
+	return (iMaxOutLen - iLeftLen);    
+}  
+
+int ChangeCharToInt(char s[],char bits[]) {
+	int i,n = 0;
+	for(i = 0; s[i]; i += 2) {
+		if(s[i] &gt;= 'A' &amp;&amp; s[i] &lt;= 'F')
+			bits[n] = s[i] - 'A' + 10;
+		else bits[n] = s[i] - '0';
+		if(s[i + 1] &gt;= 'A' &amp;&amp; s[i + 1] &lt;= 'F')
+			bits[n] = (bits[n] &lt;&lt; 4) | (s[i + 1] - 'A' + 10);
+		else bits[n] = (bits[n] &lt;&lt; 4) | (s[i + 1] - '0');
+		++n;
+	}
+	return n;
+}
+
+int ChangeCharToInt2(char s[],char bits[], int ct) {
+	int i,n = 0;
+	for(i = 0; i&lt;ct; i ++) {
+		if(s[i] &gt;= 'A' &amp;&amp; s[i] &lt;= 'F'){
+			bits[n] = s[i] - 'A' + 10;
+		}else {
+			bits[n] = s[i] - '0';
+		}
+
+		++n;
+	}
+	return n;
+}
+
+typedef unsigned char uchar;
+
+int strdosmt(char a[] ,char b[])
+{
+
+	int i=0,j=0;
+	for(i=0;i&lt;strlen(a) &amp;&amp; a[i];)
+	{
+		printf("%c - %x\n", a[i], a[i]);
+		if(a[i]=='%')
+		{
+			uchar m, t;
+			ChangeCharToInt2(a+i+1, &amp;m,1);
+			ChangeCharToInt2(a+i+2, &amp;t,1);
+			b[j] = (m&lt;&lt;4) | t;
+			printf("%x--%x %x\n",b[j], m, t);
+			j++;
+			i += 3;
+		}		
+		else
+		{			
+			b[j]=a[i];			
+			printf("%x\n",b[j]);
+			j++;
+			i++;
+		}
+
+	}
+
+
+
+}
+
+int main()
+{
+
+
+	uchar c[500]="";
+	uchar gb2312[500]="";
+	uchar b[500]="";
+	uchar f[500]="";
+
+
+
+
+	uchar a[500]="OSD%E6%B5%8B%E8%AF%95\0";
+	int i=0,j=0,k=0;
+
+	uchar ascii[500];
+	uchar charstr[500];
+
+	
+
+	printf("char %s\n", a);
+	
+	printf("parse get %dB\n", j);
+	strdosmt(a,b);
+
+
+	for(i=0;i&lt;strlen(b) &amp;&amp; b[i];i++)
+	{
+		printf("%x ",b[i]);
+	}
+
+
+
+	for(i=0; i&lt;j; ){
+		if(b[i] &gt;= 0x80){
+			//chinese,utf-8 to gb2312
+			Utf8ToGb2312(f+k, 2, b+i, 3);
+			printf("hz--%x %x\n", f[k], f[k+1]);
+			i+=3;
+			k++;
+		}else{
+			f[k] = b[i];
+			printf("char--%x\n", f[k]);
+			k++;
+			i++;
+		}
+	}
+
+	return 0;
+
+	printf("a=%s\n",a);
+	printf("b=%s\n",b);
+
+	int m=0,p=0;
+
+	
+	printf("\n__________________0_____________________\n");
+
+
+
+	int n = ChangeCharToInt(b,f);
+	printf ("%s\n",b);
+	for(i = 0;i &lt; n;i++)
+		printf ("%X ", f[i]);
+
+	printf("\n__________________1_____________________\n");
+	Utf8ToGb2312(gb2312,sizeof(gb2312),f,sizeof(f));
+
+	printf("\n__________________2_____________________\n");
+	printf("f[0]=%x",f[0]);
+	printf("f[1]=%x",f[1]);
+	printf("f[2]=%x\n",f[2]);
+
+	printf("gb2312[0]=%x",gb2312[0]);
+	printf("gb2312[1]=%x",gb2312[1]);
+	printf("gb2312[2]=%x",gb2312[2]);
+	printf("\n____________3___________________________\n");
+
+
+}
+</code></pre>]]></body>
+		<author><![CDATA[喵帕斯_QAQ]]></author>
+		<authorid>2348204</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 20:58:44</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

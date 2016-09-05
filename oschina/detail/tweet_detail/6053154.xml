@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+		  <tweet>
+    <id>6053154</id>
+	<body><![CDATA[
+		16公里走了一个半小时也真是够了        	]]></body>
+    <author><![CDATA[红薯]]></author>
+	<authorid>12</authorid>
+    <appclient>4</appclient>
+    <commentCount>5</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/0/12_50.jpg?t=1421200584000</portrait>
+    <pubDate>2015-07-16 09:51:22</pubDate>
+	<imgSmall>http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/095122_kZ3b_12_thumb.jpg</imgSmall>
+	<imgBig>http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/095122_kZ3b_12.jpg</imgBig>
+    <attach></attach>
+    
+    	<likeCount>1</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[天空冰雨]]></name>
+				<uid>931519</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/465/931519_50.png?t=1427858868000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>471467</id>
+		<title><![CDATA[vmstat 中文命令参考]]></title>
+		<url><![CDATA[http://my.oschina.net/u/1433482/blog/471467]]></url>
+		<where><![CDATA[linux命令]]></where>
+		<commentCount>2</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><ul> 
+ <li><p>NAME 名字</p><p>vmstat - Report virtual memory statistics 报告虚拟内存的统计信息&nbsp;</p></li> 
+ <li><p>SYNOPSIS 语法<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vmstat [options] [delay [count]]</p></li> 
+ <li><p>DESCRIPTION 描述<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vmstat reports information about processes, memory, paging, block IO, traps, disks and cpu activity.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vmstat报告进程、内存、页和 I/O 块、中断及 CPU信息。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The first report produced gives averages since the last reboot.&nbsp; Additional reports give information on a sampling period of length delay.&nbsp; The process and memory reports are instantaneous in either case.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 第一次报告启动至今的平均情况。后面的信息是按取样间隔定期显示。进程和内存信息都是瞬间的。</p></li> 
+</ul> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#vmstat&nbsp;
+procs&nbsp;-----------memory----------&nbsp;---swap--&nbsp;-----io----&nbsp;-system--&nbsp;------cpu-----
+&nbsp;r&nbsp;&nbsp;b&nbsp;&nbsp;&nbsp;swpd&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;buff&nbsp;&nbsp;cache&nbsp;&nbsp;&nbsp;si&nbsp;&nbsp;&nbsp;so&nbsp;&nbsp;&nbsp;&nbsp;bi&nbsp;&nbsp;&nbsp;&nbsp;bo&nbsp;&nbsp;&nbsp;in&nbsp;&nbsp;&nbsp;cs&nbsp;us&nbsp;sy&nbsp;id&nbsp;wa&nbsp;st
+&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;6842592&nbsp;&nbsp;&nbsp;1736&nbsp;5226384&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;100&nbsp;&nbsp;0&nbsp;&nbsp;0</pre> 
+<ul> 
+ <li><p>OPTIONS 选项<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay&nbsp; The delay between updates in seconds.&nbsp; If no delay is specified, only one report is printed with the average values since boot.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 取样间隔，即每隔几秒更新一次。如果没有只输出启动至今的平均情况。</p></li> 
+</ul> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#vmstat&nbsp;1
+procs&nbsp;-----------memory----------&nbsp;---swap--&nbsp;-----io----&nbsp;-system--&nbsp;------cpu-----
+&nbsp;r&nbsp;&nbsp;b&nbsp;&nbsp;&nbsp;swpd&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;buff&nbsp;&nbsp;cache&nbsp;&nbsp;&nbsp;si&nbsp;&nbsp;&nbsp;so&nbsp;&nbsp;&nbsp;&nbsp;bi&nbsp;&nbsp;&nbsp;&nbsp;bo&nbsp;&nbsp;&nbsp;in&nbsp;&nbsp;&nbsp;cs&nbsp;us&nbsp;sy&nbsp;id&nbsp;wa&nbsp;st
+&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;6842708&nbsp;&nbsp;&nbsp;1736&nbsp;5226384&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;100&nbsp;&nbsp;0&nbsp;&nbsp;0
+&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;6842708&nbsp;&nbsp;&nbsp;1736&nbsp;5226384&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;51&nbsp;&nbsp;121&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;100&nbsp;&nbsp;0&nbsp;&nbsp;0
+&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;6842708&nbsp;&nbsp;&nbsp;1736&nbsp;5226384&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;46&nbsp;&nbsp;108&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;100&nbsp;&nbsp;0&nbsp;&nbsp;0</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count&nbsp; Number of updates.&nbsp; In absence of count, when delay is defined, default is infinite.<br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 更新的次数。如果没有指定切定义了取样间隔，则是无穷次。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -a, --active<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Display active and&nbsp; inactive memory, given a 2.5.41 kernel or better.</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.5.41内核以后用于显示active和inactive内存。Active是指应用程序正在使用的内存；Inactive是之前的应用程序使用过的内存，但是为了以后能够快速重新加载而遗留在系统中的内存；<br></p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#vmstat&nbsp;-a
+procs&nbsp;-----------memory----------&nbsp;---swap--&nbsp;-----io----&nbsp;-system--&nbsp;------cpu-----
+&nbsp;r&nbsp;&nbsp;b&nbsp;&nbsp;&nbsp;swpd&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;inact&nbsp;active&nbsp;&nbsp;&nbsp;si&nbsp;&nbsp;&nbsp;so&nbsp;&nbsp;&nbsp;&nbsp;bi&nbsp;&nbsp;&nbsp;&nbsp;bo&nbsp;&nbsp;&nbsp;in&nbsp;&nbsp;&nbsp;cs&nbsp;us&nbsp;sy&nbsp;id&nbsp;wa&nbsp;st
+&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;6842964&nbsp;1365836&nbsp;5773756&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;100&nbsp;&nbsp;0&nbsp;&nbsp;0</pre> 
+<p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; -f, --forks<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The&nbsp; -f&nbsp; switch&nbsp; displays&nbsp; the&nbsp; number of forks since boot.&nbsp; This includes the fork, vfork, and clone system calls, and is equivalent to the total number of tasks created.&nbsp; Each process is represented by one or more tasks, depending on thread usage.&nbsp; This display does not repeat.</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示启动后的调用数，包含fork, vfork和克隆的系统调用，等同于总共创建的任务。一个进程根据线程使用情况可能有一个或多个任务。</p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#vmstat&nbsp;-f
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1393526&nbsp;forks</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -m, --slabs<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Displays slabinfo.显示slabinfo。<br></p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#vmstat&nbsp;-m
+Cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Num&nbsp;&nbsp;Total&nbsp;&nbsp;&nbsp;Size&nbsp;&nbsp;Pages
+fuse_inode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;21&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;21&nbsp;&nbsp;&nbsp;&nbsp;768&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;21
+kvm_vcpu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;16064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2
+kvm_mmu_page_header&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;168&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24
+nfsd4_delegations&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;368&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22
+nfsd4_openowners&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;392&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20
+rpc_inode_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25&nbsp;&nbsp;&nbsp;&nbsp;640&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25
+xfs_dqtrx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;576&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28
+xfs_icr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;144&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28
+xfs_ili&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;169390&nbsp;169390&nbsp;&nbsp;&nbsp;&nbsp;152&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;26
+xfs_inode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1127244&nbsp;1127328&nbsp;&nbsp;&nbsp;1024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+xfs_efd_item&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;160&nbsp;&nbsp;&nbsp;&nbsp;260&nbsp;&nbsp;&nbsp;&nbsp;400&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20
+xfs_da_state&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64&nbsp;&nbsp;&nbsp;&nbsp;488&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+xfs_btree_cur&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;&nbsp;&nbsp;&nbsp;208&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19
+xfs_log_ticket&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;353&nbsp;&nbsp;&nbsp;&nbsp;396&nbsp;&nbsp;&nbsp;&nbsp;184&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22
+scsi_cmd_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;438&nbsp;&nbsp;&nbsp;&nbsp;450&nbsp;&nbsp;&nbsp;&nbsp;448&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18
+kcopyd_job&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;3312&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9
+dm_uevent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;2608&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12
+dm_rq_target_io&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;424&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19
+UDPLITEv6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;1152&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28
+UDPv6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;112&nbsp;&nbsp;&nbsp;&nbsp;112&nbsp;&nbsp;&nbsp;1152&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28
+tw_sock_TCPv6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+TCPv6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64&nbsp;&nbsp;&nbsp;2048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+cfq_queue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;382&nbsp;&nbsp;&nbsp;&nbsp;476&nbsp;&nbsp;&nbsp;&nbsp;232&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17
+bsg_cmd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;312&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;26
+mqueue_inode_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;896&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18
+hugetlbfs_inode_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;52&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;52&nbsp;&nbsp;&nbsp;&nbsp;608&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;26
+configfs_dir_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;46&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;46&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;88&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;46
+dquot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+pid_namespace&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;2176&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15
+posix_timers_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;248&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+UDP-Lite&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;1024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+ip_fib_trie&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;292&nbsp;&nbsp;&nbsp;&nbsp;292&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;56&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;73
+RAW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;612&nbsp;&nbsp;&nbsp;&nbsp;612&nbsp;&nbsp;&nbsp;&nbsp;960&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17
+UDP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80&nbsp;&nbsp;&nbsp;1024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+tw_sock_TCP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;176&nbsp;&nbsp;&nbsp;&nbsp;272&nbsp;&nbsp;&nbsp;&nbsp;256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+TCP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;102&nbsp;&nbsp;&nbsp;&nbsp;102&nbsp;&nbsp;&nbsp;1920&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17
+blkdev_queue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;51&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;51&nbsp;&nbsp;&nbsp;1920&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17
+blkdev_requests&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;70376&nbsp;&nbsp;70455&nbsp;&nbsp;&nbsp;&nbsp;384&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;21
+blkdev_ioc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;195&nbsp;&nbsp;&nbsp;&nbsp;195&nbsp;&nbsp;&nbsp;&nbsp;104&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;39
+fsnotify_event_holder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18700&nbsp;&nbsp;18700&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;170
+fsnotify_event&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18355&nbsp;&nbsp;18598&nbsp;&nbsp;&nbsp;&nbsp;120&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;34
+sock_inode_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;745&nbsp;&nbsp;&nbsp;&nbsp;825&nbsp;&nbsp;&nbsp;&nbsp;640&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25
+net_namespace&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28&nbsp;&nbsp;&nbsp;4224&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7
+shmem_inode_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1557&nbsp;&nbsp;&nbsp;1584&nbsp;&nbsp;&nbsp;&nbsp;680&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24
+Acpi-ParseExt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2856&nbsp;&nbsp;&nbsp;2856&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;72&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;56
+Acpi-Namespace&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1992&nbsp;&nbsp;&nbsp;2958&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40&nbsp;&nbsp;&nbsp;&nbsp;102
+taskstats&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;96&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;96&nbsp;&nbsp;&nbsp;&nbsp;328&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24
+proc_inode_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;45997&nbsp;&nbsp;46176&nbsp;&nbsp;&nbsp;&nbsp;656&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24
+sigqueue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;100&nbsp;&nbsp;&nbsp;&nbsp;160&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25
+bdev_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;&nbsp;&nbsp;&nbsp;832&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19
+sysfs_dir_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19620&nbsp;&nbsp;19620&nbsp;&nbsp;&nbsp;&nbsp;112&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;36
+inode_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;26514&nbsp;&nbsp;26514&nbsp;&nbsp;&nbsp;&nbsp;592&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;27
+dentry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1722408&nbsp;1722567&nbsp;&nbsp;&nbsp;&nbsp;192&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;21
+iint_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;51
+selinux_inode_security&nbsp;&nbsp;&nbsp;&nbsp;10883&nbsp;&nbsp;11577&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;51
+buffer_head&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;845296&nbsp;845481&nbsp;&nbsp;&nbsp;&nbsp;104&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;39
+vm_area_struct&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24487&nbsp;&nbsp;24606&nbsp;&nbsp;&nbsp;&nbsp;216&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18
+mm_struct&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;200&nbsp;&nbsp;&nbsp;&nbsp;200&nbsp;&nbsp;&nbsp;1600&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20
+files_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;225&nbsp;&nbsp;&nbsp;&nbsp;225&nbsp;&nbsp;&nbsp;&nbsp;640&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25
+signal_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;442&nbsp;&nbsp;&nbsp;&nbsp;504&nbsp;&nbsp;&nbsp;1152&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28
+sighand_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;278&nbsp;&nbsp;&nbsp;&nbsp;315&nbsp;&nbsp;&nbsp;2112&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15
+task_xstate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;590&nbsp;&nbsp;&nbsp;&nbsp;684&nbsp;&nbsp;&nbsp;&nbsp;832&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19
+task_struct&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;457&nbsp;&nbsp;&nbsp;&nbsp;506&nbsp;&nbsp;&nbsp;2912&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11
+anon_vma&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9521&nbsp;&nbsp;&nbsp;9920&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64
+Cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Num&nbsp;&nbsp;Total&nbsp;&nbsp;&nbsp;Size&nbsp;&nbsp;Pages
+shared_policy_node&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2550&nbsp;&nbsp;&nbsp;2550&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;85
+numa_policy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;31&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;31&nbsp;&nbsp;&nbsp;&nbsp;264&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;31
+radix_tree_node&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;69536&nbsp;&nbsp;69636&nbsp;&nbsp;&nbsp;&nbsp;584&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28
+idr_layer_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;345&nbsp;&nbsp;&nbsp;&nbsp;345&nbsp;&nbsp;&nbsp;2112&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15
+dma-kmalloc-8192&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;8192&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4
+dma-kmalloc-4096&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;4096&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8
+dma-kmalloc-2048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;2048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+dma-kmalloc-1024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;1024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+dma-kmalloc-512&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;512&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+dma-kmalloc-256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+dma-kmalloc-128&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;128&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32
+dma-kmalloc-64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64
+dma-kmalloc-32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32&nbsp;&nbsp;&nbsp;&nbsp;128
+dma-kmalloc-16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;256
+dma-kmalloc-8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;512
+dma-kmalloc-192&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;192&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;21
+dma-kmalloc-96&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;96&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;42
+kmalloc-8192&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;49&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;72&nbsp;&nbsp;&nbsp;8192&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4
+kmalloc-4096&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;184&nbsp;&nbsp;&nbsp;&nbsp;200&nbsp;&nbsp;&nbsp;4096&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8
+kmalloc-2048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;485&nbsp;&nbsp;&nbsp;&nbsp;512&nbsp;&nbsp;&nbsp;2048&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+kmalloc-1024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1712&nbsp;&nbsp;&nbsp;1808&nbsp;&nbsp;&nbsp;1024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+kmalloc-512&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;927&nbsp;&nbsp;&nbsp;1008&nbsp;&nbsp;&nbsp;&nbsp;512&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+kmalloc-256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8123&nbsp;&nbsp;&nbsp;9056&nbsp;&nbsp;&nbsp;&nbsp;256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16
+kmalloc-192&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5862&nbsp;&nbsp;&nbsp;6405&nbsp;&nbsp;&nbsp;&nbsp;192&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;21
+kmalloc-128&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7650&nbsp;&nbsp;&nbsp;7872&nbsp;&nbsp;&nbsp;&nbsp;128&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32
+kmalloc-96&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17094&nbsp;&nbsp;17094&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;96&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;42
+kmalloc-64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;687907&nbsp;689728&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64
+kmalloc-32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19003&nbsp;&nbsp;19328&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32&nbsp;&nbsp;&nbsp;&nbsp;128
+kmalloc-16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8448&nbsp;&nbsp;&nbsp;8448&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;256
+kmalloc-8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17920&nbsp;&nbsp;17920&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;512
+kmem_cache_node&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;320&nbsp;&nbsp;&nbsp;&nbsp;320&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64
+kmem_cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;128&nbsp;&nbsp;&nbsp;&nbsp;128&nbsp;&nbsp;&nbsp;&nbsp;256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; -n, --one-header<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Display the header only once rather than periodically.只显示一次表头。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -s, --stats<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Displays a table of various event counters and memory statistics.&nbsp; This display does not repeat.显示时间计数器和内存统计信息，不会重复。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -d, --disk<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Report disk statistics (2.5.70 or above required).2.5.70内核以上显示磁盘信息。</p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#vmstat&nbsp;-s
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16331568&nbsp;K&nbsp;total&nbsp;memory
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9488356&nbsp;K&nbsp;used&nbsp;memory
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5773836&nbsp;K&nbsp;active&nbsp;memory
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1365836&nbsp;K&nbsp;inactive&nbsp;memory
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6843212&nbsp;K&nbsp;free&nbsp;memory
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1736&nbsp;K&nbsp;buffer&nbsp;memory
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5226384&nbsp;K&nbsp;swap&nbsp;cache
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8200188&nbsp;K&nbsp;total&nbsp;swap
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;K&nbsp;used&nbsp;swap
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8200188&nbsp;K&nbsp;free&nbsp;swap
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5786965&nbsp;non-nice&nbsp;user&nbsp;cpu&nbsp;ticks
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;91652&nbsp;nice&nbsp;user&nbsp;cpu&nbsp;ticks
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3658782&nbsp;system&nbsp;cpu&nbsp;ticks
+&nbsp;&nbsp;&nbsp;2778978158&nbsp;idle&nbsp;cpu&nbsp;ticks
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;802294&nbsp;IO-wait&nbsp;cpu&nbsp;ticks
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;212&nbsp;IRQ&nbsp;cpu&nbsp;ticks
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;47689&nbsp;softirq&nbsp;cpu&nbsp;ticks
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;stolen&nbsp;cpu&nbsp;ticks
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2456734&nbsp;pages&nbsp;paged&nbsp;in
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17256284&nbsp;pages&nbsp;paged&nbsp;out
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;pages&nbsp;swapped&nbsp;in
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;pages&nbsp;swapped&nbsp;out
+&nbsp;&nbsp;&nbsp;&nbsp;878734186&nbsp;interrupts
+&nbsp;&nbsp;&nbsp;2721774223&nbsp;CPU&nbsp;context&nbsp;switches
+&nbsp;&nbsp;&nbsp;1172493713&nbsp;boot&nbsp;time
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1393536&nbsp;forks</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -D, --disk-sum<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Report some summary statistics about disk activity.磁盘活动统计信息。<br></p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">]#vmstat&nbsp;-D
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;disks&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;partitions&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;365229200&nbsp;total&nbsp;reads
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1456581&nbsp;merged&nbsp;reads
+&nbsp;&nbsp;46899177474&nbsp;read&nbsp;sectors
+&nbsp;&nbsp;&nbsp;2734703813&nbsp;milli&nbsp;reading
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6043002&nbsp;writes
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;255914&nbsp;merged&nbsp;writes
+&nbsp;&nbsp;&nbsp;&nbsp;132721664&nbsp;written&nbsp;sectors
+&nbsp;&nbsp;&nbsp;&nbsp;227815975&nbsp;milli&nbsp;writing
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;inprogress&nbsp;IO
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;190847&nbsp;milli&nbsp;spent&nbsp;IO</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -p, --partition device<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Detailed statistics about partition (2.5.70 or above required).<br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.5.70内核以上显示分区信息。<br></p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#vmstat&nbsp;-p&nbsp;/dev/md126p1
+md126p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reads&nbsp;&nbsp;&nbsp;read&nbsp;sectors&nbsp;&nbsp;writes&nbsp;&nbsp;&nbsp;&nbsp;requested&nbsp;writes
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -S, --unit character<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Switches outputs between 1000 (k), 1024 (K), 1000000 (m), or 1048576 (M) bytes.&nbsp; Note this does not change the swap (si/so) or block (bi/bo) fields.<br></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 切换输出单位：1000 (k), 1024 (K), 1000000 (m)或1048576 (M) bytes，注意不会影响swap (si/so)和block (bi/bo)。</p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#vmstat&nbsp;-S&nbsp;M
+procs&nbsp;-----------memory----------&nbsp;---swap--&nbsp;-----io----&nbsp;-system--&nbsp;------cpu-----
+&nbsp;r&nbsp;&nbsp;b&nbsp;&nbsp;&nbsp;swpd&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;buff&nbsp;&nbsp;cache&nbsp;&nbsp;&nbsp;si&nbsp;&nbsp;&nbsp;so&nbsp;&nbsp;&nbsp;&nbsp;bi&nbsp;&nbsp;&nbsp;&nbsp;bo&nbsp;&nbsp;&nbsp;in&nbsp;&nbsp;&nbsp;cs&nbsp;us&nbsp;sy&nbsp;id&nbsp;wa&nbsp;st
+&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;6682&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;5103&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;100&nbsp;&nbsp;0&nbsp;&nbsp;0</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -t, --timestamp<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Append timestamp to each line。每行增加时间戳。</p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#vmstat&nbsp;-t&nbsp;-w&nbsp;1
+procs&nbsp;-----------------------memory----------------------&nbsp;---swap--&nbsp;-----io----&nbsp;-system--&nbsp;--------cpu--------&nbsp;-----timestamp-----
+&nbsp;r&nbsp;&nbsp;b&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;swpd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buff&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cache&nbsp;&nbsp;&nbsp;si&nbsp;&nbsp;&nbsp;so&nbsp;&nbsp;&nbsp;&nbsp;bi&nbsp;&nbsp;&nbsp;&nbsp;bo&nbsp;&nbsp;&nbsp;in&nbsp;&nbsp;&nbsp;cs&nbsp;&nbsp;us&nbsp;&nbsp;sy&nbsp;&nbsp;id&nbsp;&nbsp;wa&nbsp;&nbsp;st&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CST
+&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6842716&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1736&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5226496&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;100&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;2015-06-27&nbsp;14:55:20
+&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6842956&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1736&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5226496&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;81&nbsp;&nbsp;171&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;100&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;2015-06-27&nbsp;14:55:21</pre> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -w, --wide<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Wide output mode (useful for systems with higher amount of memory, where the default output mode suffers from unwanted column breakage).&nbsp; The output is wider than 80 characters per line.宽行输出，行可能超过80个字符，需要更多内存。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -V, --version<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Display version information and exit. 显示版本信息并退出。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -h, --help<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Display help and exit.显示帮助信息并退出。<br></p> 
+<ul> 
+ <li><p>FIELD DESCRIPTION FOR VM MODE VM模式域描述<br>&nbsp;&nbsp; Procs<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r: The number of runnable processes (running or waiting for run time). 等待运行的进程数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b: The number of processes in uninterruptible sleep.处在非中断睡眠状态的进程数 <br><br>&nbsp;&nbsp; Memory<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swpd: the amount of virtual memory used. 虚拟内存<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; free: the amount of idle memory. 空闲内存<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buff: the amount of memory used as buffers. 缓存的内存数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cache: the amount of memory used as cache (excluding tmpfs memory for<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernels 2.6.32+) cache内存数，kernels 2.6.32不包含tmpfs。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; inact: the amount of inactive memory.&nbsp; (-a option) inactive内存<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; active: the amount of active memory.&nbsp; (-a option) active内存<br><br>&nbsp;&nbsp; Swap<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; si: Amount of memory swapped in from disk (/s). 来自磁盘交换页占用的内存数量<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; so: Amount of memory swapped to disk (/s).从内存交换到磁盘的交换页数量<br><br>&nbsp;&nbsp; IO<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bi: Blocks received from a block device (blocks/s).从块设备接收到的块数，单位：块/秒<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo: Blocks sent to a block device (blocks/s).发送到块设备的块数，单位：块/秒<br><br>&nbsp;&nbsp; System<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in: The number of interrupts per second, including the clock. 每秒的中断数，包括时钟中断<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cs: The number of context switches per second. 每秒上下文切换次数<br><br>&nbsp;&nbsp; CPU<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; These are percentages of total CPU time. 下面是总CPU时间的百分比。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; us: Time spent running non-kernel code.&nbsp; (user time, including nice time) 非内核代码时间(用户时间，包含nice时间)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sy: Time spent running kernel code.&nbsp; (system time) 内核代码时间(系统时间)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id: Time spent idle.&nbsp; Prior to Linux 2.5.41, this includes IO-wait time. 空闲时间。内核2.5.41以前包含IO等待时间。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wa: Time spent waiting for IO.&nbsp; Prior to Linux 2.5.41, included in idle. IO等待时间<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; st: Time stolen from a virtual machine.&nbsp; Prior to Linux 2.6.11, unknown. 虚拟机时间，Linux 2.6.11以前无效。</p></li> 
+ <li><p>FIELD DESCRIPTION FOR DISK MODE 磁盘模式域描述<br>&nbsp;&nbsp; Reads<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total: Total reads completed successfully 总成功读数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; merged: grouped reads (resulting in one I/O)&nbsp; 组读次数(多个I/O合作一个)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sectors: Sectors read successfully 成功读扇区数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ms: milliseconds spent reading 读消耗的毫秒数<br><br>&nbsp;&nbsp; Writes<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total: Total writes completed successfully 成功写数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; merged: grouped writes (resulting in one I/O) 写次数(多个I/O合作一个)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sectors: Sectors written successfully 写成功读扇区数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ms: milliseconds spent writing 写消耗的毫秒数<br><br>&nbsp;&nbsp; IO<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cur: I/O in progress 处理的I/O数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s: seconds spent for I/O耗时的秒数</p></li> 
+ <li><p>FIELD DESCRIPTION FOR DISK PARTITION MODE&nbsp; 磁盘分区模式域描述<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reads: Total number of reads issued to this partition&nbsp; 总读次数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; read sectors: Total read sectors for partition 总读扇区数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; writes : Total number of writes issued to this partition 总写次数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; requested writes: Total number of write requests made for partition 分区总写请求数</p></li> 
+ <li><p>FIELD DESCRIPTION FOR SLAB MODE SLAB模式域描述<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cache: Cache name 缓存名<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num: Number of currently active objects 当前活动对象数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total: Total number of available objects 总可用对象数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size: Size of each object 每个对象的大小<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pages: Number of pages with at least one active object 每个活动对象的页数。<br></p></li> 
+ <li><p>NOTES 说明<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vmstat does not require special permissions. vmstat的不需要特殊权限。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; These reports are intended to help identify system bottlenecks.&nbsp; Linux vmstat does not count itself as a running process.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这些报告挚爱帮助确定系统瓶颈。 Linux的vmstat的不算本身作为一个正在运行的进程。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; All linux blocks are currently 1024 bytes.&nbsp; Old kernels may report blocks as 512 bytes, 2048 bytes, or 4096 bytes.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 所有Linux块是目前1024个字节。旧的内核可能为512字节，2048字节，或4096个字节。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Since procps 3.1.9, vmstat lets you choose units (k, K, m, M).&nbsp; Default is K (1024 bytes) in the default mode.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procps的3.1.9以后vmstat的让你选择的单位（K，K，M，M）。默认为K（1024字节）在默认模式。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vmstat uses slabinfo 1.1&nbsp; vmstat的使用slabinfo1.1</p></li> 
+ <li><p>FILES 文件<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /proc/meminfo<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /proc/stat<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /proc/*/stat</p></li> 
+ <li><p>SEE ALSO 类似命令<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; free(1), iostat(1), mpstat(1), ps(1), sar(1), top(1)</p></li> 
+ <li><p>BUGS<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Does not tabulate the block io per device or count the number of system calls.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 不能基于设备计算IO块或系统调用数。</p></li> 
+ <li><p>AUTHORS 作者<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Henry Ware al172@yfn.ysu.edu<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fabian Frédérick ffrederick@users.sourceforge.net(diskstat, slab, partitions...)</p></li> 
+ <li><p>REPORTING BUGS BUG 报告<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procps@freelists.org</p></li> 
+</ul> 
+<h2>参考资料</h2> 
+<ul> 
+ <li><p>作者博客：<a target="_self" href="http://my.oschina.net/u/1433482" rel="nofollow">http://my.oschina.net/u/1433482</a></p></li> 
+ <li><p><a target="_self" href="https://www.ibm.com/developerworks/cn/linux/l-linux-slab-allocator/" rel="nofollow">Linux slab 分配器剖析</a></p></li> 
+ <li><p>类型：翻译</p></li> 
+</ul> 
+<p><br></p>]]></body>
+		<author><![CDATA[磁针石]]></author>
+		<authorid>1433482</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-27 14:21:29</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

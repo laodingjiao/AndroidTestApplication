@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64259</id>
+      <title><![CDATA[Angular.js 1.4.3 发布，HTML 的 Web 框架]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64259/angularjs-1-4-3]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Angular.js 1.4.3 发布，这一版本有多项 bug 修复，还增加了一些特性，提升了性能：</p> 
+<h3>Bug Fixes</h3> 
+<ul> 
+ <li><p><strong>$animateCss:</strong> ensure animations execute if only a keyframeStyle is provided (<a href="https://github.com/angular/angular.js/commit/97d79eec80092f5fae3336c23aa881a72436de55" rel="nofollow">97d79eec</a>,<a href="https://github.com/angular/angular.js/issues/12124" rel="nofollow">#12124</a>, <a href="https://github.com/angular/angular.js/issues/12340" rel="nofollow">#12340</a>)</p></li> 
+ <li><p><strong>$browser:</strong> prevent infinite digest if changing hash when there is no hashPrefix (<a href="https://github.com/angular/angular.js/commit/f81ff3beb0c9d19d494c5878086fb57476442b8b" rel="nofollow">f81ff3be</a>,<a href="https://github.com/angular/angular.js/issues/10423" rel="nofollow">#10423</a>, <a href="https://github.com/angular/angular.js/issues/12145" rel="nofollow">#12145</a>)</p></li> 
+ <li><p><strong>$compile:</strong></p></li> 
+ <ul> 
+  <li><p>throw error when requestng new and isolate scopes (async) (<a href="https://github.com/angular/angular.js/commit/6333d65b76e0796cfbab8a2953af0c8014dba2e1" rel="nofollow">6333d65b</a>,<a href="https://github.com/angular/angular.js/issues/12215" rel="nofollow">#12215</a>, <a href="https://github.com/angular/angular.js/issues/12217" rel="nofollow">#12217</a>)</p></li> 
+  <li><p>do not write @-bound properties if attribute is not present (<a href="https://github.com/angular/angular.js/commit/8a1eb1625c080445ce1e519762e1f2d4fd842b72" rel="nofollow">8a1eb162</a>,<a href="https://github.com/angular/angular.js/issues/12151" rel="nofollow">#12151</a>, <a href="https://github.com/angular/angular.js/issues/12144" rel="nofollow">#12144</a>)</p></li> 
+  <li><p>workaround for IE11 MutationObserver (<a href="https://github.com/angular/angular.js/commit/f3b1d0b723298a5f8ea21d0704405649cce1b5fc" rel="nofollow">f3b1d0b7</a>,<a href="https://github.com/angular/angular.js/issues/11781" rel="nofollow">#11781</a>)</p></li> 
+  <li><p>exception when using "watch" as isolated scope binding variable in Firefox (<a href="https://github.com/angular/angular.js/commit/a6339d30d1379689da5eec9647a953f64821f8b0" rel="nofollow">a6339d30</a>,<a href="https://github.com/angular/angular.js/issues/11627" rel="nofollow">#11627</a>)</p></li> 
+ </ul> 
+ <li><p><strong>$location:</strong></p></li> 
+ <ul> 
+  <li><p>allow navigating outside the original base URL (<a href="https://github.com/angular/angular.js/commit/6903b5ec4c04ed6b7c80ef7d638c48639ccdc4bb" rel="nofollow">6903b5ec</a>,<a href="https://github.com/angular/angular.js/issues/11302" rel="nofollow">#11302</a>, <a href="https://github.com/angular/angular.js/issues/4776" rel="nofollow">#4776</a>)</p></li> 
+  <li><p>do not get caught in infinite digest in IE9 (<a href="https://github.com/angular/angular.js/commit/91b602263b96b6fce1331208462e18eb647f4d60" rel="nofollow">91b60226</a>,<a href="https://github.com/angular/angular.js/issues/11439" rel="nofollow">#11439</a>, <a href="https://github.com/angular/angular.js/issues/11675" rel="nofollow">#11675</a>, <a href="https://github.com/angular/angular.js/issues/11935" rel="nofollow">#11935</a>, <a href="https://github.com/angular/angular.js/issues/12083" rel="nofollow">#12083</a>)</p></li> 
+ </ul> 
+ <li><p><strong>$parse:</strong></p></li> 
+ <ul> 
+  <li><p>set null reference properties to <code>undefined</code>(<a href="https://github.com/angular/angular.js/commit/71fc3f4fa0cd12eff335d57efed7c033554749f4" rel="nofollow">71fc3f4f</a>,<a href="https://github.com/angular/angular.js/issues/12099" rel="nofollow">#12099</a>)</p></li> 
+  <li><p>set null reference properties to <code>undefined</code>(<a href="https://github.com/angular/angular.js/commit/d19504a179355d7801d59a8db0285a1322e04601" rel="nofollow">d19504a1</a>,<a href="https://github.com/angular/angular.js/issues/11959" rel="nofollow">#11959</a>)</p></li> 
+ </ul> 
+ <li><p><strong>$sanitize:</strong> dont not remove tab index property (<a href="https://github.com/angular/angular.js/commit/799353c75de28e6fbf52dac6e0721e85b578575a" rel="nofollow">799353c7</a>,<a href="https://github.com/angular/angular.js/issues/8371" rel="nofollow">#8371</a>, <a href="https://github.com/angular/angular.js/issues/5853" rel="nofollow">#5853</a>)</p></li> 
+ <li><p><strong>compile:</strong> assign ctrl return values correctly for multiple directives (<a href="https://github.com/angular/angular.js/commit/8caf1802e0e93389dec626ef35e04a302aa6c39d" rel="nofollow">8caf1802</a>,<a href="https://github.com/angular/angular.js/issues/12029" rel="nofollow">#12029</a>, <a href="https://github.com/angular/angular.js/issues/12036" rel="nofollow">#12036</a>)</p></li> 
+ <li><p><strong>copy:</strong> do not copy the same object twice (<a href="https://github.com/angular/angular.js/commit/0e622f7b5bc3d5d0ab0fbc1a1bc69404bd7216d5" rel="nofollow">0e622f7b</a>)</p></li> 
+ <li><p><strong>forms:</strong> parse exponential notation in numberInputType parser (<a href="https://github.com/angular/angular.js/commit/ebd0fbba8ff90bee0cd016d574643d56a7f81ed0" rel="nofollow">ebd0fbba</a>,<a href="https://github.com/angular/angular.js/issues/12121" rel="nofollow">#12121</a>, <a href="https://github.com/angular/angular.js/issues/12122" rel="nofollow">#12122</a>)</p></li> 
+ <li><p><strong>linky:</strong> allow case insensitive scheme detection (<a href="https://github.com/angular/angular.js/commit/8dc09e6dabb84c2c611cdc9e40adfac989648200" rel="nofollow">8dc09e6d</a>,<a href="https://github.com/angular/angular.js/issues/12073" rel="nofollow">#12073</a>, <a href="https://github.com/angular/angular.js/issues/12073" rel="nofollow">#12073</a>)</p></li> 
+ <li><p><strong>loader:</strong> define isFunction (<a href="https://github.com/angular/angular.js/commit/9ea52d818bcd2fb3ea8ccc85bf47f9fd5af68843" rel="nofollow">9ea52d81</a>)</p></li> 
+ <li><p><strong>merge:</strong> treat dates as atomic values instead of objects. (<a href="https://github.com/angular/angular.js/commit/6cbbd966479448591f819cbf904e0a3b757613dc" rel="nofollow">6cbbd966</a>,<a href="https://github.com/angular/angular.js/issues/11720" rel="nofollow">#11720</a>, <a href="https://github.com/angular/angular.js/issues/11720" rel="nofollow">#11720</a>)</p></li> 
+ <li><p><strong>ngAnimate:</strong> ensure that orphaned elements do not throw errors when animated (<a href="https://github.com/angular/angular.js/commit/e4aeae0c7303b94135e6df20e6c5e25f2aa0f586" rel="nofollow">e4aeae0c</a>,<a href="https://github.com/angular/angular.js/issues/11975" rel="nofollow">#11975</a>, <a href="https://github.com/angular/angular.js/issues/12338" rel="nofollow">#12338</a>)</p></li> 
+ <li><p><strong>ngAria:</strong></p></li> 
+ <ul> 
+  <li><p>update <code>aria-valuemin/max</code> when <code>min/max</code> change (<a href="https://github.com/angular/angular.js/commit/ebaa0f598501702ae64d59ada0ae492eaf0e2db6" rel="nofollow">ebaa0f59</a>,<a href="https://github.com/angular/angular.js/issues/11770" rel="nofollow">#11770</a>, <a href="https://github.com/angular/angular.js/issues/11774" rel="nofollow">#11774</a>)</p></li> 
+  <li><p>ensure boolean values for aria-hidden and aria-disabled (<a href="https://github.com/angular/angular.js/commit/59273354b57dd8d1ad2cd2f4740ffa8923e480f9" rel="nofollow">59273354</a>,<a href="https://github.com/angular/angular.js/issues/11365" rel="nofollow">#11365</a>)</p></li> 
+ </ul> 
+ <li><p><strong>ngModel:</strong> form validation when there is an Object.prototype enumerable value (<a href="https://github.com/angular/angular.js/commit/0934b76b72cec86093414834ac4cb7f0946b651d" rel="nofollow">0934b76b</a>,<a href="https://github.com/angular/angular.js/issues/12066" rel="nofollow">#12066</a>)</p></li> 
+ <li><p><strong>ngOptions:</strong></p></li> 
+ <ul> 
+  <li><p>only watch numeric properties of an array (<a href="https://github.com/angular/angular.js/commit/14638f4a60053b085565e597fc74bd31cf0d372b" rel="nofollow">14638f4a</a>)</p></li> 
+  <li><p>do not watch properties starting with $ (<a href="https://github.com/angular/angular.js/commit/34a6da24c17356d4ffc70aec3f621a140a9a61ab" rel="nofollow">34a6da24</a>,<a href="https://github.com/angular/angular.js/issues/11930" rel="nofollow">#11930</a>, <a href="https://github.com/angular/angular.js/issues/12010" rel="nofollow">#12010</a>)</p></li> 
+  <li><p>use reference check only when not using trackBy (<a href="https://github.com/angular/angular.js/commit/d7dc14dc0cdeb9c187d227e19acc8aca7df9d740" rel="nofollow">d7dc14dc</a>,<a href="https://github.com/angular/angular.js/issues/11936" rel="nofollow">#11936</a>, <a href="https://github.com/angular/angular.js/issues/11996" rel="nofollow">#11996</a>)</p></li> 
+ </ul> 
+ <li><p><strong>orderBy:</strong> ensure correct ordering with arrays of objects and no predicate (<a href="https://github.com/angular/angular.js/commit/48e1f5605edd32a63318fd78f5165c7d1f1a20f9" rel="nofollow">48e1f560</a>,<a href="https://github.com/angular/angular.js/issues/11866" rel="nofollow">#11866</a>, <a href="https://github.com/angular/angular.js/issues/11312" rel="nofollow">#11312</a>, <a href="https://github.com/angular/angular.js/issues/4282" rel="nofollow">#4282</a>)</p></li> 
+</ul> 
+<h3>&nbsp;Features：</h3> 
+<ul> 
+ <li><p><strong>$compile:</strong> show module name during multidir error (<a href="https://github.com/angular/angular.js/commit/351fe4b79c50a45a11af2fcd2aa7b6fd3b70058d" rel="nofollow">351fe4b7</a>,<a href="https://github.com/angular/angular.js/issues/11775" rel="nofollow">#11775</a>)</p></li> 
+ <li><p><strong>$q:</strong> $q.resolve as an alias for $q.when (<a href="https://github.com/angular/angular.js/commit/3ef529806fef28b41ca4af86a330f39a95699cf6" rel="nofollow">3ef52980</a>,<a href="https://github.com/angular/angular.js/issues/11944" rel="nofollow">#11944</a>, <a href="https://github.com/angular/angular.js/issues/11987" rel="nofollow">#11987</a>)</p></li> 
+ <li><p><strong>ngAria:</strong> add option to disable role=button (<a href="https://github.com/angular/angular.js/commit/1f5e42e8821217026ef36a46d36f84d7cd32830a" rel="nofollow">1f5e42e8</a>,<a href="https://github.com/angular/angular.js/issues/11580" rel="nofollow">#11580</a>, <a href="https://github.com/angular/angular.js/issues/12234" rel="nofollow">#12234</a>)</p></li> 
+</ul> 
+<h3>Performance Improvements：</h3> 
+<ul> 
+ <li><p><strong>$compile:</strong> avoid jquery data calls when there is no data (<a href="https://github.com/angular/angular.js/commit/9efb0d5ee961b57c8fc144a3138a15955e4010e2" rel="nofollow">9efb0d5e</a>)</p></li> 
+</ul> 
+<p><br></p> 
+<p>详细更新内容请查看<a target="_blank" href="https://github.com/angular/angular.js/commit/1622182737a41cf4619a514fd71529e07e82d594" rel="nofollow">更新日志</a>。<br></p> 
+<p>下载地址如下：</p> 
+<ul> 
+ <li><p><a href="https://github.com/angular/angular.js/archive/v1.4.3.zip" rel="nofollow"><strong>Source code</strong> (zip)&nbsp;</a></p></li> 
+ <li><p><a href="https://github.com/angular/angular.js/archive/v1.4.3.zip" rel="nofollow"></a><a href="https://github.com/angular/angular.js/archive/v1.4.3.tar.gz" rel="nofollow"><strong>Source code</strong> (tar.gz)</a></p></li> 
+</ul> 
+<p><br></p> 
+<p>Angular JS (Angular.JS) 是一组用来开发Web页面的框架、模板以及数据绑定和丰富UI组件。它支持整个开发进程，提供web应用的架构，无需进行手工DOM操作。 AngularJS很小，只有60K，兼容主流浏览器，与 jQuery 配合良好。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201101/20193253_4wJ1.gif" alt=""></p>]]></body>
+      <commentCount>11</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 10:44:38</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/angularjs]]></softwarelink>
+	  <softwarename><![CDATA[AngularJS]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[angular.js 1.3.17/1.4.2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64004/angularjs-1-4-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[微软终于要抛弃 Silverlight，拥抱 HTML5]]></rtitle>
+			<rurl>http://www.oschina.net/news/63925/microsoft-give-up-silverlight</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[jQuery EasyUI 1.4.3 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63907/easyui-1-4-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[使用 HTML5 时如何改进移动 Web 应用开发]]></rtitle>
+			<rurl>http://www.oschina.net/translate/how-to-improve-mobile-web-application</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Ephox 收购 TinyMCE 可视化 HTML 编辑器]]></rtitle>
+			<rurl>http://www.oschina.net/news/63618/tinymce-join-ephox</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Hprose for HTML5 1.5.4 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63600/hprose-for-html5-1-5-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[推荐 15 个 Angular.js 应用扩展指令]]></rtitle>
+			<rurl>http://www.oschina.net/translate/15-directives-to-extend-your-angular-js-apps</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[angular.js 1.4.1 发布，HTML的Web框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63424/angularjs-1-4-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Hprose for Objective-C/Swift 1.4.3 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63210/hprose-for-objective-c</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[angular.js 1.3.16 发布，HTML的Web框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63121/angularjs-1-3-16</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

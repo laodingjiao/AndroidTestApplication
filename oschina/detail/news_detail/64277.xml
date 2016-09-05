@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64277</id>
+      <title><![CDATA[PhpStorm 9.0.1 EAP 141.2017 发布]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64277/phpstorm-9-eap-141-2017]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>PhpStorm 9.0.1 EAP 141.2017 发布，该版本提供了以下改进：</p> 
+<ul> 
+ <li><p>Autocompletion of <em>&gt;</em> after typing <em>$this-</em></p></li> 
+ <li><p><em>and other bug fixes (<a href="https://youtrack.jetbrains.com/issues/WI?q=%23Fixed+%23Verified+%23%7BEAP+141.2017%7D+order+by%3A+votes" rel="nofollow">see full list</a>&nbsp;in our issue tracker)</em></p></li> 
+</ul> 
+<p>详细的更新内容请查看：&nbsp;<a href="https://confluence.jetbrains.com/display/PhpStorm/PhpStorm+EAP+141.2017+Release+Notes" rel="nofollow">release notes</a>。<br></p> 
+<p>该版本下载地址：<a target="_blank" href="http://confluence.jetbrains.com/display/PhpStorm/PhpStorm+Early+Access+Program" rel="nofollow">download</a>。</p> 
+<p>PhpStorm 是 JetBrains 公司开发的一个轻量级且便捷的PHP IDE，其旨在提供用户效率，可深刻理解用户的编码，提供智能代码补全，快速导航以及即时错误检查。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201007/22173941_PZda.png" alt=""> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201007/22173942_lrXL.png" alt=""> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201007/22173943_KpTu.png" alt=""></p>]]></body>
+      <commentCount>4</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 07:54:16</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/phpstorm]]></softwarelink>
+	  <softwarename><![CDATA[PhpStorm]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[AppCode 3.2 EAP build 141.2000 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64272/appcode-3-2-eap-build-141-2000</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[YouTrack 6.5 EAP (15440) 更新，错误跟踪程序]]></rtitle>
+			<rurl>http://www.oschina.net/news/64088/youtrack-6-5-eap</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PhpStorm 9.0 发布， PHP 集成开发环境]]></rtitle>
+			<rurl>http://www.oschina.net/news/64077/phpstorm-9-0-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PhpStorm 9 EAP 141.1815 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63863/phpstorm-9-eap-141-1815</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[YouTrack 6.5 EAP (15232 build) 更新]]></rtitle>
+			<rurl>http://www.oschina.net/news/63702/youtrack-6-5-eap</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ PhpStorm 9 EAP 141.1717 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63641/phpstorm-9-eap-141-1717</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[IntelliJ IDEA 14.1.4 EAP 更新至 141.1531.2]]></rtitle>
+			<rurl>http://www.oschina.net/news/63586/intellij-idea-14-1-4-eap-1531</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[AppCode 3.2 EAP 发布，Objective-C 的 IDE]]></rtitle>
+			<rurl>http://www.oschina.net/news/63582/appcode-3-2-eap</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[YouTrack 6.5 EAP 更新，错误跟踪系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63519/youtrack-6-5-eap</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[PhpStorm 9 EAP 141.1619 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63479/phpstorm-9-eap-141-1619</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

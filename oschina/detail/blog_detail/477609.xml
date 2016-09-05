@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>477609</id>
+		<title><![CDATA[IOS拦截重定向请求(302)的几种方式]]></title>
+		<url><![CDATA[http://my.oschina.net/lijialong/blog/477609]]></url>
+		<where><![CDATA[IOS开发]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h3> 前言 </h3> 
+<p> 在多数情况下，我们做的网络请求是返回200状态码的，但也有返回302的时候，比如使用基于Oauth2认证协议的API时，在认证阶段，需要提供一个回调地址，当用户授权后，服务器会返回一个302 Response，Response Header中会一个Location字段，包含了我们的回调地址，同时会有一个Code参数。我们在程序中该如何处理这个请求，并拿到这个Code参数呢。下面由我来为大家讲解下几种方式的做法，各取所需。 </p> 
+<blockquote>
+  假设您知道并使用过Oauth2认证协议 
+</blockquote> 
+<h3> （一）UIWebView控件 </h3> 
+<p> 这是最常见的做法，但是UIWebView是无法拦截302请求的，只能等待整个流程完成回到回调地址时，我们在webView控件的<strong>webViewDidFinishLoad</strong>回调方法处理数据。 </p> 
+<p> 首先，我们需要让ViewController类继承<strong>UIWebViewDelegate</strong>协议，然后实现<span><strong>webViewDidFinishLoad</strong>方法：</span> </p> 
+<p> <span> </span> </p> 
+<pre class="brush:cpp;">class WebLoginViewController: UIViewController,UIWebViewDelegate {
+
+    @IBOutlet var webView: UIWebView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        webView.scalesPageToFit = true
+        webView.delegate = self
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        //处理数据
+    }
+}</pre> 接着在启动时给webview一个加载地址，先载入指定的登陆页面： 
+<p> <span> </span> </p> 
+<pre class="brush:cpp;">override func viewDidLoad() {
+    super.viewDidLoad()
+    webView.scalesPageToFit = true
+    webView.delegate = self
+    
+    let url = "https://www.oschina.net/xxxxxx"
+    //程序启动后，让webview加载 OSChina的验证登陆界面
+    webView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
+}</pre> 
+<p> 当整个请求链完成后，我们在DidFinishLoad中通过判断请求的url，来确认是否已经回到了回调地址上 </p> 
+<p> <span> </span> </p> 
+<pre class="brush:cpp;">func webViewDidFinishLoad(webView: UIWebView) {
+    
+    var url = webView.request?.URL!.absoluteString
+    
+    if url!.hasPrefix("回调地址url")
+    {
+        //从一个url字符串中拿到Code值
+        let code = url!.GetCodeL()
+        println("code = \(code)")
+        
+        //拿到Code后，可以开始请求Token了
+    }
+}</pre> 
+<p> 很显然，这种方法还需要等待webView来处理回调地址的请求，而这个请求对我们的程序来说是完全没有必要的。 </p> 
+<p> 我们要做的是拦截<span><span>&nbsp;</span></span>302！ </p> 
+<h3> （二）基于NSURLConnection来设置拦截 </h3> 
+<p> 在很多教程中都提到了NSURLConnection，它可以发送一个请求，比如： </p> 
+<pre class="brush:cpp;">let request = NSURLRequest(URL: NSURL(string: "http://devonios.com")!)
+NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) { (response, data,
+error) -&gt; Void in
+    //处理返回数据
+}</pre> 如果要发送POST的话，需要使用可编辑的 
+<strong>NSMutableURLRequest</strong>类（它是继承NSURLRequest类的）。 
+<p> 我们需要的拦截效果，其实就是要给NSURLConnection设置一个delegate，提供一个事件发生时的回调方法。 </p> 
+<p> NSURLConnection类有一个构造函数： </p> 
+<pre class="brush:cpp;">init?(request request: NSURLRequest, delegate delegate: AnyObject?)</pre> 第二个参数就是我们需要设置的delegate。对应的delegate是： 
+<span style="line-height:1.5;"><strong>NSURLConnectionDataDelegate</strong>。</span> 
+<p> 我们在Dask中可以看到它有这些东西： </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12200736_DNnr.png" alt=""> </p>
+<p> 开始写代码了: </p> 
+<pre class="brush:cpp;">class LoginViewController: UIViewController,NSURLConnectionDataDelegate {
+    func connection(){
+        //创建一个可以编辑的NSURLRequest
+        var mutableRequest = NSMutableURLRequest(URL: NSURL(string: "http://devonios.com")!)
+        mutableRequest.HTTPMethod = "POST"
+        //设置POST请求的表单数据
+        mutableRequest.HTTPBody = paramString.dataUsingEncoding(NSStringEncoding.allZeros, allowLossyConversion: true)
+        //使用构造函数方法创建一个NSURLConnection的实例
+        var connection:NSURLConnection = NSURLConnection(request: mutableRequest, delegate: self)!
+        connection.start()
+    }
+    //处理重定向请求的方法
+    func connection(connection: NSURLConnection, willSendRequest request: NSURLRequest, redirectResponse response: NSURLResponse?) -&gt; NSURLRequest? {
+
+        if let r = response{
+            
+            //当前重定向请求的url，包含了Code参数
+            let requesturl = request.URLString
+            
+            //得到Code，由于Code参数设置了属性观察器，所以当Code被赋值时，会自动去获取Token
+            self.code = requesturl.GetCode()
+            
+            //因为已经拿到Code了，所以拦截掉当前这个重定向请求，直接返回nil
+            return nil
+        }
+        return request
+    }
+    //整个请求完成后，即拦截到302后，不再请求了就返回这里
+    func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
+        if (某些判断条件){
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+    }
+}</pre> 
+<h3> （三）基于NSURLSession类来设置拦截 </h3> 
+<p> NSURLSession是IOS 7中开始出现的全新的网络接口类，和NSURLConnection类似，同样需要设置delegate。 </p> 
+<pre class="brush:cpp;">class MyRequestController:NSObject,NSURLSessionTaskDelegate {
+    
+    let session:NSURLSession?
+    
+    init(){
+        let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        session = NSURLSession(configuration: sessionConfig, delegate: self, delegateQueue: nil)
+    }
+    
+    deinit{
+        session!.invalidateAndCancel()
+    }
+    //处理重定向请求，直接使用nil来取消重定向请求
+    func URLSession(session: NSURLSession, task: NSURLSessionTask, willPerformHTTPRedirection response: NSHTTPURLResponse, newRequest request: NSURLRequest, completionHandler: (NSURLRequest!) -&gt; Void) {
+        completionHandler(nil)
+    }
+    
+    func sendRequest() {
+
+        var URL = NSURL(string: "http://devonios.com")
+        let request = NSMutableURLRequest(URL: URL!)
+        request.HTTPMethod = "POST"
+        
+        request.HTTPBody = paramString.dataUsingEncoding(NSStringEncoding.allZeros, allowLossyConversion: true)
+        
+        let task = session!.dataTaskWithRequest(request, completionHandler: { (data : NSData!, response : NSURLResponse!, error : NSError!) -&gt; Void in
+            //由于拦截了302，设置了completionHandler参数为nil，所以忽略了重定向请求，这里返回的Response就是包含302状态码的Response了。
+            let resp:NSHTTPURLResponse = response as! NSHTTPURLResponse
+            println("包含302状态的Response Header字段 ： \(resp.allHeaderFields)")  })
+            task.resume()
+    }
+}</pre> 
+<p> 目前为止，我们通过为NSURLConnection或者NSURLSession设置一个Delegate，通过回调方法来拦截（其实就是返回个nil）。 </p> 
+<p> 但是在一个项目中，我们通常会使用Alamofire这种第三库来操作网络请求，我要是再自己再重新写个请求，那岂不是很麻烦？ </p> 
+<h3> （四）完善Alamofire库，实现拦截302请求 </h3> 
+<p> Alamofire啥就不多说了，分析它的代码可以发现，是使用NSURLSession来实现请求的。 </p> 
+<p> 既然如此，那么我们就要找到NSURLSession，为它设置delegate，然后重写willPerformHttpRedirection。 </p> 
+<p> 在Alamofire.swift文件中，request方法是暴露给我们调用的，Manager类的sharedInstance属性来管理自身对象。 </p> 
+<pre class="brush:cpp;">public func request(method: Method, URLString: URLStringConvertible, parameters: [String: AnyObject]? = nil, encoding: ParameterEncoding = .URL) -&gt; Request {
+    return Manager.sharedInstance.request(method, URLString, parameters: parameters, encoding: encoding)
+}</pre> 
+<p> Manager.sharedInstance属性的实现，定义了请求头信息，然后调用构造函数 </p> 
+<pre class="brush:cpp;">public static let sharedInstance: Manager = {
+     let configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
+     configuration.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders
+     return Manager(configuration: configuration)
+ }()</pre> 构造函数，我们要找的NSURLSession就在这里，它默认已经有了一个Class（SessionDelegate）来实现相应的delegate了： 
+<pre class="brush:cpp;">required public init(configuration: NSURLSessionConfiguration? = nil) {
+    self.delegate = SessionDelegate()
+    self.session = NSURLSession(configuration: configuration, delegate: delegate, delegateQueue:
+nil)
+    self.delegate.sessionDidFinishEventsForBackgroundURLSession = { [weak self] session in
+        if let strongSelf = self {
+            strongSelf.backgroundCompletionHandler?()
+        }
+    }
+}</pre> 这个构造函数看上去动不了什么，关键还在SessionDelegate类，它实现了所有了NSURLSessionDelegate： 
+<pre class="brush:cpp;">public final class SessionDelegate: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate {
+    public var taskWillPerformHTTPRedirection: ((NSURLSession, NSURLSessionTask, NSHTTPURLResponse,NSURLRequest) -&gt; NSURLRequest?)?
+    public func URLSession(session: NSURLSession, task: NSURLSessionTask, willPerformHTTPRedirection response: NSHTTPURLResponse, newRequest request: NSURLRequest, completionHandler: ((NSURLRequest!) -&gt; Void)) {
+     var redirectRequest: NSURLRequest? = request
+     if taskWillPerformHTTPRedirection != nil {
+         redirectRequest = taskWillPerformHTTPRedirection!(session, task, response, request)
+     }
+     completionHandler(redirectRequest)
+ }
+}</pre> 仔细观察会发现，有一个public的 
+<span style="line-height:1.5;">变量（var）taskWillPerformHTTPRedirection、有一个重写方法（willperformHTTPRedirection</span> 
+<span style="line-height:1.5;">）。</span> 
+<p> <span style="line-height:1.5;">从这个方法中可以看出，它期望我们给<span>taskWillPerformHTTPRedirection变量传一个自定义方法，如果我们赋值了，它就运行</span>我们的自定义方法。</span> </p> 
+<p> 我们要给<span>taskWillPerformHTTPRedirection变量赋值，参数是一个方法。</span> </p> 
+<p> <span>在Manager类中加入下面代码：</span> </p> 
+<p> <span> </span> </p> 
+<pre class="brush:cpp;">public typealias TaskWillRedirectAction = ((NSURLSession, NSURLSessionTask, NSHTTPURLResponse,NSURLRequest) -&gt; NSURLRequest?)
+public func setTaskWillRedirectAction(action:TaskWillRedirectAction){
+    self.delegate.taskWillPerformHTTPRedirection = action
+}</pre> 
+<p> <span>对Alamofire库的修改就这样可以了！</span> </p> 我们需要在发送网络请求前，先调用setTaskWillRedirectAction方法，传入我们的自定义方法。 
+<p> <span>使用方法：</span> </p> 
+<p> <span> </span> </p> 
+<pre class="brush:cpp;">var manager = Manager.sharedInstance
+manager.setTaskWillRedirectAction { (session, task, response, request) -&gt; NSURLRequest? in
+    return nil
+}
+manager.request(Method.POST, url, parameters: authparam.toDictionary(), encoding: ParameterEncoding.URL).response { (request, response, data, err) -&gt; Void in
+    //由于上面的setTaskWillRedirectAction方法返回nil，所以在处理NSURLSessionDataDelegate的重写方法时，complectionHandler方法参数为nil，也就实现了拦截！
+    println(response?.allHeaderFields["Location"])
+}</pre> 
+<p> 注意，这里需要先从sharedInstance属性中拿到一个Manager对象，然后再用这个对象设置拦截的回调方法，再发送请求。 </p> 
+<p> 如果您还是使用Alamofire.request来发送请求的话，就没有作用了，因为你又重新创建了个Manager类对象。 </p> 
+<h3> 参考资料 </h3> 
+<p> <a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/URLLoadingSystem/Articles/RequestChanges.html" target="_blank" rel="nofollow">https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/URLLoadingSystem/Articles/RequestChanges.html</a> </p> 
+<p> <a href="http://stackoverflow.com/questions/1446509/handling-redirects-correctly-with-nsurlconnection" target="_blank" rel="nofollow">http://stackoverflow.com/questions/1446509/handling-redirects-correctly-with-nsurlconnection</a> </p> 
+<p> tips： </p> 
+<p> <em>本文由</em><a href="http://devonios.com/wp2osc.html" target="_blank" rel="nofollow"><em>wp2osc</em></a><em>导入，原文链接：<a href="http://devonios.com/intercept-302-request.html" target="_blank" rel="nofollow">http://devonios.com/intercept-302-request.html</a></em> </p> 
+<p> <em>由于OSChina的OpenAPI在处理content参数时会自动过滤img标签，所以无法显示图片，</em><a href="http://www.oschina.net/question/108780_241820" target="_blank" rel="nofollow"><em>详见</em></a><em>。</em> </p>]]></body>
+		<author><![CDATA[DragonFK]]></author>
+		<authorid>108780</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-12 20:06:32</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64301</id>
+      <title><![CDATA[SourceForge.net 网站暂时在静态离线模式]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64301/sourceforge-net-failed]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>http://sourceforge.net/</p> 
+<p>他们在干什么？登录不了了。登录页面出这样的信息：</p> 
+<p>The sourceforge.net website is temporarily in static offline mode.<br>Only a very limited set of project pages are available until the main website returns to service.</p> 
+<p>sourceforge.net网站暂时在静态离线模式。</p> 
+<p>只有非常有限的项目页面可用,直到主网站返回服务。</p> 
+<p>twitter（https://twitter.com/sfnet_ops?original_referer=http%3A%2F%2Fsourceforge.net%2Ferror-404.html&amp;profile_id=22783784&amp;tw_i=621702261685686272&amp;tw_p=embeddedtimeline&amp;tw_w=347335110670049280）上说：</p> 
+<p>There's instability and frequent 500 errors on the SourceForge site currently. We're working on getting this fixed asap.</p> 
+<p><span style="color:#2B2B2B;font-family:arial, sans-serif;font-size:18px;font-weight:bold;line-height:27px;background-color:#FAFAFA;">不稳定,频繁在SourceForge网站目前500错误。我们正在努力尽快这个问题能否得到解决。</span></p>]]></body>
+      <commentCount>8</commentCount>
+      <author><![CDATA[茶壶]]></author>
+      <authorid>660460</authorid>
+      <pubDate>2015-07-17 04:39:35</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/sourceforge]]></softwarelink>
+	  <softwarename><![CDATA[SourceForge]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[SourceForge.net 要求用户重置密码]]></rtitle>
+			<rurl>http://www.oschina.net/news/52028/sourceforge-net-password-reset-required</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WE 1.0.49 发布 http://sourceforge.net/projects/wel]]></rtitle>
+			<rurl>http://www.oschina.net/news/36021</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[禅道荣膺sourceforge.net当月推荐项目！]]></rtitle>
+			<rurl>http://www.oschina.net/news/23793/zentao-to-be-sourceforge-recommend-project</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[SourceForge.net 网站大改版]]></rtitle>
+			<rurl>http://www.oschina.net/news/15363/sourceforge</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Sourceforge.net 网站昨天遭受攻击]]></rtitle>
+			<rurl>http://www.oschina.net/news/15086/sourceforge-net-attack</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

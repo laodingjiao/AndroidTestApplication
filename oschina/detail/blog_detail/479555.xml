@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479555</id>
+		<title><![CDATA[在 Java EE 组件中使用 Camel Routes]]></title>
+		<url><![CDATA[http://my.oschina.net/oneapmofficial/blog/479555]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><strong>摘要：你可以通过集成 Camel 和 WildFly 应用服务器（使用 WildFly-Camel 子系统）在 Java EE 组件中开始使用 Apache Camel Routes。</strong></p> 
+<p>【编者按】作者 Markus Eisele 是 Red Hat 的 Developer Advocate，主要从事 JBoss Middleware 相关研究，拥有超过14年的 Java EE 工作经验。本篇博文中， Markus 主要分享了基于 Java EE 组件的 Camel Routes 应用实践。</p> 
+<p><strong>以下为译文:</strong></p> 
+<p>在生产环境中使用 Camel 有一段时间后，我愈发的喜欢上它的简单。在 Java EE 上使用它确实存在一些挑战，而在最近一次演讲中我也提到了如何实现这一点。在 Java EE 中，我们可以通过不同的途径来使用 Camel 的，其中比较推荐的是使用 WildFly-Camel 子系统。在接下来的一个系列中，我将探索实现它的不同方法，并提供一些在演讲中没有涉及的例子。很期待能够通过留言或者在 Twitter上@myfear 的方式获得你的反馈和提问。</p> 
+<h2>Camel On WildFly 8.2入门</h2> 
+<p>WildFly-Camel 子系统提供了 Apache Camel 和 WildFly 应用服务器的集成环境。它允许你添加 Camel Routes（路由）作为 WildFly 配置的一部分。Routes 可以作为 Java EE 应用程序的一部分部署。Java EE 组件能够使用 Camel 的核心 API 和多个 Camel Component APIs。你的企业级集成解决方案可以架构于 Java EE 和 Camel 的联合功能之上。</p> 
+<p><strong>备注：最新的 WildFly9 预期将由 WildFly-Camel 的 3.x 版本支持。</strong></p> 
+<h2>准备阶段</h2> 
+<p>下载并解压 WildFly 8.2.0.Final 到你指定的目录下，下载并解压 wildfly-camel patch(2.3.0) 到 wildfly 目录下。通过以下命令启动 WildFly：</p> 
+<pre><code>bin/standalone[.bat|.sh] -c standalone-camel.xml
+</code></pre> 
+<p>最快速的启动和运行方式是使用 Docker 和 WildFly Camel image。这里的 image 需要预先安装好 WindFly8.1 和 Camel 子系统。</p> 
+<h2>定义和使用Camel Context</h2> 
+<p>CamelContext 代表着一个 Camel 路由规则库。使用 CamelContext 和使用 Spring ApplicationContext 的方式是十分相似的。它包含针对你应用的所有路由。你可以根据需求使用任意数量的 CamelContext，当然它们需要使用不同的名称来定义。</p> 
+<p>WildFly-Camel 可以通过下面3种不同的方式定义和部署：</p> 
+<ol> 
+ <li>在 standalone-camel.xml 和 domain.xml 中作为子系统的一部分来定义；</li> 
+ <li>在一个支持它们的 deployment artifact 进行部署，当然这个 deployment artifact 必须包含后缀为 -camel-context.xml 的文件；</li> 
+ <li>通过 RouteBilder 和 CDI integration 定义部署并提供路由信息。</li> 
+</ol> 
+<p>一个定义的 CamelContext 可以通过两种不同的方式被使用：</p> 
+<ol> 
+ <li>通过Camel-CDI注入</li> 
+ <li>通过 JNDI 树进入。</li> 
+</ol> 
+<h2>Context 和 Route 示例</h2> 
+<p>在接下来的例子中，我将使用一个关联路由的 context，通过 CDI 和 RouteBuilder 提供。是一个应用级别的 bean，在应用启动的时候自动启动。@ContextName 注解给了 CamelContext 一个特定的名字。</p> 
+<pre><code>@ApplicationScoped
+@Startup
+@ContextName("cdi-context")
+public class HelloRouteBuilder extends RouteBuilder {
+
+    @Inject
+    HelloBean helloBean;
+
+    @Override
+    public void configure() throws Exception {
+        from("direct:start").transform(body().prepend(helloBean.sayHello()).append(" user."));
+    }
+ }
+</code></pre> 
+<p>路由本身并不真的具有挑战性。它有一个空的信息主体 from direct:start 并且用 CDI bean 方法 “sayHello” prepends 输出，再 append 字符串“ user.”。作为参照，完整的代码可以在我的GitHub（<a href="https://github.com/myfear/camel-javaee" rel="nofollow">https://github.com/myfear/camel-javaee</a>）中找到。因此，接下来我们需要知道的是，如何在各种Java EE组件中使用这个路由。</p> 
+<h2>在 CDI 中使用 Camel</h2> 
+<p>Camel 自从2.10 版本即支持 CDI。在没有子系统之前，它需要被 bootstrapped。不过现在不需要了，你可以仅仅用一个已部署或者已定义的 CamelContext 在 @Named CDI bean 中通过简单的 @Injecting 注入它的 name 实现。</p> 
+<pre><code>@Inject
+    @ContextName("cdi-context")
+    private CamelContext context;
+</code></pre> 
+<h2>在 JSF、JAX-RS 和 EJBs 中使用 Camel</h2> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fnews.oneapm.com%2Fcontent%2Fimages%2F2015%2F07%2Fhello_jsf.PNG" alt="在 Java EE 组件中使用 Camel Routes"></p>
+<p>有了对在 CDI 中如何使用 CamelContext 的了解，你可能会想，在 类似 JSF 中使用应该一样的简单，事实却并不如此——你无法将它注入 ManagedBeans 或者和 JSF 组件绑定的 CDI　Beans。此外，它在 EJB 中也不能使用。这里我并没有深挖细节，但是认为它在边界控制上确实需要改进。一个合理的解决方法，事实上，更好的应用程序设计是将一个完整的 Camel 逻辑放入一个单独的 CDI bean 并且注入。</p> 
+<pre><code>@Named
+public class HelloCamel {
+
+    @Inject
+    @ContextName("cdi-context")
+    private CamelContext context;
+
+    private final static Logger LOGGER = Logger.getLogger(HelloCamel.class.getName());
+
+    public String doSomeWorkFor(String name) {
+
+        ProducerTemplate producer = context.createProducerTemplate();
+        String result = producer.requestBody("direct:start", name, String.class);
+        LOGGER.log(Level.INFO, result);
+        return result;
+    }
+}
+</code></pre> 
+<p>ProducerTemplate 接口允许你从 <a href="http://www.oneapm.com/ai/java.html?utm_source=TechCommunity&amp;utm_medium=TechArticle&amp;utm_term=java&amp;utm_campaign=JulSoftArti&amp;from=optcfijuja" rel="nofollow">Java</a> 代码发送信息交换到 endpoint，通过多种不同的方式使得同 Camel Endpoint 实例协作非常容易。在这种特殊情况下，它仅仅是启动路由并且添加上代表我使用组件名称的字符串到 body 中。</p> 
+<p>CDI Bean，对于使用它的组件来说扮演着 backing-bean 的角色：</p> 
+<pre><code>@Inject
+    HelloCamel helloCamel;
+
+    public String getName() {
+        return helloCamel.doSomeWorkFor("JSF");
+}
+</code></pre> 
+<p>返回的字符串是 “Hello JSF user.”，同时也写进了 WildFly 的服务器日志。对于其他 Java EE 组件来讲这个方法同样是最好的。</p> 
+<h2>在 EJB 中使用 Camel</h2> 
+<p>如果你正在使用EJB作为你的主要应用组件模块，那么使用JNDI方法也是合理的：</p> 
+<pre><code>CamelContext camelctx = 
+             (CamelContext) inicxt.lookup("java:jboss/camel/context/cdi-context");
+</code></pre> 
+<h2>Hawtio：一个 Camel 控制台</h2> 
+<p>在子系统中另一个隐藏的宝贝就是 Hawtio 控制台。这是一个模块化的 Web 控制台，用来管理你的 Java 组件，它有一个 Apache Camel 插件来可视化你的上下文和路由信息。记住，它是自动配置的，安全起见，你在使用它之前需要先添加一个管理用户。<br><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fnews.oneapm.com%2Fcontent%2Fimages%2F2015%2F07%2Fcamel-hawtio-routes.PNG" alt="在 Java EE 组件中使用 Camel Routes"></p>
+<p>原文地址：<a href="https://dzone.com/articles/using-camel-routes-in-java-ee-components" rel="nofollow">Using Camel Routes In Java EE Components</a></p> 
+<p><strong>本文系 <a href="http://www.oneapm.com/index.html?utm_source=Common&amp;utm_medium=Articles&amp;utm_campaign=TechnicalArticles&amp;from=matefiseco" rel="nofollow">OneAPM</a> 工程师编译整理。OneAPM 是<a href="http://www.oneapm.com/" rel="nofollow">应用性能管理</a>领域的新兴领军企业，能帮助企业用户和开发者轻松实现：缓慢的程序代码和 SQL 语句的实时抓取。想阅读更多技术文章，请访问 OneAPM <a href="http://news.oneapm.com/?utm_source=TechCommunity&amp;utm_medium=TechArticle&amp;utm_campaign=JulSoftArti" rel="nofollow">官方博客</a>。</strong></p>]]></body>
+		<author><![CDATA[OneAPM蓝海讯通]]></author>
+		<authorid>2365986</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-17 02:53:23</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

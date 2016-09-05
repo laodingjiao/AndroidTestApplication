@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6052135</id>
+	<body><![CDATA[
+		今天去嘻嘻（西溪）        	]]></body>
+    <author><![CDATA[红薯]]></author>
+	<authorid>12</authorid>
+    <appclient>4</appclient>
+    <commentCount>2</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/0/12_50.jpg?t=1421200584000</portrait>
+    <pubDate>2015-07-16 06:19:52</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>1</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[狂龙治中]]></name>
+				<uid>2263880</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1131/2263880_50.jpg?t=1435884470000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

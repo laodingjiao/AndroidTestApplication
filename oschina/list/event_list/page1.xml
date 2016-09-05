@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>	<oschina>
+  <pagesize>20</pagesize>
+  <events>
+  												 				<event>
+			<id>241387</id>
+			<cover><![CDATA[http://192.168.79.254:8080/oschina/images/uploads/cover/beijing_2306887_241387_tqokI_bi.jpg]]></cover>
+			<title><![CDATA[Future is Now. QingCloud Users Conference 青云用户大会]]></title>
+			<url><![CDATA[http://city.oschina.net/beijing/event/241387]]></url>
+	        <startTime>2015-07-22 09:00:00</startTime>>
+			<endTime>2015-07-22 17:00:00</endTime>>
+	        <createTime>2015-06-29 15:29:23</createTime>
+	        <spot>千禧酒店</spot>
+			<city>朝阳</city>
+			<status>2</status>						<applyStatus>-1</applyStatus>					</event>
+														 				<event>
+			<id>241118</id>
+			<cover><![CDATA[http://192.168.79.254:8080/oschina/images/uploads/cover/shenyang_2261613_241118_lDRtb_bi.jpg]]></cover>
+			<title><![CDATA[《打造成功IT项目经理》专题讲座—沈阳站]]></title>
+			<url><![CDATA[http://city.oschina.net/shenyang/event/241118]]></url>
+	        <startTime>2015-07-25 14:00:00</startTime>>
+			<endTime>2015-07-25 16:00:00</endTime>>
+	        <createTime>2015-06-26 13:44:21</createTime>
+	        <spot>沈阳三隆中天大酒店</spot>
+			<city>沈阳</city>
+			<status>2</status>						<applyStatus>-1</applyStatus>					</event>
+																																																																																			    </events>
+</oschina>

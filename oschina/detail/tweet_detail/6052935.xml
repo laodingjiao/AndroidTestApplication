@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6052935</id>
+	<body><![CDATA[
+		去阿里巴巴，已经上车一个多小时了，还没到，各种堵啊！        	]]></body>
+    <author><![CDATA[红薯]]></author>
+	<authorid>12</authorid>
+    <appclient>4</appclient>
+    <commentCount>3</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/0/12_50.jpg?t=1421200584000</portrait>
+    <pubDate>2015-07-16 09:37:13</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>5</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[开源中国匿名会员]]></name>
+				<uid>1035386</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/517/1035386_50.jpg?t=1394167795000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[个性文]]></name>
+				<uid>574969</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/287/574969_50.jpg?t=1412592156000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[jianghf]]></name>
+				<uid>43602</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/21/43602_50.jpg?t=1370500489000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[jojo_183]]></name>
+				<uid>2252439</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1126/2252439_50.jpg?t=1436223280000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[一切_放空]]></name>
+				<uid>726090</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/363/726090_50.jpg?t=1402307466000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

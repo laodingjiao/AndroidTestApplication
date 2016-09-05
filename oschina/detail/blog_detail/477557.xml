@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>477557</id>
+		<title><![CDATA[Spring框架笔记（三）——Spring容器、属性注入和构造器注入详解]]></title>
+		<url><![CDATA[http://my.oschina.net/happyBKs/blog/477557]]></url>
+		<where><![CDATA[Spring]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="font-size: 18px;"><strong>Spring 容器</strong></span></p> 
+<p>在 Spring IOC 容器读取 Bean 配置创建 Bean 实例之前, 必须对它进行实例化. 只有在容器实例化后, 才可以从 IOC 容器里获取 Bean 实例并使用.</p> 
+<p>Spring 提供了两种类型的 IOC 容器实现.&nbsp;</p> 
+<p><strong>BeanFactory</strong>: IOC 容器的基本实现.</p> 
+<p><strong>ApplicationContext</strong>: 提供了更多的高级特性. 是 BeanFactory 的子接口.</p> 
+<p><strong><span style="color: rgb(112, 48, 160);">BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；</span></strong></p> 
+<p><strong><span style="color: rgb(112, 48, 160);">ApplicationContext 面向使用 Spring 框架的开发者，几乎所有的应用场合都直接使用 ApplicationContext 而非底层的 BeanFactory</span></strong></p> 
+<p>无论使用何种方式, 配置文件时相同的.</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0712/105926_IaRv_1156339.jpg"></p>
+<p><br></p> 
+<p>ApplicationContext 的主要实现类：</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;ClassPathXmlApplicationContext：从 <strong>类路径下</strong>加载配置文件</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;FileSystemXmlApplicationContext: 从<strong>文件系统中</strong>加载配置文件</p> 
+<p>ConfigurableApplicationContext 扩展于 ApplicationContext，新增加两个主要方法：refresh() 和 close()， 让 ApplicationContext 具有启动、刷新和关闭上下文的能力。（后面的博文会提到Bean的声明周期方法的时候会详细介绍）</p> 
+<p>ApplicationContext 在初始化上下文时就实例化所有单例的 Bean。（顺便提一下，是Bean可以不是单实例的，这个等到Bean的作用域大的时候再说）</p> 
+<p>WebApplicationContext 是专门为 WEB 应用而准备的，它允许从相对于 WEB 根目录的路径中完成初始化工作</p> 
+<p>我们之前用的<span style="line-height: 23px;">ClassPathXmlApplicationContext对象的getBean方法其实源自接口BeanFactory。</span></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0712/121204_HG4X_1156339.jpg"></p>
+<p><br></p> 
+<p>在 Spring 的 IOC 容器里配置 Bean（在applicationContext.xml中配置）</p> 
+<pre class="brush:xml;toolbar: true; auto-links: false;">&lt;bean&nbsp;id="BKBeanId"&nbsp;class="com.happBKs.spring.iocaop.beans.BKBean"&gt;
+		&lt;property&nbsp;name="name"&nbsp;value="defaultName"&gt;&lt;/property&gt;
+	&lt;/bean&gt;</pre> 
+<p></p> 
+<p>id是Bean 的名称，之前我在博文中已经介绍过，这里我们对其细节归纳为以下三点：</p> 
+<p>1. 在 IOC 容器中必须是唯一的</p> 
+<p>2. 若 id 没有指定，Spring 自动将权限定性类名作为 Bean 的名字</p> 
+<p>3. id 可以指定多个名字，名字之间可用逗号、分号、或空格分隔</p> 
+<p>使用Spring IOC容器的方法如下：</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">@Test
+	public&nbsp;void&nbsp;test2()
+	{		
+		//创建spring&nbsp;IOC容器对象。ClassPathXmlApplicationContext表示配置文件在类路径下，它是接口ApplicationContext的一个实现类。实现类从类路径下加载配置文件。
+		ApplicationContext&nbsp;ctx=new&nbsp;ClassPathXmlApplicationContext("applicationContext.xml");
+		//从IOC容器中获取Bean实例
+		BKBean&nbsp;dfBean=(BKBean)ctx.getBean("BKBeanId");
+		//调用对象方法
+		dfBean.doJob();
+	}</pre> 
+<p></p> 
+<p>这个BeanFactory的getBean方法有多个重载方法，我们还可以利用Bean的类来进行getBean</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">@Test
+	public&nbsp;void&nbsp;test5()
+	{		
+		//创建spring&nbsp;IOC容器对象。ClassPathXmlApplicationContext表示配置文件在类路径下，它是接口ApplicationContext的一个实现类。
+		ApplicationContext&nbsp;ctx=new&nbsp;ClassPathXmlApplicationContext("applicationContext.xml");
+		//从IOC容器中获取Bean实例
+		BKBean&nbsp;dfBean=(BKBean)ctx.getBean(BKBean.class);
+		//调用对象方法
+		dfBean.doJob();
+	}</pre> 
+<p></p> 
+<p>但是这里运行的时候报错了！！</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">org.springframework.beans.factory.NoUniqueBeanDefinitionException:&nbsp;No&nbsp;qualifying&nbsp;bean&nbsp;of&nbsp;type&nbsp;[com.happBKs.spring.iocaop.beans.BKBean]&nbsp;is&nbsp;defined:&nbsp;expected&nbsp;single&nbsp;matching&nbsp;bean&nbsp;but&nbsp;found&nbsp;4:&nbsp;BKBeanId,BKBeanId_BK1,BKBeanId_BK2,BKBeanId_BK3
+	at&nbsp;org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:365)
+	at&nbsp;org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:331)
+	at&nbsp;org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:968)
+	at&nbsp;com.happBKs.spring.iocaop.TestApp1.test5(TestApp1.java:65)
+	at&nbsp;sun.reflect.NativeMethodAccessorImpl.invoke0(Native&nbsp;Method)
+	at&nbsp;sun.reflect.NativeMethodAccessorImpl.invoke(Unknown&nbsp;Source)
+	at&nbsp;sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown&nbsp;Source)
+	at&nbsp;java.lang.reflect.Method.invoke(Unknown&nbsp;Source)
+	at&nbsp;org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:45)
+	at&nbsp;org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at&nbsp;org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:42)
+	at&nbsp;org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at&nbsp;org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263)
+	at&nbsp;org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:68)
+	at&nbsp;org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:47)
+	at&nbsp;org.junit.runners.ParentRunner$3.run(ParentRunner.java:231)
+	at&nbsp;org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:60)
+	at&nbsp;org.junit.runners.ParentRunner.runChildren(ParentRunner.java:229)
+	at&nbsp;org.junit.runners.ParentRunner.access$000(ParentRunner.java:50)
+	at&nbsp;org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:222)
+	at&nbsp;org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at&nbsp;org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at&nbsp;org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at&nbsp;org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at&nbsp;org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at&nbsp;org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at&nbsp;org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)</pre> 
+<p></p> 
+<p>原因是我们的容器中，即applicationContext.xml中存在多个Bean的class制定的类是相同的。</p> 
+<pre class="brush:xml;toolbar: true; auto-links: false;">&lt;?xml&nbsp;version="1.0"&nbsp;encoding="UTF-8"?&gt;
+&lt;beans&nbsp;xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans&nbsp;http://www.springframework.org/schema/beans/spring-beans.xsd"&gt;
+
+
+	&lt;bean&nbsp;id="BKBeanId"&nbsp;class="com.happBKs.spring.iocaop.beans.BKBean"&gt;
+		&lt;property&nbsp;name="name"&nbsp;value="defaultName"&gt;&lt;/property&gt;
+	&lt;/bean&gt;
+
+
+	&lt;bean&nbsp;id="BKBeanId_BK1"&nbsp;class="com.happBKs.spring.iocaop.beans.BKBean"&gt;
+		&lt;property&nbsp;name="name"&nbsp;value="BK1"&gt;&lt;/property&gt;
+	&lt;/bean&gt;
+	&lt;bean&nbsp;id="BKBeanId_BK2"&nbsp;class="com.happBKs.spring.iocaop.beans.BKBean"&gt;
+		&lt;property&nbsp;name="name"&nbsp;value="BK2"&gt;&lt;/property&gt;
+	&lt;/bean&gt;
+	&lt;bean&nbsp;id="BKBeanId_BK3"&nbsp;class="com.happBKs.spring.iocaop.beans.BKBean"&gt;
+		&lt;property&nbsp;name="name"&nbsp;value="BK3"&gt;&lt;/property&gt;
+	&lt;/bean&gt;
+
+&lt;/beans&gt;</pre> 
+<p></p> 
+<p>因此，getBean无法知道应该加载那个bean的对象。所以我们需要其他相同类的bean去除。</p> 
+<p>注意：当applicationContext.xml中有多个相同类型的bean时，请不要使用class的这种getBean的方法，而是使用id来getBean。即利用类型返回IOC容器中的bean，但要求IOC容器中只有一个该类型的bean。</p> 
+<p><br></p> 
+<p><strong><span style="font-size: 18px;">依赖注入的方式</span></strong><br></p> 
+<p><span style="font-size: 12.5px;"></span></p> 
+<p>Spring 支持 3 种依赖注入的方式</p> 
+<p>属性注入</p> 
+<p>构造器注入</p> 
+<p>工厂方法注入（很少使用，不推荐）</p> 
+<p><br></p> 
+<p><span style="font-size: 12.5px;"></span></p> 
+<p><strong><span style="font-size: 18px;">属性注入</span></strong></p> 
+<p>属性注入即通过 setter 方法注入Bean 的属性值或依赖的对象</p> 
+<p>属性注入使用 &lt;property&gt; 元素, 使用 name 属性指定 Bean 的属性名称，value 属性或 &lt;value&gt; 子节点指定属性值&nbsp;</p> 
+<p>属性注入是实际应用中最常用的注入方式</p> 
+<p>这种方式，实际我们之前的例已经介绍过了，这里不再累述。</p> 
+<p><span style="font-size: 12.5px; color: rgb(255, 255, 255);">（本文出自：http://my.oschina.net/happyBKs/blog/477557）</span></p> 
+<p><span style="font-size: 12.5px;"></span></p> 
+<p><span style="font-size: 16px;"><strong>构造方法注入</strong></span></p> 
+<p>通过构造方法注入Bean 的属性值或依赖的对象，它保证了 Bean 实例在实例化后就可以使用。</p> 
+<p>构造器注入在 &lt;constructor-arg&gt; 元素里声明属性</p> 
+<p>我们现在先构造一个Car的bean类</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">package&nbsp;com.happBKs.spring.iocaop.beans;
+
+public&nbsp;class&nbsp;Car&nbsp;{
+	String&nbsp;name;
+	double&nbsp;price;
+	public&nbsp;String&nbsp;getName()&nbsp;{
+		return&nbsp;name;
+	}
+	public&nbsp;void&nbsp;setName(String&nbsp;name)&nbsp;{
+		this.name&nbsp;=&nbsp;name;
+	}
+	public&nbsp;double&nbsp;getPrice()&nbsp;{
+		return&nbsp;price;
+	}
+	public&nbsp;void&nbsp;setPrice(double&nbsp;price)&nbsp;{
+		this.price&nbsp;=&nbsp;price;
+	}
+	public&nbsp;Car()&nbsp;{
+		super();
+	}
+	public&nbsp;Car(String&nbsp;name1,&nbsp;double&nbsp;price1)&nbsp;{
+		super();
+		this.name&nbsp;=&nbsp;name1;
+		this.price&nbsp;=&nbsp;price1;
+	}
+	@Override
+	public&nbsp;String&nbsp;toString()&nbsp;{
+		return&nbsp;"Car&nbsp;[name="&nbsp;+&nbsp;name&nbsp;+&nbsp;",&nbsp;price="&nbsp;+&nbsp;price&nbsp;+&nbsp;"]";
+	}
+}</pre> 
+<p></p> 
+<p>这里有三种方法，来实现构造器注入的bean声明：</p> 
+<pre class="brush:xml;toolbar: true; auto-links: false;">&lt;?xml&nbsp;version="1.0"&nbsp;encoding="UTF-8"?&gt;
+&lt;beans&nbsp;xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans&nbsp;http://www.springframework.org/schema/beans/spring-beans.xsd"&gt;
+
+	&lt;bean&nbsp;id="car_id"&nbsp;class="com.happBKs.spring.iocaop.beans.Car"&gt;
+		&lt;constructor-arg&nbsp;value="BM"&gt;&lt;/constructor-arg&gt;
+		&lt;constructor-arg&nbsp;value="500000"&gt;&lt;/constructor-arg&gt;
+	&lt;/bean&gt;
+
+	&lt;bean&nbsp;id="car_Index_id"&nbsp;class="com.happBKs.spring.iocaop.beans.Car"&gt;
+		&lt;constructor-arg&nbsp;value="400000"&nbsp;index="1"&gt;&lt;/constructor-arg&gt;
+		&lt;constructor-arg&nbsp;value="BM"&nbsp;index="0"&gt;&lt;/constructor-arg&gt;
+	&lt;/bean&gt;
+
+	&lt;bean&nbsp;id="car_name_id"&nbsp;class="com.happBKs.spring.iocaop.beans.Car"&gt;
+		&lt;constructor-arg&nbsp;name="price1"&nbsp;value="300000"&gt;&lt;/constructor-arg&gt;
+		&lt;constructor-arg&nbsp;name="name1"&nbsp;value="BM"&gt;&lt;/constructor-arg&gt;
+	&lt;/bean&gt;
+
+&lt;/beans&gt;</pre> 
+<p></p> 
+<p><strong>第一种方式：利用构造器的参数顺序，依次排列各个construcctor-arg</strong></p> 
+<p><strong>第二种方式：用index属性指定构造器参数的顺序，从0开始</strong></p> 
+<p><strong>第三种方式：构造器参数的名字来指定是哪一个参数赋值</strong></p> 
+<p>测试方法：</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">@Test
+	public&nbsp;void&nbsp;test6_1()
+	{
+		//创建spring&nbsp;IOC容器对象。ClassPathXmlApplicationContext表示配置文件在类路径下，它是接口ApplicationContext的一个实现类。
+		ApplicationContext&nbsp;ctx=new&nbsp;ClassPathXmlApplicationContext("applicationContext.xml");
+		//从IOC容器中获取Bean实例
+		Car&nbsp;cBean=(Car)ctx.getBean("car_id");
+		//调用对象方法
+		System.out.println(cBean);
+	}
+	
+	@Test
+	public&nbsp;void&nbsp;test6_2()
+	{
+		//创建spring&nbsp;IOC容器对象。ClassPathXmlApplicationContext表示配置文件在类路径下，它是接口ApplicationContext的一个实现类。
+		ApplicationContext&nbsp;ctx=new&nbsp;ClassPathXmlApplicationContext("applicationContext.xml");
+		//从IOC容器中获取Bean实例
+		Car&nbsp;cBean=(Car)ctx.getBean("car_Index_id");
+		//调用对象方法
+		System.out.println(cBean);
+	}
+	
+	@Test
+	public&nbsp;void&nbsp;test6_3()
+	{
+		//创建spring&nbsp;IOC容器对象。ClassPathXmlApplicationContext表示配置文件在类路径下，它是接口ApplicationContext的一个实现类。
+		ApplicationContext&nbsp;ctx=new&nbsp;ClassPathXmlApplicationContext("applicationContext.xml");
+		//从IOC容器中获取Bean实例
+		Car&nbsp;cBean=(Car)ctx.getBean("car_name_id");
+		//调用对象方法
+		System.out.println(cBean);
+	}</pre> 
+<p></p> 
+<p><span style="font-size: 12.5px;">运行结果1：</span></p> 
+<p><span style="font-size: 12.5px;">Car [name=BM, price=500000.0]</span></p> 
+<p><span style="font-size: 12.5px;"></span></p> 
+<p><span style="font-size: 12.5px;">运行结果2：</span></p> 
+<p><span style="font-size: 12.5px;">Car [name=BM, price=400000.0]</span></p> 
+<p><span style="font-size: 12.5px;">运行结果3：</span><br></p> 
+<p><span style="font-size: 12.5px;">Car [name=BM, price=300000.0]</span></p> 
+<p><span style="font-size: 12.5px;">注意：方式三的constructor-arg的name属性必须与bean的构造方法的形参名称一样，而不是和bean的属性名一样，需要特别注意！</span></p> 
+<p><span style="font-size: 12.5px;"><br></span></p> 
+<p><span style="font-size: 12.5px;"><br></span></p> 
+<p><span style="font-size: 12.5px;"><br></span><span style="color: rgb(255, 0, 0);"><strong>构造方法的重载问题</strong></span></p> 
+<p>好，现在我们还说明一个问题。请看这样一个例子。现在有一个bean， Car2的定义如下：</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">package&nbsp;com.happBKs.spring.iocaop.beans;
+
+public&nbsp;class&nbsp;Car2&nbsp;{
+	String&nbsp;name;
+	double&nbsp;price;
+	int&nbsp;version;
+	double&nbsp;speed;
+	public&nbsp;String&nbsp;getName()&nbsp;{
+		return&nbsp;name;
+	}
+	public&nbsp;void&nbsp;setName(String&nbsp;name)&nbsp;{
+		this.name&nbsp;=&nbsp;name;
+	}
+	public&nbsp;double&nbsp;getPrice()&nbsp;{
+		return&nbsp;price;
+	}
+	public&nbsp;void&nbsp;setPrice(double&nbsp;price)&nbsp;{
+		this.price&nbsp;=&nbsp;price;
+	}
+	public&nbsp;int&nbsp;getVersion()&nbsp;{
+		return&nbsp;version;
+	}
+	public&nbsp;void&nbsp;setVersion(int&nbsp;version)&nbsp;{
+		this.version&nbsp;=&nbsp;version;
+	}
+	public&nbsp;double&nbsp;getSpeed()&nbsp;{
+		return&nbsp;speed;
+	}
+	public&nbsp;void&nbsp;setSpeed(double&nbsp;speed)&nbsp;{
+		this.speed&nbsp;=&nbsp;speed;
+	}
+	public&nbsp;Car2()&nbsp;{
+		super();
+	}
+	public&nbsp;Car2(String&nbsp;name,&nbsp;double&nbsp;price,&nbsp;int&nbsp;version)&nbsp;{
+		super();
+		this.name&nbsp;=&nbsp;name;
+		this.price&nbsp;=&nbsp;price;
+		this.version&nbsp;=&nbsp;version;
+	}
+	public&nbsp;Car2(String&nbsp;name,&nbsp;double&nbsp;price,&nbsp;double&nbsp;speed)&nbsp;{
+		super();
+		this.name&nbsp;=&nbsp;name;
+		this.price&nbsp;=&nbsp;price;
+		this.speed&nbsp;=&nbsp;speed;
+	}
+	public&nbsp;Car2(String&nbsp;name,&nbsp;double&nbsp;price,&nbsp;int&nbsp;version,&nbsp;double&nbsp;speed)&nbsp;{
+		super();
+		this.name&nbsp;=&nbsp;name;
+		this.price&nbsp;=&nbsp;price;
+		this.version&nbsp;=&nbsp;version;
+		this.speed&nbsp;=&nbsp;speed;
+	}
+	@Override
+	public&nbsp;String&nbsp;toString()&nbsp;{
+		return&nbsp;"Car2&nbsp;[name="&nbsp;+&nbsp;name&nbsp;+&nbsp;",&nbsp;price="&nbsp;+&nbsp;price&nbsp;+&nbsp;",&nbsp;version="
+				+&nbsp;version&nbsp;+&nbsp;",&nbsp;speed="&nbsp;+&nbsp;speed&nbsp;+&nbsp;"]";
+	}
+	
+	
+
+}</pre> 
+<p></p> 
+<p>我们的容器配制如下：applicationContext.xml</p> 
+<pre class="brush:xml;toolbar: true; auto-links: false;">&lt;?xml&nbsp;version="1.0"&nbsp;encoding="UTF-8"?&gt;
+&lt;beans&nbsp;xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans&nbsp;http://www.springframework.org/schema/beans/spring-beans.xsd"&gt;
+
+	&lt;bean&nbsp;id="car2_id"&nbsp;class="com.happBKs.spring.iocaop.beans.Car2"&gt;
+		&lt;constructor-arg&nbsp;value="BM"&nbsp;index="0"&gt;&lt;/constructor-arg&gt;
+		&lt;constructor-arg&nbsp;value="500000"&nbsp;index="1"&gt;&lt;/constructor-arg&gt;
+		&lt;constructor-arg&nbsp;value="1"&nbsp;index="2"&gt;&lt;/constructor-arg&gt;
+	&lt;/bean&gt;
+
+&lt;/beans&gt;</pre> 
+<p></p> 
+<p><span style="font-size: 12.5px;">现在我们尝试调用测试：使用赋予参数name、price、version的构造器：</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">@Test
+	public&nbsp;void&nbsp;test7()
+	{
+		//创建spring&nbsp;IOC容器对象。ClassPathXmlApplicationContext表示配置文件在类路径下，它是接口ApplicationContext的一个实现类。
+		ApplicationContext&nbsp;ctx=new&nbsp;ClassPathXmlApplicationContext("applicationContext.xml");
+		//从IOC容器中获取Bean实例
+		Car2&nbsp;c2Bean=(Car2)ctx.getBean("car2_id");
+		//调用对象方法
+		System.out.println(c2Bean);
+	}</pre> 
+<p></p> 
+<p><span style="font-size: 12.5px;"></span>但是运行结果却是：</p> 
+<p>Car2 [name=BM, price=500000.0, version=0, speed=1.0]</p> 
+<p><span style="font-size: 12.5px;"><br></span></p> 
+<p><span style="font-size: 12.5px;">getBean返回的使容器中由构造器public Car2(String name, double price, double speed)返回的对象。这就是构造器重载可能带来的问题。</span><br></p> 
+<p>解决方法是：</p> 
+<p>方法1：利用constructor-arg标签中的type属性，指定参数类型。</p> 
+<p>将刚才的容器配制改为：</p> 
+<pre class="brush:xml;toolbar: true; auto-links: false;">&lt;bean&nbsp;id="car2_id"&nbsp;class="com.happBKs.spring.iocaop.beans.Car2"&gt;
+		&lt;constructor-arg&nbsp;value="BM"&nbsp;index="0"&gt;&lt;/constructor-arg&gt;
+		&lt;constructor-arg&nbsp;value="500000"&nbsp;index="1"&gt;&lt;/constructor-arg&gt;
+		&lt;constructor-arg&nbsp;value="1"&nbsp;index="2"&nbsp;type="int"&gt;&lt;/constructor-arg&gt;
+	&lt;/bean&gt;</pre> 
+<p></p> 
+<p><span style="font-size: 12.5px;"><br></span>在运行test7测试方法：</p> 
+<p>Car2 [name=BM, price=500000.0, version=1, speed=0.0]</p> 
+<p><br></p> 
+<p>这样就OK了。</p> 
+<p><br></p> 
+<p>方法2：<span style="line-height: 23px;">利用constructor-arg标签中的</span>name属性，指定参数名称。</p> 
+<pre class="brush:xml;toolbar: true; auto-links: false;">&lt;bean&nbsp;id="car2_id"&nbsp;class="com.happBKs.spring.iocaop.beans.Car2"&gt;
+		&lt;constructor-arg&nbsp;value="BM"&nbsp;index="0"&gt;&lt;/constructor-arg&gt;
+		&lt;constructor-arg&nbsp;value="500000"&nbsp;index="1"&gt;&lt;/constructor-arg&gt;
+		&lt;constructor-arg&nbsp;value="1"&nbsp;index="2"&nbsp;name="version"&gt;&lt;/constructor-arg&gt;
+	&lt;/bean&gt;</pre> 
+<p></p> 
+<p>在运行test7测试方法：</p> 
+<p>Car2 [name=BM, price=500000.0, version=1, speed=0.0]</p> 
+<p><br></p> 
+<p>大家记住spring的容器对应于applicationContext.xml配制文件，容器构造对象时在加载该配制文件的时候，而不是实际getBean的时候。</p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[HappyBKs]]></author>
+		<authorid>1156339</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-12 15:31:55</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

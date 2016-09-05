@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<likeList>
+				<mytweet>	
+			<user>
+				<name>heima程序员</name>
+				<uid>2418638</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1209/2418638_50.jpg?t=1437278343000</portrait>
+			</user>
+			<tweet>
+										<id>1686370</id>
+					<body><![CDATA[jjj]]></body>
+					<author>itheima</author>
+			</tweet>
+			<datatime>2015-07-19 12:00:53</datatime>
+		</mytweet>
+				<mytweet>	
+			<user>
+				<name>heima程序员</name>
+				<uid>2418638</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1209/2418638_50.jpg?t=1437278343000</portrait>
+			</user>
+			<tweet>
+										<id>6077967</id>
+					<body><![CDATA[我来测试发布一个自己的动弹,嘿嘿嘿. itheima]]></body>
+					<author>itheima</author>
+			</tweet>
+			<datatime>2015-07-19 12:00:51</datatime>
+		</mytweet>
+			</likeList>
+</oschina>

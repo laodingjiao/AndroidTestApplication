@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479324</id>
+		<title><![CDATA[MYSQL_连接字符串函数]]></title>
+		<url><![CDATA[http://my.oschina.net/miaowang/blog/479324]]></url>
+		<where><![CDATA[数据库|MYSQL]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>1、concat</p> 
+<p>()函数</p> 
+<p><br></p> 
+<p>1.1 MySQL的concat函数可以连接一个或者多个字符串,如</p> 
+<p><br></p> 
+<p>mysql&gt; select concat('10');</p> 
+<p><br></p> 
+<p>+--------------+</p> 
+<p><br></p> 
+<p>| concat('10') |</p> 
+<p><br></p> 
+<p>+--------------+</p> 
+<p><br></p> 
+<p>| 10 |</p> 
+<p><br></p> 
+<p>+--------------+</p> 
+<p><br></p> 
+<p>1 row in set (0.00 sec)</p> 
+<p>mysql&gt; select concat('11','22','33');</p> 
+<p><br></p> 
+<p>+------------------------+</p> 
+<p><br></p> 
+<p>| concat('11','22','33') |</p> 
+<p><br></p> 
+<p>+------------------------+</p> 
+<p><br></p> 
+<p>| 112233 |</p> 
+<p><br></p> 
+<p>+------------------------+</p> 
+<p><br></p> 
+<p>1 row in set (0.00 sec)</p> 
+<p>而Oracle的concat函数只能连接两个字符串</p> 
+<p><br></p> 
+<p>SQL&gt; select concat('11','22') from dual;</p> 
+<p>1.2 MySQL的concat函数在连接字符串的时候，只要其中一个是NULL,那么将返回NULL</p> 
+<p><br></p> 
+<p>mysql&gt; select concat('11','22',null);</p> 
+<p><br></p> 
+<p>+------------------------+</p> 
+<p><br></p> 
+<p>| concat('11','22',null) |</p> 
+<p><br></p> 
+<p>+------------------------+</p> 
+<p><br></p> 
+<p>| NULL |</p> 
+<p><br></p> 
+<p>+------------------------+</p> 
+<p><br></p> 
+<p>1 row in set (0.00 sec)</p> 
+<p>而Oracle的concat函数连接的时候，只要有一个字符串不是NULL,就不会返回NULL</p> 
+<p><br></p> 
+<p>SQL&gt; select concat('11',NULL) from dual;</p> 
+<p>CONCAT</p> 
+<p><br></p> 
+<p>--</p> 
+<p><br></p> 
+<p>11</p> 
+<p>2、concat_ws()函数, 表示concat with separator,即有分隔符的字符串连接</p> 
+<p><br></p> 
+<p>如连接后以逗号分隔</p> 
+<p><br></p> 
+<p>mysql&gt; select concat_ws(',','11','22','33');</p> 
+<p><br></p> 
+<p>+-------------------------------+</p> 
+<p><br></p> 
+<p>| concat_ws(',','11','22','33') |</p> 
+<p><br></p> 
+<p>+-------------------------------+</p> 
+<p><br></p> 
+<p>| 11,22,33 |</p> 
+<p><br></p> 
+<p>+-------------------------------+</p> 
+<p><br></p> 
+<p>1 row in set (0.00 sec)</p> 
+<p><br></p> 
+<p><br></p> 
+<p>和concat不同的是, concat_ws函数在执行的时候,不会因为NULL值而返回NULL</p> 
+<p><br></p> 
+<p>mysql&gt; select concat_ws(',','11','22',NULL);</p> 
+<p><br></p> 
+<p>+-------------------------------+</p> 
+<p><br></p> 
+<p>| concat_ws(',','11','22',NULL) |</p> 
+<p><br></p> 
+<p>+-------------------------------+</p> 
+<p><br></p> 
+<p>| 11,22 |</p> 
+<p><br></p> 
+<p>+-------------------------------+</p> 
+<p><br></p> 
+<p>1 row in set (0.00 sec)</p> 
+<p>3、group_concat()可用来行转列, Oracle没有这样的函数</p> 
+<p><br></p> 
+<p>完整的语法如下</p> 
+<p><br></p> 
+<p>group_concat([DISTINCT] 要连接的字段 [Order BY ASC/DESC 排序字段] [Separator '分隔符'])</p> 
+<p><br></p> 
+<p>如下例子</p> 
+<p><br></p> 
+<p>mysql&gt; select * from aa;</p> 
+<p><br></p> 
+<p>+------+------+</p> 
+<p><br></p> 
+<p>| id | name |</p> 
+<p><br></p> 
+<p>+------+------+</p> 
+<p><br></p> 
+<p>| 1 | 10 |</p> 
+<p><br></p> 
+<p>| 1 | 20 |</p> 
+<p><br></p> 
+<p>| 1 | 20 |</p> 
+<p><br></p> 
+<p>| 2 | 20 |</p> 
+<p><br></p> 
+<p>| 3 | 200 |</p> 
+<p><br></p> 
+<p>| 3 | 500 |</p> 
+<p><br></p> 
+<p>+------+------+</p> 
+<p><br></p> 
+<p>6 rows in set (0.00 sec)</p> 
+<p><br></p> 
+<p><br></p> 
+<p>3.1 以id分组，把name字段的值打印在一行，逗号分隔(默认)</p> 
+<p><br></p> 
+<p>mysql&gt; select id,group_concat(name) from aa group by id;</p> 
+<p><br></p> 
+<p>+------+--------------------+</p> 
+<p><br></p> 
+<p>| id | group_concat(name) |</p> 
+<p><br></p> 
+<p>+------+--------------------+</p> 
+<p><br></p> 
+<p>| 1 | 10,20,20 |</p> 
+<p><br></p> 
+<p>| 2 | 20 |</p> 
+<p><br></p> 
+<p>| 3 | 200,500 |</p> 
+<p><br></p> 
+<p>+------+--------------------+</p> 
+<p><br></p> 
+<p>3 rows in set (0.00 sec)</p> 
+<p><br></p> 
+<p><br></p> 
+<p>3.2 以id分组，把name字段的值打印在一行，分号分隔</p> 
+<p><br></p> 
+<p>mysql&gt; select id,group_concat(name separator ';') from aa group by id;</p> 
+<p><br></p> 
+<p>+------+----------------------------------+</p> 
+<p><br></p> 
+<p>| id | group_concat(name separator ';') |</p> 
+<p><br></p> 
+<p>+------+----------------------------------+</p> 
+<p><br></p> 
+<p>| 1 | 10;20;20 |</p> 
+<p><br></p> 
+<p>| 2 | 20 |</p> 
+<p><br></p> 
+<p>| 3 | 200;500 |</p> 
+<p><br></p> 
+<p>+------+----------------------------------+</p> 
+<p><br></p> 
+<p>3 rows in set (0.00 sec)</p> 
+<p>3.3 以id分组，把去冗余的name字段的值打印在一行，逗号分隔</p> 
+<p><br></p> 
+<p>mysql&gt; select id,group_concat(distinct name) from aa group by id;</p> 
+<p><br></p> 
+<p>+------+-----------------------------+</p> 
+<p><br></p> 
+<p>| id | group_concat(distinct name) |</p> 
+<p><br></p> 
+<p>+------+-----------------------------+</p> 
+<p><br></p> 
+<p>| 1 | 10,20 |</p> 
+<p><br></p> 
+<p>| 2 | 20 |</p> 
+<p><br></p> 
+<p>| 3 | 200,500 |</p> 
+<p><br></p> 
+<p>+------+-----------------------------+</p> 
+<p><br></p> 
+<p>3 rows in set (0.00 sec)</p> 
+<p>3.4 以id分组，把name字段的值打印在一行，逗号分隔,以name排倒序</p> 
+<p><br></p> 
+<p>mysql&gt; select id,group_concat(name order by name desc) from aa group by id;</p> 
+<p><br></p> 
+<p>+------+---------------------------------------+</p> 
+<p><br></p> 
+<p>| id | group_concat(name order by name desc) |</p> 
+<p><br></p> 
+<p>+------+---------------------------------------+</p> 
+<p><br></p> 
+<p>| 1 | 20,20,10 |</p> 
+<p><br></p> 
+<p>| 2 | 20 |</p> 
+<p><br></p> 
+<p>| 3 | 500,200 |</p> 
+<p><br></p> 
+<p>+------+---------------------------------------+</p> 
+<p><br></p> 
+<p>3 rows in set (0.00 sec)</p> 
+<p>4、repeat()函数，用来复制字符串,如下'ab'表示要复制的字符串，2表示复制的份数</p> 
+<p><br></p> 
+<p>mysql&gt; select repeat('ab',2);</p> 
+<p><br></p> 
+<p>+----------------+</p> 
+<p><br></p> 
+<p>| repeat('ab',2) |</p> 
+<p><br></p> 
+<p>+----------------+</p> 
+<p><br></p> 
+<p>| abab |</p> 
+<p><br></p> 
+<p>+----------------+</p> 
+<p><br></p> 
+<p>1 row in set (0.00 sec)</p> 
+<p>又如</p> 
+<p><br></p> 
+<p>mysql&gt; select repeat('a',2);</p> 
+<p><br></p> 
+<p>+---------------+</p> 
+<p><br></p> 
+<p>| repeat('a',2) |</p> 
+<p><br></p> 
+<p>+---------------+</p> 
+<p><br></p> 
+<p>| aa |</p> 
+<p><br></p> 
+<p>+---------------+</p> 
+<p><br></p> 
+<p>1 row in set (0.00 sec)</p> 
+<p>5、SPACE(N) 函数。生成N个空格，如</p> 
+<p><br></p> 
+<p>mysql&gt; select space(3);</p> 
+<p><br></p> 
+<p>+----------+</p> 
+<p><br></p> 
+<p>| space(3) |</p> 
+<p><br></p> 
+<p>+----------+</p> 
+<p><br></p> 
+<p>| |</p> 
+<p><br></p> 
+<p>+----------+</p> 
+<p><br></p> 
+<p>1 row in set (0.00 sec)</p> 
+<p>6、STRCMP(STR1,STR2) 字符串比较函数,该函数和字符集有关系，默认区分大小写</p> 
+<p><br></p> 
+<p>若STR1和STR2相同, 则返回 0,</p> 
+<p><br></p> 
+<p>若STR1小于STR2, 则返回 -1,</p> 
+<p><br></p> 
+<p>若STR1大于STR2, 则返回 1</p> 
+<p><br></p> 
+<p>mysql&gt; select strcmp('abc','abc');</p> 
+<p><br></p> 
+<p>+---------------------+</p> 
+<p><br></p> 
+<p>| strcmp('abc','abc') |</p> 
+<p><br></p> 
+<p>+---------------------+</p> 
+<p><br></p> 
+<p>| 0 |</p> 
+<p><br></p> 
+<p>+---------------------+</p> 
+<p><br></p> 
+<p>1 row in set (0.00 sec)</p> 
+<p>mysql&gt; select strcmp('a','ab');</p> 
+<p><br></p> 
+<p>+------------------+</p> 
+<p><br></p> 
+<p>| strcmp('a','ab') |</p> 
+<p><br></p> 
+<p>+------------------+</p> 
+<p><br></p> 
+<p>| -1 |</p> 
+<p><br></p> 
+<p>+------------------+</p> 
+<p><br></p> 
+<p>1 row in set (0.00 sec)</p> 
+<p>mysql&gt; select strcmp('abc','ab');</p> 
+<p><br></p> 
+<p>+--------------------+</p> 
+<p><br></p> 
+<p>| strcmp('abc','ab') |</p> 
+<p><br></p> 
+<p>+--------------------+</p> 
+<p><br></p> 
+<p>| 1 |</p> 
+<p><br></p> 
+<p>+--------------------+</p> 
+<p><br></p> 
+<p>1 row in set (0.00 sec)</p> 
+<p><br></p>]]></body>
+		<author><![CDATA[喵王不瞌睡]]></author>
+		<authorid>1425152</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 14:59:50</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

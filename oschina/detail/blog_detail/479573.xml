@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479573</id>
+		<title><![CDATA[在Python的Django框架中加载模版的方法]]></title>
+		<url><![CDATA[http://my.oschina.net/os2015/blog/479573]]></url>
+		<where><![CDATA[《Python技术知识》]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h1>在Python的Django框架中加载模版的方法</h1> 
+<p><br>为了减少模板加载调用过程及模板本身的冗余代码，Django 提供了一种使用方便且功能强大的 API ，用于从磁盘中加载模板，<br><br>要使用此模板加载API，首先你必须将模板的保存位置告诉框架。 设置的保存文件就是settings.py。<br><br>如果你是一步步跟随我们学习过来的，马上打开你的settings.py配置文件，找到TEMPLATE_DIRS这项设置吧。 它的默认设置是一个空元组（tuple），加上一些自动生成的注释。<br><br></p> 
+<pre class="brush:py;">TEMPLATE_DIRS&nbsp;=&nbsp;(
+&nbsp;#&nbsp;Put&nbsp;strings&nbsp;here,&nbsp;like&nbsp;"/home/html/django_templates"&nbsp;or&nbsp;"C:/www/django/templates".
+&nbsp;#&nbsp;Always&nbsp;use&nbsp;forward&nbsp;slashes,&nbsp;even&nbsp;on&nbsp;Windows.
+&nbsp;#&nbsp;Don't&nbsp;forget&nbsp;to&nbsp;use&nbsp;absolute&nbsp;paths,&nbsp;not&nbsp;relative&nbsp;paths.
+)</pre> 
+<p><br><br>该设置告诉 Django 的模板加载机制在哪里查找模板。 选择一个目录用于存放模板并将其添加到 TEMPLATE_DIRS 中：<br><br></p> 
+<pre class="brush:py;">TEMPLATE_DIRS&nbsp;=&nbsp;(
+&nbsp;'/home/django/mysite/templates',
+)</pre> 
+<p><br><br>下面是一些注意事项：<br><br>你可以任意指定想要的目录，只要运行 Web 服务器的用户可以读取该目录的子目录和模板文件。 如果实在想不出合适的位置来放置模板，我们建议在 Django 项目中创建一个 templates 目录。<br><br>如果你的 TEMPLATE_DIRS只包含一个目录，别忘了在该目录后加上个逗号。<span>&nbsp;</span><br><br>Bad:<br><br></p> 
+<pre class="brush:py;">#&nbsp;Missing&nbsp;comma!
+TEMPLATE_DIRS&nbsp;=&nbsp;(
+&nbsp;'/home/django/mysite/templates'
+)</pre> 
+<p><br>Good:<br><br></p> 
+<pre class="brush:py;">#&nbsp;Comma&nbsp;correctly&nbsp;in&nbsp;place.
+TEMPLATE_DIRS&nbsp;=&nbsp;(
+&nbsp;'/home/django/mysite/templates',
+)</pre> 
+<p><br><br>Python 要求单元素元组中必须使用逗号，以此消除与圆括号表达式之间的歧义。 这是新手常犯的错误。<br><br>如果使用的是 Windows 平台，请包含驱动器符号并使用Unix风格的斜杠（/）而不是反斜杠（）,就像下面这样：<br><br></p> 
+<pre class="brush:py;">TEMPLATE_DIRS&nbsp;=&nbsp;(
+&nbsp;'C:/www/django/templates',
+)</pre> 
+<p><br><br>最省事的方式是使用绝对路径（即从文件系统根目录开始的目录路径）。 如果想要更灵活一点并减少一些负面干扰，可利用 Django 配置文件就是 Python 代码这一点来动态构建 TEMPLATE_DIRS 的内容，如： 例如：<br><br></p> 
+<pre class="brush:py;">import&nbsp;os.path
+TEMPLATE_DIRS&nbsp;=&nbsp;(
+&nbsp;os.path.join(os.path.dirname(__file__),&nbsp;'templates').replace('\\','/'),
+)</pre> 
+<p><br><br>这个例子使用了神奇的 Python 内部变量 __file__ ，该变量被自动设置为代码所在的 Python 模块文件名。 `` os.path.dirname(__file__)`` 将会获取自身所在的文件，即settings.py 所在的目录，然后由os.path.join 这个方法将这目录与 templates 进行连接。如果在windows下，它会智能地选择正确的后向斜杠”“进行连接，而不是前向斜杠”/”。<br><br>在这里我们面对的是动态语言python代码，我需要提醒你的是，不要在你的设置文件里写入错误的代码，这很重要。 如果你在这里引入了语法错误，或运行错误，你的Django-powered站点将很可能就要被崩溃掉。<br><br>完成 TEMPLATE_DIRS 设置后，下一步就是修改视图代码，让它使用 Django 模板加载功能而不是对模板路径硬编码。 返回 current_datetime 视图，进行如下修改：<br><br></p> 
+<pre class="brush:py;">from&nbsp;django.template.loader&nbsp;import&nbsp;get_template
+from&nbsp;django.template&nbsp;import&nbsp;Context
+from&nbsp;django.http&nbsp;import&nbsp;HttpResponse
+import&nbsp;datetime
+def&nbsp;current_datetime(request):
+&nbsp;now&nbsp;=&nbsp;datetime.datetime.now()
+&nbsp;t&nbsp;=&nbsp;get_template('current_datetime.html')
+&nbsp;html&nbsp;=&nbsp;t.render(Context({'current_date':&nbsp;now}))
+&nbsp;return&nbsp;HttpResponse(html)</pre> 
+<p><br><br>此范例中，我们使用了函数 django.template.loader.get_template() ，而不是手动从文件系统加载模板。 该 get_template() 函数以模板名称为参数，在文件系统中找出模块的位置，打开文件并返回一个编译好的 Template 对象。<br><br>在这个例子里，我们选择的模板文件是current_datetime.html，但这个与.html后缀没有直接的联系。 你可以选择任意后缀的任意文件，只要是符合逻辑的都行。甚至选择没有后缀的文件也不会有问题。<br><br>要确定某个模板文件在你的系统里的位置， get_template()方法会自动为你连接已经设置的 TEMPLATE_DIRS目录和你传入该法的模板名称参数。比如，你的 TEMPLATE_DIRS目录设置为 '/home/django/mysite/templates'，上面的 get_template()调用就会为你找到 /home/django/mysite/templates/current_datetime.html 这样一个位置。<br><br>如果 get_template() 找不到给定名称的模板，将会引发一个 TemplateDoesNotExist 异常。 要了解究竟会发生什么，让我们按照第三章内容，在 Django 项目目录中运行 python manage.py runserver 命令，再次启动Django开发服务器。 接着，告诉你的浏览器，使其定位到指定页面以激活current_datetime视图（如<span>&nbsp;</span><a href="http://127.0.0.1:8000/time/" target="_blank" rel="nofollow">http://127.0.0.1:8000/time/</a><span>&nbsp;</span>）。假设你的 DEBUG项设置为 True，而你有没有建立current_datetime.html 这个模板文件，你会看到Django的错误提示网页，告诉你发生了 TemplateDoesNotExist 错误。<strong>参考来源：<span>&nbsp;</span><span><a href="http://www.aichengxu.com/view/60780" rel="nofollow">http://www.aichengxu.com/view/60780</a></span></strong></p> 
+<p>&nbsp;</p> 
+<pre class="brush:plain;">Screenshot&nbsp;of&nbsp;a&nbsp;TemplateDoesNotExist&nbsp;error.</pre> 
+<p><br><br>该页面与我们在第三章解释过的错误页面相似，只不过多了一块调试信息区： 模板加载器事后检查区。 该区域显示 Django 要加载哪个模板、每次尝试出错的原因（如：文件不存在等）。 当你尝试调试模板加载错误时，这些信息会非常有帮助。<br><br>接下来，在模板目录中创建包括以下模板代码 current_datetime.html 文件：<br><br></p> 
+<pre class="brush:py;">&lt;html&gt;&lt;body&gt;It&nbsp;is&nbsp;now&nbsp;{{&nbsp;current_date&nbsp;}}.&lt;/body&gt;&lt;/html&gt;</pre> 
+<p><br><br>在网页浏览器中刷新该页，你将会看到完整解析后的页面。<span>&nbsp;</span><br><br></p> 
+<p><br><a href="http://www.aichengxu.com/item/15" target="_self" rel="nofollow"><strong>更多Python教程》》</strong></a><a href="http://www.aichengxu.com/item/15" rel="nofollow"><strong>http://www.aichengxu.com/item/15</strong></a></p>]]></body>
+		<author><![CDATA[开元中国2015]]></author>
+		<authorid>2321543</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-17 09:17:29</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

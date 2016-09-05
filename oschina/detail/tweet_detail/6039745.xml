@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6039745</id>
+	<body><![CDATA[
+		失恋第2天，还是很伤心，求安慰。        	]]></body>
+    <author><![CDATA[naomi_lisa]]></author>
+	<authorid>1776864</authorid>
+    <appclient>4</appclient>
+    <commentCount>39</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/888/1776864_50.jpg?t=1420532344000</portrait>
+    <pubDate>2015-07-14 19:41:19</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>4</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[Running1]]></name>
+				<uid>1427350</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/713/1427350_50.png?t=1402992983000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[weiqo]]></name>
+				<uid>1783012</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/891/1783012_50.jpg?t=1436339883000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[sealte]]></name>
+				<uid>87196</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/43/87196_50.jpg?t=1370393227000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[奔跑中]]></name>
+				<uid>2413202</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1206/2413202_50.jpg?t=1436855886000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

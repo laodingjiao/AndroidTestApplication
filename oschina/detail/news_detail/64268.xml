@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64268</id>
+      <title><![CDATA[Apache 2.4.16 发布，改进 HTTP ]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64268/apache-2-4-16]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Apache 2.4.16 发布，更新内容如下：</p> 
+<pre>*)&nbsp;http:&nbsp;Fix&nbsp;LimitRequestBody&nbsp;checks&nbsp;when&nbsp;there&nbsp;is&nbsp;no&nbsp;more&nbsp;bytes&nbsp;to&nbsp;read.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Michael&nbsp;Kaufmann&nbsp;&lt;mail&nbsp;michael-kaufmann.ch&gt;]
+
+&nbsp;&nbsp;*)&nbsp;mod_alias:&nbsp;Revert&nbsp;expression&nbsp;parser&nbsp;support&nbsp;for&nbsp;Alias,&nbsp;ScriptAlias
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;Redirect&nbsp;due&nbsp;to&nbsp;a&nbsp;regression&nbsp;(introduced&nbsp;in&nbsp;2.4.13,&nbsp;not&nbsp;released).
+
+&nbsp;&nbsp;*)&nbsp;mod_reqtimeout:&nbsp;Don't&nbsp;let&nbsp;pipelining&nbsp;checks&nbsp;and&nbsp;keep-alive&nbsp;times&nbsp;interfere
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;the&nbsp;timeouts&nbsp;computed&nbsp;for&nbsp;subsequent&nbsp;requests.&nbsp;&nbsp;PR&nbsp;56729.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Eric&nbsp;Covener,&nbsp;Yann&nbsp;Ylavic]
+
+&nbsp;&nbsp;*)&nbsp;core:&nbsp;Avoid&nbsp;a&nbsp;possible&nbsp;truncation&nbsp;of&nbsp;the&nbsp;faulty&nbsp;header&nbsp;included&nbsp;in&nbsp;the
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTML&nbsp;response&nbsp;when&nbsp;LimitRequestFieldSize&nbsp;is&nbsp;reached.&nbsp;&nbsp;[Yann&nbsp;Ylavic]
+
+&nbsp;&nbsp;*)&nbsp;mod_ldap:&nbsp;In&nbsp;some&nbsp;case,&nbsp;LDAP_NO_SUCH_ATTRIBUTE&nbsp;could&nbsp;be&nbsp;returned&nbsp;instead
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;an&nbsp;error&nbsp;during&nbsp;a&nbsp;compare&nbsp;operation.&nbsp;[Eric&nbsp;Covener]</pre> 
+<p><a target="_blank" href="http://archive.apache.org/dist/httpd/" rel="nofollow">下载</a>：</p> 
+<ul> 
+ <li><p><a href="http://archive.apache.org/dist/httpd/httpd-2.4.16-deps.tar.bz2" rel="nofollow">http://archive.apache.org/dist/httpd/httpd-2.4.16-deps.tar.bz2</a> <br></p></li> 
+ <li><p><a href="http://archive.apache.org/dist/httpd/httpd-2.4.16-deps.tar.gz" rel="nofollow">http://archive.apache.org/dist/httpd/httpd-2.4.16-deps.tar.gz</a> <br></p></li> 
+ <li><p><a href="http://archive.apache.org/dist/httpd/httpd-2.4.16.tar.bz2" rel="nofollow">http://archive.apache.org/dist/httpd/httpd-2.4.16.tar.bz2</a> <br></p></li> 
+ <li><p><a href="http://archive.apache.org/dist/httpd/httpd-2.4.16.tar.gz" rel="nofollow">http://archive.apache.org/dist/httpd/httpd-2.4.16.tar.gz</a>&nbsp; &nbsp; &nbsp;<br></p></li> 
+</ul>]]></body>
+      <commentCount>14</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 17:59:52</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/apache+http+server]]></softwarelink>
+	  <softwarename><![CDATA[Apache]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Jetty 9.3.1.v20150714 发布，支持 HTTP/2]]></rtitle>
+			<rurl>http://www.oschina.net/news/64326/jetty-9-3-1-v20150714</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[WildFly 9 Final 发布，HTTP/2 支持]]></rtitle>
+			<rurl>http://www.oschina.net/news/63921/wildfly-9-0-final</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Async Http Client 欺骗漏洞 (CVE-2013-7397)]]></rtitle>
+			<rurl>http://www.oschina.net/news/63790/async-http-client-vulnerability</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RequestHub —— Go 开发的 HTTP 调试工具]]></rtitle>
+			<rurl>http://www.oschina.net/p/requesthub</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[SuperAgent —— Node 的 HTTP 客户端开发包]]></rtitle>
+			<rurl>http://www.oschina.net/p/superagent</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Tollbooth —— Go 语言的 HTTP 限速中间件]]></rtitle>
+			<rurl>http://www.oschina.net/p/tollbooth</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[HTTP/2 规格正式发布，RFC 编号为 7540]]></rtitle>
+			<rurl>http://www.oschina.net/news/62471/http-2-released-as-rfc7540</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Tomcat 对 HTTP/2 协议支持的开发进度报告]]></rtitle>
+			<rurl>http://www.oschina.net/news/62451/tomcat-suppurt-http-2-progress-report</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Leaps/HttpClient 1.4.2 发布，PHP 的 HTTP 客户端]]></rtitle>
+			<rurl>http://www.oschina.net/news/62435/leaps-httpclient-1-4-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Ignite vs Apache Spark ]]></rtitle>
+			<rurl>http://www.oschina.net/translate/apache-ignite-vs-apache-spark</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

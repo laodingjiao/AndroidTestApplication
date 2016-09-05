@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>480183</id>
+		<title><![CDATA[fastjson json串转list]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2334022/blog/480183]]></url>
+		<where><![CDATA[fastjson]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>List&lt;CdnLogJsonObject&gt; list = JSON.parseArray(json, CdnLogJsonObject.class);</p>]]></body>
+		<author><![CDATA[海子_枫子]]></author>
+		<authorid>2334022</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-18 20:48:57</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

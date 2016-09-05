@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>477570</id>
+		<title><![CDATA[zookeeper集群的安装配置]]></title>
+		<url><![CDATA[http://my.oschina.net/iroot/blog/477570]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h2> zookeeper介绍 </h2> 
+<p> ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、名字服务、分布式同步、组服务等。这是百度百科上的一个介绍，有同学想要了解zookeeper的详细信息，可以看一下官方的文档和一些相关博客。本文只介绍如何安装zookeeper。 </p> 
+<h2> zookeeper的安装配置<br> </h2> 
+<p> 设定我们有三台服务器：hostname1，hostname2，hostname3。 </p> 
+<p> 首先需要确定每台机器都能识别这三个主机名。可以在/etc/hosts文件中进行配置。 </p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">172.18.11.1&nbsp;&nbsp;&nbsp;&nbsp;hostname1
+172.18.11.2&nbsp;&nbsp;&nbsp;&nbsp;hostname2
+172.18.11.3&nbsp;&nbsp;&nbsp;&nbsp;hostname3</pre> 
+<h3> </h3> 
+<p> 另外还需要确认每台机器上都配好了java环境。 </p> 
+<h3> 下载zookeeper并解压 </h3> 
+<p> 下载地址：<a href="http://www.webhostingreviewjam.com/mirror/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz" rel="nofollow">http://www.webhostingreviewjam.com/mirror/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz</a> </p> 
+<p> 把zookeeper解压到指定文件夹下，这里解压到/opt文件夹下 </p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">tar&nbsp;zxvf&nbsp;zookeeper-3.4.6.tar.gz&nbsp;-C&nbsp;/opt/
+ln&nbsp;-s&nbsp;/opt/zookeeper-3.4.6/&nbsp;/opt/zookeeper</pre> 
+<h3> 配置zookeeper </h3> 
+<p> 将/opt/zookeeper/conf/zoo_sample.cfg复制到/opt/zookeeper/conf/zoo.cfg </p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">cp&nbsp;/opt/zookeeper/conf/zoo_sample.cfg&nbsp;/opt/zookeeper/conf/zoo.cfg</pre> 
+<p> 配置zoo.cfg文件 </p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">vim&nbsp;/opt/zookeeper/conf/zoo.cfg</pre> 
+<p> 将dataDir=/tmp/zookeeper改为你指定的文件夹，这里改为dataDir=/var/lib/zookeeper。 </p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">mkdir&nbsp;/var/lib/zookeeper</pre> 
+<p> 在zoo.cfg中追加如下内容 </p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">server.1=hostname1:2888:3888
+server.2=hostname2:2888:3888
+server.3=hostname3:2888:3888</pre> 
+<p> 在hostname1机器上执行 </p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">echo&nbsp;1&nbsp;&gt;&nbsp;/var/lib/zookeeper/myid</pre> 
+<p> 在hostname2机器上执行 </p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">echo&nbsp;2&nbsp;&gt;&nbsp;/var/lib/zookeeper/myid</pre> 
+<p> 在hostname3机器上执行 </p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">echo&nbsp;3&nbsp;&gt;&nbsp;/var/lib/zookeeper/myid</pre> 
+<h3> 启动zookeeper<br> </h3> 
+<p> 在三台机器上分别启动zookeeper服务 </p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">/opt/zookeeper/bin/zkServer.sh&nbsp;start</pre> 
+<p> <br> </p>]]></body>
+		<author><![CDATA[wIw]]></author>
+		<authorid>1583390</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-12 17:05:43</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

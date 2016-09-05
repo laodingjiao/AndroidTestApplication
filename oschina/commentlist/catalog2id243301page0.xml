@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+    <allCount>6</allCount>
+    <pagesize>6</pagesize>
+    <comments>
+                                                                    <comment>
+                <id>981883</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/21/42741_50.jpg</portrait>
+                <author><![CDATA[leo108]]></author>
+                <authorid>42741</authorid>
+                <content><![CDATA[git reflog可以拯救你，另外非常不推荐使用GUI，死都不知道怎么死的]]></content>
+                <pubDate>2015-07-15 19:33:14</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[Zoker]]></rauthor>
+                                <rpubDate>2015-07-15 23:08:01</rpubDate>
+                                <rcontent><![CDATA[强烈同意，不要用GUI]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981852</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/470/941147_50.jpg?t=1393080808000</portrait>
+                <author><![CDATA[kass]]></author>
+                <authorid>941147</authorid>
+                <content><![CDATA[目测没提交上…]]></content>
+                <pubDate>2015-07-15 17:56:58</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981820</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/522/1045481_50.png?t=1407922480000</portrait>
+                <author><![CDATA[Zoker]]></author>
+                <authorid>1045481</authorid>
+                <content><![CDATA[问题描述清楚点，不知道你最后到底进行的什么操作，你说的点击，点的什么，对应的是什么Git命令，如果这些东西是在工作区丢失的，以我的认知来看，无法恢复。当然如果你用ide就可以恢复到对应的时间点的状态。 你是否提交过你的改动，仅仅是没有提交到远程仓库而已，如果提交过，那么一切都好说，提供你的git reflog，回到对应的提交就好，只要提交过，就不会丢失。]]></content>
+                <pubDate>2015-07-15 17:26:44</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981819</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/69/139664_50.jpg?t=1433211570000</portrait>
+                <author><![CDATA[Force武装卫队]]></author>
+                <authorid>139664</authorid>
+                <content><![CDATA[git reset HEAD 所有未提交的修改都被 清除了，这个没有办法的，]]></content>
+                <pubDate>2015-07-15 17:26:41</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[KMSFan]]></rauthor>
+                                <rpubDate>2015-07-15 20:11:45</rpubDate>
+                                <rcontent><![CDATA[回复 @Force武装卫队 : 好吧，确实应该想想了，谢谢你的建议]]></rcontent>
+                            </reply>
+                                                    <reply>
+                                <rauthor><![CDATA[Force武装卫队]]></rauthor>
+                                <rpubDate>2015-07-15 18:12:45</rpubDate>
+                                <rcontent><![CDATA[回复 @KMSFan : 你合并前可以 git stash 保存未提交的修改，然后 合并后 git stash pop 你应该习惯多个分支开发。]]></rcontent>
+                            </reply>
+                                                    <reply>
+                                <rauthor><![CDATA[KMSFan]]></rauthor>
+                                <rpubDate>2015-07-15 17:35:38</rpubDate>
+                                <rcontent><![CDATA[我上面 已经补充了为什么会有这种情况 发生 = = ，反正长点记性就行了。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981797</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/0/12_50.jpg?t=1421200584000</portrait>
+                <author><![CDATA[红薯]]></author>
+                <authorid>12</authorid>
+                <content><![CDATA[@zoker]]></content>
+                <pubDate>2015-07-15 17:00:34</pubDate>
+                                    <appclient>4</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981762</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/996/1993919_50.jpg?t=1417924212000</portrait>
+                <author><![CDATA[KMSFan]]></author>
+                <authorid>1993919</authorid>
+                <content><![CDATA[@红薯 我用的是 Git@osc啊，帮帮我，我这一天的辛苦都白费了]]></content>
+                <pubDate>2015-07-15 16:28:32</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+            </comments>
+    </oschina>

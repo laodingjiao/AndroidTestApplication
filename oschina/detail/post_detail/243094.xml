@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>243094</id>
+      <title><![CDATA[【J+】互联网沙龙——大数据安全与行业实战分享]]></title>
+      <url><![CDATA[http://www.oschina.net/question/122189_243094]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/61/122189_50.jpg?t=1410791622000</portrait>
+      <event>
+					<id>243094</id>
+    		<cover><![CDATA[http://192.168.79.254:8080/oschina/images/uploads/cover/jinan_122189_243094_siMmC_bi.jpg]]></cover>
+    		<title><![CDATA[【J+】互联网沙龙——大数据安全与行业实战分享]]></title>
+    		<category>2</category>
+    		<url><![CDATA[http://city.oschina.net/jinan/event/243094]]></url>
+            <startTime>2015-07-26 14:00:00</startTime>>
+    		<endTime>2015-07-26 17:30:00</endTime>>
+            <createTime>2015-07-13 21:04:55</createTime>
+            <spot>高新区天泺路88号展威科技园1号楼A座7层  易构软件</spot>
+    		<actor_count>0</actor_count>
+			<location>117.127676,36.682599</location>
+			<city>济南</city>
+			        		 													<status>2</status>									<applyStatus>-1</applyStatus>						  </event>
+      <body>
+		<![CDATA[
+						<span style="font-weight:bold;">活动名称</span>：【J+】互联网沙龙——大数据安全与行业实战分享<br>
+		<span style="font-weight:bold;">活动时间</span>：2015-07-26 14:00<br>
+		<span style="font-weight:bold;">活动地点</span>：济南 高新区天泺路88号展威科技园1号楼A座7层  易构软件<br>
+		<span style="font-weight:bold;">活动费用</span>：免费<br>
+		<span style="font-weight:bold;">活动类型</span>：技术交流<br>
+        <span style="font-weight:bold;">引用标识</span>：<a href="javascript:alert('引用标识：用来在动弹中通过#jn094#方式引用当前活动，同时该动弹附带的图片将上传为活动图片。');">jn094</a><br>
+		<span style="font-weight:bold;">活动介绍</span>：<br>
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+						@charset "utf-8";
+/*markdown 显示内容样式*/
+.markdown-content{
+	font-size:14px;
+}
+.markdown-content h1,.markdown-content  h2,.markdown-content  h3,.markdown-content  h4,.markdown-content  h5,.markdown-content  h6
+	{
+	margin: 10px 0;
+	font-weight: bold;
+}
+
+.markdown-content h1 {
+	color: #000000;
+	font-size: 28px;
+}
+
+.markdown-content h2 {
+	color: #000000;
+	font-size: 24px;
+}
+
+.markdown-content h3 {
+	font-size: 18px;
+}
+
+.markdown-content h4 {
+	font-size: 16px;
+}
+
+.markdown-content h5 {
+	font-size: 14px;
+}
+
+.markdown-content h6 {
+	color: #777777;
+	background-color: inherit;
+	font-size: 14px;
+}
+
+.markdown-content hr {
+	height: 0.2em;
+	border: 0;
+	color: #CCCCCC;
+	background-color: #CCCCCC;
+}
+
+.markdown-content strong{
+	font-weight:bold;
+}
+
+.markdown-content p,.markdown-content blockquote,.markdown-content ul,.markdown-content ol,.markdown-content dl,.markdown-content li,.markdown-content table,.markdown-content pre
+	{
+	margin: 10px 0;
+	font-size: 10.5pt;
+}
+
+.markdown-content em {
+	font-style: italic;
+}
+
+.markdown-content pre {
+	line-height: 18px;
+	margin: 10px 0;
+	font-size: 9pt;
+	font-family: Courier New, Arial;
+	border: 1px solid rgb(221, 221, 221);
+	border-left: 5px solid rgb(108, 226, 108);
+	background: rgb(246, 246, 246);
+	padding: 5px;
+	white-space: pre-wrap;
+}
+
+.markdown-content pre code {
+	background-color: #F8F8F8;
+	border: none;
+	padding: 0;
+}
+
+.markdown-content code {
+	font-family: Consolas, Monaco, Andale Mono, monospace;
+	background-color: #F8F8F8;
+	border: 1px solid #CCCCCC;
+	border-radius: 3px;
+	padding: 0 0.2em;
+	line-height: 23px;
+}
+
+.markdown-content pre>code {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.markdown-content a:focus {
+	outline: thin dotted;
+}
+
+.markdown-content a:hover,.markdown-content a:active {
+	outline: 0;
+}
+
+.markdown-content blockquote {
+	color: #060;
+	margin: 0;
+	padding-left: 3em;
+	border-left: 0.5em #EEE solid;
+}
+
+.markdown-content ul,.markdown-content ol {
+	margin: 1em 0;
+	list-style-position: inside;
+	margin: 20px 0 20px 10px;
+	line-height: 20px;
+}
+
+.markdown-content ul {
+	list-style-type: circle;
+}
+
+.markdown-content ol {
+	list-style-type: decimal;
+}
+
+.markdown-content li p:last-child {
+	margin: 0
+}
+
+.markdown-content dd {
+	margin: 0 0 0 2em;
+}
+
+.markdown-content img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+	vertical-align: middle;
+	max-width: 100%;
+}
+
+.markdown-content table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.markdown-content td {
+	vertical-align: top;
+}					</style>
+				<div class="markdown-content"><blockquote> 
+ <p>七月，像这个大数据时代一样，如火。</p> 
+</blockquote> 
+<p>大数据经过几年的沉淀，已经从概念落地开花，不再是一小部分研究者尝鲜的“玩具”，不管你有没有感知，它的的确确的正在融入你的生活。对于大数据有的人喜欢谈趋势和格局，有的人则喜欢脚踏实地的去把这些数据产品化和服务于商业化，本期活动我们两位分享嘉宾显然属于后者，他们在大数据安全和实战方面给我们带来很多干货的分享，那么，带上你的问题来我们活动切磋一下吧！</p> 
+<p><strong>活动日程</strong></p> 
+<p>13:00-14:10 签到</p> 
+<p><strong>本期主题</strong></p> 
+<p><strong>1. 从阿里巴巴看大数据安全时代的来临</strong> <br>分享嘉宾： <br>石志鑫，中国科学院自动化研究所博士，现工作于中国科学院信息工程研究所，参与国家级大数据安全大数据安全分析平台的搭建，主要研究方向网络信息安全，数据挖掘，机器学习。</p> 
+<p>分享内容：</p> 
+<ol> 
+ <li>直面大数据安全时代的到来</li> 
+ <li>对阿里安全及架构进行分析</li> 
+ <li>程序员进阶路之——安全分析师</li> 
+</ol> 
+<p><strong>2.大数据在行业实战中的应用分享</strong> <br>分享嘉宾:</p> 
+<p>陈亮，武汉理工大学博士生，近期兴趣主要在深度学习与异构计算方面。现就职于山东电力，主要从事电力行业大数据技术与应用方面的研究与工程实践。参与国家863电力大数据项目一项，主持山东省科技创新电力大数据项目一项，承担网省电力大数据项目若干。</p> 
+<p>分享内容:</p> 
+<ol> 
+ <li>以名取实——大数据</li> 
+ <li>白马非马——应用还是技术？</li> 
+ <li>“实"为何？——算法为王</li> 
+</ol> 
+<p><strong>17:00-17:30 抽奖环节，惊喜奖品等你拿！</strong></p> 
+<p><strong>本次活动为公益沙龙，不收取任何费用，但谢绝不以技术交流为目的酱油党。活动的主题可能与你工作无关，但至少可以开拓视野认识更多的同道友人，同时这里还汇聚了优秀的开发者、产品经理和创业公司founder。</strong></p> 
+<hr> 
+<p><strong>主办单位：</strong> <br><a href="http://www.ktcx.org" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0619/120720_qwlB_122189.png" alt="在此输入图片描述"></a><a href="http://city.oschina.net/jinan" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0619/120923_dKl7_122189.jpg" alt="在此输入图片描述"></a><a href="http://www.dzwww.com" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0414/100136_vpLu_122189.gif" alt="在此输入图片描述"></a></p>
+<p><strong>活动赞助：</strong> <br><a href="http://city.oschina.net" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0414/100930_L2nN_122189.png" alt="在此输入图片描述"></a><a href="http://www.ituring.net" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0414/100959_V5C3_122189.png" alt="在此输入图片描述"></a><a href="http://www.rongcloud.cn" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0414/101040_gb65_122189.png" alt="在此输入图片描述"></a></p>
+<p><a href="http://www.eaglesoftware.cn" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0717/150401_spLj_122189.png" alt="在此输入图片描述"></a><a href="http://www.antrol.com/" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0414/101150_OZpV_122189.jpg" alt="在此输入图片描述"></a><a href="http://www.codeforge.cn" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0526/152952_DIqK_122189.png" alt="在此输入图片描述"></a> <br><a href="http://www.jngongzuo.com" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0713/232441_tWjQ_122189.jpg" alt="在此输入图片描述"></a><a href="http://www.getui.com" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0714/105812_e5HC_122189.png" alt="在此输入图片描述"></a></p></div>				    		<span style="font-weight:bold;">活动相册</span>：<br>
+        	    		    			还未上传任何活动照片，在动弹中引用  #jn094# 并添加图片即可上传~
+    		    		</table>
+				]]>
+	  </body>
+      <author><![CDATA[缪斯的情人]]></author>
+      <authorid>122189</authorid>
+      <answerCount>23</answerCount>
+      <viewCount>2066</viewCount>
+      <pubDate>2015-07-13 21:04:54</pubDate>
+	  <favorite>0</favorite>
+	    </post>
+</oschina>

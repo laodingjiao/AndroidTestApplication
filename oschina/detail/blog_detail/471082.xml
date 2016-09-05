@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>471082</id>
+		<title><![CDATA[linux进程间通信总结]]></title>
+		<url><![CDATA[http://my.oschina.net/haomcu/blog/471082]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>2</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h2> 1. 概览 </h2> 
+<p> 本文记录经典的IPC：pipes, FIFOs, message queues, semaphores, and shared memory。 </p> 
+<h2> 2. PIPES </h2> 
+<p> 管道是UNIX系统IPC的最古老形式，并且所有的UNIX系统都提供此通信机制。但管道有两个局限性： </p> 
+<ol> 
+ <li> 历史上，它们是半双工的，现在某些系统提供全双工管道。 </li> 
+ <li> 它们只能在共有祖先的进程间使用。通常，一个管道由一个进程创建，然后该进程调用fork，此后父进程与子进程之间就可以使用管道通讯。 </li> 
+</ol> 
+<p> 管道由pipe创建。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;unistd.h&gt;
+int pipe(int fd[2]);
+//Returns: 0 if OK, −1 on error</pre> 
+<p> pipe经由fd返回两个文件描述符，fd[0]为读而打开，fd[1]为写而打开。fd[1]的输出是fd[0]的输入。 </p> 
+<p> 两种描绘pipe的方法如下图，左图显示管道的两端在同一个进程中，右图说明数据通过kernel在管道中流动。 </p> 
+<p> <a href="http://thinkim.cn/wordpress/wp-content/uploads/2014/12/pipe.png" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/26111809_0LM1.png" alt="pipe"></a> </p>
+<p> 在单个进程中的管道基本没有什么作用，下图显示了从父进程到子进程的管道。 </p> 
+<p> <a href="http://thinkim.cn/wordpress/wp-content/uploads/2014/12/pipe_fork.png" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/26111809_Hidn.png" alt="pipe_fork"></a> </p>
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/26111809_lvto.png" alt="pipe_fork2"> </p>
+<p> fork后的数据流向有我们的需要来决定，对于父进程到子进程的管道，父进程关闭管道的读端（fd[0]），子进程关闭管道的写端（fd[1]），对于子进程到父进程的管道则恰恰相反，父进程关闭fd[1]，子进程关闭fd[0]。当管道的一段被管道时，下面两条规则开始生效。 </p> 
+<ol> 
+ <li> 当读一个写端已经关闭的管道时，在所有数据都被读取后，read返回0，表示达到文件结束处。 </li> 
+ <li> 如果写一个读端已经被关闭的管道，则产生SIGPIPE信号，如果忽略改信号或者捕捉该信号并从其处理程序返回，则write返回-1，errno设置为EPIPE。 </li> 
+</ol> 
+<p> 在写管道时（或FIFO），常量PIPE_BUF规定了kernel中管道缓冲区的大小。如果对管道调用write，而且写的字节数小于等于PIPE_BUF，则此操作不会与其他进程对同一管道（或FIFO）的write操作穿插进行。但是，若有多个进程同时写一个管道（或FIFO），而且有进程写的字节数大于PIPE_BUF，则写操作的数据可能出现穿插。 </p> 
+<p> 实例程序： </p> 
+<pre class="lang:c decode:1 ">#include "apue.h"
+
+int
+main(void)
+{
+ int n;
+ int fd[2];
+ pid_t pid;
+ char line[MAXLINE];
+
+ if (pipe(fd) &lt; 0)
+ err_sys("pipe error");
+ if ((pid = fork()) &lt; 0) {
+ err_sys("fork error");
+ } else if (pid &gt; 0) { /* parent */
+ close(fd[0]);
+ write(fd[1], "hello world\n", 12);
+ } else { /* child */
+ close(fd[1]);
+ n = read(fd[0], line, MAXLINE);
+ write(STDOUT_FILENO, line, n);
+ }
+ exit(0);
+}</pre> 
+<p> 上述程序创建了一个从父进程到子进程的管道，父进程由管道向子进程传输数据，直接对管道描述符调用read和write。我们知道，一个进程预定义了三个流，标准输入，标准输出和标准出错，所以，管道更常用的方法是将管道描述符复制为标准输入和标准输出，在此之后通常子进程执行另一个程序，该程序从标准输入（已经创建的管道）读数据，或者将数据写至其标准输出（管道）。这种用法的典型应用是在调用fork之前先创建一个管道，fork之后父进程关闭其读端，子进程关闭其写端。子进程然后调用dup2，使其标准输入成为管道的读端，然后子进程调用execl运行另一个程序，其标准输入就是管道的读端。具体实例参考apue实例pipe2.c。 </p> 
+<h3> 2.1 popen与pclose </h3> 
+<p> 这两个函数的作用是创建一个管道连接到另一个进程，然后读其输出或向其输入端发送数据。这两个函数实现的操作是：创建一个管道，调用fork产生一个子进程，关闭管道的不使用端，执行一个shell以运行命令，然后等待命令终止。 </p> 
+<pre class="lang:c decode:1 ">#include &lt;stdio.h&gt;
+FILE *popen(const char *cmdstring, const char *type);
+//Returns: file pointer if OK, NULL on error
+int pclose(FILE *fp);
+//Returns: termination status of cmdstring, or −1 on error</pre> 
+<p> 函数popen先执行fork，然后调用exec以执行cmdstring，并且返回一个标准I/O文件指针。如果type是"r"，则文件指针连接到cmdstring的标准输出。如果type是"w"，则文件指针连接到cmdstring的标准输入。 </p> 
+<p> 使用popen减少了代码的编写量。 </p> 
+<h3> 2.2 FIFO </h3> 
+<p> FIFO也被称为命名管道。管道只能有相关进程使用，这些相关进程的共同的祖先进程创建了管道。通过FIFO，不相关的进程也能交换数据。FIFO是一种文件类型，stat结构中的st_mode指明文件是否是FIFO，可用S_ISFIFO对此进行测试。 </p> 
+<p> 创建FIFO类似创建文件： </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/stat.h&gt;
+int mkfifo(const char *path, mode_t mode);
+int mkfifoat(int fd, const char *path, mode_t mode);
+//Both return: 0 if OK, −1 on error</pre> 
+<p> 其中的mode参数和open函数中的mode参数相同。mkfifoat和mkfifo类似，不过它可以根据fd使用相对路径来创建一个FIFO，mkfifoat有三种情况： </p> 
+<ol> 
+ <li> 如果path是绝对路径，则忽略fd，这时候和mkfifo相同。 </li> 
+ <li> 如果path是相对路径，并且fd是打开目录的有效的文件描述符，则pathname被解析成此目录的相对路径。 </li> 
+ <li> 如果path是相对路径，并且fd有AT_FDCWD标志，则pathname被解析为当前工作目录的相对路径。 </li> 
+</ol> 
+<p> 一旦创建了一个FIFO，就可以使用open来打开它，实际上，一般的文件I/O函数（write，read，close，unlink等）都可以用于FIFO文件。 </p> 
+<p> 当打开一个FIFO时，非阻塞标志（O_NONBLOCK）会产生下面的影响： </p> 
+<ul> 
+ <li> 在一般情况下（没有指定O_NONBLOCK），只读open要阻塞到某个进程为写而打开此FIFO，类似地，只写open要阻塞到某个其他进程为读而打开。 </li> 
+ <li> 如果指定了O_NONBLOCK，则只读open立即返回。但是，如果没有进程已经为读而打开一个FIFO，那么open将出错返回-1，其errno是ENXIO。 </li> 
+</ul> 
+<p> FIFO有下面两种用途： </p> 
+<ol> 
+ <li> 由shell命令使用以便将数据从一条通道传送到另一条。为此无需创建中间临时文件。 </li> 
+ <li> 用于客户进程-服务器进程应用程序中，以在客户进程和服务器进程之间传递数据。 </li> 
+</ol> 
+<p> 进程间通信必须通过内核提供的通道，而且必须有一种办法在进程中标识内核提供的某个通道，PIPE（匿名管道）是用打开的文件描述符来标识的。如果要互相通信的几个进程没有从公共祖先那里继承文件描述符，可以使用FIFO，文件系统中的路径名是全局的，各进程都可以访问，因此可以用文件系统中的路径名来标识一个IPC通道。FIFO和UNIX Domain Socket这两种IPC机制都是利用文件系统中的特殊文件来标识的，FIFO文件在磁盘上没有数据块，仅用来标识内核中的一条通道，各进程可以打开这个文件进行read/write，实际上是在读写内核通道（根本原因在于这个file结构体所指向的read、write函数和常规文件不一样），这样就实现了进程间通信。 </p> 
+<h2> 3. XSI IPC </h2> 
+<p> XSI（System Interface and Headers），代表一种Unix系统的标准，为unix系统定义一个界面。XSI IPC，依托标识符和键来实现的，如同管道靠文件描述符来实现一样。 </p> 
+<p> 有三种IPC称作XSI IPC：消息队列、信号量、以及共享存储器。 </p> 
+<h3> 3.1 标示符和键 </h3> 
+<p> 每个内核的IPC结构（消息队列、信号量、共享存储）都用一个非负整数的标示符加以引用。例如，对一个消息队列发送或取消息，只需要知道其队列标示符即可。与文件描述符不同，IPC标示符不是小的整数，当一个IPC结构被创建，以后又被删除时，与这种结构相关的标示符连续加1，直至达到一个整形数的最大值，然后又回转到0。 </p> 
+<p> 标示符是IPC对象的内部名。为使多个合作进程能够在同一个IPC对象上回合，需要提供一个外部名方案。为此使用了键，每个IPC对象都与一个键相关联，于是键就用作该对象的外部名。 </p> 
+<p> 使客户进程和服务器进程使用同一IPC结构的方法： </p> 
+<ol> 
+ <li> 服务器进程指定键IPC_PRIVATE创建一个新的IPC结构，将返回的标示符存放在某处（例如一个文件）。这种方法的缺点是服务器要将此标示符写入到文件中，而客户端还要从文件中读取此标示符。IPC_PRIVATE也可用于父子进程，父进程创建一个新的结构，所返回的标识符可由子进程使用，接着，子进程又可以将此表识符作为exec的一个参数传递给一个新程序。 </li> 
+ <li> 在一个公用头文件中定义一个客户进程和服务器进程都认可的键。然后服务器进程指定此键创建一个新的IPC结构。这种方法的问题是该键可能已于一个IPC结构相结合，在此情况下，get函数（msgget,<br> semget, 或 shmget）出错返回。服务器必须处理这一错误，删除并重新创建。 </li> 
+ <li> 客户进程和服务器进程认同一个路径名和一个项目ID（0--255），接着调用ftok将这两个值变换为一个键，ftok唯一的作用就是由一个路径名和项目ID产生一个键。 </li> 
+</ol> 
+<p> 三个get函数（msgget, semget, and shmget）都有两个类似的参数：一个key和一个整形的flag。如满足下面两个条件之一，则创建一个新的IPC结构（通常有服务器进程创建）： </p> 
+<ul> 
+ <li> key是IPC_PRIVATE; </li> 
+ <li> key当前未与特定类型的IPC结构相结合，并且flag中指定了IPC_CREAT位。 </li> 
+</ul> 
+<h3> 3.2 权限结构 </h3> 
+<p> XSI IPC为每一个IPC结构设置了一个ipc_perm结构。改结构规定了权限和所有者。在创建IPC时，对所有字段都赋初值，以后可以调用msgctl，semctl或shmctl修改uid，gid和mode字段。调用者必须是创建者或超级用户。类似于chown和chmod的用法。 </p> 
+<h3> 3.3 结构限制 </h3> 
+<p> 三种XSI IPC都有内置限制。这些限制的大多数可以通过重新配置内核而加以更改。在linux中，可以使用sysctl命令观察和修改内核配置参数。还可以运行ipcs -l以显示IPC的相关限制。 </p> 
+<h3> 3.4 优点和缺点 </h3> 
+<p> XSI IPC的主要问题：IPC结构在系统范围内起作用，没有访问计数。例如，如果进程创建了一个消息队列，在改队列中放了几条消息，然后终止，但是该消息队列及其内容不会被删除，直到出现下列情况：有某个进程调用msgrcv或msgctl读消息或者删除消息队列；或某个进程执行ipcrm命令删除消息队列；或系统重启动。 </p> 
+<p> 另一个问题是这些IPC结构在文件系统中没有名字，为了支持他们不得不添加了十几条全新的系统调用。 </p> 
+<p> 因为这些IPC不使用文件描述符，所以不能使用多路转换I/O函数：select或poll。这就难于一次使用多个IPC结构，以及在文件或这边I/O中使用IPC结构。 </p> 
+<p> 优点有：可靠，流是受控的，面向记录，可以用非先进先出方式处理。流控制指的是如果系统资源短缺或者如果接收进程不能再接受更多信息，则发送进程就要休眠。当流控制条件消失时，发送进程自动被唤醒。 </p> 
+<h2> 4. 消息队列 </h2> 
+<p> 消息队列是消息的连接表，存放在内核中并由消息队列标识符标识。 </p> 
+<p> msgget用于创建一个新队列或打开一个现有的队列。msgsnd将新消息添加到队列尾端。每个消息都包含一个unsigned long int字段，一个非负长度字段，以及实际数据（对应长度字段）。msgrcv用于从队列中取消息。并不一定要以先进先出的方式取消息，也可以按消息的类型字段取消息。 </p> 
+<p> 每一个消息队列都对应一个msqid_ds结构： </p> 
+<pre class="lang:cpp decode:1 ">struct msqid_ds {
+ struct ipc_perm msg_perm; /*see Section 15.6.2 */
+ msgqnum_t msg_qnum; /*#of messages on queue */
+ msglen_t msg_qbytes; /*max # of bytes on queue */
+ pid_t msg_lspid; /*pid of last msgsnd() */
+ pid_t msg_lrpid; /*pid of last msgrcv() */
+ time_t msg_stime; /*last-msgsnd() time */
+ time_t msg_rtime; /*last-msgrcv() time */
+ time_t msg_ctime; /*last-change time */
+ .
+ .
+ .
+};</pre> 
+<p> 此结构规定了当前队列的状态。 </p> 
+<p> msgget：创建或获取现有的队列。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/msg.h&gt;
+int msgget(key_t key, int flag);
+//Returns: message queue ID if OK, −1 on error</pre> 
+<p> 当msgget用于创建一个新的队列时，需要初始化msqid_ds的下列成员： </p> 
+<ul> 
+ <li> ipc_perm：该结构mode成员按flag中的相应权限位进行设置。 </li> 
+ <li> msg_qnum, msg_lspid, msg_lrpid, msg_stime, and msg_rtime都设置为零。 </li> 
+ <li> msg_ctime设置为当前的时间。 </li> 
+ <li> msg_qbytes设置为系统限制值。 </li> 
+</ul> 
+<p> msgctl：对队列执行各种操作。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/msg.h&gt;
+int msgctl(int msqid, int cmd, struct msqid_ds *buf );
+//Returns: 0 if OK, −1 on error</pre> 
+<p> msgctl和semctl，shmctl是XSI IPC类似与ioctl的函数。cmd参数指定队列要执行的命令。具体命令及使用可参考man手册。 </p> 
+<p> msgsnd：将数据放到消息队列中。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/msg.h&gt;
+int msgsnd(int msqid, const void *ptr, size_t nbytes, int flag);
+//Returns: 0 if OK, −1 on error</pre> 
+<p> msgrcv：取消息。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/msg.h&gt;
+ssize_t msgrcv(int msqid, void *ptr, size_t nbytes, long type, int flag);
+//Returns: size of data portion of message if OK, −1 on error</pre> 
+<h2> 5. 信号量 </h2> 
+<p> 信号量是一个计数器，用于多进程对共享数据的访问。 </p> 
+<p> 为了获取共享资源，进程需要执行下列操作： </p> 
+<ul> 
+ <li> 测试控制该资源的信号量 </li> 
+ <li> 若此信号量的值为正，则可以使用该资源，进程将信号量的值见1。 </li> 
+ <li> 若此信号量的值为0，则进程进入休眠状态，直至信号值大于0，进程被唤醒后，执行第一步。 </li> 
+</ul> 
+<p> 当进程不在使用由一个信号量控制的共享资源时，改信号量值增1，如果有进程正在休眠等待此信号量则唤醒他们。 </p> 
+<p> 信号相关的结构： </p> 
+<pre class="lang:cpp decode:1 ">struct semid_ds {
+struct ipc_perm sem_perm;/*see Section 15.6.2 */
+unsigned short sem_nsems;/*# of semaphores in set */
+time_t sem_otime;/*last-semop() time */
+time_t sem_ctime;/*last-change time */
+.
+.
+.
+};</pre> 
+<p> 为了正确使用信号量，信号量值的测试及减1操作应当是原子操作。为此，信号量通常是在内核中实现的。使用信号量涉及到的函数如下，具体使用方法参考man手册。 </p> 
+<pre class="lang:cpp decode:1 ">//获取信号量ID
+#include &lt;sys/sem.h&gt;
+int semget(key_t key, int nsems, int flag);
+//Returns: semaphore ID if OK, −1 on error
+
+//各种信号量操作
+#include &lt;sys/sem.h&gt;
+int semctl(int semid, int semnum, int cmd, ... /* union semun arg */ );
+//Returns: (see following)
+
+//原子操作，自动执行信号量集合上的操作数组
+#include &lt;sys/sem.h&gt;
+int semop(int semid, struct sembuf semoparray[], size_t nops);
+//Returns: 0 if OK, −1 on error</pre> 
+<h2> 6. 共享存储 </h2> 
+<h3> 6.1 XSI 共享存储 </h3> 
+<p> 共享存储允许两个或更多进程共享一给定的存储区，因为数据不需要在客户端和服务器之间进行复制，所以这是一种最快的IPC。使用共享存储唯一需要注意的是多个进程之间对一给定存储区的同步访问。若服务器进程正在将数据放入共享存储区，那么它在完成这一操作之前，客户进出不应该去取这些数据。通常，信号量被用来实现对共享存储访问的同步。 </p> 
+<p> 内核为每个共享存储设置了一个shmid_ds结构。 </p> 
+<pre class="lang:cpp decode:1 ">struct shmid_ds {
+struct ipc_perm shm_perm;/*see Section 15.6.2 */
+size_t shm_segsz;/*size of segment in bytes */
+pid_t shm_lpid;/*pid of last shmop() */
+pid_t shm_cpid;/*pid of creator */
+shmatt_t shm_nattch;/*number of current attaches */
+time_t shm_atime;/*last-attach time */
+time_t shm_dtime;/*last-detach time */
+time_t shm_ctime;/*last-change time */
+.
+.
+.
+};</pre> 
+<p> shmget：获得一个共享存储标示符。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/shm.h&gt;
+int shmget(key_t key, size_t size, int flag);
+//Returns: shared memory ID if OK, −1 on error</pre> 
+<p> key以及flag参数类似msgget中的参数，size是该共享存储段的长度。通常该长度为页大小的整数倍。如果size不是页大小的整数倍，那么最后一页的余下部分是不可用的。如果正在创建一个新存储段（一般是在服务进程中），则必须指定其size，如果引用一个显存的段，则size为0，当创建一个新段的时候，内容初始化为0。 </p> 
+<p> shmctl：对共享存储段执行各种操作。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/shm.h&gt;
+int shmctl(int shmid, int cmd, struct shmid_ds *buf );
+//Returns: 0 if OK, −1 on error</pre> 
+<p> 其cmd等参数信息可参考man手册。 </p> 
+<p> shmget：将创建的共享存储段连接到自己的进程空间内。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/shm.h&gt;
+void *shmat(int shmid, const void *addr, int flag);
+//Returns: pointer to shared memory segment if OK, −1 on error</pre> 
+<p> 共享存储段连接到调用进程的那个地址上与addr参数以及在flag中是否指定SHM_RND有关。 </p> 
+<ul> 
+ <li> 如果addr为0，则此段连接到由内核选择的第一个可用地址上。这是推荐的方式。 </li> 
+ <li> 如果addr非0，并且没有指定SHM_RND，则此段连接到addr所指定的地址上。 </li> 
+ <li> 如果addr非0，并且指定了SHM_RND，则此段连接到（(addr − (addr modulus SHMLBA))）所表示的地址上，SHM_RND命令的意思是”取整“。SHMLBA的意思是“低边界地址倍数”，它总是2的乘方。该算式是将地址向下取最近1个SHMLBA的倍数。 </li> 
+</ul> 
+<p> 除非特殊情况，一般应指定addr为0，以便由内核选择地址。 </p> 
+<p> shmdt：当对共享存储段的访问结束，则调用shmdt来脱离该段，但并不从系统中删除该段的标识符以及其数据结构。直到shmctl命令删除它。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/shm.h&gt;
+int shmdt(const void *addr);
+//Returns: 0 if OK, −1 on error</pre> 
+<p> 内核将以地址0连接的共享存储段放在什么位置上与系统密切相关。共享存储段紧靠在栈之下。 </p> 
+<p> mmap函数可将一个文件的若干部分映射到进程地址空间。类似于用shmmat连接一共享存储段。两者之间的主要区别是，用mmap映射的存储段是与文件相关联的。而XSI共享存储段则并无这种关联。 </p> 
+<h3> 6.2&nbsp;/dev/zero的存储映射 </h3> 
+<p> 共享存储可由不相关的进程使用。但如果进程是相关的（共同祖先），则有不同的实现方式。 </p> 
+<p> 在读设备/dev/zero时，该设备是0字节的无限资源。它也接收写向它的任何数据，但又忽略这些数据。当对其进行存储映射时，它具有一些特殊的性质： </p> 
+<ul> 
+ <li> 创建一个未名存储区，其长度是mmap的第二个参数，将其向上取整为系统的最近页长。 </li> 
+ <li> 存储区都初始化为0。 </li> 
+ <li> 如果多个进程的共同祖先进程对mmap指定了MAP_SHARED标志，则这些进程可共享此存储区。 </li> 
+</ul> 
+<p> 这样使用/dev/zero的优点是：在调用mmap创建映射区之前，无需存在一个实际文件。映射/dev/zero自动创建一个指定长度的映射区。这种技术的缺点是：它只有在相关进程间起作用。但在相关进程之间使用线程可能更简单，有效。 </p> 
+<h3> 6.3 匿名存储映射 </h3> 
+<p> 很多实现提供了一种类似于/dev/zero的设施，称为匿名存储映射。为了使用这种功能，在调用mmap时指定MAP_ANON标志，并将文件描述符指定为-1。结果得到的区域是匿名的（因为它并不通过一个文件描述符与一个路径名相结合），并且创建一个可与后代进程共享的存储区。此方式与普通的mmap映射省去了open文件以及close文件操作，另外mmap参数需要做一些修改。如果在相关进程之间就可以使用这种共享内存。如果在无关进程之间使用共享存储段，那么一种方式是使用XSI IPC共享存储函数，另一种是使用mmap函数将同一文件映射到它们的地址空间。 </p> 
+<h2> 7. 小结 </h2> 
+<p> 上面介绍了进程间通讯的多种形式：管道，命名管道（FIFO），以及另外三种IPC形式（通常称为XSI IPC），即消息队列，信号量和共享存储。信号量实际上是同步原语而不是IPC。 </p> 
+<p> 要学会使用管道和FIFO，因为在大量应用程序中仍可有效地使用这两种基本技术。在新的应用程序中，要尽可能避免使用消息队列和信号量，而应考虑全双工管道和记录锁。共享存储段有其应用场合，而mmap也能提供同样的功能。 </p> 
+<h3> &nbsp; </h3> 
+<h2> 1. 概览 </h2> 
+<p> 本文记录经典的IPC：pipes, FIFOs, message queues, semaphores, and shared memory。 </p> 
+<h2> 2. PIPES </h2> 
+<p> 管道是UNIX系统IPC的最古老形式，并且所有的UNIX系统都提供此通信机制。但管道有两个局限性： </p> 
+<ol> 
+ <li> 历史上，它们是半双工的，现在某些系统提供全双工管道。 </li> 
+ <li> 它们只能在共有祖先的进程间使用。通常，一个管道由一个进程创建，然后该进程调用fork，此后父进程与子进程之间就可以使用管道通讯。 </li> 
+</ol> 
+<p> 管道由pipe创建。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;unistd.h&gt;
+int pipe(int fd[2]);
+//Returns: 0 if OK, −1 on error</pre> 
+<p> pipe经由fd返回两个文件描述符，fd[0]为读而打开，fd[1]为写而打开。fd[1]的输出是fd[0]的输入。 </p> 
+<p> 两种描绘pipe的方法如下图，左图显示管道的两端在同一个进程中，右图说明数据通过kernel在管道中流动。 </p> 
+<p> <a href="http://thinkim.cn/wordpress/wp-content/uploads/2014/12/pipe.png" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/26111809_0LM1.png" alt="pipe"></a> </p>
+<p> 在单个进程中的管道基本没有什么作用，下图显示了从父进程到子进程的管道。 </p> 
+<p> <a href="http://thinkim.cn/wordpress/wp-content/uploads/2014/12/pipe_fork.png" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/26111809_Hidn.png" alt="pipe_fork"></a> </p>
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/26111809_lvto.png" alt="pipe_fork2"> </p>
+<p> fork后的数据流向有我们的需要来决定，对于父进程到子进程的管道，父进程关闭管道的读端（fd[0]），子进程关闭管道的写端（fd[1]），对于子进程到父进程的管道则恰恰相反，父进程关闭fd[1]，子进程关闭fd[0]。当管道的一段被管道时，下面两条规则开始生效。 </p> 
+<ol> 
+ <li> 当读一个写端已经关闭的管道时，在所有数据都被读取后，read返回0，表示达到文件结束处。 </li> 
+ <li> 如果写一个读端已经被关闭的管道，则产生SIGPIPE信号，如果忽略改信号或者捕捉该信号并从其处理程序返回，则write返回-1，errno设置为EPIPE。 </li> 
+</ol> 
+<p> 在写管道时（或FIFO），常量PIPE_BUF规定了kernel中管道缓冲区的大小。如果对管道调用write，而且写的字节数小于等于PIPE_BUF，则此操作不会与其他进程对同一管道（或FIFO）的write操作穿插进行。但是，若有多个进程同时写一个管道（或FIFO），而且有进程写的字节数大于PIPE_BUF，则写操作的数据可能出现穿插。 </p> 
+<p> 实例程序： </p> 
+<pre class="lang:c decode:1 ">#include "apue.h"
+
+int
+main(void)
+{
+ int n;
+ int fd[2];
+ pid_t pid;
+ char line[MAXLINE];
+
+ if (pipe(fd) &lt; 0)
+ err_sys("pipe error");
+ if ((pid = fork()) &lt; 0) {
+ err_sys("fork error");
+ } else if (pid &gt; 0) { /* parent */
+ close(fd[0]);
+ write(fd[1], "hello world\n", 12);
+ } else { /* child */
+ close(fd[1]);
+ n = read(fd[0], line, MAXLINE);
+ write(STDOUT_FILENO, line, n);
+ }
+ exit(0);
+}</pre> 
+<p> 上述程序创建了一个从父进程到子进程的管道，父进程由管道向子进程传输数据，直接对管道描述符调用read和write。我们知道，一个进程预定义了三个流，标准输入，标准输出和标准出错，所以，管道更常用的方法是将管道描述符复制为标准输入和标准输出，在此之后通常子进程执行另一个程序，该程序从标准输入（已经创建的管道）读数据，或者将数据写至其标准输出（管道）。这种用法的典型应用是在调用fork之前先创建一个管道，fork之后父进程关闭其读端，子进程关闭其写端。子进程然后调用dup2，使其标准输入成为管道的读端，然后子进程调用execl运行另一个程序，其标准输入就是管道的读端。具体实例参考apue实例pipe2.c。 </p> 
+<h3> 2.1 popen与pclose </h3> 
+<p> 这两个函数的作用是创建一个管道连接到另一个进程，然后读其输出或向其输入端发送数据。这两个函数实现的操作是：创建一个管道，调用fork产生一个子进程，关闭管道的不使用端，执行一个shell以运行命令，然后等待命令终止。 </p> 
+<pre class="lang:c decode:1 ">#include &lt;stdio.h&gt;
+FILE *popen(const char *cmdstring, const char *type);
+//Returns: file pointer if OK, NULL on error
+int pclose(FILE *fp);
+//Returns: termination status of cmdstring, or −1 on error</pre> 
+<p> 函数popen先执行fork，然后调用exec以执行cmdstring，并且返回一个标准I/O文件指针。如果type是"r"，则文件指针连接到cmdstring的标准输出。如果type是"w"，则文件指针连接到cmdstring的标准输入。 </p> 
+<p> 使用popen减少了代码的编写量。 </p> 
+<h3> 2.2 FIFO </h3> 
+<p> FIFO也被称为命名管道。管道只能有相关进程使用，这些相关进程的共同的祖先进程创建了管道。通过FIFO，不相关的进程也能交换数据。FIFO是一种文件类型，stat结构中的st_mode指明文件是否是FIFO，可用S_ISFIFO对此进行测试。 </p> 
+<p> 创建FIFO类似创建文件： </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/stat.h&gt;
+int mkfifo(const char *path, mode_t mode);
+int mkfifoat(int fd, const char *path, mode_t mode);
+//Both return: 0 if OK, −1 on error</pre> 
+<p> 其中的mode参数和open函数中的mode参数相同。mkfifoat和mkfifo类似，不过它可以根据fd使用相对路径来创建一个FIFO，mkfifoat有三种情况： </p> 
+<ol> 
+ <li> 如果path是绝对路径，则忽略fd，这时候和mkfifo相同。 </li> 
+ <li> 如果path是相对路径，并且fd是打开目录的有效的文件描述符，则pathname被解析成此目录的相对路径。 </li> 
+ <li> 如果path是相对路径，并且fd有AT_FDCWD标志，则pathname被解析为当前工作目录的相对路径。 </li> 
+</ol> 
+<p> 一旦创建了一个FIFO，就可以使用open来打开它，实际上，一般的文件I/O函数（write，read，close，unlink等）都可以用于FIFO文件。 </p> 
+<p> 当打开一个FIFO时，非阻塞标志（O_NONBLOCK）会产生下面的影响： </p> 
+<ul> 
+ <li> 在一般情况下（没有指定O_NONBLOCK），只读open要阻塞到某个进程为写而打开此FIFO，类似地，只写open要阻塞到某个其他进程为读而打开。 </li> 
+ <li> 如果指定了O_NONBLOCK，则只读open立即返回。但是，如果没有进程已经为读而打开一个FIFO，那么open将出错返回-1，其errno是ENXIO。 </li> 
+</ul> 
+<p> FIFO有下面两种用途： </p> 
+<ol> 
+ <li> 由shell命令使用以便将数据从一条通道传送到另一条。为此无需创建中间临时文件。 </li> 
+ <li> 用于客户进程-服务器进程应用程序中，以在客户进程和服务器进程之间传递数据。 </li> 
+</ol> 
+<p> 进程间通信必须通过内核提供的通道，而且必须有一种办法在进程中标识内核提供的某个通道，PIPE（匿名管道）是用打开的文件描述符来标识的。如果要互相通信的几个进程没有从公共祖先那里继承文件描述符，可以使用FIFO，文件系统中的路径名是全局的，各进程都可以访问，因此可以用文件系统中的路径名来标识一个IPC通道。FIFO和UNIX Domain Socket这两种IPC机制都是利用文件系统中的特殊文件来标识的，FIFO文件在磁盘上没有数据块，仅用来标识内核中的一条通道，各进程可以打开这个文件进行read/write，实际上是在读写内核通道（根本原因在于这个file结构体所指向的read、write函数和常规文件不一样），这样就实现了进程间通信。 </p> 
+<h2> 3. XSI IPC </h2> 
+<p> XSI（System Interface and Headers），代表一种Unix系统的标准，为unix系统定义一个界面。XSI IPC，依托标识符和键来实现的，如同管道靠文件描述符来实现一样。 </p> 
+<p> 有三种IPC称作XSI IPC：消息队列、信号量、以及共享存储器。 </p> 
+<h3> 3.1 标示符和键 </h3> 
+<p> 每个内核的IPC结构（消息队列、信号量、共享存储）都用一个非负整数的标示符加以引用。例如，对一个消息队列发送或取消息，只需要知道其队列标示符即可。与文件描述符不同，IPC标示符不是小的整数，当一个IPC结构被创建，以后又被删除时，与这种结构相关的标示符连续加1，直至达到一个整形数的最大值，然后又回转到0。 </p> 
+<p> 标示符是IPC对象的内部名。为使多个合作进程能够在同一个IPC对象上回合，需要提供一个外部名方案。为此使用了键，每个IPC对象都与一个键相关联，于是键就用作该对象的外部名。 </p> 
+<p> 使客户进程和服务器进程使用同一IPC结构的方法： </p> 
+<ol> 
+ <li> 服务器进程指定键IPC_PRIVATE创建一个新的IPC结构，将返回的标示符存放在某处（例如一个文件）。这种方法的缺点是服务器要将此标示符写入到文件中，而客户端还要从文件中读取此标示符。IPC_PRIVATE也可用于父子进程，父进程创建一个新的结构，所返回的标识符可由子进程使用，接着，子进程又可以将此表识符作为exec的一个参数传递给一个新程序。 </li> 
+ <li> 在一个公用头文件中定义一个客户进程和服务器进程都认可的键。然后服务器进程指定此键创建一个新的IPC结构。这种方法的问题是该键可能已于一个IPC结构相结合，在此情况下，get函数（msgget,<br> semget, 或 shmget）出错返回。服务器必须处理这一错误，删除并重新创建。 </li> 
+ <li> 客户进程和服务器进程认同一个路径名和一个项目ID（0--255），接着调用ftok将这两个值变换为一个键，ftok唯一的作用就是由一个路径名和项目ID产生一个键。 </li> 
+</ol> 
+<p> 三个get函数（msgget, semget, and shmget）都有两个类似的参数：一个key和一个整形的flag。如满足下面两个条件之一，则创建一个新的IPC结构（通常有服务器进程创建）： </p> 
+<ul> 
+ <li> key是IPC_PRIVATE; </li> 
+ <li> key当前未与特定类型的IPC结构相结合，并且flag中指定了IPC_CREAT位。 </li> 
+</ul> 
+<h3> 3.2 权限结构 </h3> 
+<p> XSI IPC为每一个IPC结构设置了一个ipc_perm结构。改结构规定了权限和所有者。在创建IPC时，对所有字段都赋初值，以后可以调用msgctl，semctl或shmctl修改uid，gid和mode字段。调用者必须是创建者或超级用户。类似于chown和chmod的用法。 </p> 
+<h3> 3.3 结构限制 </h3> 
+<p> 三种XSI IPC都有内置限制。这些限制的大多数可以通过重新配置内核而加以更改。在linux中，可以使用sysctl命令观察和修改内核配置参数。还可以运行ipcs -l以显示IPC的相关限制。 </p> 
+<h3> 3.4 优点和缺点 </h3> 
+<p> XSI IPC的主要问题：IPC结构在系统范围内起作用，没有访问计数。例如，如果进程创建了一个消息队列，在改队列中放了几条消息，然后终止，但是该消息队列及其内容不会被删除，直到出现下列情况：有某个进程调用msgrcv或msgctl读消息或者删除消息队列；或某个进程执行ipcrm命令删除消息队列；或系统重启动。 </p> 
+<p> 另一个问题是这些IPC结构在文件系统中没有名字，为了支持他们不得不添加了十几条全新的系统调用。 </p> 
+<p> 因为这些IPC不使用文件描述符，所以不能使用多路转换I/O函数：select或poll。这就难于一次使用多个IPC结构，以及在文件或这边I/O中使用IPC结构。 </p> 
+<p> 优点有：可靠，流是受控的，面向记录，可以用非先进先出方式处理。流控制指的是如果系统资源短缺或者如果接收进程不能再接受更多信息，则发送进程就要休眠。当流控制条件消失时，发送进程自动被唤醒。 </p> 
+<h2> 4. 消息队列 </h2> 
+<p> 消息队列是消息的连接表，存放在内核中并由消息队列标识符标识。 </p> 
+<p> msgget用于创建一个新队列或打开一个现有的队列。msgsnd将新消息添加到队列尾端。每个消息都包含一个unsigned long int字段，一个非负长度字段，以及实际数据（对应长度字段）。msgrcv用于从队列中取消息。并不一定要以先进先出的方式取消息，也可以按消息的类型字段取消息。 </p> 
+<p> 每一个消息队列都对应一个msqid_ds结构： </p> 
+<pre class="lang:cpp decode:1 ">struct msqid_ds {
+ struct ipc_perm msg_perm; /*see Section 15.6.2 */
+ msgqnum_t msg_qnum; /*#of messages on queue */
+ msglen_t msg_qbytes; /*max # of bytes on queue */
+ pid_t msg_lspid; /*pid of last msgsnd() */
+ pid_t msg_lrpid; /*pid of last msgrcv() */
+ time_t msg_stime; /*last-msgsnd() time */
+ time_t msg_rtime; /*last-msgrcv() time */
+ time_t msg_ctime; /*last-change time */
+ .
+ .
+ .
+};</pre> 
+<p> 此结构规定了当前队列的状态。 </p> 
+<p> msgget：创建或获取现有的队列。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/msg.h&gt;
+int msgget(key_t key, int flag);
+//Returns: message queue ID if OK, −1 on error</pre> 
+<p> 当msgget用于创建一个新的队列时，需要初始化msqid_ds的下列成员： </p> 
+<ul> 
+ <li> ipc_perm：该结构mode成员按flag中的相应权限位进行设置。 </li> 
+ <li> msg_qnum, msg_lspid, msg_lrpid, msg_stime, and msg_rtime都设置为零。 </li> 
+ <li> msg_ctime设置为当前的时间。 </li> 
+ <li> msg_qbytes设置为系统限制值。 </li> 
+</ul> 
+<p> msgctl：对队列执行各种操作。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/msg.h&gt;
+int msgctl(int msqid, int cmd, struct msqid_ds *buf );
+//Returns: 0 if OK, −1 on error</pre> 
+<p> msgctl和semctl，shmctl是XSI IPC类似与ioctl的函数。cmd参数指定队列要执行的命令。具体命令及使用可参考man手册。 </p> 
+<p> msgsnd：将数据放到消息队列中。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/msg.h&gt;
+int msgsnd(int msqid, const void *ptr, size_t nbytes, int flag);
+//Returns: 0 if OK, −1 on error</pre> 
+<p> msgrcv：取消息。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/msg.h&gt;
+ssize_t msgrcv(int msqid, void *ptr, size_t nbytes, long type, int flag);
+//Returns: size of data portion of message if OK, −1 on error</pre> 
+<h2> 5. 信号量 </h2> 
+<p> 信号量是一个计数器，用于多进程对共享数据的访问。 </p> 
+<p> 为了获取共享资源，进程需要执行下列操作： </p> 
+<ul> 
+ <li> 测试控制该资源的信号量 </li> 
+ <li> 若此信号量的值为正，则可以使用该资源，进程将信号量的值见1。 </li> 
+ <li> 若此信号量的值为0，则进程进入休眠状态，直至信号值大于0，进程被唤醒后，执行第一步。 </li> 
+</ul> 
+<p> 当进程不在使用由一个信号量控制的共享资源时，改信号量值增1，如果有进程正在休眠等待此信号量则唤醒他们。 </p> 
+<p> 信号相关的结构： </p> 
+<pre class="lang:cpp decode:1 ">struct semid_ds {
+struct ipc_perm sem_perm;/*see Section 15.6.2 */
+unsigned short sem_nsems;/*# of semaphores in set */
+time_t sem_otime;/*last-semop() time */
+time_t sem_ctime;/*last-change time */
+.
+.
+.
+};</pre> 
+<p> 为了正确使用信号量，信号量值的测试及减1操作应当是原子操作。为此，信号量通常是在内核中实现的。使用信号量涉及到的函数如下，具体使用方法参考man手册。 </p> 
+<pre class="lang:cpp decode:1 ">//获取信号量ID
+#include &lt;sys/sem.h&gt;
+int semget(key_t key, int nsems, int flag);
+//Returns: semaphore ID if OK, −1 on error
+
+//各种信号量操作
+#include &lt;sys/sem.h&gt;
+int semctl(int semid, int semnum, int cmd, ... /* union semun arg */ );
+//Returns: (see following)
+
+//原子操作，自动执行信号量集合上的操作数组
+#include &lt;sys/sem.h&gt;
+int semop(int semid, struct sembuf semoparray[], size_t nops);
+//Returns: 0 if OK, −1 on error</pre> 
+<h2> 6. 共享存储 </h2> 
+<h3> 6.1 XSI 共享存储 </h3> 
+<p> 共享存储允许两个或更多进程共享一给定的存储区，因为数据不需要在客户端和服务器之间进行复制，所以这是一种最快的IPC。使用共享存储唯一需要注意的是多个进程之间对一给定存储区的同步访问。若服务器进程正在将数据放入共享存储区，那么它在完成这一操作之前，客户进出不应该去取这些数据。通常，信号量被用来实现对共享存储访问的同步。 </p> 
+<p> 内核为每个共享存储设置了一个shmid_ds结构。 </p> 
+<pre class="lang:cpp decode:1 ">struct shmid_ds {
+struct ipc_perm shm_perm;/*see Section 15.6.2 */
+size_t shm_segsz;/*size of segment in bytes */
+pid_t shm_lpid;/*pid of last shmop() */
+pid_t shm_cpid;/*pid of creator */
+shmatt_t shm_nattch;/*number of current attaches */
+time_t shm_atime;/*last-attach time */
+time_t shm_dtime;/*last-detach time */
+time_t shm_ctime;/*last-change time */
+.
+.
+.
+};</pre> 
+<p> shmget：获得一个共享存储标示符。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/shm.h&gt;
+int shmget(key_t key, size_t size, int flag);
+//Returns: shared memory ID if OK, −1 on error</pre> 
+<p> key以及flag参数类似msgget中的参数，size是该共享存储段的长度。通常该长度为页大小的整数倍。如果size不是页大小的整数倍，那么最后一页的余下部分是不可用的。如果正在创建一个新存储段（一般是在服务进程中），则必须指定其size，如果引用一个显存的段，则size为0，当创建一个新段的时候，内容初始化为0。 </p> 
+<p> shmctl：对共享存储段执行各种操作。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/shm.h&gt;
+int shmctl(int shmid, int cmd, struct shmid_ds *buf );
+//Returns: 0 if OK, −1 on error</pre> 
+<p> 其cmd等参数信息可参考man手册。 </p> 
+<p> shmget：将创建的共享存储段连接到自己的进程空间内。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/shm.h&gt;
+void *shmat(int shmid, const void *addr, int flag);
+//Returns: pointer to shared memory segment if OK, −1 on error</pre> 
+<p> 共享存储段连接到调用进程的那个地址上与addr参数以及在flag中是否指定SHM_RND有关。 </p> 
+<ul> 
+ <li> 如果addr为0，则此段连接到由内核选择的第一个可用地址上。这是推荐的方式。 </li> 
+ <li> 如果addr非0，并且没有指定SHM_RND，则此段连接到addr所指定的地址上。 </li> 
+ <li> 如果addr非0，并且指定了SHM_RND，则此段连接到（(addr − (addr modulus SHMLBA))）所表示的地址上，SHM_RND命令的意思是”取整“。SHMLBA的意思是“低边界地址倍数”，它总是2的乘方。该算式是将地址向下取最近1个SHMLBA的倍数。 </li> 
+</ul> 
+<p> 除非特殊情况，一般应指定addr为0，以便由内核选择地址。 </p> 
+<p> shmdt：当对共享存储段的访问结束，则调用shmdt来脱离该段，但并不从系统中删除该段的标识符以及其数据结构。直到shmctl命令删除它。 </p> 
+<pre class="lang:cpp decode:1 ">#include &lt;sys/shm.h&gt;
+int shmdt(const void *addr);
+//Returns: 0 if OK, −1 on error</pre> 
+<p> 内核将以地址0连接的共享存储段放在什么位置上与系统密切相关。共享存储段紧靠在栈之下。 </p> 
+<p> mmap函数可将一个文件的若干部分映射到进程地址空间。类似于用shmmat连接一共享存储段。两者之间的主要区别是，用mmap映射的存储段是与文件相关联的。而XSI共享存储段则并无这种关联。 </p> 
+<h3> 6.2&nbsp;/dev/zero的存储映射 </h3> 
+<p> 共享存储可由不相关的进程使用。但如果进程是相关的（共同祖先），则有不同的实现方式。 </p> 
+<p> 在读设备/dev/zero时，该设备是0字节的无限资源。它也接收写向它的任何数据，但又忽略这些数据。当对其进行存储映射时，它具有一些特殊的性质： </p> 
+<ul> 
+ <li> 创建一个未名存储区，其长度是mmap的第二个参数，将其向上取整为系统的最近页长。 </li> 
+ <li> 存储区都初始化为0。 </li> 
+ <li> 如果多个进程的共同祖先进程对mmap指定了MAP_SHARED标志，则这些进程可共享此存储区。 </li> 
+</ul> 
+<p> 这样使用/dev/zero的优点是：在调用mmap创建映射区之前，无需存在一个实际文件。映射/dev/zero自动创建一个指定长度的映射区。这种技术的缺点是：它只有在相关进程间起作用。但在相关进程之间使用线程可能更简单，有效。 </p> 
+<h3> 6.3 匿名存储映射 </h3> 
+<p> 很多实现提供了一种类似于/dev/zero的设施，称为匿名存储映射。为了使用这种功能，在调用mmap时指定MAP_ANON标志，并将文件描述符指定为-1。结果得到的区域是匿名的（因为它并不通过一个文件描述符与一个路径名相结合），并且创建一个可与后代进程共享的存储区。此方式与普通的mmap映射省去了open文件以及close文件操作，另外mmap参数需要做一些修改。如果在相关进程之间就可以使用这种共享内存。如果在无关进程之间使用共享存储段，那么一种方式是使用XSI IPC共享存储函数，另一种是使用mmap函数将同一文件映射到它们的地址空间。 </p> 
+<h2> 7. 小结 </h2> 
+<p> 上面介绍了进程间通讯的多种形式：管道，命名管道（FIFO），以及另外三种IPC形式（通常称为XSI IPC），即消息队列，信号量和共享存储。信号量实际上是同步原语而不是IPC。 </p> 
+<p> 要学会使用管道和FIFO，因为在大量应用程序中仍可有效地使用这两种基本技术。在新的应用程序中，要尽可能避免使用消息队列和信号量，而应考虑全双工管道和记录锁。共享存储段有其应用场合，而mmap也能提供同样的功能。 </p> 
+<h3> &nbsp; <p> &nbsp;摘自：<a target="_blank" href="http://www.coderonline.net/?p=819" rel="nofollow">http://www.coderonline.net/?p=819</a>，转载请注明出处。 </p> <p> 更多文章：<a target="_blank" href="http://www.coderonline.net/category/professional-technology/kernel-driver" rel="nofollow">内核驱动</a>，<a target="_blank" href="http://www.coderonline.net/category/professional-technology/android-apps" rel="nofollow">android</a>等文章请查看<a target="_blank" href="http://www.coderonline.net/?p=711" rel="nofollow">http://www.coderonline.net</a> </p> <p> <strong>关注微信公众平台:程序员互动联盟(coder_online)，你可以第一时间获取原创技术文章，和（java/C/C++/Android/Windows/Linux）技术大牛做朋友，在线交流编程经验，获取编程基础知识，解决编程问题。程序员互动联盟，开发人员自己的家。</strong> </p> 
+ <div>
+   &nbsp; 
+  <a target="_blank" href="http://www.coderonline.net/wp-content/uploads/2015/06/image010-258x2501.jpg" rel="nofollow"><img title="【Android内存优化】Android内存优化之内存缓存" src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/26111809_wgVn.jpg" alt="【Android内存优化】Android内存优化之内存缓存"></a>
+ </div> </h3>]]></body>
+		<author><![CDATA[HAOMCU]]></author>
+		<authorid>80542</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-26 11:18:09</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

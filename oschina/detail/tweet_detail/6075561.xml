@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+		  <tweet>
+    <id>6075561</id>
+	<body><![CDATA[
+		上千人扑向披萨        	]]></body>
+    <author><![CDATA[红薯]]></author>
+	<authorid>12</authorid>
+    <appclient>4</appclient>
+    <commentCount>6</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/0/12_50.jpg?t=1421200584000</portrait>
+    <pubDate>2015-07-18 16:42:04</pubDate>
+	<imgSmall>http://192.168.79.254:8080/oschina/images/uploads/space/2015/0718/164205_CALe_12_thumb.jpg</imgSmall>
+	<imgBig>http://192.168.79.254:8080/oschina/images/uploads/space/2015/0718/164205_CALe_12.jpg</imgBig>
+    <attach></attach>
+    
+    	<likeCount>3</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[月亮一直都在]]></name>
+				<uid>1455495</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/727/1455495_50.jpeg?t=1437034166000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[沼泽神秘人]]></name>
+				<uid>1418446</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/709/1418446_50.jpg?t=1435834972000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[margin_0mq]]></name>
+				<uid>2316472</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1158/2316472_50.jpg?t=1430279439000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64306</id>
+      <title><![CDATA[Tsuru 0.11.3 发布，开源 PaaS 平台]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64306/tsuru-0-11-3-paas]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>开源 PaaS 平台 Tsuru 0.11.3 发布了，该版本主要是修复了部署过程的一些问题：</p> 
+<ul> 
+ <li><p>New configuration options related to timeouts in pub/sub redis connections. Default timeout values set so we can fail fast and not hang if there are connection problems accessing the redis server. See <a href="http://docs.tsuru.io/en/stable/reference/config.html#config-pubsub" rel="nofollow">config reference</a> for more details.</p></li> 
+ <li><p>Writing deploy execution logs is done in background to prevent slow storage backends from interfering in deploy time.</p></li> 
+ <li><p>Hitting Ctrl-C during a deploy does not stop the deploy process anymore. It can be followed again using <code><span>app-log</span></code>. <a href="https://github.com/tsuru/tsuru/issues/1238" rel="nofollow">#1238</a></p></li> 
+</ul> 
+<p>Tsuru 是一个开放源码的 open Platform-as-a-Service (PaaS)平台。</p> 
+<p>Tsuru 可以让你构建自己的 PaaS 服务。Tsuru 采用 go 语言写成，依赖 go 环境和 libxml。</p> 
+<p>在 Tsuru 的 PaaS 服务下，你可以选择自己的编程语言，选择使用 SQL 或者 NoSQL 数据库，memcache、redis、等等许多服务，甚至与你可以使用 Git 版本控制工具来上传你应用。</p>]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 07:32:54</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/tsuru]]></softwarelink>
+	  <softwarename><![CDATA[Tsuru]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Deis v1.8 发布，开源 PaaS 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/64229/deis-1-8</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC项目推荐 —— 简单的 PaaS 系统 Sdp]]></rtitle>
+			<rurl>https://git.oschina.net/staugur/Sdp</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Tsuru 0.11.2 发布，开源 PaaS 平台]]></rtitle>
+			<rurl>http://www.oschina.net/news/63848/tsuru-0-11-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Deis v1.7.3 发布，开源 PaaS 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63387/deis-1-7-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Deis v1.7.2 发布，开源 PaaS 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63315/deis-1-7-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Deis v1.7.1 发布，开源 PaaS 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63257/deis-1-7-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Cloud Foundry 登录 Azure，一键快速部署 PaaS]]></rtitle>
+			<rurl>http://www.oschina.net/news/63200/cloud-foundry-on-azure</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Deis v1.7 发布，开源 PaaS 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63198/deis-1-7</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Tsuru 0.11.1 发布，开源 PaaS 平台]]></rtitle>
+			<rurl>http://www.oschina.net/news/63002/tsuru-0-11-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Deis 1.6.1 发布，开源 PaaS 系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/62450/deis-1-6-1</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

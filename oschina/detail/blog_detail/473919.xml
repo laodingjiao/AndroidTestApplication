@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>473919</id>
+		<title><![CDATA[Android HAL模块实现]]></title>
+		<url><![CDATA[http://my.oschina.net/haomcu/blog/473919]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h1> 1. HAL介绍 </h1> 
+<p> Android的HAL（Hardware Abstract Layer硬件抽象层）是为了保护一些硬件提供商的知识产权而提出的，是为了避开linux的GPL束缚。思路是把控制硬件的动作都放到了Android HAL中，而linux driver仅仅完成一些简单的数据交互作用，甚至把硬件寄存器空间直接映射到user space。而Android是基于Aparch的license，因此硬件厂商可以只提供二进制代码，所以说Android只是一个开放的平台，并不是一个开源的平台。 </p> 
+<p> 总结下来，Android HAL存在的原因主要有： </p> 
+<ol> 
+ <li> 并不是所有的硬件设备都有标准的linux kernel的接口 </li> 
+ <li> KERNEL DRIVER涉及到GPL的版权。某些设备制造商并不原因公开硬件驱动，所以才去用HAL方式绕过GPL。 </li> 
+ <li> 针对某些硬件，Android有一些特殊的需求。 </li> 
+ <li> 不同的平台厂商可在遵循HAL调用接口的前提下实现自己的HAL，不会影响到上层的调用者，这样降低了模块间的耦合度，可以让平台开发者只关心HAL本身的实现即可。 </li> 
+</ol> 
+<p> 下图是HAL在android系统中所处的位置： </p> 
+<p> <a href="http://thinkim.cn/wordpress/wp-content/uploads/2014/12/android-HAL.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/03105635_BDrw.jpg" alt="android HAL"></a> </p>
+<p> 从这张图中可以看出，HAL把内核和framework隔离开来，使上层的开发可以不依赖内核与驱动的实现。在android源码中，HAL大致位于下面几个位置： </p> 
+<ol> 
+ <li> libhardware_legacy/ - 旧的架构、采取链接库模块的模式进行。 </li> 
+ <li> libhardware/ - 新架构、调整为 HAL stub 的概念。 </li> 
+ <li> ril/ - Radio Interface Layer。 </li> 
+ <li> msm7k&nbsp; QUAL平台相关。 </li> 
+</ol> 
+<p> 主要包含以下一些模块：Gps、Vibrator、Wifi、Copybit、Audio、Camera、Lights、Ril、Gralloc等。 </p> 
+<h1> 2. HAL的两种实现方式 </h1> 
+<p> 下图分别为旧的HAL实现与新的HAL实现框图： </p> 
+<p> <a href="http://thinkim.cn/wordpress/wp-content/uploads/2014/12/HAL-legacy.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/03105635_GqJR.jpg" alt="HAL legacy"></a> </p>
+<p> <a href="http://thinkim.cn/wordpress/wp-content/uploads/2014/12/HAL.jpg" rel="nofollow"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/03105635_KBHS.jpg" alt="HAL"></a> </p>
+<p> libhardware_legacy 是将 *.so 文件当作shared library来使用，在runtime（JNI 部份）以 direct function call 使用 HAL module。通过直接函数调用的方式，来操作驱动程序。当然，应用程序也可以不需要通过 JNI 的方式进行，直接加载 *.so （dlopen）的做法调用*.so 里的符号（symbol）也是一种方式。总而言之是没有经过封装，上层可以直接操作硬件。 </p> 
+<p> 现 在的 libhardware 作法，就有「stub」的味道了。HAL stub 是一种代理人（proxy）的概念，stub 虽然仍是以 *.so檔的形式存在，但 HAL 已经将 *.so 档隐藏起来了。Stub 向 HAL「提供」操作函数（operations），而 runtime 则是向 HAL 取得特定模块（stub）的 operations，再 callback 这些操作函数。这种以 indirect function call 的实作架构，让HAL stub 变成是一种「包含」关系，即 HAL 里包含了许许多多的 stub（代理人）。Runtime 只要说明「类型」，即 module ID，就可以取得操作函数。对于目前的HAL，可以认为Android定义了HAL层结构框架，通过几个接口访问硬件从而统一了调用方式。 </p> 
+<p> 由上可大致看出这两种实现方式的优劣： </p> 
+<p> HAL_legacy方式的HAL是一个模块，采用共享库形式，在编译时会调用到。由于采用function call形式调用，因此可被多个进程使用，但会被mapping到多个进程空间中，造成浪费，同时需要考虑代码能否安全重入的问题（thread safe）。而新式的HAL采用HAL module和HAL stub结合形式，HAL stub不是一个share library，编译时上层只拥有访问HAL stub的函数指针，并不需要HAL stub。上层通过HAL module提供的统一接口获取并操作HAL stub，so文件只会被mapping到一个进程，也不存在重复mapping和重入问题。 </p> 
+<h1> 3. HAL模块的结构与编写方法 </h1> 
+<p> HAL模块主要有二个结构： </p> 
+<p> struct hw_module_t-代表抽象硬件模块，包含硬件模块的一些基本信息，例如版本号，开发者等，还有一个成员函数结构体。 </p> 
+<p> struct hw_module_methods_t ，里面只有一个用于打开抽象硬件设备hw_device_t的open函数指针。 </p> 
+<p> struct hw_device_t-代表抽象硬件设备，里面包含了版本号，一个关闭硬件的close函数指针，以及一个指向hw_module_t的结构的指针。 </p> 
+<p> 这两个结构的定义在hardware/libhardware/include/hardware/hardware.h里面，在实现自己的hw module与hw device结构时，第一个成员变量必须是这两个结构，以达到类似C++中的继承的目的。 </p> 
+<p> 这两个结构的定义如下所示： </p> 
+<pre class="lang:cpp decode:1 ">typedef struct hw_module_t {
+    /** tag must be initialized to HARDWARE_MODULE_TAG */
+    uint32_t tag;
+
+    /**
+     * The API version of the implemented module. The module owner is
+     * responsible for updating the version when a module interface has
+     * changed.
+     *
+     * The derived modules such as gralloc and audio own and manage this field.
+     * The module user must interpret the version field to decide whether or
+     * not to inter-operate with the supplied module implementation.
+     * For example, SurfaceFlinger is responsible for making sure that
+     * it knows how to manage different versions of the gralloc-module API,
+     * and AudioFlinger must know how to do the same for audio-module API.
+     *
+     * The module API version should include a major and a minor component.
+     * For example, version 1.0 could be represented as 0x0100. This format
+     * implies that versions 0x0100-0x01ff are all API-compatible.
+     *
+     * In the future, libhardware will expose a hw_get_module_version()
+     * (or equivalent) function that will take minimum/maximum supported
+     * versions as arguments and would be able to reject modules with
+     * versions outside of the supplied range.
+     */
+    uint16_t module_api_version;
+#define version_major module_api_version
+    /**
+     * version_major/version_minor defines are supplied here for temporary
+     * source code compatibility. They will be removed in the next version.
+     * ALL clients must convert to the new version format.
+     */
+
+    /**
+     * The API version of the HAL module interface. This is meant to
+     * version the hw_module_t, hw_module_methods_t, and hw_device_t
+     * structures and definitions.
+     *
+     * The HAL interface owns this field. Module users/implementations
+     * must NOT rely on this value for version information.
+     *
+     * Presently, 0 is the only valid value.
+     */
+    uint16_t hal_api_version;
+#define version_minor hal_api_version
+
+    /** Identifier of module */
+    const char *id;
+
+    /** Name of this module */
+    const char *name;
+
+    /** Author/owner/implementor of the module */
+    const char *author;
+
+    /** Modules methods */
+   &lt;strong&gt; struct hw_module_methods_t* methods;&lt;/strong&gt;
+
+    /** module's dso */
+   &lt;strong&gt; void* dso;&lt;/strong&gt;
+
+    /** padding to 128 bytes, reserved for future use */
+    uint32_t reserved[32-7];
+
+} hw_module_t;
+
+typedef struct hw_module_methods_t {
+    /** Open a specific device */
+    int (*open)(const struct hw_module_t* module, const char* id,
+            struct hw_device_t** device);
+
+} hw_module_methods_t;
+
+/**
+ * Every device data structure must begin with hw_device_t
+ * followed by module specific public methods and attributes.
+ */
+typedef struct hw_device_t {
+    /** tag must be initialized to HARDWARE_DEVICE_TAG */
+    uint32_t tag;
+
+    /**
+     * Version of the module-specific device API. This value is used by
+     * the derived-module user to manage different device implementations.
+     *
+     * The module user is responsible for checking the module_api_version
+     * and device version fields to ensure that the user is capable of
+     * communicating with the specific module implementation.
+     *
+     * One module can support multiple devices with different versions. This
+     * can be useful when a device interface changes in an incompatible way
+     * but it is still necessary to support older implementations at the same
+     * time. One such example is the Camera 2.0 API.
+     *
+     * This field is interpreted by the module user and is ignored by the
+     * HAL interface itself.
+     */
+    uint32_t version;
+
+    /** reference to the module this device belongs to */
+    &lt;strong&gt;struct hw_module_t* module;&lt;/strong&gt;
+
+    /** padding reserved for future use */
+    uint32_t reserved[12];
+
+    /** Close this device */
+    &lt;strong&gt;int (*close)(struct hw_device_t* device);&lt;/strong&gt;
+
+} hw_device_t;</pre> 
+<h1> 4. 硬件模块库的使用 </h1> 
+<p> 硬件模块库的装载与解析由hardware.c中的hw_get_module函数完成，它先按照一定的规则选择然后加载硬件模块库，然后由HAL_MODULE_INFO_SYM解析出库中的全局变量名，得到硬件模块库指针（hw_module_t结构），然后返回给调用者。 </p> 
+<p> 下面以camera为例子来说明如何使用HAL层。 </p> 
+<p> 在系统启动创建CameraService对象时，其函数onFirstRef被调用，在它里面，通过hw_get_module(CAMERA_HARDWARE_MODULE_ID,&nbsp;(const hw_module_t**)&amp;mModule)函数获取camera的抽象硬件模块camera_module，其过程如上所说，通过Camera的HAL动态库然后解析HAL_MODULE_INFO_SYM符号得到全局变量，然后通过获取到的抽象硬件模块结构获取系统拥有的Camera数量等。具体代码参见CameraService.cpp。 </p> 
+<p> 其中camera_module即camera HAL的抽象硬件模块，其定义如下（camera_common.h）： </p> 
+<pre class="lang:cpp decode:1 ">typedef struct camera_module {
+    hw_module_t common;
+
+    /**
+     * get_number_of_cameras:
+     *
+     * Returns the number of camera devices accessible through the camera
+     * module.  The camera devices are numbered 0 through N-1, where N is the
+     * value returned by this call. The name of the camera device for open() is
+     * simply the number converted to a string. That is, "0" for camera ID 0,
+     * "1" for camera ID 1.
+     *
+     * The value here must be static, and cannot change after the first call to
+     * this method
+     */
+    int (*get_number_of_cameras)(void);
+
+    /**
+     * get_camera_info:
+     *
+     * Return the static camera information for a given camera device. This
+     * information may not change for a camera device.
+     *
+     */
+    int (*get_camera_info)(int camera_id, struct camera_info *info);
+
+    /**
+     * set_callbacks:
+     *
+     * Provide callback function pointers to the HAL module to inform framework
+     * of asynchronous camera module events. The framework will call this
+     * function once after initial camera HAL module load, after the
+     * get_number_of_cameras() method is called for the first time, and before
+     * any other calls to the module.
+     *
+     * Version information (based on camera_module_t.common.module_api_version):
+     *
+     *  CAMERA_MODULE_API_VERSION_1_0, CAMERA_MODULE_API_VERSION_2_0:
+     *
+     *    Not provided by HAL module. Framework may not call this function.
+     *
+     *  CAMERA_MODULE_API_VERSION_2_1:
+     *
+     *    Valid to be called by the framework.
+     *
+     */
+    int (*set_callbacks)(const camera_module_callbacks_t *callbacks);
+
+    /**
+     * get_vendor_tag_ops:
+     *
+     * Get methods to query for vendor extension metadata tag information. The
+     * HAL should fill in all the vendor tag operation methods, or leave ops
+     * unchanged if no vendor tags are defined.
+     *
+     * Version information (based on camera_module_t.common.module_api_version):
+     *
+     *  CAMERA_MODULE_API_VERSION_1_x/2_0/2_1:
+     *    Not provided by HAL module. Framework may not call this function.
+     *
+     *  CAMERA_MODULE_API_VERSION_2_2:
+     *    Valid to be called by the framework.
+     */
+    void (*get_vendor_tag_ops)(vendor_tag_ops_t* ops);
+
+    /* reserved for future use */
+    void* reserved[8];
+} camera_module_t;</pre> 
+<p> 由其定义看到，其第一个成员为hw_module_t common，即上面说的自己的硬件抽象模块必须包含hw_module结构，达到“继承”的目的。另外定义了几个自己的成员变量，比如获取camera个数，及camera信息等。使用hw_get_module获取到的camera_module_t变量位于平台的camera HAL实现库中，不同的厂家可能文件名字有所不同，但是肯定会实现下面类似的结构（CameraHAL.cpp）。 </p> 
+<pre class="lang:cpp decode:1 ">camera_module_t HAL_MODULE_INFO_SYM __attribute__ ((visibility("default"))) = {
+    common : {
+        tag                : HARDWARE_MODULE_TAG,
+        module_api_version : CAMERA_MODULE_API_VERSION_2_0,
+        hal_api_version    : HARDWARE_HAL_API_VERSION,
+        id                 : CAMERA_HARDWARE_MODULE_ID,
+        name               : "Default Camera HAL",
+        author             : "The Android Open Source Project",
+        methods            : &amp;gCameraModuleMethods,
+        dso                : NULL,
+        reserved           : {0},
+    },
+    get_number_of_cameras : get_number_of_cameras,
+    get_camera_info       : get_camera_info,
+    set_callbacks         : set_callbacks
+};</pre> 
+<p> 有了Camera的HAL层的硬件抽象模块camera_module，就可以通过camera_module获取到硬件抽象设备camera_device_t，不过它封装在CameraHardwareInterface中，在连接一个camera时（CameraService的connect函数，最后调到CameraClient::initialize），将先创建CameraHardwareInterface对象，然后在其初始化函数中得到camera_device_t：int rc = module-&gt;methods-&gt;open(module, mName.string(), (hw_device_t **)&amp;mDevice);这个open函数就是gCameraModuleMethods里面的open函数，其实现如下所示： </p> 
+<pre class="lang:cpp decode:1">int Camera::open(const hw_module_t *module, hw_device_t **device)
+{
+    ALOGI("%s:%d: Opening camera device", __func__, mId);
+    CAMTRACE_CALL();
+    pthread_mutex_lock(&amp;mMutex);
+    if (mBusy) {
+        pthread_mutex_unlock(&amp;mMutex);
+        ALOGE("%s:%d: Error! Camera device already opened", __func__, mId);
+        return -EBUSY;
+    }
+
+    // TODO: open camera dev nodes, etc
+    mBusy = true;
+    mDevice.common.module = const_cast&lt;hw_module_t*&gt;(module);
+    *device = &amp;mDevice.common;
+
+    pthread_mutex_unlock(&amp;mMutex);
+    return 0;
+}</pre> 
+<p> 这里面就返回了camera_device_t，而此结构的初始化在构造函数中： </p> 
+<pre class="lang:cpp decode:1 ">&lt;/pre&gt;
+&lt;pre&gt;Camera::Camera(int id)
+  : mId(id),
+    mStaticInfo(NULL),
+    mBusy(false),
+    mCallbackOps(NULL),
+    mStreams(NULL),
+    mNumStreams(0),
+    mSettings(NULL)
+{
+    pthread_mutex_init(&amp;mMutex, NULL);
+    pthread_mutex_init(&amp;mStaticInfoMutex, NULL);
+
+    memset(&amp;mDevice, 0, sizeof(mDevice));
+    mDevice.common.tag    = HARDWARE_DEVICE_TAG;
+    mDevice.common.version = CAMERA_DEVICE_API_VERSION_3_0;
+    mDevice.common.close  = close_device;
+    mDevice.ops           = const_cast&lt;camera3_device_ops_t*&gt;(&amp;sOps);
+    mDevice.priv          = this;
+}</pre> 
+<p> 至此，CameraService就得到了Camera的HAL层的硬件抽象模块camera_module_t和抽象设备camera_device_t。有了这两个结构，上层就可以使用camera的功能了。以上代码基于android4.4/hardware/libhardware/modules/camera，使用的是c++的方式实现，不同硬件厂家的实现方式可能不同，但相同的是都必须实现这两个结构。 </p> 
+<h1> 5. 总结 </h1> 
+<ol> 
+ <li> HAL通过hw_get_module来获取hw_module_t结构。 </li> 
+ <li> HAL通过hw_module_t-&gt;methods-&gt;open获取hw_device_t指针，并在在open中初始化hw_device_t中的结构，包括函数指针（close操作）等。 </li> 
+ <li> 两个重要结构： </li> 
+</ol> 
+<p> hw_module_t：硬件抽象模块，可以用hw_get_module获取到。其中又包含了一个hw_module_methods_t结构，其中定义了打开设备open方法。 </p> 
+<p> hw_device_t：硬件抽象设备，主要定义了硬件相关的一些函数，参数等。此结构通过hw_module_methods_t里面定义的open函数获取。 </p> 
+<p> 以上大致就是android hal模块的内容，下一篇会以android的一个重要的HAL模块gralloc来看看其具体的实现。 </p> 
+<p> <a href="http://www.coderonline.net/android-hal%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0.html" rel="nofollow">查看详情</a> </p> 
+<p> <strong>关注微信公众平台:程序员互动联盟(coder_online)，你可以第一时间获取原创技术文章，和（java/C/C++/Android/Windows/Linux）技术大牛做朋友，在线交流编程经验，获取编程基础知识，解决编程问题。程序员互动联盟，开发人员自己的家。</strong> </p> 
+<p> <strong><a href="http://www.coderonline.net/wp-content/uploads/2015/06/image010.jpg" rel="nofollow"><img title="【Windows编程】系列第三篇：文本字符输出" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/03105635_ZZMf.jpg" alt="【Windows编程】系列第四篇：使用Unicode编程"></a></strong> </p>
+<div> 
+ <br> 
+</div>]]></body>
+		<author><![CDATA[HAOMCU]]></author>
+		<authorid>80542</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-03 10:56:35</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

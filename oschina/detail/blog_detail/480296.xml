@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>480296</id>
+		<title><![CDATA[Android属性动画(详解)]]></title>
+		<url><![CDATA[http://my.oschina.net/u/993896/blog/480296]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><strong>Android属性动画</strong></p> 
+<p><strong>什么是Android属性动画</strong></p> 
+<p>&nbsp;&nbsp;&nbsp; 属性动画(Property Animation)系统是一个健壮的动画框架系统，它可以满足你大部分动画需求。不管动画对象是否已经绘制到屏幕上，你都可以在动画执行过程中改变它任意的属性值。一个属性动画会在一段特定长度的时间内改变一个属性(一个对象中的字段)的值。你可以通过以下几步定义一个动画：指定你要执行动画的属性，比如动画对象(View)在屏幕上的位置，指定执行时长，指定你希望的属性的变化值。</p> 
+<p><strong>同类技术对比：</strong></p> 
+<ul> 
+ <li><strong>补间动画</strong><strong>(</strong><strong>Tween Animation</strong><strong>)</strong></li> 
+</ul> 
+<p>a. 渐变动画支持四种类型：平移（Translate）、旋转（Rotate）、缩放（Scale）、不透明度（Alpha）。</p> 
+<p>b. 只是显示的位置变动，View的实际位置未改变，表现为View移动到其他地方，点击事件仍在原处才能响应。</p> 
+<p>c. 组合使用步骤较复杂。</p> 
+<p>d. View Animation 也是指此动画。</p> 
+<ul> 
+ <li><strong>帧动画</strong><strong>(Frame Animation)</strong></li> 
+</ul> 
+<p>a. 用于生成连续的Gif效果图。</p> 
+<p>b. DrawableAnimation也是指此动画。</p> 
+<ul> 
+ <li><strong>属性动画</strong><strong>(</strong><strong>Property </strong><strong>Animation</strong><strong>)</strong></li> 
+</ul> 
+<p>a. 支持对所有View能更新的属性的动画（需要属性的setXxx()和getXxx()）。</p> 
+<p>b. 更改的是View实际的属性，所以不会影响其在动画执行后所在位置的正常使用。</p> 
+<p>c. Android3.0 （API11）及以后出现的功能，3.0之前的版本可使用github第三方开源库nineoldandroids.jar进行支持。</p> 
+<p><strong>属性动画组成部分、相关类介绍：</strong></p> 
+<p>1.<strong>ObjectAnimator</strong> ：对象动画执行类。</p> 
+<p>2.<strong>ValueAnimator</strong> ：值动画执行类，常配合AnimatorUpdateListener使用。</p> 
+<p>3.<strong>PropertyValuesHolder</strong> : 属性存储器，为两个执行类提供更新多个属性的功能。</p> 
+<p>4.<strong>Keyframe</strong> ：为 PropertyValuesHolder提供多个关键帧的操作值。</p> 
+<p>5.<strong>AnimatorSet</strong> ：一组动画的执行集合类：设置执行的先后顺序，时间等。</p> 
+<p>6.<strong>AnimatorUpdateListener</strong> ：动画更新监听。</p> 
+<p>7.<strong>AnimatorListener</strong> ：动画执行监听，在动画开始、重复、结束、取消时进行回调。</p> 
+<p>8.<strong>AnimatorInflater</strong> ：加载属性动画的xml文件。</p> 
+<p>9.<strong>TypeEvaluator</strong> ：类型估值，用于设置复杂的动画操作属性的值。</p> 
+<p>10. <strong>TimeInterpolator</strong> ：时间插值，用于控制动画执行过程。</p> 
+<p>（以下源代码下载地址：<a href="http://pan.baidu.com/s/1mgFXOkK" rel="nofollow">http://pan.baidu.com/s/1mgFXOkK</a>）</p> 
+<p><strong>1.ObjectAnimator对象动画执行类</strong></p> 
+<p><strong>介绍:</strong></p> 
+<p>1. 通过静态方法ofInt、ofFloat、ofObject、ofPropertyValuesHolder 获取类对象。</p> 
+<p>2. 根据属性值类型选择静态方法，如view的setLeft(int left) 则选用ofInt方法, setY(float y)则选用ofFloat方法。</p> 
+<p>3. 同ValueAnimator一样，可以进行串联式使用，示例如下。</p> 
+<p><strong>示例:</strong></p> 
+<ul> 
+ <li>简单示例：View的横向移动</li> 
+</ul> 
+<ol> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 通过静态方法构建一个ObjectAnimator对象</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置作用对象、属性名称、数值集合</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ObjectAnimator.ofFloat(view, "translationX", 0.0F, 200.0F)</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置执行时间(1000ms)</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .setDuration(1000)</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 开始动画</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .start();</li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/data/attachment/forum/201503/03/132058s9shughj9ggfxkfu.gif"></p>
+<ul> 
+ <li>复合示例：View弹性落下然后弹起，执行一次。</li> 
+</ul> 
+<ol> 
+ <li>&nbsp; // 修改view的y属性, 从当前位置移动到300.0f</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ObjectAnimator yBouncer = ObjectAnimator.ofFloat(view, "y",</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; view.getY(), 300.0f);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; yBouncer.setDuration(1500);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置插值器(用于调节动画执行过程的速度)</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; yBouncer.setInterpolator(new BounceInterpolator());</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置重复次数(缺省为0,表示不重复执行)</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; yBouncer.setRepeatCount(1);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置重复模式(RESTART或REVERSE),重复次数大于0或INFINITE生效</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; yBouncer.setRepeatMode(ValueAnimator.REVERSE);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置动画开始的延时时间(200ms)</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; yBouncer.setStartDelay(200);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 开始动画</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; yBouncer.start();</li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p><strong><img src="http://192.168.79.254:8080/oschina/images/data/attachment/forum/201503/03/132058i1529p9t9y9yct9l.gif"> <br></strong></p>
+<p><strong>2.ValueAnimator 值动画执行类</strong></p> 
+<p><strong>介绍:</strong></p> 
+<p>1. 构造方法与ObjectAnimator类似。</p> 
+<p>2. 与ObjectAnimator的区别在于ValueAnimator构造函数的参数中不包含动画“属性”信息。</p> 
+<p>3. 优点：结合动画更新监听onAnimationUpdate使用，可以在回调中不断更新View的多个属性，使用起来更加灵活。</p> 
+<p><strong>示例:</strong></p> 
+<ul> 
+ <li>View向右下角移动：</li> 
+</ul> 
+<ol> 
+ <li>&nbsp;&nbsp;&nbsp; // 通过静态方法构建一个ValueAnimator对象</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置数值集合</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ValueAnimator animator = ValueAnimator.ofFloat(0f, 200.0f);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置作用对象</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; animator.setTarget(view);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置执行时间(1000ms)</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; animator.setDuration(1000);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 添加动画更新监听</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; animator.addUpdateListener(new AnimatorUpdateListener() {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void onAnimationUpdate(ValueAnimator animation) {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 获取当前值</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Float mValue = (Float) animation.getAnimatedValue();</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置横向偏移量</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; view.setTranslationX(mValue);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置纵向偏移量</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; view.setTranslationY(mValue);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; });</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 开始动画</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; animator.start();</li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/data/attachment/forum/201503/03/132059eek5ktk52igkl2ri.gif"> <br><strong>3.PropertyValuesHolder 属性存储器</strong></p>
+<p><strong>介绍:</strong></p> 
+<p>为ValueAnimator提供多个操作属性及相应的执行参数。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p> 
+<p><strong>示例:</strong></p> 
+<ul> 
+ <li>同时修改View多个属性的动画：</li> 
+</ul> 
+<ol> 
+ <li>// 获取view左边位置</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int left = view.getLeft();</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 获取view右边位置</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int right = view.getRight();</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 将view左边增加10像素</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PropertyValuesHolder pvhLeft = PropertyValuesHolder.ofInt("left", left,</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; left + 10);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 将view右边减少10像素</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PropertyValuesHolder pvhRight = PropertyValuesHolder.ofInt("right",</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; right, right - 10);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 在X轴缩放从原始比例1f,缩小到最小0f,再放大到原始比例1f</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofFloat("scaleX",</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1f, 0f, 1f);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 在Y轴缩放从原始比例1f,缩小到最小0f,再放大到原始比例1f</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofFloat("scaleY",</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1f, 0f, 1f);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 将PropertyValuesHolder交付给ObjectAnimator进行构建</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ObjectAnimator customAnim = ObjectAnimator.ofPropertyValuesHolder(view,</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pvhLeft, pvhRight, pvhScaleX, pvhScaleY);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置执行时间(1000ms)</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; customAnim.setDuration(1000);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 开始动画</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; customAnim.start();</li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/data/attachment/forum/201503/03/132059m6jofjdmwtzyjgks.gif"></p>
+<p><strong>4.Keyframe 关键帧</strong></p> 
+<p><strong>介绍:</strong></p> 
+<p>为 PropertyValuesHolder提供关键帧的操作值集合。</p> 
+<p><strong>示例:</strong></p> 
+<ul> 
+ <li>以下示例表示该PropertyValuesHolder进行的旋转（rotation）动画，在执行时间在0%, 50%, 100%时,其旋转角度分别为0°, 360°, 0°。动画执行过程中自动进行补间。表现为自旋360°后再转回来。</li> 
+</ul> 
+<ol> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置在动画开始时,旋转角度为0度</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Keyframe kf0 = Keyframe.ofFloat(0f, 0f);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置在动画执行50%时,旋转角度为360度</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Keyframe kf1 = Keyframe.ofFloat(.5f, 360f);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置在动画结束时,旋转角度为0度</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Keyframe kf2 = Keyframe.ofFloat(1f, 0f);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 使用PropertyValuesHolder进行属性名称和值集合的封装</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PropertyValuesHolder pvhRotation = PropertyValuesHolder.ofKeyframe(</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "rotation", kf0, kf1, kf2);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 通过ObjectAnimator进行执行</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ObjectAnimator.ofPropertyValuesHolder(view, pvhRotation)</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 设置执行时间(1000ms)</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .setDuration(1000)</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 开始动画</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .start();</li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p><strong><img src="http://192.168.79.254:8080/oschina/images/data/attachment/forum/201503/03/132059xolnpn4wlqn52m5l.gif"> <br></strong></p>
+<p><strong> <br></strong></p> 
+<p><strong>5.AnimatorSet 执行集合类</strong></p> 
+<p><strong>介绍:</strong></p> 
+<p>1. 为多个属性动画提供播放顺序控制(注意play,with,after,before的用法)。</p> 
+<p>2. AnimatorSet类与AnimationSet类不能搞混，AnimatorSet在3.0及以上版本中才有。3.0之前的版本可使用第三方开源库nineoldandroids.jar进行支持，功能使用完全一致。</p> 
+<p><strong>示例:</strong></p> 
+<p>以下示例动画的播放顺序为</p> 
+<p>1.播放 bounceAnim;</p> 
+<p>2.同时播放 squashAnim1, squashAnim2,stretchAnim1, stretchAnim2;</p> 
+<p>3.接着播放 bounceBackAnim;</p> 
+<p>4.最后播放 fadeAnim;</p> 
+<ol> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AnimatorSet bouncer = new AnimatorSet();</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bouncer.play(bounceAnim).before(squashAnim1);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bouncer.play(squashAnim1).with(squashAnim2);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bouncer.play(squashAnim1).with(stretchAnim1);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bouncer.play(squashAnim1).with(stretchAnim2);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bouncer.play(bounceBackAnim).after(stretchAnim2);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ValueAnimator fadeAnim = ObjectAnimator.ofFloat(newBall, "alpha", 1f,</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0f);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fadeAnim.setDuration(250);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AnimatorSet animatorSet = new AnimatorSet();</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; animatorSet.play(bouncer).before(fadeAnim);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; animatorSet.start();</li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p>详细代码参见：<a href="http://developer.android.com/guide/topics/graphics/prop-animation.html" rel="nofollow">http://developer.android.com/guide/topics/graphics/prop-animation.html</a></p> 
+<p><strong>6. AnimatorUpdateListener动画更新监听</strong></p> 
+<p><strong>介绍：</strong></p> 
+<p>1.在动画执行过程中，每次更新都会调用该回调，可以在该回调中手动更新view的属性。</p> 
+<p>2.当调用的属性方法中没有进行View的重绘时，需要进行手动触发重绘。设置AnimatorUpdateListener监听，并在onAnimationUpdate回调中执行View的invalidate()方法。</p> 
+<p><strong>示例：</strong></p> 
+<ul> 
+ <li>1. 在回调中手动更新View对应属性：</li> 
+</ul> 
+<ol> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 1. 在回调中手动更新View对应属性：</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AnimatorUpdateListener l = new AnimatorUpdateListener() {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void onAnimationUpdate(ValueAnimator animation) {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 当前的分度值范围为0.0f-&gt;1.0f</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 分度值是动画执行的百分比。区别于AnimatedValue。</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; float fraction = animation.getAnimatedFraction();</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 以下的的效果为 View从完全透明到不透明,</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; view.setAlpha(fraction);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Y方向向下移动300px的距离.</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; view.setTranslationY(fraction * 300.0f);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ValueAnimator mAnim = ValueAnimator.ofFloat(0f, 1.0f);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mAnim.addUpdateListener(l);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mAnim.setDuration(1000);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mAnim.start();</li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/data/attachment/forum/201503/03/132100lqoz8bczu0t3u0uu.gif"></p>
+<ul> 
+ <li>2. 在自定义View内部用于引发重绘：</li> 
+</ul> 
+<ol> 
+ <li>// 2. 在自定义View内部用于引发重绘</li> 
+ <li>&nbsp;&nbsp;&nbsp; public class MyAnimationView extends View implements</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ValueAnimator.AnimatorUpdateListener {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public MyAnimationView(Context context) {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; super(context);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void onAnimationUpdate(ValueAnimator animation) {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 手动触发界面重绘</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; invalidate();</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</li> 
+ <li>&nbsp;&nbsp;&nbsp; }</li> 
+ <li></li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p><strong>7.AnimatorListener 动画执行监听</strong></p> 
+<p><strong>介绍：</strong></p> 
+<p>1. 实现AnimatorListener中的方法可在动画执行全程进行其他任务的回调执行。</p> 
+<p>2. 也可以添加AnimatorListener的实现类AnimatorListenerAdapter，仅重写需要的监听即可。</p> 
+<p><strong>示例：</strong></p> 
+<ol> 
+ <li>// 将view透明度从当前的1.0f更新为0.5f,在动画结束时移除该View</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ObjectAnimator anim = ObjectAnimator.ofFloat(view, "alpha", 0.5f);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; anim.setDuration(1000);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; anim.addListener(new AnimatorListener() {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void onAnimationStart(Animator animation) {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 动画开始时调用</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</li> 
+ <li></li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void onAnimationRepeat(Animator animation) {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 动画重复时调用</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void onAnimationEnd(Animator animation) {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 动画结束时调用</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ViewGroup parent = (ViewGroup) view.getParent();</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (parent != null)</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; parent.removeView(view);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void onAnimationCancel(Animator animation) {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 动画取消时调用</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; });</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; anim.start();</li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p><strong><img src="http://192.168.79.254:8080/oschina/images/data/attachment/forum/201503/03/132100yeqzjjqserje6ms3.gif"> <br></strong></p>
+<p><strong>8.AnimatorInflater 动画加载器</strong></p> 
+<p><strong>介绍：</strong></p> 
+<p>1. 属性动画可以通过xml文件的形式加载。</p> 
+<p>2. set标签内的animator也可单独使用。</p> 
+<p>3. XML语法如下：</p> 
+<ol> 
+ <li>&lt;setandroid:ordering=["together" ¦ "sequentially"]&gt;</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;objectAnimator</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:propertyName="string"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:duration="int"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:valueFrom="float¦ int ¦ color"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:valueTo="float¦ int ¦ color"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:startOffset="int"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:repeatCount="int"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:repeatMode=["repeat"¦ "reverse"]</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:valueType=["intType"¦ "floatType"]/&gt;</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;animator</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:duration="int"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:valueFrom="float¦ int ¦ color"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:valueTo="float¦ int ¦ color"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:startOffset="int"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:repeatCount="int"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:repeatMode=["repeat"¦ "reverse"]</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:valueType=["intType"¦ "floatType"]/&gt;</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;set&gt;</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/set&gt;</li> 
+ <li>&lt;/set&gt;</li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p><strong>示例：</strong></p> 
+<ol> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 加载xml属性动画</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Animator anim = AnimatorInflater</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .loadAnimator(this, R.anim.animator_set);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; anim.setTarget(view);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; anim.start();</li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p>xml文件：</p> 
+<ol> 
+ <li>&lt;?xml version="1.0" encoding="utf-8"?&gt;</li> 
+ <li>&lt;set&gt;</li> 
+ <li>&nbsp;&nbsp;&nbsp; &lt;objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:duration="1000"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:valueTo="200"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:valueType="floatType"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:propertyName="x"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:repeatCount="1"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:repeatMode="reverse"/&gt;</li> 
+ <li>&nbsp;&nbsp;&nbsp; &lt;objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:duration="1000"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:valueTo="400"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:valueType="floatType"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:propertyName="y"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:repeatCount="1"</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:repeatMode="reverse"/&gt;</li> 
+ <li>&lt;/set&gt;</li> 
+ <li></li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/data/attachment/forum/201503/03/132100rypyvmp0qofucfun.gif"></p>
+<p><strong>9.TypeEvaluator&nbsp; 类型估值</strong></p> 
+<p><strong>介绍：</strong></p> 
+<p>1. TypeEvaluator可传入参数值的类型（本例为PointF）。</p> 
+<p>2. 重写函数public T evaluate(floatfraction, T startValue, T endValue);实现不同需求值的计算。</p> 
+<p>3. 注意fraction的使用，fraction是从开始到结束的分度值0.0 -&gt; 1.0。</p> 
+<p><strong>示例：</strong></p> 
+<ol> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 类型估值 - 抛物线示例</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TypeEvaluator&lt;PointF&gt; typeEvaluator = new TypeEvaluator&lt;PointF&gt;() {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public PointF evaluate(float fraction, PointF startValue,</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PointF endValue) {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; float time = fraction * 3;</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.e(TAG, time + "");</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // x方向200px/s ，y方向0.5 * 200 * t * t</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PointF point = new PointF();</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; point.x = 120 * time;</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; point.y = 0.5f * 200 * time * time;</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return point;</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ValueAnimator valueAnimator = ValueAnimator.ofObject(typeEvaluator,</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new PointF(0, 0));</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; valueAnimator.setInterpolator(new LinearInterpolator());</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; valueAnimator.setDuration(3000);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; valueAnimator.start();</li> 
+ <li></li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; valueAnimator.addUpdateListener(new AnimatorUpdateListener() {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void onAnimationUpdate(ValueAnimator animation) {</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PointF point = (PointF) animation.getAnimatedValue();</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; view.setX(point.x);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; view.setY(point.y);</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</li> 
+ <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; });</li> 
+</ol> 
+<p><em>复制代码</em></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/data/attachment/forum/201503/03/132101b43ojp03xu3apuxb.gif"></p>
+<p><strong>10. TimeInterpolator 时间插值器</strong></p> 
+<p><strong>1.&nbsp;&nbsp;&nbsp; 几种常见的插值器：</strong></p> 
+<p><strong>Interpolator</strong><strong>对象</strong></p> 
+<p><strong>资源</strong><strong>ID</strong></p> 
+<p><strong>功能作用</strong></p> 
+<p>AccelerateDecelerateInterpolator</p> 
+<p>@android:anim/accelerate_decelerate_interpolator</p> 
+<p>先加速再减速</p> 
+<p>AccelerateInterpolator</p> 
+<p>@android:anim/accelerate_interpolator</p> 
+<p>加速</p> 
+<p>AnticipateInterpolator</p> 
+<p>@android:anim/anticipate_interpolator</p> 
+<p>先回退一小步然后加速前进</p> 
+<p>AnticipateOvershootInterpolator</p> 
+<p>@android:anim/anticipate_overshoot_interpolator</p> 
+<p>在上一个基础上超出终点一小步再回到终点</p> 
+<p>BounceInterpolator</p> 
+<p>@android:anim/bounce_interpolator</p> 
+<p>最后阶段弹球效果</p> 
+<p>CycleInterpolator</p> 
+<p>@android:anim/cycle_interpolator</p> 
+<p>周期运动</p> 
+<p>DecelerateInterpolator</p> 
+<p>@android:anim/decelerate_interpolator</p> 
+<p>减速</p> 
+<p>LinearInterpolator</p> 
+<p>@android:anim/linear_interpolator</p> 
+<p>匀速</p> 
+<p>OvershootInterpolator</p> 
+<p>@android:anim/overshoot_interpolator</p> 
+<p>快速到达终点并超出一小步最后回到终点</p> 
+<p><strong>2. 自定义插值器</strong></p> 
+<p>a.实现Interpolator(TimeInterpolator)接口;</p> 
+<p>b.重写接口函数float getInterpolation(floatinput)。</p>]]></body>
+		<author><![CDATA[itheima]]></author>
+		<authorid>993896</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-19 12:16:41</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

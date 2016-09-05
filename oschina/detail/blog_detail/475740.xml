@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>475740</id>
+		<title><![CDATA[为什么JSP会比Beetl慢]]></title>
+		<url><![CDATA[http://my.oschina.net/xiandafu/blog/475740]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>74</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><div>
+  &nbsp; &nbsp;许多人都不相信这个事实，作为前端常用渲染技术，JSP比Beetl慢。如果稍微了解这俩种技术的人，会分析：JSP是编译成class的，而Beetl总是解释执行的。JSP肯定会比Beetl快。然而，事实并不是这样，通过了许多性能测试，证明，Beetl还是要快的，如下是TEB模板引擎性能基准测试结果： 
+</div> 
+<div> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0707/160818_zNTe_567839.png" alt="">
+ <br> 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  可以看出，代表Beetl的绿色的，性能高于代表JSP的黄色大约2倍。 
+</div> 
+<div> 
+ <br> 
+</div> 
+<p> &nbsp; &nbsp; 还有个帖子来自osc：<a href="http://my.oschina.net/tangcoffee/blog/303865" rel="nofollow">http://my.oschina.net/tangcoffee/blog/303865</a>，压力测试jsp和beetl，证明beetl性能是JSP的2倍，如下是截取的部分数据 </p> 
+<p> <span style="color:#333333;font-family:'Microsoft YaHei', Verdana, sans-serif, 宋体;line-height:1.5;">&nbsp; &nbsp;采用jfinal+beetl模板，apache ab压力测试结果<br> </span> </p> 
+<ul> 
+ <li> <span style="line-height:1.5;">Time taken for tests: &nbsp; 0.656 seconds</span> </li> 
+ <li> <span style="line-height:1.5;">Complete requests: &nbsp; &nbsp; &nbsp;1000</span> </li> 
+ <li> <span style="line-height:1.5;">Time per request: &nbsp; &nbsp; &nbsp; 32.813 [ms] (mean)</span> </li> 
+</ul> 
+<p> <span style="color:#333333;font-family:'Microsoft YaHei', Verdana, sans-serif, 宋体;line-height:1.5;"> &nbsp; &nbsp;未采用beetl，apache ab测试结果：<br> </span> </p> 
+<ul> 
+ <li> <span style="line-height:1.5;">Time taken for tests: &nbsp; 1.297 seconds</span> </li> 
+ <li> <span style="line-height:1.5;">Complete requests: &nbsp; &nbsp; &nbsp;1000</span> </li> 
+ <li> <span style="line-height:1.5;">Time per request: &nbsp; &nbsp; &nbsp;64.844 &nbsp;[ms] (mean)</span> </li> 
+</ul> 
+<p> <span style="color:#333333;font-family:'Microsoft YaHei', Verdana, sans-serif, 宋体;line-height:1.5;">&nbsp; &nbsp; 究竟怎么回事情，使得编译执行的JSP执行比解释执行的Beetl慢。基本上来说，Beetl并没有做出超越常规的性能优化，而是JSP本身性能优化<span style="color:#333333;font-family:'Microsoft YaHei', Verdana, sans-serif, 宋体;font-size:14px;line-height:21px;background-color:#FFFFFF;">不够</span>导致的。</span> </p> 
+<div> 
+ <span style="color:#333333;font-family:'Microsoft YaHei', Verdana, sans-serif, 宋体;"> 
+  <div> 
+   <span style="color:#333333;font-family:'Microsoft YaHei', Verdana, sans-serif, 宋体;"><br> </span> 
+  </div> 
+  <div> 
+   <span style="color:#333333;font-family:'Microsoft YaHei', Verdana, sans-serif, 宋体;">&nbsp;&nbsp;</span> 
+   <span style="color:#333333;font-family:'Microsoft YaHei', Verdana, sans-serif, 宋体;"><b>&nbsp;第一： JSP对静态文本处理的不够好</b></span> 
+   <span style="color:#333333;font-family:'Microsoft YaHei', Verdana, sans-serif, 宋体;">。如果你看看JSP编译的后的java代码(以Tocmat7为例），你会发现，JSP并没有优化好静态文本输出。如下一个JSP代码</span> 
+  </div> <pre class="brush:java; toolbar: true; auto-links: false;">&lt;%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="UTF-8"%&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"&gt;
+&lt;title&gt;Test JSP&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;%
+String a = "Test JSP";
+%&gt;
+&lt;%=a %&gt;
+&lt;/body&gt;
+&lt;/html&gt;。</pre> <p> <span style="font-family:微软雅黑;line-height:1.5;background-color:inherit;">Tomcat7 会编译成为</span> </p> </span> 
+</div> 
+<pre class="brush:java; toolbar: true; auto-links: false;">out.write("&lt;html&gt;\r\n");
+      out.write("&lt;head&gt;\r\n");
+      out.write("&lt;meta http-equiv=\"Content-Type\" 
+            content=\"text/html; charset=ISO-8859-1\"&gt;\r\n");
+      out.write("&lt;title&gt;Test JSP&lt;/title&gt;\r\n");
+      out.write("&lt;/head&gt;\r\n");
+      out.write("&lt;body&gt;\r\n");
+String a = "Test JSP";
+      out.write('\r');
+      out.write('\n');
+      out.print(a );
+      out.write("\r\n");
+      out.write("&lt;/body&gt;\r\n");
+      out.write("&lt;/html&gt;");</pre> 
+<p> <span style="line-height:1.5;">&nbsp; &nbsp; 可以看出，对于静态文本，JSP会多次调用out.write方法，而write方法内部，每次调用，都会做flush检测等耗时机制。因此，更好的方式应该是将静态文本合并一次性输出，应该是下面这种会更好点</span> </p> 
+<div> 
+ <pre class="brush:java; toolbar: true; auto-links: false;">// 期望JSP的样子
+out.write("&lt;html&gt;\r\n&lt;head&gt;\r\n ....&lt;body&gt;\r\n“)；
+String a = "Test JSP";
+out.write("\r\n“)；
+out.print(a );
+out.write("\r\n&lt;/body&gt;\r\n&lt;/html&gt;");</pre> 
+ <p> <br> </p> 
+</div> 
+<span style="font-family:微软雅黑;font-size:14px;line-height:21px;background-color:#FFFFFF;"> 
+ <div> 
+  <b>第二 &nbsp;就算JSP的实现做了如上更改，静态文本处理还有优化空间</b>。这是因为互联网传输的二进制，因此会存在一个将静态文本转成byte[] 输出的过程，这是一个耗费CPU操作的过程，也就是JSP里的write操作，内部还大量的编码，而且，随着JSP一次次渲染，编码是一次一次重复，实验证明，这极大的降低了JSP性能。通过如下伪代码可以验证 
+ </div> 
+ <div> 
+  <br> 
+ </div> 
+ <div> 
+  <pre class="brush:java; toolbar: true; auto-links: false;">public static void main(String[] args)throws Exception {
+  String text = "&lt;html&gt;你好中文！你好中文！你好中文！&lt;/html&gt;";
+  {
+   //模拟jsp
+   long start = System.currentTimeMillis();
+   for(int i=0;i&lt;1000000;i++){
+    byte[] bs = text.getBytes("UTF-8");
+    write(bs);
+   }
+   long end = System.currentTimeMillis();
+   System.out.println("jsp total="+(end-start));
+  }
+ 
+  {
+   // 模拟beetl
+   long start = System.currentTimeMillis();
+   byte[] bs = text.getBytes("UTF-8");   
+   for(int i=0;i&lt;1000000;i++){   
+    write(bs);
+   }
+   long end = System.currentTimeMillis();
+   System.out.println("beetl total="+(end-start));
+  }
+ 
+ }
+ 
+ public static void write(byte[] bs){
+ 
+ }</pre> 
+  <p> 输出是： </p> 
+ </div> 
+ <div> 
+  <ul> 
+   <li> <span style="background-color:inherit;">jsp total=228</span> </li> 
+   <li> <span style="background-color:inherit;">beetl total=3</span> </li> 
+  </ul> 
+ </div> 
+ <div> 
+  <br> 
+ </div> 
+ <div>
+   可见Beetl将静态文本预先编码成二进制，会提高性能很多。而通常JSP，总是静态文本多过JSP Code的 
+ </div> 
+ <div> 
+  <br> 
+ </div> 
+ <div> 
+  <strong>第三，JSP在JSTL做的不够完美，也导致性能很差</strong>。由于JSP是基于Java语言，语言本身是OO的，很多地方不适合模板场景使用，因此，自然而然采用JSTL来弥补JSP的不足，这也是后来很多项目都基本上采用了JSTL来写模板。然而，JSTL的性能更加有问题。比如下一个简单的JSTL判断 
+ </div> 
+ <div> 
+  <br> 
+ </div> <p> </p><pre class="brush:java; toolbar: true; auto-links: false;">&lt;c:choose&gt;
+   &lt;c:when test="${param.newFlag== '1' || param.newFlag== '2'}"&gt;  
+    &lt;th&gt;1 or 2  &lt;font color="Red"&gt;*&lt;/font&gt;
+   &lt;/c:when&gt;  
+&lt;/c:choose&gt;</pre> <p> <br> 在我最初的想象里，我认为jsp至少会编译成如下代码： </p> <p></p> 
+ <div> 
+  <br> 
+ </div> 
+ <div> 
+  <pre class="brush:java; toolbar: true; auto-links: false;">//期望JSP能编译成如下代码
+if(request.getParameter("newFlag").equals("1")
+   ||request.getParameter("newFlag").equals("2")){
+
+    out.print(...)
+}</pre> 
+  <p> 但事实并不是这样，对于如上JSTL，编译成 </p> 
+ </div> <pre class="brush:java; toolbar: true; auto-links: false;">// 实际上JSP编译的代码
+out.write((java.lang.String) 
+  org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(
+"${param.newFlag== '1' || param.newFlag== '2'}", 
+java.lang.String.class, 
+(javax.servlet.jsp.PageContext)_jspx_page_context, null, false));</pre> <p> 也就是，JSP并没有如预期的预编译成java代码，而是动态解释执行了 test条件，这样，性能不差才怪呢. </p> 
+ <div> 
+  <br> 
+ </div> 
+ <div>
+   &nbsp; &nbsp;综上所述，JSP之所以在基准测试还是实际的测试，都比Beetl慢不少，是因为他静态文本输出方面没有去做积极的优化。像JSTL那样的的解释执行也极大的拖了JSP后退，而Beetl避免了这些问题。 
+ </div> 
+ <div> 
+  <br> 
+ </div> 
+ <div> 
+  <br> 
+ </div> 
+ <div> 
+  <br> 
+ </div> 
+ <div>
+   &nbsp;&nbsp; 
+ </div> 
+ <div> 
+  <br> 
+ </div> 
+ <div> 
+  <br> 
+ </div> </span> 
+<div> 
+ <br> 
+</div>]]></body>
+		<author><![CDATA[闲.大赋]]></author>
+		<authorid>567839</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-07 16:16:03</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

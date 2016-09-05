@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>475950</id>
+		<title><![CDATA[使用Maven开发Hadoop]]></title>
+		<url><![CDATA[http://my.oschina.net/zhmlvft/blog/475950]]></url>
+		<where><![CDATA[Hadoop]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>环境为Hadoop2.5.2（<a href="http://my.oschina.net/zhmlvft/blog/475736" target="_blank" rel="nofollow">如何搭建环境教程</a>），在pom.xml中加入以下配置文件。</p> 
+<pre class="brush:xml;toolbar: true; auto-links: false;">&lt;dependency&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId&gt;hadoop-common&lt;/artifactId&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;version&gt;2.5.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId&gt;hadoop-hdfs&lt;/artifactId&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;version&gt;2.5.2&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId&gt;hadoop-client&lt;/artifactId&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;version&gt;2.5.2&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;groupId&gt;junit&lt;/groupId&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId&gt;junit&lt;/artifactId&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;version&gt;3.8.1&lt;/version&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</pre> 
+<p><strong><span style="font-size: 18px;">测试HDFS</span></strong></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">public&nbsp;class&nbsp;HdfsTest
+{
+&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;void&nbsp;main(&nbsp;String[]&nbsp;args&nbsp;)&nbsp;throws&nbsp;IOException&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;uri&nbsp;=&nbsp;"hdfs://192.168.1.112:9000/";
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Configuration&nbsp;config&nbsp;=&nbsp;new&nbsp;Configuration();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FileSystem&nbsp;fs&nbsp;=&nbsp;FileSystem.get(URI.create(uri),&nbsp;config);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//列出目录所有文件
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FileStatus[]&nbsp;statuses&nbsp;=&nbsp;fs.listStatus(new&nbsp;Path("/data"));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(FileStatus&nbsp;status&nbsp;:&nbsp;statuses)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(status);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//创建新文件
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FSDataOutputStream&nbsp;os&nbsp;=&nbsp;fs.create(new&nbsp;Path("/data/hdfs_test.txt"));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.write("测试HDFS第一条\r\n".getBytes());
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.write("测试HDFS第二条\r\n".getBytes());
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.flush();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.close();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//读取文件
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;InputStream&nbsp;is&nbsp;=&nbsp;fs.open(new&nbsp;Path("/data/hdfs_test.txt"));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IOUtils.copyBytes(is,&nbsp;System.out,&nbsp;1024,&nbsp;true);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}</pre> 
+<p><span style="font-size: 18px;"><strong>测试Map/Reduce</strong></span><br></p> 
+<p><span style="font-size: 18px;"><span style="font-size: 12px;">实例：将多个文件里面的内容去掉重复行。</span><strong><br></strong></span></p> 
+<p><span style="font-size: 12px;">思路：把数据行当做map/reduce的key来处理即可。value可以为空。</span></p> 
+<p><span style="font-size: 12px;">代码实现如下：</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">package&nbsp;com.zhm;
+
+import&nbsp;org.apache.hadoop.conf.Configuration;
+import&nbsp;org.apache.hadoop.fs.Path;
+import&nbsp;org.apache.hadoop.io.Text;
+import&nbsp;org.apache.hadoop.mapreduce.Job;
+import&nbsp;org.apache.hadoop.mapreduce.Mapper;
+import&nbsp;org.apache.hadoop.mapreduce.Reducer;
+import&nbsp;org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import&nbsp;org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import&nbsp;org.apache.hadoop.util.GenericOptionsParser;
+
+import&nbsp;java.io.IOException;
+
+/**
+&nbsp;*&nbsp;Created&nbsp;by&nbsp;zhm&nbsp;on&nbsp;2015/7/8.
+&nbsp;*/
+public&nbsp;class&nbsp;MapReduceTest&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;class&nbsp;MyMapper&nbsp;extends&nbsp;Mapper&lt;Object,&nbsp;Text,&nbsp;Text,&nbsp;Text&gt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;map(Object&nbsp;key,&nbsp;Text&nbsp;value,&nbsp;Context&nbsp;context)&nbsp;throws&nbsp;IOException,&nbsp;InterruptedException&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//将文本行放入key
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.write(value,new&nbsp;Text(""));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;class&nbsp;MyReducer&nbsp;extends&nbsp;Reducer&lt;Text,Text,Text,Text&gt;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;reduce(Text&nbsp;key,&nbsp;Iterable&lt;Text&gt;&nbsp;values,&nbsp;Context&nbsp;context)&nbsp;throws&nbsp;IOException,&nbsp;InterruptedException&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//输出key
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.write(key,&nbsp;new&nbsp;Text(""));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;void&nbsp;main(String[]&nbsp;args)&nbsp;throws&nbsp;Exception&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Configuration&nbsp;conf&nbsp;=&nbsp;new&nbsp;Configuration();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String[]&nbsp;otherArgs&nbsp;=&nbsp;new&nbsp;GenericOptionsParser(conf,&nbsp;args).getRemainingArgs();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(otherArgs.length&nbsp;&lt;&nbsp;2)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.err.println("Usage:&nbsp;MapReduceTest&nbsp;&lt;in&gt;&nbsp;&lt;out&gt;");
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.exit(2);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Job&nbsp;job&nbsp;=&nbsp;Job.getInstance(conf,&nbsp;"MapReduceTest");
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;job.setJarByClass(MapReduceTest.class);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;job.setMapperClass(MyMapper.class);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;job.setCombinerClass(MyReducer.class);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;job.setReducerClass(MyReducer.class);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;job.setOutputKeyClass(Text.class);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;job.setOutputValueClass(Text.class);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FileInputFormat.addInputPath(job,&nbsp;new&nbsp;Path(otherArgs[0]));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FileOutputFormat.setOutputPath(job,&nbsp;new&nbsp;Path(otherArgs[1]));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.exit(job.waitForCompletion(true)&nbsp;?&nbsp;0&nbsp;:&nbsp;1);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}</pre> 
+<p><span style="font-size: 12px;"></span>运行：mvn clean package 打好jar包。并上传至服务器的hadoop安装目录中。</p> 
+<p>在服务器上创建需要统计去重的文件。</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">mkdir&nbsp;/tmp/mapred
+
+cd&nbsp;/tmp/mapred
+vi&nbsp;file1.txt
+#输入以下内容
+192.168.1.1
+192.168.1.2
+192.168.1.4
+
+vi&nbsp;file2.txt
+#输入以下内容
+192.168.1.3
+192.168.1.2
+192.168.1.5
+
+vi&nbsp;file3.txt
+#输入以下内容
+192.168.1.1
+192.168.1.3
+192.168.1.4
+
+#清空hdfs目录，tmp目录不要删除。主要是测试方便，也可以不删除目录，只要将文件指定一个新的测试目录就行。
+hdfs&nbsp;dfs&nbsp;-rm&nbsp;-r&nbsp;-f&nbsp;-skipTrash&nbsp;/目录名
+
+#将创建好的文件上传至HDFS
+&nbsp;hdfs&nbsp;dfs&nbsp;-put&nbsp;/tmp/mapred&nbsp;/input
+&nbsp;
+#进入hadoop安装主目录
+hadoop&nbsp;jar&nbsp;maven_hadoop-1.0-SNAPSHOT.jar&nbsp;com.zhm.MapReduceTest&nbsp;/input&nbsp;/output
+
+#查看结果
+hdfs&nbsp;dfs&nbsp;-cat&nbsp;/output/part-r-00000
+#结果如下：
+192.168.1.1
+192.168.1.2
+192.168.1.3
+192.168.1.4
+192.168.1.5</pre> 
+<p><br></p>]]></body>
+		<author><![CDATA[爱兔一生]]></author>
+		<authorid>925404</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-08 10:00:24</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

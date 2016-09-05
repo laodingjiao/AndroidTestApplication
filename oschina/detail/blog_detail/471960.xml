@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>471960</id>
+		<title><![CDATA[React-Native入门指南——第七篇动手写组件]]></title>
+		<url><![CDATA[http://my.oschina.net/vczero/blog/471960]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h1>React-Native入门指南</h1> 
+<h2>第七篇动手写组件</h2> 
+<pre>React-Native的核心思想就是组件化，相当于MVC的view,因此开发应用的最佳方式就是将功能组件化。</pre> 
+<h3>一、最简单的方式</h3> 
+<pre>这里我们实现一个最简单的组件，就是邮件的末尾署名的组件。组件意味着复用，意味着统一。现在有这样一个需求，我们需要根据不同用户发送邮件时，生成每个用户的名片（即邮件末尾的署名）。
+
+1、一般一开始的实现方式如下，直接将组件内容写到功能需求的地方：
+&lt;View&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;View&gt;..........这里是当前邮件组的其它功能&lt;/View&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;View&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Text&gt;框架研发部&lt;/Text&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Text&gt;www.ctrip.com&lt;/Text&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/View&gt;
+&lt;/View&gt;
+
+2、有一天，其它的部门的同事提出他们也需要在其他的地方，增加他们的邮件署名，那么你是否又会复制一份代码呢，当然不是，我们可以组件化：
+var&nbsp;Email&nbsp;=&nbsp;React.createClass({
+&nbsp;&nbsp;&nbsp;&nbsp;render:&nbsp;function(){
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;View&nbsp;style={styles.container}&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Text&nbsp;style={styles.text}&gt;{this.props.name}&lt;/Text&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Text&nbsp;style={styles.text}&gt;{this.props.url}&lt;/Text&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/View&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+});
+
+3、整体的代码如下：</pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131548_NRKS.png" alt=""></p>
+<h3>二、循环一个文章列表</h3> 
+<pre>要实现的效果如下图：</pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131550_ie9l.png" alt=""></p>
+<pre>第一步改造我们的组件
+var&nbsp;Article&nbsp;=&nbsp;React.createClass({
+&nbsp;&nbsp;&nbsp;&nbsp;render:&nbsp;function(){
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;View&nbsp;style={styles.container}&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Text&nbsp;style={[styles.text,&nbsp;styles.title]}&gt;{this.props.title}&lt;/Text&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Text&nbsp;style={styles.text}&gt;{this.props.author}&lt;/Text&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Text&nbsp;style={styles.text}&gt;{this.props.time}&lt;/Text&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/View&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+});
+
+第二步定义数据model和循环
+var&nbsp;App&nbsp;=&nbsp;React.createClass({
+&nbsp;&nbsp;&nbsp;&nbsp;getInitialState:&nbsp;function(){
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;data&nbsp;=&nbsp;[
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title:&nbsp;"React-Native入门指南",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author:&nbsp;"vczero",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time:&nbsp;"2015-06-28"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title:&nbsp;"为什么世界不一样",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author:&nbsp;"vczero",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time:&nbsp;"2015-06-8"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title:&nbsp;"你来，我就告诉你",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author:&nbsp;"vczero",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time:&nbsp;"2015-04-01"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;];
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;articles:&nbsp;data
+&nbsp;&nbsp;&nbsp;&nbsp;};
+},
+render:&nbsp;function(){
+&nbsp;&nbsp;&nbsp;&nbsp;return(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ScrollView&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.articles.map(function(article){
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;&lt;Article&nbsp;title={article.title}&nbsp;author={article.author}&nbsp;time={article.time}/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;})}
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ScrollView&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+});
+
+整个代码如下：</pre> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131550_rWG1.png" alt=""></p>
+<p><br></p>]]></body>
+		<author><![CDATA[vczero]]></author>
+		<authorid>2401036</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-29 13:15:52</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

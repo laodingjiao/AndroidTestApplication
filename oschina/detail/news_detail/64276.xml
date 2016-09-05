@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64276</id>
+      <title><![CDATA[超算 500 强：英特尔与 Linux 仍主导超算世界]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64276/intel-and-linux]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16075350_GtxV.jpg"></p>
+<p>网易科技讯7月15日消息，据国外媒体报道，在2015年6月公布的全球超级计算机500强名单中，英特尔至强处理器以及Linux仍旧占据主导地位。</p> 
+<p>全部500套系统总共的计算能力为363 Pflop/s，这一数字在去年11月是309 Pflop/s，而一年前仅为274 Pflop/s。</p> 
+<p>然 而，超级计算机的发展势头正在放缓，众多国家和公司不太愿意将资金投向该领域。例如，榜单前10名中唯一的新面孔是来自沙特阿拉伯阿卜杜拉国王科技大学的 Shaheen II系统，位列第7。最快的计算机来自中国国防科技大学的天河-2，其自2013年起便稳居榜首，性能保持不变。</p> 
+<p>作为参考，位列第500名的计算机系统的计算性能为153.6 Tflop/s。</p> 
+<p>至 于芯片方面，英特尔至强E5继续处于主导地位。E5系列的三代产品——SandyBridge、IvyBridge以及Haswell合计构成了这些超级 计算机中芯片的80%。可以预见，英特尔计划于8月推出的至强E7将会成为下一款炙手可热的芯片。如果部署进度足够快，则由此带来的性能提升将会在今年 11月发布的榜单中体现。</p> 
+<p>而在操作系统方面，Linux仍处于主导地位，运行在其中的486台计算机系统中。（汪天盈）</p>]]></body>
+      <commentCount>28</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 07:53:50</pubDate>
+	  <softwarelink><![CDATA[]]></softwarelink>
+	  <softwarename><![CDATA[]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Linux Mangaka Nyu 发布，桌面 Linux 发行]]></rtitle>
+			<rurl>http://www.oschina.net/news/63562/linux-mangaka-nyu</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Manjaro Linux 0.8.13 发布，用户友好的 Linux ]]></rtitle>
+			<rurl>http://www.oschina.net/news/63385/manjaro-linux-0-8-13</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ALT Linux 7.0.5 发布，Linux 发行版]]></rtitle>
+			<rurl>http://www.oschina.net/news/62817/alt-linux-7-0-5-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Linux Kernel 3.19.3 发布，Linux 内核项目]]></rtitle>
+			<rurl>http://www.oschina.net/news/61361/linux-kernel-3-19-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Kwort Linux 4.2 发布，Linux 发行]]></rtitle>
+			<rurl>http://www.oschina.net/news/61261/kwort-linux-4-2-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Linux Kernel 3.18.11 发布，Linux 内核项目]]></rtitle>
+			<rurl>http://www.oschina.net/news/61229/linux-kernel-3-18-11</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Foreign LINUX 让你在 Windows 运行 Linux 应用]]></rtitle>
+			<rurl>http://www.oschina.net/p/foreign-linux</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Linux From Scratch 7.7 发布，构建自己的 Linux]]></rtitle>
+			<rurl>http://www.oschina.net/news/60265/linux-from-scratch-7-7</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Frugalware Linux 2.0 发布，桌面 Linux 发行]]></rtitle>
+			<rurl>http://www.oschina.net/news/59750/frugalware-linux-2-0-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Rebellin Linux 2.5 发布，商业桌面 Linux 发行]]></rtitle>
+			<rurl>http://www.oschina.net/news/59663/rebellin-linux-2-5</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

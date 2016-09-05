@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>243342</id>
+      <title><![CDATA[关于开源中国android源码里自定义dialog的问题]]></title>
+      <url><![CDATA[http://www.oschina.net/question/2288818_243342]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1144/2288818_50.jpg?t=1436932951000</portrait>
+      <event>
+			  </event>
+      <body>
+		<![CDATA[
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+					</style>
+				<span style="font-size:13.3333330154419px;">开源中国android源码里自定义了dialog,文件名叫&nbsp;</span> 
+<span style="font-size:13.3333330154419px;">CommonDialog, 里面用了个 &nbsp;style名字叫</span> 
+<span style="font-size:13.3333330154419px;">dialog_common,但是这个style里有个属性 parent, 这个属性里引用的style是外部的,谁能教教我怎么能合并到一个项目里..谢谢啊...</span>						]]>
+	  </body>
+      <author><![CDATA[亲爱的叛逆]]></author>
+      <authorid>2288818</authorid>
+      <answerCount>4</answerCount>
+      <viewCount>112</viewCount>
+      <pubDate>2015-07-16 02:32:39</pubDate>
+	  <favorite>0</favorite>
+	  		<tags>
+		            <tag><![CDATA[OSCHINA Android 客户端]]></tag>
+		        </tags>
+	    </post>
+</oschina>

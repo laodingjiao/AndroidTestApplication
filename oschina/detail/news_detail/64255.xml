@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64255</id>
+      <title><![CDATA[Git@OSC 项目推荐 —— Android 企业通讯录]]></title>
+      <url><![CDATA[https://git.oschina.net/yso/SmartCall]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>企业通讯录的实现，对本地通讯录的一个补充，使得咱们可以非常便捷的沟通公司其他部门的同事。</p> 
+<p><img alt="输入图片说明" src="http://192.168.79.254:8080/oschina/images/uploads/images/2015/0710/173317_b78509da_331643.png" title="来电识别"><br></p>]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 08:20:27</pubDate>
+	  <softwarelink><![CDATA[]]></softwarelink>
+	  <softwarename><![CDATA[]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— 动态异步引入css/js文件]]></rtitle>
+			<rurl>https://git.oschina.net/diqye/ipt.js</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— JS 路由注册/解析器]]></rtitle>
+			<rurl>http://git.oschina.net/diqye/route.js</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— web 开发框架 Pond ]]></rtitle>
+			<rurl>http://git.oschina.net/edwinyxc/pond</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC项目推荐 —— 简单的 PaaS 系统 Sdp]]></rtitle>
+			<rurl>https://git.oschina.net/staugur/Sdp</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— 简洁的 web 框架 blade ]]></rtitle>
+			<rurl>https://git.oschina.net/biezhi/blade</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— 管理信息系统框架 ptimemis ]]></rtitle>
+			<rurl>https://git.oschina.net/hillsdong/ptimemis</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— 开源脚本编程语言 Def]]></rtitle>
+			<rurl>https://git.oschina.net/yangjiePro/Def</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— 基于 Dubbox 的监控系统]]></rtitle>
+			<rurl>https://git.oschina.net/handu/dubbo-monitor</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— 基于 laravel 5 后台基础系统]]></rtitle>
+			<rurl>http://git.oschina.net/ctk/laravel5_backend</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— Go 开发的任务计划]]></rtitle>
+			<rurl>http://git.oschina.net/cnjack/go-task</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

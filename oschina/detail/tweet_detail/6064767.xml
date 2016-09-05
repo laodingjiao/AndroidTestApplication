@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6064767</id>
+	<body><![CDATA[
+		突然发现了解c 细节之后，已经不能好好做笔试题了        	]]></body>
+    <author><![CDATA[十分不强力]]></author>
+	<authorid>1171187</authorid>
+    <appclient>5</appclient>
+    <commentCount>4</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/585/1171187_50.jpg?t=1416399553000</portrait>
+    <pubDate>2015-07-17 11:26:16</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>1</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[王爵]]></name>
+				<uid>1767531</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/883/1767531_50.png?t=1435568843000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

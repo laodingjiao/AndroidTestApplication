@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479439</id>
+		<title><![CDATA[让Ubuntu 14.04“保存”屏幕亮度值 ]]></title>
+		<url><![CDATA[http://my.oschina.net/SBaof/blog/479439]]></url>
+		<where><![CDATA[学习记录]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>首先查看一下你的屏幕亮度值的范围：<br><br></p> 
+<p>sudo cat /sys/class/backlight/acpi_video0/max_brightness</p> 
+<p><span style="color:#FF0000"><strong>到了ubuntu14.10后，路径就变为了 /sys/class/backlight/intel_backlight/max_brightness.但改不改都没什么所谓了，因为14.10中 可以手动的调节光亮度，并且系统自动保存。再次启动系统的时候已经不需要再手动改了咯！ubuntu终于修改了这一设定了。</strong></span><br></p> 
+<p><br>我的是15，也就是说亮度值可以在 0 ~ 15之间。<br><br>修改 /etc/rc.local ,在最后的 exit 0 之前添加：<br><br>echo 3 &gt; /sys/class/backlight/acpi_video0/brightness<br><br>系统完成启动最后会执行这个脚本，因此每次开机，都会把亮度值设置成3。 &nbsp; &nbsp;</p> 
+<p><br></p>]]></body>
+		<author><![CDATA[SBaof]]></author>
+		<authorid>2289158</authorid>
+		<documentType>0</documentType>
+        <pubDate>2015-07-16 17:58:53</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

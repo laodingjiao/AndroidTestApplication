@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64256</id>
+      <title><![CDATA[Dexposed —— 来自阿里无侵入式运行期 AOP 框架]]></title>
+      <url><![CDATA[http://www.oschina.net/p/dexposed]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Dexposed 是阿里巴巴无线事业部第一个重量级 Andorid 开源软件，基于 ROOT 社区著名开源项目 <a target="_blank" href="http://www.oschina.net/p/xposed" rel="nofollow">Xposed</a> 改造剥离了 ROOT 部分，演化为服务于所在应用自身的 AOP 框架。它支撑了阿里大部分 App 的在线分钟级客户端 bugfix 和线上调试能力。</p> 
+<p>Dexposed 的 AOP 是实现了纯非侵入式，没有任何注释处理器，weaver 或者字节码重写程序。Dexposed 的集成非常简单，就像加载一个 JNI 库一样，只需要在初始化的时候插入一行代码。</p>]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 08:22:01</pubDate>
+	  <softwarelink><![CDATA[]]></softwarelink>
+	  <softwarename><![CDATA[]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[【每日一博】手把手教你写个 AOP 框架]]></rtitle>
+			<rurl>http://my.oschina.net/u/1378920/blog/466432</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Go! 0.5.0 发布，PHP 的 AOP 库]]></rtitle>
+			<rurl>http://www.oschina.net/news/52144/go!-0-5-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[【每日一博】使用“链式代理”实现 AOP]]></rtitle>
+			<rurl>http://my.oschina.net/huangyong/blog/170494</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[比较分析 Spring AOP 和 AspectJ 之间的差别]]></rtitle>
+			<rurl>http://www.oschina.net/translate/comparative_analysis_between_spring_aop_and_aspectj</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[【每日一博】深入字节码 -- 使用 ASM 实现 AOP]]></rtitle>
+			<rurl>http://my.oschina.net/u/1166271/blog/162796</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[【每日一博】AOP 那点事儿]]></rtitle>
+			<rurl>http://my.oschina.net/huangyong/blog/161338</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Go! 0.4.0 发布，PHP 的 AOP 库]]></rtitle>
+			<rurl>http://www.oschina.net/news/42931/go!-0-4-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Go! 0.3.0 发布，PHP 的 AOP 库]]></rtitle>
+			<rurl>http://www.oschina.net/news/40872/go!-0-3-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Go! 0.2.0 发布，PHP 的 AOP 库]]></rtitle>
+			<rurl>http://www.oschina.net/news/38639/go!-0-2-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[【每日一博】AOP 的学习]]></rtitle>
+			<rurl>http://my.oschina.net/makemyownlife/blog/108635</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

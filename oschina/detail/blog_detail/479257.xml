@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479257</id>
+		<title><![CDATA[MySQL 出现死锁的分析和解决方案]]></title>
+		<url><![CDATA[http://my.oschina.net/u/1244507/blog/479257]]></url>
+		<where><![CDATA[日常记录]]></where>
+		<commentCount>3</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>异常日志</p> 
+<p>### Error updating database. &nbsp;Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction</p> 
+<p>### The error may involve defaultParameterMap</p> 
+<p>### The error occurred while setting parameters</p> 
+<p>### SQL: UPDATE t_withdraw_apply SET last_apply_time=? WHERE user_id = ? AND state = 0</p> 
+<p>### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction</p> 
+<p>; SQL []; Deadlock found when trying to get lock; try restarting transaction; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction</p> 
+<p>很显然，出现死锁的SQL语句是<span style="line-height: 22.5px;">UPDATE t_withdraw_apply SET last_apply_time=? WHERE user_id = ? AND state = 0</span></p> 
+<p>再看业务逻辑</p> 
+<p>int i = withdrawApplyDAO.add(apply);</p> 
+<p>&nbsp; &nbsp; if(i == 1) {</p> 
+<p>&nbsp; &nbsp; &nbsp; //获取该用户最早的待提现申请时间</p> 
+<p>&nbsp; &nbsp; &nbsp; Timestamp earlierTime = withdrawApplyDAO.getEarlierApplyTime(userId);</p> 
+<p>&nbsp; &nbsp; &nbsp; withdrawApplyDAO.updateEarlierApplyTime(userId,earlierTime);//更新冗余字段</p> 
+<p>&nbsp; &nbsp; &nbsp; //扣除账户余额，然后写入gold_log日志</p> 
+<p>&nbsp; &nbsp; &nbsp; int j = userDAO.updateUserGold(0-amount, userId);</p> 
+<p>......</p> 
+<p>那么为什么会出现死锁呢？</p> 
+<p><br></p> 
+<p>原来是这样的，用户点击过快同时提交了两次提现申请</p> 
+<p>那么就会开启两个事务</p> 
+<p>事务1 插入一条<span style="line-height: 22.5px;">apply</span></p> 
+<p><span style="line-height: 22.5px;">事务2 也插入一条<span style="line-height: 22.5px;">apply</span></span></p> 
+<p><span style="line-height: 22.5px;"><span style="line-height: 22.5px;">事务1 执行更新&nbsp;<span style="line-height: 22.5px;">updateEarlierApplyTime ，由于事务2插入的数据也需要更新，所以这个时候 事务1需要等待事务2提交后才能执行</span></span></span></p> 
+<p><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;">事务2 页执行更新&nbsp;<span style="line-height: 22.5px;">updateEarlierApplyTime ，同样需要更新事务1插入的输入，也需要等地事务1完成才能继续执行，这样就出现了死锁</span></span></span></span></p> 
+<p><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><br></span></span></span></span></p> 
+<p><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;">怎么解决这个问题呢？</span></span></span></span></p> 
+<p><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;">首先出现这个问题的原因是事务1更新的数据包含了事务2插入的数据，事务2更新也包含了事务1插入的数据，那么我们可以让代码改为</span></span></span></span></p> 
+<p><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;">&nbsp;withdrawApplyDAO.updateEarlierApplyTime(userId,earlierTime);//更新冗余字段</span></span></span></span></span></p> 
+<p><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;">&nbsp;withdrawApplyDAO.add(apply);</span></span></span></span></span></span></p> 
+<p><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;">这样就能解决死锁问题</span></span></span></span></span></span></p> 
+<p><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;"><span style="line-height: 22.5px;">其次，出现这样的问题是用户重复提交导致的，所以应该做重复提交的限制，</span></span></span></span></span></span></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[黄途文]]></author>
+		<authorid>1244507</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 12:47:42</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

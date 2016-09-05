@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+<news>
+    <id>10002921</id>
+    <title><![CDATA[自己手动编写一个简单的解释器 Part 1]]></title>
+    <url><![CDATA[http://www.oschina.net/translate/build-a-simple-interpreter-part-1]]></url>
+    <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><blockquote> 
+ <p><em><strong>“如果你不了解编译器是如何工作的，那么你就不了解计算机是如何工作的。如果你无法确保100%掌握编译器的工作原理，那么你就是不了解其工作原理”</strong> — Steve&nbsp;Yegge</em></p> 
+</blockquote> 
+<p> 好了，思考一下这个问题。无论你是菜鸟，还是经验丰富的软件开发人员，如果你不了解编译器和解释器的工作原理，那么你就不了解计算机的工作原理。就是这么简单。</p> 
+<p> 因此，你知道编译器和解释器的工作原理吗？我的意思是，你必须确保100%掌握其工作原理，如果你无法确保这点。</p> 
+<p><img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174532_jz8Y.png"></p>
+<p> 或如果你不了解其工作原理，并为之焦虑不安。</p> 
+<p><img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174532_sd5H.png"></p>
+<p>其实完全不必担心。如果你能坚持下来，完成这一系列任务，并跟着我编写一个解释器和编译器，最后你会掌握它们的工作原理。同时你也会为此感到快乐且信心百倍。至少我希望实现这种效果。<br></p> 
+<p><img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174532_WCbI.png"></p>
+<p> 为什么你要学习解释器和编译器？我给出了三个原因。 </p> 
+<ol> 
+ <li> <p> 写一个解释器或一个编译器你必须要有与之匹配的一些技术能力。写一个解释器或一个编译器将会帮你提升那些技能，并且会成为一个更好的软件开发人员。同时，这些技能对于写任何软件都是有帮助的，不局限于解释器或编译器。 </p> </li> 
+ <li> <p> 你真正想要知道计算机是如何工作的。通常解释器和编译器看起来就像魔法。并且你不会对这个魔法感到舒服。你想要阐述建立一个解释器和编译器的过程，理解他们是怎么工作的，让这些东西处在控制之中。 </p> </li> 
+ <li> <p> 你希望创建你自己的编程语言或者支配某个特殊的语言。如果你创造了这样一门语言，你同时也会需要制作一个解释器或者编译器给这个语言。最近，你要是对新的编程语言兴趣再起。你会看到新的编程语言每天都在出现：Elixir，Go，Rust。这里仅举几例。 </p> </li> 
+</ol> 
+<p> <br> 好的，那什么是解释器和编译器呢？ </p> 
+<p> <br> </p> 
+<p> 一个解释器或编译器的目标是将某些高级语言的源程序翻译成其他的形式。解释得相当含糊，不是吗？再忍我一下，之后的一系列章节你将能够确实地了解源程序被翻译成什么。 </p> 
+<p> 在这个时间点上，你可能会好奇到底解释器和编译器之间有什么差别呢。为了达成这个系列的目的，让我们同意以下解释：如果翻译器把源程序翻译成了机器语言，它就是一个编译器。如果源程序没先被翻译成机器语言，翻译器<span style="font-size:13.3333330154419px;">就</span>处理并且执行了源程序，它就是一个解释器。形象地看起来就像这样： </p> 
+<p> <img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174533_oTQ9.png"> </p>
+<p> 我希望截至目前你已经确信你真的想要学习并构建一个解释器和编译器，那你可以期望从这个关于解释器的系列中获得什么呢？ </p> 
+<p> <span style="font-family:Microsoft YaHei;">直说了吧，你我打算为 Pascal 语言大子集实现一个简单的解释器。在该系列最后部分，你会得到一个可工作的 Pascal 解释器，和一个类似 python 中 pdb 的源码级别的调试器。</span> </p> 
+<p> <span style="font-family:Microsoft YaHei;">你或许会问，为什么选 pascal？首先，它不是一个虚假的语言，所以我选中它在这个系列中使用：这是一个真实的编程语言，具备许多重要的语法结构。它虽然有点古老了，但仍被使用。CS（注，计算机科学）书籍使用 pascal 编程语言实现书中示例（我知道，选择为这个语言实现解释器的理由并不充分，但我想，这也是一个学习非主流语言的好机会：））</span> </p> 
+<p> <span style="font-family:Microsoft YaHei;">下面例子使用 pascal 写的阶乘函数实现。可以用你自己构建的解释器解析，还可以使用后面将实现的调试器做代码级别的交互式调试。</span> </p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">program&nbsp;factorial;function&nbsp;factorial(n:&nbsp;integer):&nbsp;longint;begin
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;n&nbsp;=&nbsp;0&nbsp;then
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;factorial&nbsp;:=&nbsp;1
+&nbsp;&nbsp;&nbsp;&nbsp;else
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;factorial&nbsp;:=&nbsp;n&nbsp;*&nbsp;factorial(n&nbsp;-&nbsp;1);end;var
+&nbsp;&nbsp;&nbsp;&nbsp;n:&nbsp;integer;begin
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;n&nbsp;:=&nbsp;0&nbsp;to&nbsp;16&nbsp;do
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln(n,&nbsp;'!&nbsp;=&nbsp;',&nbsp;factorial(n));end.</pre> 
+<p> <span style="font-family:Microsoft YaHei;">我们使用 python 作为 Pascal 解释器的实现语言，当然，你可以使用任何你熟悉的语言（来实现），因为实现原理并不依赖具体的语言特性。Okay, 该做正事了。 各就各位，预备，开始!</span> </p> 
+<p> 开始制作解释器和编译器的第一步尝试是写一个简单的算术表达式解释器，也叫计算器。今天的目标很简单：能处理计算两个个位整数相加，如<strong> 3+5。</strong>下面是是计算器，啊不，解释器的源代码： </p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">#&nbsp;Token&nbsp;types##&nbsp;EOF&nbsp;(end-of-file)&nbsp;token&nbsp;is&nbsp;used&nbsp;to&nbsp;indicate&nbsp;that#&nbsp;there&nbsp;is&nbsp;no&nbsp;more&nbsp;input&nbsp;left&nbsp;for&nbsp;lexical&nbsp;analysisINTEGER,&nbsp;PLUS,&nbsp;EOF&nbsp;=&nbsp;'INTEGER',&nbsp;'PLUS',&nbsp;'EOF'class&nbsp;Token(object):
+&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;__init__(self,&nbsp;type,&nbsp;value):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;token&nbsp;type:&nbsp;INTEGER,&nbsp;PLUS,&nbsp;or&nbsp;EOF
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.type&nbsp;=&nbsp;type
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;token&nbsp;value:&nbsp;0,&nbsp;1,&nbsp;2.&nbsp;3,&nbsp;4,&nbsp;5,&nbsp;6,&nbsp;7,&nbsp;8,&nbsp;9,&nbsp;'+',&nbsp;or&nbsp;None
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.value&nbsp;=&nbsp;value
+
+&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;__str__(self):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""String&nbsp;representation&nbsp;of&nbsp;the&nbsp;class&nbsp;instance.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Examples:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Token(INTEGER,&nbsp;3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Token(PLUS&nbsp;'+')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;'Token({type},&nbsp;{value})'.format(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type=self.type,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value=repr(self.value)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+
+&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;__repr__(self):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;self.__str__()class&nbsp;Interpreter(object):
+&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;__init__(self,&nbsp;text):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;client&nbsp;string&nbsp;input,&nbsp;e.g.&nbsp;"3+5"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.text&nbsp;=&nbsp;text
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;self.pos&nbsp;is&nbsp;an&nbsp;index&nbsp;into&nbsp;self.text
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.pos&nbsp;=&nbsp;0
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;current&nbsp;token&nbsp;instance
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.current_token&nbsp;=&nbsp;None
+
+&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;error(self):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;Exception('Error&nbsp;parsing&nbsp;input')
+
+&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;get_next_token(self):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""Lexical&nbsp;analyzer&nbsp;(also&nbsp;known&nbsp;as&nbsp;scanner&nbsp;or&nbsp;tokenizer)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;method&nbsp;is&nbsp;responsible&nbsp;for&nbsp;breaking&nbsp;a&nbsp;sentence&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;apart&nbsp;into&nbsp;tokens.&nbsp;One&nbsp;token&nbsp;at&nbsp;a&nbsp;time.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text&nbsp;=&nbsp;self.text
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;is&nbsp;self.pos&nbsp;index&nbsp;past&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;self.text&nbsp;?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;if&nbsp;so,&nbsp;then&nbsp;return&nbsp;EOF&nbsp;token&nbsp;because&nbsp;there&nbsp;is&nbsp;no&nbsp;more
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;input&nbsp;left&nbsp;to&nbsp;convert&nbsp;into&nbsp;tokens
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;self.pos&nbsp;&gt;&nbsp;len(text)&nbsp;-&nbsp;1:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;Token(EOF,&nbsp;None)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;get&nbsp;a&nbsp;character&nbsp;at&nbsp;the&nbsp;position&nbsp;self.pos&nbsp;and&nbsp;decide
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;what&nbsp;token&nbsp;to&nbsp;create&nbsp;based&nbsp;on&nbsp;the&nbsp;single&nbsp;character
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_char&nbsp;=&nbsp;text[self.pos]
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;if&nbsp;the&nbsp;character&nbsp;is&nbsp;a&nbsp;digit&nbsp;then&nbsp;convert&nbsp;it&nbsp;to
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;integer,&nbsp;create&nbsp;an&nbsp;INTEGER&nbsp;token,&nbsp;increment&nbsp;self.pos
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;index&nbsp;to&nbsp;point&nbsp;to&nbsp;the&nbsp;next&nbsp;character&nbsp;after&nbsp;the&nbsp;digit,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;and&nbsp;return&nbsp;the&nbsp;INTEGER&nbsp;token
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;current_char.isdigit():
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;token&nbsp;=&nbsp;Token(INTEGER,&nbsp;int(current_char))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.pos&nbsp;+=&nbsp;1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;token
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;current_char&nbsp;==&nbsp;'+':
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;token&nbsp;=&nbsp;Token(PLUS,&nbsp;current_char)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.pos&nbsp;+=&nbsp;1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;token
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.error()
+
+&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;eat(self,&nbsp;token_type):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;compare&nbsp;the&nbsp;current&nbsp;token&nbsp;type&nbsp;with&nbsp;the&nbsp;passed&nbsp;token
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;type&nbsp;and&nbsp;if&nbsp;they&nbsp;match&nbsp;then&nbsp;"eat"&nbsp;the&nbsp;current&nbsp;token
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;and&nbsp;assign&nbsp;the&nbsp;next&nbsp;token&nbsp;to&nbsp;the&nbsp;self.current_token,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;otherwise&nbsp;raise&nbsp;an&nbsp;exception.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;self.current_token.type&nbsp;==&nbsp;token_type:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.current_token&nbsp;=&nbsp;self.get_next_token()
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.error()
+
+&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;expr(self):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""expr&nbsp;-&gt;&nbsp;INTEGER&nbsp;PLUS&nbsp;INTEGER"""
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;set&nbsp;current&nbsp;token&nbsp;to&nbsp;the&nbsp;first&nbsp;token&nbsp;taken&nbsp;from&nbsp;the&nbsp;input
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.current_token&nbsp;=&nbsp;self.get_next_token()
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;we&nbsp;expect&nbsp;the&nbsp;current&nbsp;token&nbsp;to&nbsp;be&nbsp;a&nbsp;single-digit&nbsp;integer
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left&nbsp;=&nbsp;self.current_token
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.eat(INTEGER)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;we&nbsp;expect&nbsp;the&nbsp;current&nbsp;token&nbsp;to&nbsp;be&nbsp;a&nbsp;'+'&nbsp;token
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;op&nbsp;=&nbsp;self.current_token
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.eat(PLUS)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;we&nbsp;expect&nbsp;the&nbsp;current&nbsp;token&nbsp;to&nbsp;be&nbsp;a&nbsp;single-digit&nbsp;integer
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;right&nbsp;=&nbsp;self.current_token
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.eat(INTEGER)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;after&nbsp;the&nbsp;above&nbsp;call&nbsp;the&nbsp;self.current_token&nbsp;is&nbsp;set&nbsp;to
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;EOF&nbsp;token
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;at&nbsp;this&nbsp;point&nbsp;INTEGER&nbsp;PLUS&nbsp;INTEGER&nbsp;sequence&nbsp;of&nbsp;tokens
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;has&nbsp;been&nbsp;successfully&nbsp;found&nbsp;and&nbsp;the&nbsp;method&nbsp;can&nbsp;just
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;return&nbsp;the&nbsp;result&nbsp;of&nbsp;adding&nbsp;two&nbsp;integers,&nbsp;thus
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;effectively&nbsp;interpreting&nbsp;client&nbsp;input
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;left.value&nbsp;+&nbsp;right.value
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;resultdef&nbsp;main():
+&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;True:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;To&nbsp;run&nbsp;under&nbsp;Python3&nbsp;replace&nbsp;'raw_input'&nbsp;call
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;with&nbsp;'input'
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text&nbsp;=&nbsp;raw_input('calc&gt;&nbsp;')
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;except&nbsp;EOFError:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;not&nbsp;text:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interpreter&nbsp;=&nbsp;Interpreter(text)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;interpreter.expr()
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(result)if&nbsp;__name__&nbsp;==&nbsp;'__main__':
+&nbsp;&nbsp;&nbsp;&nbsp;main()</pre> 
+<p> 将上面代码保存为<em> calc1.py</em>&nbsp; 文件，或者直接从<a href="https://github.com/rspivak/lsbasi/blob/master/part1/calc1.py" rel="nofollow"> GitHub </a>中下载。&nbsp;在你打算深入研究代码之前，先在命令行中运行它，观察它的动作。自己动手试试！下面是我笔记本电脑上的会话（注，交互式执行）示例&nbsp;(如果你在 python3 上运行计算器， 你应该是用<em> input</em>，而不是<em> raw_input</em>)： </p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">$&nbsp;python&nbsp;calc1.py
+calc&gt;&nbsp;3+4
+7
+calc&gt;&nbsp;3+5
+8
+calc&gt;&nbsp;3+9
+12
+calc&gt;</pre> 
+<p> 为确保你的简单计算器能正确执行，不抛出异常，你的输入需满足以下指定的规则: </p> 
+<ul> 
+ <li> <p> 输入中只允许出现个位数整数 </p> </li> 
+ <li> <p> 当前算术运算符解释器只支持加法运算 </p> </li> 
+ <li> <p> 输入中的任何位置不能出现空白（注，空格，TAB等） </p> </li> 
+</ul> 
+<p> 这些限制对保持计算器简单很有必要。别担心，很快，你的实现就会越来越复杂的。 </p> 
+<p> Okay，现在我们研究下，你的解释器如何工作，如何计算算术表达式的。 </p> 
+<p> 你在命令行输入表达式&nbsp;<em>3+5</em>&nbsp;，你的解释器会得到一个字符串&nbsp;<em>“3+5”</em>。 为能准确理解并处理字符串，<span style="font-size:13.3333330154419px;line-height:1.5;">解释器</span><span style="line-height:1.5;font-size:10pt;">第一步要将输入的</span><em>“3+5”</em><span style="line-height:1.5;font-size:10pt;">&nbsp;分割成多个部件，这些部件我们称为<span style="font-size:13.3333330154419px;">标记符</span><span style="font-size:13.3333330154419px;">（token），</span>标记符是指对象，它具有类型和值属性。例如，字符串</span><em>“3”</em><span style="line-height:1.5;font-size:10pt;">，标记符号的类型是整型（</span><span style="line-height:1.5;font-size:10pt;">INTEGER）</span><span style="line-height:1.5;font-size:10pt;">，对应的值是整数</span><em>3。</em> </p> 
+<p> 将输入字符串分割为标记符的过程称为<strong>文法分析</strong>。所以，解释器的第一步工作是读取<span style="font-size:13.3333330154419px;">输入的</span>字符序列，并将其转换为标记符流。解释器中处理该部分工作的部分称为文法分析器，或叫词法分析器。简而言之，你或许听到过该部件的其他命名，如<strong> scanner (扫描器)</strong>或<strong> tokenizer (标记符生成器)</strong>。这指的<span style="font-size:13.3333330154419px;">都是</span>一回事：解释器或编译器的该部件将输入的字符序列转变成标记符号流。 </p> 
+<p> <em>Interpreter 类中的</em>函数<em> get_next_token</em> 是文法分析器。每次调用它时，<span style="font-size:13.3333330154419px;">从输入给解释器的字符序列输入中,</span>会得到相邻下一个标记符（的起始位置索引）。咱们仔细看一下这个函数本身，研究下，它是如何完成将字符序列转换成标记符工作的。输入保存到变量 text 中，text 变量存储输入字符串，而 pos 变量则是字符串的索引(将字符串看成一个字符数组)。<em>pos </em>的初始值为 0，指向字符<em>‘3’</em>。 函数首先检查字符是否是一个整型数字，如果是，<em>pos 变量加 1，返回 ‘3’的</em>标记符实例，其类型是整型（INTEGER)，值是3： </p> 
+<p> <img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174533_sAIH.png"> </p>
+<p> <em>pos 索引现在指向 <em>text 变量中的</em></em><em>‘+’</em> 字符。你再次调用该函数时，它测试 <em>pos </em>索引指向的 text 中的字符是否是整型数字，而测试的结果是一个加号。结果，函数使<em> pos 变量自增，返回</em>新创建的标记符实例，类型是 PLUS，值是<em>‘+’</em>。 </p> 
+<p> <img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174534_qmku.png"> </p>
+<p> <em>pos</em> 变量指向字符<em>‘5’</em>。你又一次调用函数 <em>get_next_token，</em>来检查当前指向的字符是否整型数字, 这次是了，因此，<em>pos 变量自增，</em>返回新的标记符实例，其类型是整型（ INTEGER），值是<em> 5：</em><img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174534_F3Rk.png"> </p>
+<p> 由于 <em>pos </em>索引当前指向字符串<em>“3+5”</em>&nbsp;的最后位置，你再调用函数 <em>get_next_token，则</em>返回&nbsp;EOF 标记符: </p> 
+<p> <img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174534_zHYF.png"> </p>
+<p> 观察计算器的词法分析器部件（程序）是如何工作的：</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">&gt;&gt;&gt;&nbsp;from&nbsp;calc1&nbsp;import&nbsp;Interpreter
+&gt;&gt;&gt;
+&gt;&gt;&gt;&nbsp;interpreter&nbsp;=&nbsp;Interpreter('3+5')
+&gt;&gt;&gt;&nbsp;interpreter.get_next_token()
+Token(INTEGER,&nbsp;3)
+&gt;&gt;&gt;
+&gt;&gt;&gt;&nbsp;interpreter.get_next_token()
+Token(PLUS,&nbsp;'+')
+&gt;&gt;&gt;
+&gt;&gt;&gt;&nbsp;interpreter.get_next_token()
+Token(INTEGER,&nbsp;5)
+&gt;&gt;&gt;
+&gt;&gt;&gt;&nbsp;interpreter.get_next_token()
+Token(EOF,&nbsp;None)
+&gt;&gt;&gt;</pre> 
+<p> 好的，既然你的解释器能访问（获取）输入字符序列生成的标记符流，解释器需要用它进一步处理：它需要从词法分析器函数<em> get_next_token</em> 生成的序化（线性）的标记符流中，找出数据的结构：INTEGER -&gt; PLUS -&gt; INTEGER。也就是说，它尝试找出标记符序列：一个整数，接着是加号，之后是一个整数。&nbsp;</p> 
+<p> 负责发现和解释数据结构的函数是<em> expr。</em>该函数校验（验证）标记符序列是否与预期序列一致，比如，INTEGER -&gt; PLUS -&gt; INTEGER。在结构确认无误后，它将加号左边标记符的值与其右边标记符值相加，<span style="font-size:13.3333330154419px;">生成（表达式的）</span>结果，这样，就将你传给解释器的表达式，成功计算出算术表达式的结果。</p> 
+<p><em>expr </em>函数本身调用了助手函数<em> eat</em>&nbsp; 校验输入标记符参数的类型与当前的标记符类型是否匹配。匹配输入标记符类型后，<em>eat </em>函数获取下一个标记符，将其赋值给 <em>current_token</em> 变量，看起来像正在吞食当前匹配的标记符，并不断将虚拟指针指向标记符序列流的下一个位置。如果标记符序列流的结构与预期的 INTEGER PLUS INTEGER&nbsp;序列并不一致的话，<em>eat</em>&nbsp;函数则会抛出异常。</p> 
+<p> <span style="font-family:Microsoft YaHei;">我们复述下，你的解释器验算（</span><span style="font-size:13.3333px;font-family:Microsoft YaHei;">evaluate，原意是评价）算术表达式时，都做了哪些工作（或都发生了什么）:</span> </p> 
+<ul> 
+ <li> <p> <span style="font-family:Microsoft YaHei;">解释器获取了一个输入字符串，就是 “3+5”</span> </p> </li> 
+ <li> <p> <span style="font-family:Microsoft YaHei;">解释器条用</span><em><span style="font-family:Microsoft YaHei;"> expr</span></em><span style="font-family:Microsoft YaHei;"> 函数找出由文法分析器 </span><em><span style="font-family:Microsoft YaHei;">get_next_token</span></em><span style="font-family:Microsoft YaHei;"> 返回的标记符序列流的结构。结构应该是&lt;INTEGER PLUS INTEGER&gt;形式。确认结构无误后，它解析输入为两个整型标记符的值之和，原因很明显，此时，解释器需要做的事就两个整数 3，5 求和运算。</span> </p> </li> 
+</ul> 
+<p> <span style="font-family:Microsoft YaHei;">自豪吧！你已经能构建属于你自己的解释器了!</span> </p> 
+<p> <span style="font-family:Microsoft YaHei;">现在，该动手练习了。</span> </p> 
+<p> <img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174536_epmV.png"> </p>
+<p> <span style="font-family:Microsoft YaHei;">你不会认为读完这篇文章（掌握构建解释器）就够了吧？ Okay，别让手闲着，完成下面的练习：</span> </p> 
+<ol> 
+ <li> <p> <span style="font-family:Microsoft YaHei;">修改代码，允许多位数整数输入，如 “12+3”</span> </p> </li> 
+ <li> <p> <span style="font-family:Microsoft YaHei;">增加函数能忽略空白字符，则计算器可以接受含空白的输入，如&nbsp;”12 +&nbsp;3“</span> </p> </li> 
+ <li> <p> <span style="font-family:Microsoft YaHei;">修改代码，将 ‘+’替换成‘-‘，实现 “7-5”表达式的减法运算。</span> </p> </li> 
+</ol> 
+<p> <strong>测验你是否理解</strong> </p> 
+<ol> 
+ <li> <p> 什么是解释器? </p> </li> 
+ <li> <p> 什么是编译器? </p> </li> 
+ <li> <p> 解释器和编译器的区别是什么? </p> </li> 
+ <li> <p> 标记符是什么? </p> </li> 
+ <li> <p> 将输入分割为标记符的进程名叫什么？ </p> </li> 
+ <li> <p> 解释器中，处理文法分析的部件叫什么? </p> </li> 
+ <li> <p> 解释器或编译器中的上题6的部件，其他通用名怎么称呼，请列举出来。 </p> </li> 
+</ol> 
+<p> 在本文结束之前，我真切希望你正在学习解释器和编译器。希望你马上就学，而不是扔到一边。别等了。如果你已经概略看过本位，再读一遍。如果你认真读过，但没有完成练习——那就现在开始（做练习）。如果你没有做完，那完成它。你读懂大意，理解怎么回事了吗？签署保证书，今天就开始学习解释器和编译器! </p> 
+<p> <em><span style="color:#333333;font-family:Arial, Helvetica, sans-serif;font-size:14px;line-height:30px;background-color:#FFFFFF;">本人,</span>&nbsp;<strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____, <em><span style="color:#333333;font-family:Arial, Helvetica, sans-serif;font-size:14px;line-height:30px;background-color:#FFFFFF;"><em><em><span style="color:#333333;font-family:Arial, Helvetica, sans-serif;font-size:14px;line-height:30px;background-color:#FFFFFF;">思想健全，</span></em></em>身体健康，在此郑重声明，今天开始学习解释器和编译器，每一处，我都要100%掌握它们是如何工作的</span></em>!</em> </p> 
+<p> <em>签名:</em> </p> 
+<p> <br> </p> 
+<p> <em>日期:</em> </p> 
+<p> <img alt="" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174536_ucxH.png"> </p>
+<p> 签好，注明日期, 放到每天都能看到的显眼处，以确保你坚持你的承诺。牢记承诺的定义: </p> 
+<blockquote> 
+ <p> “Commitment is doing the thing you said you were going to do long after the mood you said it in has left you.” — Darren&nbsp;Hardy </p> 
+</blockquote> 
+<p> Okay, 今天的事到此结束。该 mini 系列的后一篇，<span style="line-height:1.5;font-size:10pt;">扩展你的计算器，处理更多的算术表达式。请继续关注。</span> </p> 
+<p> <span style="line-height:1.5;font-size:10pt;"> </span></p> 
+<ul> 
+ <li> <a href="http://www.oschina.net/translate/build-a-simple-interpreter-part-2" target="_blank" rel="nofollow">自己手动编写一个简单的解释器 Part 2</a><span style="font-size:10pt;line-height:1.5;font-family:'sans serif', tahoma, verdana, helvetica;"></span> </li> 
+</ul> 
+<p></p> 
+<p> 推荐书目： </p> 
+<p> <span style="color:#4C33E5;"><span style="text-decoration:underline;">语言实现模式：</span></span><a target="_blank" href="http://www.amazon.com/gp/product/193435645X/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=193435645X&amp;linkCode=as2&amp;tag=russblo0b-20&amp;linkId=MP4DCXDV6DJMEJBL" rel="nofollow"><span style="text-decoration:underline;">&nbsp;构建专属领域和通用编程语言 (程序员实用手册</span><span style="text-decoration:underline;">)</span></a><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174538_MnGg.jpg" alt=""> </p>
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174539_HJwS.jpg"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174539_69DG.jpg" alt=""> </p>
+<p> <a target="_blank" href="http://www.amazon.com/gp/product/0470177071/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0470177071&amp;linkCode=as2&amp;tag=russblo0b-20&amp;linkId=UCLGQTPIYSWYKRRM" rel="nofollow">实现编译器和解释器: 以软件工程师方式</a><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174539_YPGx.jpg" alt=""> </p>
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174540_LsSW.jpg"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174539_YPGx.jpg" alt=""> </p>
+<p> <a target="_blank" href="http://www.amazon.com/gp/product/052182060X/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=052182060X&amp;linkCode=as2&amp;tag=russblo0b-20&amp;linkId=ZSKKZMV7YWR22NMW" rel="nofollow"><span style="text-decoration:underline;"><span style="color:#4C33E5;">现代</span></span></a><span style="text-decoration:underline;"><span style="color:#4C33E5;">编译器和解释器，java实现</span></span><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174541_DhaY.jpg" alt=""> </p>
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174542_8imE.jpg"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174541_DhaY.jpg" alt=""> </p>
+<p> <a target="_blank" href="http://www.amazon.com/gp/product/1461446988/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1461446988&amp;linkCode=as2&amp;tag=russblo0b-20&amp;linkId=PAXWJP5WCPZ7RKRD" rel="nofollow">现代编译器设计</a><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174542_2Uo5.jpg" alt=""> </p>
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174543_Bew1.jpg"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174542_2Uo5.jpg" alt=""> </p>
+<p> <a target="_blank" href="http://www.amazon.com/gp/product/0321486811/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0321486811&amp;linkCode=as2&amp;tag=russblo0b-20&amp;linkId=GOEGDQG4HIHU56FQ" rel="nofollow">编译器:原理, 技术, 和工具 (2nd Edition)</a><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174543_PEfz.jpg" alt=""> </p>
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174544_WdPg.jpg"><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/01174543_PEfz.jpg" alt=""> </p>]]></body>
+    <commentCount>20</commentCount>
+    <author><![CDATA[Aaron74]]></author>
+    <authorid>1389897</authorid>
+    <pubDate>2015-07-01 16:05:45</pubDate>
+    <softwarelink></softwarelink>
+    <softwarename></softwarename>
+    <favorite>0</favorite>
+</news>
+</oschina>

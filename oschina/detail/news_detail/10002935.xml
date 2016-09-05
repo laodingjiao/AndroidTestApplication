@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+<news>
+    <id>10002935</id>
+    <title><![CDATA[MongoDB 3.2 先睹为快]]></title>
+    <url><![CDATA[http://www.oschina.net/translate/mongodb-3-2-a-first-forward-look]]></url>
+    <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>MongoDB 3.2 预计在2015年底在 MongoDB World 里向大家介绍，我们认为这有益于带来一些很有吸引力的特征。大多数的这些功能仍然在发展，尽管它们被展示出来，有可能真正等到 MongoDB 3.2 公布时，这些特征也许将会发生改变。<br></p> 
+<h2>模式?</h2> 
+<p>会议上有很多关于模式的讨论。一个“无模式”的数据库，如 MongoDB 的一个提升，这看起来很奇怪，但它似乎 MongoDB，公司已重新发现规则的结构存储在数据库中的文档可以帮助管理一个数据库的演变。</p> 
+<p>这实际上涉及到的是一个新的，MongoDB 的企业工具支付，扫描集合和逆向工程师从集合模式中的搜索。它也提供了关于在 MongoDB3.2 使用的新热性，来使收集更有用、更正常，这些特性就是……</p> 
+<h3>校验</h3> 
+<p>MongoDB 开源版本的诸多新特性之一是可以给文档的字段加校验。&nbsp;这个特点，&nbsp;<a target="_blank" href="https://jira.mongodb.org/browse/SERVER-18227" rel="nofollow">SERVER-18227</a>，&nbsp;使得集合可以拥有一个校验器来作为集合元数据的一部分。校验器是一个匹配表达式，会在文档插入或修改时验证匹配结果为 true。&nbsp;如果校验不通过，修改将会被拒绝并返回一个错误 121, &nbsp;DocumentValidationFailure.</p> 
+<p>但是也有些限制。首先，校验器必须是非常简单的匹配表达式；大于、&nbsp;小于或是否存在等。不可以用地理位置的附近，不可以用文本查找也不能用where表达式。</p> 
+<p>你可以在创建表（译者注:我想应该是集合）的时候设置校验器，只需要加一个 validator 的设置项，或者也可通过 collmod 命令，如下：</p> 
+<pre class="brush:js;toolbar: true; auto-links: false;">db.runCommand({"collMod":&nbsp;collName,&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"validator"&nbsp;:&nbsp;{a:&nbsp;{$exists:&nbsp;true}}})</pre> 
+<p>这个例子校验了字段"a"是否存在。如果你想修改校验器，但是注意到并没有获取元数据函数，因此需要获取集合的统计信息（stats），这个里面有现有的校验器。然后就能用"collMod"来修改跟重新设置了。</p> 
+<p>关于校验器，还有些需要记住的。首先，他们只在添加跟修改操作时生效，言下之意是对于集合中的现存数据，校验器是不校验的...直到你更新一个已经存在的文档，校验器就会起作用了，除非文档没做更改。因此如果你想启动校验，你可能需要先把现有集合扫描一遍，确认所有文档符合或者对所有添加/修改操作添加失败快照。你可以把 BypassDocumentValidation 权限给你的用户，让他们设置<code>bypassDocumentationValidation</code> 标志，但是这可能与校验的初衷有所冲突。顺带一提，这些权限跟标识主要是为一些运维操作设计的，比如恢复一个 partially conforming collection 。</p> 
+<h2> 局部索引<br> </h2> 
+<p> 与模式相关的另一个服务器端的功能就是”局部索引“，这个功能<a target="_blank" href="https://jira.mongodb.org/browse/SERVER-785" rel="nofollow">自2010</a>开始就在 MongoDB 的 JIRA 里时不时的被提到。对这一功能最好的解释就是通过实例来说明。假设你手头有你曾经接触过的所有客户，包括活跃的和非活跃的。在日常的使用中，你想在查询活跃客户时获得很好的性能。要达到很好性能的一种方式是分为两个数据集（即表）来处理，一个数据集是活跃客户，它具有索引，另一数据集是非活跃客户，没有索引，不过，这就要求对应用进行更改，确保客户存储在它应该存储的那一数据集里。另外，你可以使用局部索引，局部索引只对哪些满足过滤器表达式的文档进行索引。如下： </p> 
+<pre class="brush:js;toolbar: true; auto-links: false;">myusercoll.createIndex({&nbsp;name:&nbsp;1&nbsp;},&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;partialFilterExpression:&nbsp;{&nbsp;status:&nbsp;{&nbsp;$eq:&nbsp;"active"&nbsp;}&nbsp;})</pre> 
+<p> 此时，对非常大型的表的处理性能会得到巨大的提升。这种情况下，如果文档与过滤器不匹配，那么，不但在查询时跳过了这些文档，而且在插入或者更新时也不会对这些文档添加索引。不过性能提升的程度则完全取决于需要进行索引处理字段的结构和密度。 </p> 
+<h3> Lookup!</h3> 
+<p> 有个不争的事实是 MongoDB 不具备任何形式的表连接。其实大部分情况，你不需要表连接，但是当你需要将数据组合并分析，这个时候你可能想要个连接功能。MongoDB 公司关于这点的意见是，稍稍将你的数据非正规化一下，将不同集合的数据复制到那个你准备分析的集合中，并保持同步，起码每天同步一次，但是谈到分析，你总不能啥数据都到处复制。</p> 
+<p> MongoDB 的核心分析工具是 aggregation，通过这个，你能创建一个任务管道（pipeline），对选中的文档施加各种操作，最后得到需要的数据。当你要聚合订单表时，首先在 pipeline 中添加个运算符，来匹配特定的几类产品的订单，然后用另一个运算符分组计算每类产品的销量。问题是 pipeline 只能对一个集合中的文档进行操作，因此，如果还需要操作另一个集合的时候，就玩不转了。MongoDB 3.2添加了一个 <a target="_blank" href="https://jira.mongodb.org/browse/SERVER-19095" rel="nofollow">$lookup 操作符</a>&nbsp;用以引入其它集合的数据。</p> 
+<p>$lookup 操作符有一个 from 参数，用来指定你想从哪个集合拖数据。还有一个&nbsp;on 参数用来指定另一个集合中的哪个字段跟 pipeline 中的哪个字段应该匹配。最后当匹配到一个文档，该文档会被插入管道中的文档，通过&nbsp;as 参数设定一个 key 把该文档就放到这个 key 中。这个方式看上去有点暴力， 使文档变得很大， 别担心，其它的聚合操作符会把数据切小的。</p> 
+<p>$lookup 在聚合管道中有巨大的潜力，可以使用户不需要刻意将数据非正规化。不过我们要等到&nbsp;alpha/beta 发布才能知道 $lookup 在实践中到底有多有效。</p> 
+<h3><strong>总结</strong>&nbsp; <br></h3> 
+<p>这是第一次评判数据库级别的操作，我们应该把期待放在 MongoDB 3.2 上。所有三个特性在这里的痛点是 MongoDB 的架构内的服务器。在 MongoDB 3.2 alpha /beta 版本释放时，我们将能够在服务器端的用户端获得更多改进。其他大部分 MongoDB 3.2 变化与存储引擎，认证，集成和复制。我们将在未来覆盖。</p>]]></body>
+    <commentCount>27</commentCount>
+    <author><![CDATA[oschina]]></author>
+    <authorid>1</authorid>
+    <pubDate>2015-07-08 10:47:04</pubDate>
+    <softwarelink></softwarelink>
+    <softwarename></softwarename>
+    <favorite>0</favorite>
+</news>
+</oschina>

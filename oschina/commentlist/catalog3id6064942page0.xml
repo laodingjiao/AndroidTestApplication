@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>        <oschina>
+    <allCount>4</allCount>
+    <pagesize>4</pagesize>
+    <comments>
+                    												                                                <comment>
+                <id>6065240</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1159/2319782_50.jpg?t=1433763484000</portrait>
+                <author><![CDATA[doge酱]]></author>
+                <authorid>2319782</authorid>
+                <content><![CDATA[回复 @newfoxnose : 1不安全2改了个人信息没去同步session，提交的数据不是最新的，支付接口验证失败]]></content>
+                <pubDate>2015-07-17 12:01:42</pubDate>
+                                    <appclient>0</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6065210</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1159/2319782_50.jpg?t=1433763484000</portrait>
+                <author><![CDATA[doge酱]]></author>
+                <authorid>2319782</authorid>
+                <content><![CDATA[回复 @blu10ph : 数据库里查出来啊。我说的是第三方充值，不是直接充值:sweat:]]></content>
+                <pubDate>2015-07-17 11:59:07</pubDate>
+                                    <appclient>0</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6065193</id>
+                <portrait></portrait>
+                <author><![CDATA[newfoxnose]]></author>
+                <authorid>2392658</authorid>
+                <content><![CDATA[session有什么问题？]]></content>
+                <pubDate>2015-07-17 11:58:02</pubDate>
+                                    <appclient>0</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6065033</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/521/1043184_50.jpg?t=1431744842000</portrait>
+                <author><![CDATA[blu10ph]]></author>
+                <authorid>1043184</authorid>
+                <content><![CDATA[要不然呢？从提交的参数里让用户随便写？~]]></content>
+                <pubDate>2015-07-17 11:45:22</pubDate>
+                                    <appclient>5</appclient>
+                                                            </comment>
+            </comments>
+    </oschina>

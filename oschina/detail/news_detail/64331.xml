@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64331</id>
+      <title><![CDATA[Elasticsearch 1.7.0/1.6.1 发布，分布式搜索引擎]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64331/elasticsearch-1-7-0]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span><strong>Elasticsearch 1.7.0</strong></span> 正式发布，基于 <span><strong>Lucene 4.10.4</strong></span>。同时还发布了 <span><strong>Elasticsearch 1.6.1</strong></span> bug 修复版本。这两个版本都包括一个安全修复，建议所有用户升级最新版本！</p> 
+<p>下载：</p> 
+<ul> 
+ <li><p>最新稳定版： <a target="_blank" href="https://www.elastic.co/downloads/past-releases/elasticsearch-1-7-0" rel="nofollow">Elasticsearch 1.7.0</a></p></li> 
+ <li><p>1.6 的 bug 修复版本： <a href="https://www.elastic.co/downloads/past-releases/elasticsearch-1-6-1" target="_top" rel="nofollow">Elasticsearch 1.6.1</a></p></li> 
+</ul> 
+<p>Elasticsearch 1.7.0 将会是 1.x 系列最后一个特性版本，未来的所有新特性都将会出现在 2.0+ 版本。</p> 
+<p>Elasticsearch 1.7.0 是个小版本，但是包含两个重要的安全修复和两个重要的新特性，改进集群的稳定性和可恢复性：</p> 
+<ul> 
+ <li><p><a target="_blank" href="https://www.elastic.co/blog/elasticsearch-1-7-0-and-1-6-1-released#security" rel="nofollow">安全修复</a></p></li> 
+ <li><p><a target="_blank" href="https://www.elastic.co/blog/elasticsearch-1-7-0-and-1-6-1-released#shard-alloc" rel="nofollow">延迟碎片分配</a></p></li> 
+ <li><p><a target="_blank" href="https://www.elastic.co/blog/elasticsearch-1-7-0-and-1-6-1-released#prioritization" rel="nofollow">索引恢复优先级</a></p></li> 
+</ul> 
+<p><strong>两个安全修复：</strong><br></p> 
+<ul> 
+ <li><p>远程代码执行漏洞</p></li> 
+ <li><p>目录遍历漏洞&nbsp; &nbsp;<br></p></li> 
+</ul> 
+<p>Elasticsearch 1.7.0 同时还添加了 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/1.7/delayed-allocation.html" target="_top" rel="nofollow"><code>index.unassigned.node_left.delayed_timeout</code></a>设置，默认是 1 分钟。</p> 
+<p>更多内容请看<a target="_blank" href="https://www.elastic.co/blog/elasticsearch-1-7-0-and-1-6-1-released" rel="nofollow">发行说明</a>。</p> 
+<p>Elastic Search 是一个基于<a href="http://www.oschina.net/p/lucene" rel="nofollow">Lucene</a>构建的开源，分布式，RESTful搜索引擎。设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。支持通过HTTP使用JSON进行数据索引。</p> 
+<p>ElasticSearch 提供多种语言的客户端 API：</p> 
+<ul> 
+ <li><p><a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/java-api/current/index.html" target="_top" rel="nofollow">Java API — 1.x</a> —  <a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/java-api/index.html" target="_top" rel="nofollow">other versions</a></p></li> 
+ <li><p><a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/javascript-api/current/index.html" target="_top" rel="nofollow">JavaScript API — 2.4</a> —  <a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/javascript-api/index.html" target="_top" rel="nofollow">other versions</a></p></li> 
+ <li><p><a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/groovy-api/current/index.html" target="_top" rel="nofollow">Groovy API — 1.x</a> —  <a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/groovy-api/index.html" target="_top" rel="nofollow">other versions</a></p></li> 
+ <li><p><a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/net-api/current/index.html" target="_top" rel="nofollow">.NET API</a></p></li> 
+ <li><p><a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/current/index.html" target="_top" rel="nofollow">PHP API — 1.0</a> —  <a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/php-api/index.html" target="_top" rel="nofollow">other versions</a></p></li> 
+ <li><p><a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/perl-api/current/index.html" target="_top" rel="nofollow">Perl API</a></p></li> 
+ <li><p><a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/python-api/current/index.html" target="_top" rel="nofollow">Python API</a></p></li> 
+ <li><p><a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/ruby-api/current/index.html" target="_top" rel="nofollow">Ruby API</a></p></li> 
+</ul> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201005/13140051_6qDj.png" alt=""></p>]]></body>
+      <commentCount>5</commentCount>
+      <author><![CDATA[淡漠悠然]]></author>
+      <authorid>2305107</authorid>
+      <pubDate>2015-07-17 09:48:05</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/elasticsearch]]></softwarelink>
+	  <softwarename><![CDATA[ElasticSearch]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[QtAV 1.7.0 发布，跨平台高性能音视频框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/64121/qtav-1-7-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker 1.7.0 发布，Linux 容器引擎]]></rtitle>
+			<rurl>http://www.oschina.net/news/63501/docker-1-7-0-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker v1.7.0 RC4/RC5 发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/63447/docker-1-7-0-rc4-5</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker v1.7.0 RC3 发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/63328/docker-1-7-0-rc3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ElasticSearch 1.6.0 发布，分布式搜索引擎]]></rtitle>
+			<rurl>http://www.oschina.net/news/63228/elasticsearch-1-6-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Jcseg-1.9.6 发布，词性补全+lucene/solr/elasticsearch 最新版本支持]]></rtitle>
+			<rurl>http://www.oschina.net/news/63213/jcseg-1-9-6</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[【每日一博】基于 IKAnalyzer 实现 Elasticsearch 中文分词插件]]></rtitle>
+			<rurl>http://my.oschina.net/zjzhai/blog/425484</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Libgdx 1.6.1 发布，开源跨平台游戏开发框架]]></rtitle>
+			<rurl>http://www.oschina.net/news/63095/libgdx-1-6-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker v1.7.0 RC2 发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/63070/docker-1-7-0-rc2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Docker v1.7.0 RC1 发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/62839/docker-1-7-0-rc1</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

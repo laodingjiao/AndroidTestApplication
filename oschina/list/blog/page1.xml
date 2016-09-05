@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <pagesize>20</pagesize>
+  <blogs>
+  					<blog>
+		<id>479497</id>
+		<title><![CDATA[通过web获取到“OSD%E6%B5%8B%E8%AF%95”OSD测试的字符处理代码]]></title>
+        <body><![CDATA[本仅调试中记录： #include &lt;stdio.h&gt;  
+#include &lt;stdlib.h&gt;  
+#includ...]]></body>
+		<url><![CDATA[http://my.oschina.net/renyongke/blog/479497]]></url>
+        <pubDate>2015-07-16 20:58:44</pubDate>
+        <authoruid>2348204</authoruid>
+        <authorname><![CDATA[喵帕斯_QAQ]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479495</id>
+		<title><![CDATA[整理的Android开发资源]]></title>
+        <body><![CDATA[Android网址或Blog Android官网 身为Android开发者不知道这个网站就太说...]]></body>
+		<url><![CDATA[http://my.oschina.net/yuanxulong/blog/479495]]></url>
+        <pubDate>2015-07-16 20:57:52</pubDate>
+        <authoruid>1431053</authoruid>
+        <authorname><![CDATA[程序袁_绪龙]]></authorname>
+        <commentCount>1</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479488</id>
+		<title><![CDATA[color属性是否具有继承性]]></title>
+        <body><![CDATA[color属性是否具有继承性: 这个问题应该比较简单，但是还是注意一下，否...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/1468670/blog/479488]]></url>
+        <pubDate>2015-07-16 20:08:38</pubDate>
+        <authoruid>1468670</authoruid>
+        <authorname><![CDATA[一落叶而知秋]]></authorname>
+        <commentCount>1</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479481</id>
+		<title><![CDATA[linux 系统防火墙知识学习]]></title>
+        <body><![CDATA[防火墙分为硬件的或者软件的防火墙两种。无论是在哪个网络中，工作于网络...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/202475/blog/479481]]></url>
+        <pubDate>2015-07-16 20:00:33</pubDate>
+        <authoruid>202475</authoruid>
+        <authorname><![CDATA[leicc]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479468</id>
+		<title><![CDATA[MongoDB3.0集群配置文件自动生成器]]></title>
+        <body><![CDATA[MongoDB3.0集群配置文件自动生成器 请到此下载： 项目Github地址 项目G...]]></body>
+		<url><![CDATA[http://my.oschina.net/jockchou/blog/479468]]></url>
+        <pubDate>2015-07-16 19:30:37</pubDate>
+        <authoruid>946034</authoruid>
+        <authorname><![CDATA[jockchou]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479466</id>
+		<title><![CDATA[Angular 监听路由变化事件]]></title>
+        <body><![CDATA[﻿app.run(['$rootScope', '$location' ,'$cookieStore', '$state', 'Ca...]]></body>
+		<url><![CDATA[http://my.oschina.net/jack088/blog/479466]]></url>
+        <pubDate>2015-07-16 19:27:58</pubDate>
+        <authoruid>2320053</authoruid>
+        <authorname><![CDATA[jack088]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479462</id>
+		<title><![CDATA[Crypto++应用：非对称加密RSA]]></title>
+        <body><![CDATA[1，非对称加密RSA：     （1）乙方生成两把密钥（公钥和私钥）。公钥...]]></body>
+		<url><![CDATA[http://my.oschina.net/xlplbo/blog/479462]]></url>
+        <pubDate>2015-07-16 19:00:17</pubDate>
+        <authoruid>70773</authoruid>
+        <authorname><![CDATA[borey]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479460</id>
+		<title><![CDATA[开源蘑菇街TeamTalk报make db_proxy_server failed，信息分析]]></title>
+        <body><![CDATA[报错误消息：                             ...]]></body>
+		<url><![CDATA[http://my.oschina.net/heavenly/blog/479460]]></url>
+        <pubDate>2015-07-16 18:49:19</pubDate>
+        <authoruid>1167885</authoruid>
+        <authorname><![CDATA[Linux一叶]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479444</id>
+		<title><![CDATA[Jenkins Pinned Plugins（Jenkins绑定插件）]]></title>
+        <body><![CDATA[在Jenkins上将Subversion Plugin由捆绑的1.54版本升级到目前（2015/07/1...]]></body>
+		<url><![CDATA[http://my.oschina.net/donhui/blog/479444]]></url>
+        <pubDate>2015-07-16 18:05:36</pubDate>
+        <authoruid>1588291</authoruid>
+        <authorname><![CDATA[donhui]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479441</id>
+		<title><![CDATA[HDFS目录（文件 ）权限管理]]></title>
+        <body><![CDATA[用户身份 在1.0.4这个版本的Hadoop中，客户端用户身份是通过宿主操作系统...]]></body>
+		<url><![CDATA[http://my.oschina.net/drl/blog/479441]]></url>
+        <pubDate>2015-07-16 18:01:54</pubDate>
+        <authoruid>995723</authoruid>
+        <authorname><![CDATA[General_du]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479439</id>
+		<title><![CDATA[让Ubuntu 14.04“保存”屏幕亮度值 ]]></title>
+        <body><![CDATA[首先查看一下你的屏幕亮度值的范围： sudo cat /sys/class/backlight/ac...]]></body>
+		<url><![CDATA[http://my.oschina.net/SBaof/blog/479439]]></url>
+        <pubDate>2015-07-16 17:58:53</pubDate>
+        <authoruid>2289158</authoruid>
+        <authorname><![CDATA[SBaof]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479433</id>
+		<title><![CDATA[yeelink在PX2上的运用（远程控制）]]></title>
+        <body><![CDATA[首先介绍yeelink，这嘛，是一个开放的云服务器平台，大家都可以去注册一...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2007588/blog/479433]]></url>
+        <pubDate>2015-07-16 17:54:26</pubDate>
+        <authoruid>2007588</authoruid>
+        <authorname><![CDATA[穿prada的008]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479431</id>
+		<title><![CDATA[Sql缓存依赖]]></title>
+        <body><![CDATA[Sql缓存依赖主要分为两种： 1.轮询模式(poll model) 2.推模式(push mod...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/200350/blog/479431]]></url>
+        <pubDate>2015-07-16 17:53:10</pubDate>
+        <authoruid>200350</authoruid>
+        <authorname><![CDATA[江南飞]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479409</id>
+		<title><![CDATA[面向 Java 开发与测试人员的远程执行 Linux/UNIX 系统上任务的框架 -- sshxcu]]></title>
+        <body><![CDATA[软件开发与测试人员常常会在远程 Linux/UNIX 系统上执行命令或脚本，有时...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/1866821/blog/479409]]></url>
+        <pubDate>2015-07-16 17:24:02</pubDate>
+        <authoruid>1866821</authoruid>
+        <authorname><![CDATA[Carl_]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479405</id>
+		<title><![CDATA[思达BI软件StyleIntelligence实例教程—股票分析（2）]]></title>
+        <body><![CDATA[教程视频：http://v.youku.com/v_show/id_XMTI4Mzk0MjEzMg==.html 本文将...]]></body>
+		<url><![CDATA[http://my.oschina.net/tianzhen/blog/479405]]></url>
+        <pubDate>2015-07-16 17:18:36</pubDate>
+        <authoruid>88726</authoruid>
+        <authorname><![CDATA[敏捷商业智能]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479401</id>
+		<title><![CDATA[利用ZjDroid对 <捕鱼达人3> 脱壳及破解过程]]></title>
+        <body><![CDATA[&lt;捕鱼达人3&gt; 刚出来不久，就被鬼哥Dump出来dex，随之破解也就轻而易举。...]]></body>
+		<url><![CDATA[http://my.oschina.net/1590538xiaokai/blog/479401]]></url>
+        <pubDate>2015-07-16 17:14:04</pubDate>
+        <authoruid>1590538</authoruid>
+        <authorname><![CDATA[科技创造]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479400</id>
+		<title><![CDATA[Mysql Partition分区（理论）]]></title>
+        <body><![CDATA[Partition  分区         MySql 5.6 手册：http://dev.mysql.com/...]]></body>
+		<url><![CDATA[http://my.oschina.net/zhanyu/blog/479400]]></url>
+        <pubDate>2015-07-16 17:12:30</pubDate>
+        <authoruid>102055</authoruid>
+        <authorname><![CDATA[尚小胖]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479399</id>
+		<title><![CDATA[可动态添加数据的复选框]]></title>
+        <body><![CDATA[    变量如下所示： /**
+  * 原始每行最多显示的个数
+  */
+ p...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/1460984/blog/479399]]></url>
+        <pubDate>2015-07-16 17:12:18</pubDate>
+        <authoruid>1460984</authoruid>
+        <authorname><![CDATA[人生如歌]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479379</id>
+		<title><![CDATA[apache StopWatch基本使用]]></title>
+        <body><![CDATA[pom: &lt;dependency&gt;       &lt;groupId&gt;commons-lang&lt;/groupId&gt;   ...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2284972/blog/479379]]></url>
+        <pubDate>2015-07-16 16:48:10</pubDate>
+        <authoruid>2284972</authoruid>
+        <authorname><![CDATA[sarming]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479374</id>
+		<title><![CDATA[bash位置参数的简介]]></title>
+        <body><![CDATA[$ cat test.sh
+#!/bin/bash
+echo '$1' " is $1"
+echo '$2' " is $2"
+ech...]]></body>
+		<url><![CDATA[http://my.oschina.net/uhziel/blog/479374]]></url>
+        <pubDate>2015-07-16 16:38:26</pubDate>
+        <authoruid>759266</authoruid>
+        <authorname><![CDATA[uhziel]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+		    </blogs>
+</oschina>	

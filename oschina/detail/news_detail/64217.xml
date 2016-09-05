@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64217</id>
+      <title><![CDATA[Spark 和 Hadoop 是朋友不是敌人]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64217/spark-and-hadoop-are-friends-not-foes]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><a href="https://tctechcrunch2011.files.wordpress.com/2015/07/hadoop-spark.png?w=738" target="_blank" rel="nofollow"><img title="" src="https://tctechcrunch2011.files.wordpress.com/2015/07/hadoop-spark.png?w=738"></a></p> 
+<p>6月15日，IBM 宣布计划大规模投资 Spark 相关技术，此项声明会促使越来越多的工程师学习 Spark 技术，并且大量的企业也会采用 Spark 技术。</p> 
+<p>Spark 投资的良性循环会使 Spark 技术发展更加成熟，并且可以从整个大数据环境中获益。然而，Spark 的快速增长给人们一个奇怪且固执的误解：Spark 将取代 Hadoop，而不是作为 Hadoop 的补充。这样的误解可以从类似“<a target="_blank" href="http://www.wsj.com/articles/newer-software-aims-to-crunch-hadoops-numbers-1434326008?KEYWORDS=spark+dwoskin" rel="nofollow">旨在比下 Hadoop 的新软件</a>”和“<a target="_blank" href="http://bits.blogs.nytimes.com/2015/06/15/companies-are-moving-on-from-big-data-technology-hadoop/?_r=1" rel="nofollow">企业将放弃大数据技术 Hadoop</a>”的标题中看出来。<br></p> 
+<p>作为一个长期的大数据实践者，雅虎投资 Hadoop 的早期倡导者，一个为企业提供大数据服务的公司的 CEO ，我想在这篇文章中提出几个明确的观点。</p> 
+<p>Spark 和 Hadoop 会和谐相处。<br></p> 
+<p>越来越多的企业选择 Hadoop 做大数据平台，而 Spark 是运行于 Hadoop 顶层的内存处理方案。Hadoop 最大的用户 —— 包括 eBay 和雅虎 —— 都在 Hadoop 集群中运行着 Spark。Cloudera 和 Hortonworks 将 Spark 列为他们 Hadoop 发行的一部分。自从我们推出 Spark 之后，用户一直在使用着 Spark。<br></p> 
+<p>将 Spark 置于和 Hadoop 对立的位置，就好像是说你的新电动汽车看起来很高级，所以你的车就不需要充电一样。如果电动汽车真的普及的话，那只会带来更多的用电需求。<br></p> 
+<p>为什么这么迷惑呢？现在的 Hadoop 包括两个主要的组件。第一个是大规模储存系统，叫做 Hadoop Distributed File System （HDFS），它以低功耗、高性能的方式储存数据，并且能优化大数据的种类和读取速度。第二个是一个计算引擎，叫做 YARN，它能在储存在 HDFS 上的数据顶层运行大规模并行程序。</p> 
+<p>YARN 可以承载任何数量的程序框架。原始的框架是 MapReduce，它由谷歌发明，用于处理大规模页面抓取。Spark 是另一个类似的框架，另一个新的框架叫做 Tez。当人们谈论 Spark“干掉”Hadoop 时，他们往往指的是程序员更喜欢将 Spark 用在老的 MapReduce 框架上。<br></p> 
+<p>然而，MapReduce 不等同于 Hadoop。MapReduce 只是 Hadoop 集群处理数据的多种方式之一。Spark 可以是替代品。说得更宽点，商业分析师 —— 持续增长的大数据从业者 —— 会避免使用这两个对于程序员来说十分低端的框架。相反，他们会使用更高级的语言，例如 SQL ，来让 Hadoop 更容易访问。<br></p> 
+<p>在过去的四年中，基于 Hadoop 的大数据技术达到了前所未有的创新水平。我们已经从 SQL 批处理转向互动：从单一框架（MapReduce）转到多框架（MapReduce、Spark 等等）。</p> 
+<p>我们已经看到了 HDFS 优异的性能和安全性的改善，并且我们还看到了顶层工具的井喷 ， 例如 <a target="_blank" href="http://www.datameer.com/" rel="nofollow">Datameer</a>、<a target="_blank" href="http://h2o.ai/" rel="nofollow">H20</a> 和 <a target="_blank" href="http://www.tableau.com/" rel="nofollow">Tableau</a>。大量不同领域的数据科学家和商业用户使这些大数据工具变得更为易用。<br></p> 
+<p>Spark 对于 Hadoop 来说不是挑战，也不是来取代 Hadoop 的。相反，Hadoop 是 Spark 成长发展的基础。我们希望两个组织都能有长足的发展，并且成为将数据资产转化为可执行商业计划的最有活力的平台。<br></p> 
+<p>Via：<a target="_blank" href="http://techcrunch.com/2015/07/12/spark-and-hadoop-are-friends-not-foes/" rel="nofollow">TechCrunch</a></p>]]></body>
+      <commentCount>13</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-14 07:40:02</pubDate>
+	  <softwarelink><![CDATA[]]></softwarelink>
+	  <softwarename><![CDATA[]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[《Apache Spark 设计与实现》]]></rtitle>
+			<rurl>http://www.oschina.net/p/sparkinternals</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[IBM 想要通过 Apache Spark 影响百万工程师]]></rtitle>
+			<rurl>http://www.oschina.net/news/63396/ibm-apache-spark</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spark IM 2.7.1 发布，IM 客户端]]></rtitle>
+			<rurl>http://www.oschina.net/news/63337/spark-im-2-7-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Spark 1.4 发布，开源集群计算系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63301/apache-spark-1-4</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring for Apache Hadoop 2.2 GA 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63297/spring-hadoop-2-2-ga</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring for Apache Hadoop 2.2 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/62654/spring-hadoop-2-2-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Ignite vs Apache Spark ]]></rtitle>
+			<rurl>http://www.oschina.net/translate/apache-ignite-vs-apache-spark</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OSC 第 72 期高手问答 — Hadoop 核心技术]]></rtitle>
+			<rurl>http://www.oschina.net/question/865233_235674</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Sqoop 1.99.6 发布，Hadoop 数据迁移]]></rtitle>
+			<rurl>http://www.oschina.net/news/62369/sqoop-1-99-6</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Sqoop 1.4.6 发布，Hadoop 数据迁移]]></rtitle>
+			<rurl>http://www.oschina.net/news/62315/sqoop-1-4-6</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

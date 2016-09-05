@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+    <allCount>60</allCount>
+    <pagesize>20</pagesize>
+    <comments>
+                                                                    <comment>
+                <id>981621</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/120/240532_50.jpg?t=1400493358000</portrait>
+                <author><![CDATA[SimonYe]]></author>
+                <authorid>240532</authorid>
+                <content><![CDATA[@zengjinlong : 大型互联网企业中，docker一般是怎么应用的。]]></content>
+                <pubDate>2015-07-15 13:39:44</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:10:28</rpubDate>
+                                <rcontent><![CDATA[资源虚拟化。给你举个例子，阿里云出租服务器给你，在Docker之前，它得给你分配个VM虚拟机，作为你的单独系统。但也就意味着每个客户都要跑个操作系统。但有了Docker，阿里云省多了，你用着感觉像台服务器，但其实在人家那就是个进程！！！省不省？你们有类似的改进需求没有，大型互联网的哥们。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981612</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/48/96889_50.jpg</portrait>
+                <author><![CDATA[绝对零度]]></author>
+                <authorid>96889</authorid>
+                <content><![CDATA[@zengjinlong : 主要用在什么场景？]]></content>
+                <pubDate>2015-07-15 13:35:11</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981568</id>
+                <portrait></portrait>
+                <author><![CDATA[高达]]></author>
+                <authorid>109596</authorid>
+                <content><![CDATA[@zengjinlong :请问，web系统如果想用docker，一般是怎么设计？用了之后有哪些收益？多谢]]></content>
+                <pubDate>2015-07-15 13:06:00</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:07:59</rpubDate>
+                                <rcontent><![CDATA[数据库一般独立一个容器，如果要做负载均衡，最好用多个容器去做你的web服务，一个容器去做调度。在你升级、部署都会很方便。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981561</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/2/4376_50.jpg?t=1370583424000</portrait>
+                <author><![CDATA[北方羊]]></author>
+                <authorid>4376</authorid>
+                <content><![CDATA[@zengjinlong :如果不认真提问会有什么后果。。]]></content>
+                <pubDate>2015-07-15 12:54:43</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:07:01</rpubDate>
+                                <rcontent><![CDATA[额，会带你去优衣库的试衣间。开玩笑啦。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981537</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/56/112721_50.jpg?t=1425604738000</portrait>
+                <author><![CDATA[codecodecode]]></author>
+                <authorid>112721</authorid>
+                <content><![CDATA[@zengjinlong :现在在用docker的学习过程中，由于现在只是自己在搭开发环境，开发机是windows，发现搭环境还是有点复杂的（主要是我对网络什么的不是很懂），有什么方便的方法可以搭建起一个较复杂的开发环境呢？比如mahout需要hadoop环境等。]]></content>
+                <pubDate>2015-07-15 11:59:39</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:06:13</rpubDate>
+                                <rcontent><![CDATA[你说的书里面都有。我这个回复还是很那一言蔽之的。还是要系统的学习一下。我写书就是带大家从入门到深入。你请我个人吃雪糕（作者分成不多的），我给你知识。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981484</id>
+                <portrait></portrait>
+                <author><![CDATA[郑晨曦]]></author>
+                <authorid>590982</authorid>
+                <content><![CDATA[@zengjinlong :你好 请问docker network 大概什么时候能正式上线啊]]></content>
+                <pubDate>2015-07-15 11:13:24</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981475</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/5/10040_50.jpg?t=1433908528000</portrait>
+                <author><![CDATA[winie]]></author>
+                <authorid>10040</authorid>
+                <content><![CDATA[@zengjinlong :docker做完全像openstack这样的虚里话，该如何做？]]></content>
+                <pubDate>2015-07-15 11:01:15</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981456</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1207/2415706_50.jpg?t=1436923675000</portrait>
+                <author><![CDATA[moyasu]]></author>
+                <authorid>2415706</authorid>
+                <content><![CDATA[@zengjinlong : 你好，请问学习docker需要一些什么编程语言基础？python 还是java或者是别的什么 谢谢。]]></content>
+                <pubDate>2015-07-15 10:42:01</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:03:59</rpubDate>
+                                <rcontent><![CDATA[它其实和语言无关，你把它想象成它像个虚拟机一样，但很方便，虚拟机跟你说些什么语言的程序不相关吧。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981450</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/406/813166_50.jpg?t=1378173159000</portrait>
+                <author><![CDATA[haitaosoft]]></author>
+                <authorid>813166</authorid>
+                <content><![CDATA[@zengjinlong : 有没有像vmware一样的管理维护docker的gui工具？ 不联网能自行建立、使用docker镜像吗？]]></content>
+                <pubDate>2015-07-15 10:32:43</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:02:51</rpubDate>
+                                <rcontent><![CDATA[只要你本地现有镜像，其实没网络也一样可以用的。]]></rcontent>
+                            </reply>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:02:20</rpubDate>
+                                <rcontent><![CDATA[Docker-UI或者Shipyard]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981433</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1187/2375021_50.jpg?t=1432619052000</portrait>
+                <author><![CDATA[秋果]]></author>
+                <authorid>2375021</authorid>
+                <content><![CDATA[@zengjinlong :docker运用于实际线上环境，处理高并发方面有没有瓶颈呢。性能会好吗？]]></content>
+                <pubDate>2015-07-15 10:12:24</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:02:01</rpubDate>
+                                <rcontent><![CDATA[Docker是进程级的虚拟，你在里面运行你的一个服务进程，基本不会附加多少其他的耗费。所以性能还是由程序本身决定的多。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981392</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/460/920877_50.jpg?t=1433396089000</portrait>
+                <author><![CDATA[Peng_JK]]></author>
+                <authorid>920877</authorid>
+                <content><![CDATA[@zengjinlong :分布在不同物理机上的容器如何集中管理？]]></content>
+                <pubDate>2015-07-15 09:48:13</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:15:09</rpubDate>
+                                <rcontent><![CDATA[很多方案的，Kubernetes,等都可以做。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981387</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/878/1756518_50.jpg?t=1398482421000</portrait>
+                <author><![CDATA[西夏一品堂]]></author>
+                <authorid>1756518</authorid>
+                <content><![CDATA[@zengjinlong : 我们公司的测试环境 和 正式环境不一样，导致测试没问题，上线了就有问题，请问，你是怎么解决这个问题的，docker能很好的解决这个问题吗？]]></content>
+                <pubDate>2015-07-15 09:46:03</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:16:08</rpubDate>
+                                <rcontent><![CDATA[你的问题正是Docker解决的。它等于搬着你的计算机去给运营那边。“一次部署，到处运行”]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981371</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/579/1159743_50.jpg?t=1373541993000</portrait>
+                <author><![CDATA[踩瓜大盗]]></author>
+                <authorid>1159743</authorid>
+                <content><![CDATA[@zengjinlong :有没有工具可以检测每个docker container 的资源使用情况，并且其他程序可以通过api调用的方式得到这些信息呢？]]></content>
+                <pubDate>2015-07-15 09:36:46</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:16:44</rpubDate>
+                                <rcontent><![CDATA[通过API可以的，具体参见书中第三篇相关章节，你也可以借助Shipyard这种管理工具来看。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981369</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1206/2413981_50.jpg?t=1436751696000</portrait>
+                <author><![CDATA[丁明梦]]></author>
+                <authorid>2413981</authorid>
+                <content><![CDATA[@zengjinlong : 阅读这本书，需要有哪些预备知识呢。]]></content>
+                <pubDate>2015-07-15 09:34:50</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:14:18</rpubDate>
+                                <rcontent><![CDATA[不需要什么基础，当然，你得是个计算机从业人员。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981357</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/48/96798_50.jpg?t=1371392955000</portrait>
+                <author><![CDATA[Elson]]></author>
+                <authorid>96798</authorid>
+                <content><![CDATA[Docker可否用于app的开发当中呢？有没有相关案例？]]></content>
+                <pubDate>2015-07-15 09:24:13</pubDate>
+                                    <appclient>3</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981350</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/124/248849_50.jpg?t=1372827496000</portrait>
+                <author><![CDATA[ZhouLS]]></author>
+                <authorid>248849</authorid>
+                <content><![CDATA[@zengjinlong : 你好，最近也一直关注docker 容器 docker 现在越来越流行了，我想知道docker 在企业级应用方面的稳定如何？ ]]></content>
+                <pubDate>2015-07-15 09:21:39</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:13:55</rpubDate>
+                                <rcontent><![CDATA[国内的BAT、华为、迅雷等都在用。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981348</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/130/260739_50.png?t=1417629751000</portrait>
+                <author><![CDATA[扁豆焖面先生]]></author>
+                <authorid>260739</authorid>
+                <content><![CDATA[@zengjinlong :请问您这本书是以docker的哪个版本为基准做的讲解？]]></content>
+                <pubDate>2015-07-15 09:21:26</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:13:08</rpubDate>
+                                <rcontent><![CDATA[1.4.0，但基本都可以。不影响使用。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981343</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/76/152570_50.jpg?t=1419133658000</portrait>
+                <author><![CDATA[余风]]></author>
+                <authorid>152570</authorid>
+                <content><![CDATA[@zengjinlong :你好，关于给docker容器设置一个固定IP并且非宿主机可以直接访问，有什么好的解决方案么？]]></content>
+                <pubDate>2015-07-15 09:20:14</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:18:30</rpubDate>
+                                <rcontent><![CDATA[这叫跨主机访问，可以通过代理连接，书中第四章有讲。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981337</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/730/1461360_50.jpg?t=1426143980000</portrait>
+                <author><![CDATA[moya]]></author>
+                <authorid>1461360</authorid>
+                <content><![CDATA[@zengjinlong : 你好 ，请问docker在当前openstack系统中有什么应用场景？ 另外，使用docker方便了移植等，但是对于运维来说，是不是就比较难驾驭一些， 比如，在排错方面会比较困难吧？ 谢谢。]]></content>
+                <pubDate>2015-07-15 09:17:42</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:20:25</rpubDate>
+                                <rcontent><![CDATA[现在确实不是很容易，不过后面会深度整合的。你可以看看这个http://www.d1net.com/cloud/news/351191.html，对整体会有个比较好的认识。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>981331</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/587/1175348_50.jpg?t=1417584985000</portrait>
+                <author><![CDATA[守护天使]]></author>
+                <authorid>1175348</authorid>
+                <content><![CDATA[docker集群如何高效管理？并在实际开发过程中运用呢？]]></content>
+                <pubDate>2015-07-15 09:14:02</pubDate>
+                                    <appclient>3</appclient>
+                                                    <replies>
+                                                    <reply>
+                                <rauthor><![CDATA[zengjinlong]]></rauthor>
+                                <rpubDate>2015-07-16 23:11:38</rpubDate>
+                                <rcontent><![CDATA[使用生态圈工具，Kubernetes,Compose+Swarm+Machine这些。具体你可以详细了解下。我的书里面有很大张杰介绍这些集群工具的使用。也是和其他Docker书最大的区别。]]></rcontent>
+                            </reply>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+            </comments>
+    </oschina>

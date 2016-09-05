@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479189</id>
+		<title><![CDATA[12款最佳Linux命令行终端工具]]></title>
+		<url><![CDATA[http://my.oschina.net/chinacaptain/blog/479189]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>1</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>如果你跟我一样，整天要花大量的时间使用Linux命令行，而且正在寻找一些可替代系统自带的老旧且乏味的终端软件，那你真是找对了文章。我这里搜集了一些非常有趣的终端软件，可以用来替代debian系的Linux原生终端。</p> 
+<p><strong>Tilda</strong></p> 
+<p><img alt="tilda" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16105326_kqK1.jpg"></p>
+<p>这是一款可配置的雷神之锤风格的终端工具，也就是说，当用户敲击配置好的热键(缺省是F1)时，这个终端会从屏幕的顶端滑出，就跟雷神之锤游戏中的效果一样。</p> 
+<p>它的安装方法：</p> 
+<pre>apt-get&nbsp;install&nbsp;tilda</pre> 
+<p>Tilda跟其它下拉风格的终端比起来有更丰富的自定义选项。包括：</p> 
+<ul> 
+ <li><p>高度自定义界面</p></li> 
+ <li><p>设置Tilda主窗口的透明度。</p></li> 
+ <li><p>独特的内置配色方案。</p></li> 
+ <li><p>用户可以将命令行窗口蜕化成极简状态。</p></li> 
+</ul> 
+<p><strong>Yakuake</strong></p> 
+<p><img alt="YaKuake_screenshot_01" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16105326_HFR2.jpg"></p>
+<p>Yakuake最初的设计灵感来源就是雷神之锤的终端效果。它本质上就是一个基于KDE Konsole技术的下拉风格的终端。因为它是一个KDE应用，如果你想把它安装到GNOME桌面上，将会遇到一大堆的KDE系统包依赖。但如果你是一个KDE用户，Yakuake会让你相当满意。它的安装方法是：</p> 
+<pre>apt-get&nbsp;install&nbsp;yakuake</pre> 
+<p><strong>Guake</strong></p> 
+<p><img alt="guake" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16105326_mcC4.jpg"></p>
+<p>这是一个Gnome平台上的下拉式的终端工具。这款终端的目标就是提供一种快速终端访问方式，你只需要按动一个快捷键，就能让它从桌面上出现/消失。这款下拉风格的终端非常的好用。安装，打开，把它设置成开机启动。它能最小化到系统栏上，使用F12能直接把它呼叫出来。</p> 
+<p>它的安装方式：</p> 
+<pre>apt-get&nbsp;install&nbsp;guake</pre> 
+<p>从Applications&gt;Accessories&gt;Guake处运行它。然后右键点击它系统栏图标，然后点击‘preferences’，设置你的喜好。你可以通过“man guake“活动详细帮助信息。</p> 
+<p><strong>Stjerm</strong></p> 
+<p><img alt="sjterm" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16105326_iahj.jpg"></p>
+<p>这是一款可以和Guake、Tilda相媲美的终端软件。而且它非常的轻巧，有tab页，可以全屏切换。它的安装方式是：</p> 
+<pre>apt-get&nbsp;install&nbsp;sjterm</pre> 
+<p><strong>Terminator</strong></p> 
+<p><img alt="terminator" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16105326_0u2Q.jpg"></p>
+<p>Terminator是一款跨平台的终端工具，使用的是GPL许可证，提供了很多高级的功能。它没有Guake和Yakuake那样光鲜，但绝对是一款重型武器。它提供的功能包括界面分块，将自己设置成GNOME桌面缺省终端。跟Guake一样，Terminator可以安装到绝大多数的各种Linux版本中。你可以将它的主窗口分成任意多的小块。它的安装方式是：</p> 
+<pre>apt-get&nbsp;install&nbsp;terminator</pre> 
+<p>它的特征可以总结为：</p> 
+<ul> 
+ <li><p>将界面分割成网格状</p></li> 
+ <li><p>tab页</p></li> 
+ <li><p>拖拽排序各个终端</p></li> 
+ <li><p>大量快捷键</p></li> 
+ <li><p>通过可视化的设置工具调整界面布局和配置喜好。</p></li> 
+ <li><p>各个窗口可以并行使用</p></li> 
+</ul> 
+<p><strong>ROXTerm</strong></p> 
+<p><img alt="roxterm" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16105326_hzzJ.jpg"></p>
+<p>ROXTerm的最初设计目标就是轻量，替代笨重的gnome终端。但后来随着时间的迁移它的目标也发生了变化，变成了一个功能强大的重量级终端工具。它同GNOME桌面环境集成的非常好。支持的功能包括往终端里拖拽文件。它的安装方式是：</p> 
+<pre>apt-get&nbsp;install&nbsp;roxterm</pre> 
+<p><strong>Eterm</strong></p> 
+<p><img alt="eterm_variables" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16105326_Ny7j.jpg"></p>
+<p>Eterm很可能是这些终端工具中最轻量级的一个。它有彩色的终端输出，目的是来替代xterm。Eterm主题颜色可以配置，运行的非常快。要想启动Eterm，你需要输入’Eterm’(注意是大写的’E')。别写成了’eterm’。如果没有经验，你可能试很多次才会明白问题出在哪里。它的安装方法是：</p> 
+<pre>apt-get&nbsp;install&nbsp;eterm</pre> 
+<p><strong>Rxvt</strong></p> 
+<p><img alt="rxvt-banner" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16105326_PHUv.jpg"></p>
+<p>Rxvt也是一个试图取代xterm地位的Linux终端软件。Rxvt对系统资源的消耗非常小。它的安装方法是：</p> 
+<pre>apt-get&nbsp;install&nbsp;rxvt</pre> 
+<p><strong>Aterm</strong></p> 
+<p><img alt="aterm-scroll" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16105326_pmTk.jpg"></p>
+<p>Aterm是一款基于rxvt的终端工具，它提供了非常漂亮的视觉效果，所有的终端的基本功能它都提供了。此外它还提供了仿透明效果和失去焦点时的淡出效果。它的安装方式是：</p> 
+<pre>apt-get&nbsp;install&nbsp;aterm</pre> 
+<p><strong>Wterm</strong></p> 
+<p><img alt="wterm-linux-terminal-emulator" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16105326_ulg1.jpg"></p>
+<p>Wterm是另外一个基于rxvt的轻量级命令行终端。它的功能包括可以设置背景图片，透明效果，反向透明等。大量的设置项使其成为一款可高度自定义的终端工具。它的安装方法是：</p> 
+<pre>&nbsp;apt-get&nbsp;install&nbsp;wterm</pre> 
+<p>它的缺点是，看起来它好像是已经没人维护了。</p> 
+<p><strong>TermKit</strong></p> 
+<p><img alt="TermKit-ls" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16105326_NlBf.jpg"></p>
+<p>TermKit并不能作为一款日常使用的终端工具。它有一个非常漂亮的图形操作界面。它是基于 WebKit 开发出来的命令行系统。它的安装方式是：</p> 
+<pre>apt-get&nbsp;install&nbsp;termkit</pre> 
+<p><strong>Terminology</strong></p> 
+<p><img alt="Opening-a-file-using-mouse-in-Terminology" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16105326_HvAg.jpg"></p>
+<p>这不是一款简单意义上的终端工具，它可以做任何事情。使用Terminology，你可以预览图片，播放视频，不需要打开其他文件管理工具。它是万能的。它的安装方法是：</p> 
+<pre>sudo&nbsp;add-apt-repository&nbsp;ppa:hannes-janetzek/enlightenment-svn
+sudo&nbsp;apt-get&nbsp;update
+sudo&nbsp;apt-get&nbsp;install&nbsp;terminology</pre> 
+<p><br></p>]]></body>
+		<author><![CDATA[90后爱国]]></author>
+		<authorid>1582832</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 10:53:26</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

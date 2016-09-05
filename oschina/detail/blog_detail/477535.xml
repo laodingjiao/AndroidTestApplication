@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>477535</id>
+		<title><![CDATA[JavaEE 要懂的小事：三、图解Session（会话）]]></title>
+		<url><![CDATA[http://my.oschina.net/jeffli1993/blog/477535]]></url>
+		<where><![CDATA[JavaEE 网络Http相关]]></where>
+		<commentCount>27</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p> <span>Writer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ：BYSocket（泥沙砖瓦浆木匠）</span> </p> 
+<p> <span>微&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 博：</span><a href="http://weibo.com/u/2163271402" rel="nofollow"><span>BYSocket</span></a> </p> 
+<p> <span>豆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 瓣：</span><a href="http://www.douban.com/people/jeffli/" rel="nofollow"><span>BYSocket</span></a> </p> 
+<p> <span>FaceBook：</span><a href="https://www.facebook.com/qiangqiang.li.1" rel="nofollow"><span>BYSocket</span></a> </p> 
+<p> <span>Twitter&nbsp;&nbsp;&nbsp; ：</span><a href="https://twitter.com/BYSocket" rel="nofollow"><span>BYSocket</span></a> </p> 
+<p> <span>相继<span>&nbsp;</span></span><a href="http://www.bysocket.com/?p=282" rel="nofollow"><span>图解Http协议</span></a><span><span>&nbsp;</span>和<span>&nbsp;</span><a href="http://www.bysocket.com/?p=362" rel="nofollow">图解Cookie</a><span>&nbsp;</span>之后，中间迷茫期哈，没写了！可是又要告诉你自己明明喜欢写为啥不写了！那就写吧，学到老学到老~ 然后写到老！本系列皆<strong>以图为主</strong>，力求<strong>简单易懂</strong>，娓娓道来`</span> </p> 
+<p> <span><br> </span> </p> 
+<h1> 一、Session由来 </h1> 
+<p> <span>HTTP的<strong>无状态</strong>，也就是说，每次请求都是独立的线程。举个例子吧：购物中，你选择了A商品，加入购物车，这就是A线程。然后在选择B商品就是B线程。可是每次线程独立（对容器而言，A、B成了不同的用户），线程A不知道有B，B也不知道A。如何一起付款呢？</span> </p> 
+<p> <span>简答来说：<strong>怎么保存同个用户多个请求会话状态呢</strong>？自然<strong>HTTPS</strong>保证连接是安全的，可以使它与一个会话关联。</span> </p> 
+<p> <span>问题就在于如何跟踪同一个用户，选择自然很多：</span> </p> 
+<blockquote> 
+ <p> <span>1、<strong>EJB</strong>(有状态会话bean保存会话状态) 环境苛刻需要带EJB的J2EE服务器，而不是Tomcat这种Web容器。</span> </p> 
+ <p> <span>2、<strong>数据库</strong>（这貌似万能的。针对数据）</span> </p> 
+ <p> <span>3、就是我们要讲的<strong>HttpSeesion</strong>，<strong>保存跨一个特定用户多个请求的会话状态</strong>。</span> </p> 
+ <p> <span>4、上面说的<strong>HTTPS</strong>,条件太苛刻了。</span> </p> 
+</blockquote> 
+<p> <span>如图：<a href="http://www.bysocket.com/wp-content/uploads/2015/07/session.png" rel="nofollow"><img title="session" alt="session" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12132701_JQVu.png"></a></span> </p>
+<p> <span></span> </p> 
+<span style="background-color:#ffffff;"> <h1> 二、Session机制 </h1> <p> 机制，什么用词有点高大上。其实就是把它内在的一点东西说出来。主要两个W：What？How？ </p> <p> <strong>What is Session?</strong> </p> <p> Session代表着<strong>服务器</strong>和<strong>客户端</strong>一次<strong>会话</strong>的过程。直到<strong>session失效</strong>（服务端关闭），或者<strong>客户端关闭</strong>时结束。 </p> <p> <strong>How does session works？</strong> </p> <p> Session 是<strong>存储</strong>在<strong>服务端</strong>的，并针对每个客户端（客户），通过SessionID来区别不同用户的。Session是以Cookie技术或URL重写实现。默认以Cookie技术实现，服务端会给这次会话创造一个JSESSIONID的Cookie值。 </p> <p> <strong>补充</strong>： </p> 
+ <blockquote> 
+  <p> 其实还有一种技术：<strong>表单隐藏字段</strong>。它也可以实现session机制。这里只是作为补充，服务器响应前，会修改form表单，添加一个sessionID类似的隐藏域，以便传回服务端的时候可以标示出此会话。 </p> 
+  <p> 这技术，也可以使用在Web安全上，可以有效地控制<strong>CRSF跨站请求伪造</strong>。 </p> 
+ </blockquote> <h1> 三、详细介绍Seesion机制过程 </h1> <p> <a href="http://www.bysocket.com/wp-content/uploads/2015/07/3.png" rel="nofollow"><img title="绘图3" alt="绘图3" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12132702_AwDs.png"></a> </p> </span>
+<p> <span></span> </p> 
+<p> <span></span> </p> 
+<p> <span>图中这是session<strong>第一次请求</strong>的详细图。以Cookie技术实现，我也写了个HttpSessionByCookieServletT.java 的Servlet小demo，模拟下Seesion的一生。代码如下：</span> </p> 
+<p> </p> 
+<pre class="brush:java; toolbar: true; auto-links: false;">packageorg.servlet.sessionMngmt;
+ 
+importjava.io.IOException;
+importjava.io.PrintWriter;
+ 
+importjavax.servlet.ServletException;
+importjavax.servlet.annotation.WebServlet;
+importjavax.servlet.http.HttpServlet;
+importjavax.servlet.http.HttpServletRequest;
+importjavax.servlet.http.HttpServletResponse;
+importjavax.servlet.http.HttpSession;
+/*
+ * Copyright [2015] [Jeff Lee]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ 
+/**
+ * @author Jeff Lee
+ * @since 2015-7-12 10:58:28
+ *  HttpSession的默认Cookie实现案例
+ */
+@WebServlet(urlPatterns = "/sessionByCookie")
+publicclassHttpSessionByCookieServletT extendsHttpServlet {
+ 
+    privatestaticfinallongserialVersionUID = 1L;
+ 
+    @Override
+    protectedvoiddoGet(HttpServletRequest req, HttpServletResponse resp)
+            throwsServletException, IOException {
+         
+        // 获取session
+        // 如果是第一次请求的话，会创建一个HttpSeesion，等同于 req.getSession(true);
+        // 如果已存在session，则会获取session。
+        HttpSession session = req.getSession();
+         
+        if(session.isNew()) {
+            // 设置session属性值
+            session.setAttribute("name", "Jeff");
+        }
+        // 获取SessionId
+        String sessionId = session.getId();
+         
+        PrintWriter out = resp.getWriter();
+        // 如果HttpSeesion是新建的话
+        if(session.isNew()) {
+            out.println("Hello,HttpSession! &lt;br&gt;The first response - SeesionId="
+                    + sessionId + " &lt;br&gt;");
+        } else{
+            out.println("Hello,HttpSession! &lt;br&gt;The second response - SeesionId="
+                    + sessionId + " &lt;br&gt;");
+            // 从Session获取属性值
+            out.println("The second-response - name: "
+                    + session.getAttribute("name"));
+        }
+         
+    }
+     
+}</pre> 
+<p> </p> 
+<p> <br> </p> 
+<span></span> 
+<p></p> 
+<span style="background-color:#ffffff;"> 
+ <blockquote> 
+  <p> 隆重打个小广告： </p> 
+  <p> 泥瓦匠学习的<strong>代码</strong>都在<strong>github</strong>上（同步osc git），欢迎大家点star，提意见，一起进步。<strong><em>地址：</em></strong><a href="https://github.com/JeffLi1993" rel="nofollow"><strong><em>https://github.com/JeffLi1993</em></strong></a> </p> 
+ </blockquote> <p> <strong>① 客户端向服务端发送第一次请求</strong> </p> <p> 此时，客户端想让服务端把自己的名字设置到会话中。 </p> <p> <strong>② 服务端的容器产生该用户唯一sessionID的session对象，并设置值</strong> </p> <p> 可以从代码中看出通过从请求中req.getSession()，新生成了一个session对象。并设置了setAttribute(“name”, “Jeff”)，key为string，value是对象皆可。 </p> <p> 这时候，我们不用再把session通过cookie技术处理，<strong>容器</strong>帮我们<strong>处理</strong>了。 </p> <p> <strong>③ 容器响应 Set-Cookie：JSESSIONID= …</strong> </p> <p> 我们可以F12,查看此次响应。 </p> <p> <a href="http://www.bysocket.com/wp-content/uploads/2015/07/image.png" rel="nofollow"><img title="image" alt="image" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12132703_PNoj.png"></a> </p> </span>
+<p> <span></span> </p> 
+<p> 从图中可得到，每个Cookie的set，都有一个对应Set-Cookie的头。HttpOnly可是此Cookie只读模式。只不过<strong>session唯一标识</strong>是：<strong>JSESSIONID</strong><span><br> </span> </p> 
+<p> <strong><span>④<span>&nbsp;</span></span>浏览器解析Cookie，保存至浏览器文件。</strong> </p> 
+<p> <a href="http://www.bysocket.com/wp-content/uploads/2015/07/image1.png" rel="nofollow"><img title="image" alt="image" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12132705_uqqu.png"></a><span><br> </span> </p>
+<p> <span>如图，找到了对应的session存储的cookie文件。该文件被保护不能打开。<a href="http://www.bysocket.com/?p=362" rel="nofollow">图解Cookie</a><span>&nbsp;</span>教你怎么找到该文件。</span> </p> 
+<p> <span><br> </span> </p> 
+<p> <span><strong>第二次请求会发什么变化呢？</strong></span> </p> 
+<p> <span><a href="http://www.bysocket.com/wp-content/uploads/2015/07/session2.png" rel="nofollow"><img title="session2" alt="session2" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12132705_BUo4.png"></a></span> </p>
+<p> <span></span> </p> 
+<p> <span>下面，泥瓦匠重新访问了这个地址：</span> </p> 
+<span style="background-color:#ffffff;"> <p> ① 再次请求 </p> <p> <a href="http://www.bysocket.com/wp-content/uploads/2015/07/image2.png" rel="nofollow"><img title="image" alt="image" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12132706_4Vw0.png"></a> </p> <p> 此时，请求会有Cookie值：<strong>JSESSIONID=… 该值传给服务端</strong> </p> <p> <strong>② 容器获取SessionId<br> ，关联HttpSession</strong> </p> <p> <strong>③ 此时响应无SetCookie</strong> </p> <p> 如图： </p> <p> <a href="http://www.bysocket.com/wp-content/uploads/2015/07/image3.png" rel="nofollow"><img title="image" alt="image" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12132708_O68y.png"></a> </p> <p> 但是这次请求，我们响应出上一次请求set的值。Jeff 就打印出来了！ </p> <p> <strong><br> </strong> </p> <p> 关于服务端获取session，也就是从请求中获取session对象，容器会帮你根据Cookie找到唯一的session对象。 </p> <p> <strong>泥瓦匠记忆小抄：Seesion机制，记住两次请求图即可。</strong> </p> </span>
+<p> <span></span> </p> 
+<h1> 四、补充 </h1> 
+<p> <span>点到为止哈~ 以后详细写。此图来自网络<br> </span> </p> 
+<p> <a href="http://s1.51cto.com/wyfs02/M02/12/12/wKiom1L4OH2S5JwHAAA5g2I22fE912.png" rel="nofollow"><img title="wkiom1l4oh2s5jwhaaa5g2i22fe912" alt="wkiom1l4oh2s5jwhaaa5g2i22fe912" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/12132710_YafT.png"></a><span><br> </span> </p>
+<p> <span>上图Bad guy，就是攻击者。跨站请求伪造，伪造用户请求来对服务器数据或者是用户等造成威胁。web安全也就是从这些基础中慢慢提升。</span> </p> 
+<p> <span><br> </span> </p> 
+<h1> 五、总结 </h1> 
+<blockquote> 
+ <p> 1、大概地描述了session的工作<strong>机制</strong>，和一些<strong>安全</strong>相关。记住Seesion是什么，怎么用，在服务端客户端之间怎么传输即可。 </p> 
+ <p> 2、泥瓦匠学习的<strong>代码</strong>都在<strong>github</strong>上（同步osc git），欢迎大家点star，提意见，一起进步。<strong><em>地址：</em></strong><a href="https://github.com/JeffLi1993" rel="nofollow"><strong><em>https://github.com/JeffLi1993</em></strong></a> </p> 
+</blockquote> 
+<p> <span></span> </p> 
+<p> <span>Writer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ：BYSocket（泥沙砖瓦浆木匠）</span> </p> 
+<p> <span>微&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 博：<a href="http://weibo.com/u/2163271402" rel="nofollow">BYSocket</a></span> </p> 
+<p> <span>豆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 瓣：<a href="http://www.douban.com/people/jeffli/" rel="nofollow">BYSocket</a></span> </p> 
+<p> <span>FaceBook：<a href="https://www.facebook.com/qiangqiang.li.1" rel="nofollow">BYSocket</a></span> </p> 
+<p> <span>Twitter&nbsp;&nbsp;&nbsp; ：<a href="https://twitter.com/BYSocket" rel="nofollow">BYSocket</a></span> </p>]]></body>
+		<author><![CDATA[泥沙砖瓦浆木匠]]></author>
+		<authorid>1391482</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-12 13:27:09</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

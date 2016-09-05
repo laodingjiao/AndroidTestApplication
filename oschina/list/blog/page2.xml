@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <pagesize>20</pagesize>
+  <blogs>
+  					<blog>
+		<id>479373</id>
+		<title><![CDATA[100万并发连接服务器笔记之Java Netty处理1M连接会怎么样]]></title>
+        <body><![CDATA[前言 每一种该语言在某些极限情况下的表现一般都不太一样，那么我常用的...]]></body>
+		<url><![CDATA[http://my.oschina.net/vdroid/blog/479373]]></url>
+        <pubDate>2015-07-16 16:31:01</pubDate>
+        <authoruid>927877</authoruid>
+        <authorname><![CDATA[今幕明]]></authorname>
+        <commentCount>1</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479368</id>
+		<title><![CDATA[坑爹的MongoDB]]></title>
+        <body><![CDATA[无法远程连接？！认证失败？！     为了提高远程访问的安全性，按照M...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/699015/blog/479368]]></url>
+        <pubDate>2015-07-16 16:25:31</pubDate>
+        <authoruid>699015</authoruid>
+        <authorname><![CDATA[空心大白菜]]></authorname>
+        <commentCount>1</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479364</id>
+		<title><![CDATA[Spring MVC请求处理流程及源码分析]]></title>
+        <body><![CDATA[从接受请求到返回响应，Spring MVC框架的众多组件都伸胳膊挽袖子行动起来...]]></body>
+		<url><![CDATA[http://my.oschina.net/lilloo/blog/479364]]></url>
+        <pubDate>2015-07-16 16:15:21</pubDate>
+        <authoruid>2416687</authoruid>
+        <authorname><![CDATA[傳_奇]]></authorname>
+        <commentCount>1</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479363</id>
+		<title><![CDATA[为工程添加组件+改写JSP页面为HTML文件]]></title>
+        <body><![CDATA[主要代码 一   配置文件——追加配置项 springMVC-servlet.xml &lt;!-- t...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2411768/blog/479363]]></url>
+        <pubDate>2015-07-16 16:11:47</pubDate>
+        <authoruid>2411768</authoruid>
+        <authorname><![CDATA[my_only]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479336</id>
+		<title><![CDATA[Java-No.09 一致性哈希算法原理及实现]]></title>
+        <body><![CDATA[ 一致性哈希算法在1997年由麻省理工学院提出的一种分布式哈希（DHT）实...]]></body>
+		<url><![CDATA[http://my.oschina.net/shma1664/blog/479336]]></url>
+        <pubDate>2015-07-16 15:14:46</pubDate>
+        <authoruid>239973</authoruid>
+        <authorname><![CDATA[蓝汀华韶]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479335</id>
+		<title><![CDATA[方法对头，报表模板维护其实很简单]]></title>
+        <body><![CDATA[经常我们会遇到这样的一种情况，别人做的一张很复杂的报表模板，我们拿到...]]></body>
+		<url><![CDATA[http://my.oschina.net/jiuyuenihao/blog/479335]]></url>
+        <pubDate>2015-07-16 15:13:16</pubDate>
+        <authoruid>2365939</authoruid>
+        <authorname><![CDATA[九月你好123]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479324</id>
+		<title><![CDATA[MYSQL_连接字符串函数]]></title>
+        <body><![CDATA[1、concat ()函数 1.1 MySQL的concat函数可以连接一个或者多个字符串,如...]]></body>
+		<url><![CDATA[http://my.oschina.net/miaowang/blog/479324]]></url>
+        <pubDate>2015-07-16 14:59:50</pubDate>
+        <authoruid>1425152</authoruid>
+        <authorname><![CDATA[喵王不瞌睡]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479318</id>
+		<title><![CDATA[面试宝典之基本的C#面试问答]]></title>
+        <body><![CDATA[下文是基本的C#面试问答清单。这些面试问题简单、直接了当，涵盖了C#最基...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2285044/blog/479318]]></url>
+        <pubDate>2015-07-16 14:49:54</pubDate>
+        <authoruid>2285044</authoruid>
+        <authorname><![CDATA[拉偶有所依]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479314</id>
+		<title><![CDATA[张升：农业银行的分布式架构应用实践与展望]]></title>
+        <body><![CDATA[近年来，以阿里为代表的互联网企业提出的“去IOE”，在业界引起了广泛的...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/658658/blog/479314]]></url>
+        <pubDate>2015-07-16 14:46:12</pubDate>
+        <authoruid>658658</authoruid>
+        <authorname><![CDATA[天天顺利]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479313</id>
+		<title><![CDATA[js操作select]]></title>
+        <body><![CDATA[1.select默认是inline元素，你可以   select {     display:block;...]]></body>
+		<url><![CDATA[http://my.oschina.net/yonghan/blog/479313]]></url>
+        <pubDate>2015-07-16 14:45:49</pubDate>
+        <authoruid>572288</authoruid>
+        <authorname><![CDATA[mocha]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479306</id>
+		<title><![CDATA[Wireshark数据抓包教程之认识捕获分析数据包]]></title>
+        <body><![CDATA[Wireshark数据抓包教程之认识捕获分析数据包 认识Wireshark捕获数据包 ...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/1585857/blog/479306]]></url>
+        <pubDate>2015-07-16 14:36:04</pubDate>
+        <authoruid>1585857</authoruid>
+        <authorname><![CDATA[大学霸]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479304</id>
+		<title><![CDATA[easyUI combotree 多选取值]]></title>
+        <body><![CDATA[1，直接获取：      单选：$("#id").combotree("getValue")    ...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2259804/blog/479304]]></url>
+        <pubDate>2015-07-16 14:34:30</pubDate>
+        <authoruid>2259804</authoruid>
+        <authorname><![CDATA[hbear]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479291</id>
+		<title><![CDATA[计算机概论]]></title>
+        <body><![CDATA[1、计算机的五大单元： 2、CPU分:精简指令集risc,复杂指令集cisc x86架...]]></body>
+		<url><![CDATA[http://my.oschina.net/overnight/blog/479291]]></url>
+        <pubDate>2015-07-16 14:17:52</pubDate>
+        <authoruid>2282370</authoruid>
+        <authorname><![CDATA[张铭1]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479290</id>
+		<title><![CDATA[SVN使用教程总结]]></title>
+        <body><![CDATA[SVN简介：  为什么要使用SVN？       程序员在编写程序的过程中，...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/1266171/blog/479290]]></url>
+        <pubDate>2015-07-16 14:17:38</pubDate>
+        <authoruid>1266171</authoruid>
+        <authorname><![CDATA[james_laughing]]></authorname>
+        <commentCount>1</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479285</id>
+		<title><![CDATA[Sonar-project.properties配置]]></title>
+        <body><![CDATA[#required metadata
+#projectKey项目的唯一标识，不能重复
+sonar.projec...]]></body>
+		<url><![CDATA[http://my.oschina.net/jiangbianwanghai/blog/479285]]></url>
+        <pubDate>2015-07-16 13:59:01</pubDate>
+        <authoruid>199060</authoruid>
+        <authorname><![CDATA[江边望海]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479282</id>
+		<title><![CDATA[玩转iOS 9的UIDynamics]]></title>
+        <body><![CDATA[UIDynamics在iOS7 SDK中是一个受欢迎的新加特性， 它基本上是一个支持U...]]></body>
+		<url><![CDATA[http://my.oschina.net/gejw0623/blog/479282]]></url>
+        <pubDate>2015-07-16 13:50:40</pubDate>
+        <authoruid>1048271</authoruid>
+        <authorname><![CDATA[包灬子]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>0</documentType>
+	</blog>
+						<blog>
+		<id>479269</id>
+		<title><![CDATA[Mac 下 Laravel 创建 新项目]]></title>
+        <body><![CDATA[PHP Warning: PHP Startup: Unable to load dynamic library '/usr/lib/...]]></body>
+		<url><![CDATA[http://my.oschina.net/qqwang/blog/479269]]></url>
+        <pubDate>2015-07-16 13:16:35</pubDate>
+        <authoruid>269285</authoruid>
+        <authorname><![CDATA[王纪光]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479267</id>
+		<title><![CDATA[关于Linux下的system调用]]></title>
+        <body><![CDATA[曾经的曾经，被system()函数折磨过，之所以这样，是因为对system()函数了...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2408078/blog/479267]]></url>
+        <pubDate>2015-07-16 13:11:19</pubDate>
+        <authoruid>2408078</authoruid>
+        <authorname><![CDATA[有些服务器]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479259</id>
+		<title><![CDATA[Tomcat内存溢出]]></title>
+        <body><![CDATA[一、解压版tomcat 启动startup.bat 1.java.lang.OutOfMemoryError: Jav...]]></body>
+		<url><![CDATA[http://my.oschina.net/hcliu/blog/479259]]></url>
+        <pubDate>2015-07-16 12:59:48</pubDate>
+        <authoruid>2336185</authoruid>
+        <authorname><![CDATA[思悟修]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479257</id>
+		<title><![CDATA[MySQL 出现死锁的分析和解决方案]]></title>
+        <body><![CDATA[异常日志 ### Error updating database.  Cause: com.mysql.jdbc.excep...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/1244507/blog/479257]]></url>
+        <pubDate>2015-07-16 12:47:42</pubDate>
+        <authoruid>1244507</authoruid>
+        <authorname><![CDATA[黄途文]]></authorname>
+        <commentCount>3</commentCount>
+		<documentType>1</documentType>
+	</blog>
+		    </blogs>
+</oschina>	

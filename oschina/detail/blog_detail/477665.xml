@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>477665</id>
+		<title><![CDATA[#Sora#openstack基础库stevedore试用总结]]></title>
+		<url><![CDATA[http://my.oschina.net/hochikong/blog/477665]]></url>
+		<where><![CDATA[综合实践]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0712/223934_yNsA_987833.jpg"></p>
+<p><br></p> 
+<p><br></p> 
+<p>什么是stevedore？</p> 
+<p>stevedore是建立在setuptools的entry point的功能上的，用于python程序动态加载代码，在openstack中被多个组件使用：比如ceilometer，neutron的plugin。当然，你可以直接使用</p> 
+<p>python的某些黑魔法实现插件的加载，但太原始了。stevedore基于entry point提供了更高层次的封装。</p> 
+<p>stevedore的官方文档在此：<a href="http://docs.openstack.org/developer/stevedore/" rel="nofollow">http://docs.openstack.org/developer/stevedore/</a> </p> 
+<p>学习和入门setuptools：<a href="http://www.360doc.com/content/14/0306/11/13084517_358166737.shtml" rel="nofollow">http://www.360doc.com/content/14/0306/11/13084517_358166737.shtml</a> </p> 
+<p>官方文档的部分翻译：<a href="http://www.360doc.com/content/14/0429/19/9482_373285413.shtml" rel="nofollow">http://www.360doc.com/content/14/0429/19/9482_373285413.shtml</a> </p> 
+<p>来自华为孔令贤（源地址非该人博客）的setup.py详解：<a href="http://blog.sina.com.cn/s/blog_4951301d0101etvj.html" rel="nofollow">http://blog.sina.com.cn/s/blog_4951301d0101etvj.html</a> </p> 
+<p><br></p> 
+<p><br></p> 
+<p>偶计划在sora项目中引入stevedore与oslo.config简化某些开发的组件，先是测试了stevedore，写了个简单的scheduler插件</p> 
+<p>环境准备：<br></p> 
+<p>安装stevedore库，及组织相关目录</p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">pip&nbsp;install&nbsp;stevedore
+mkdir&nbsp;sora
+cd&nbsp;sora
+mkdir&nbsp;scheduler&nbsp;&nbsp;#scheduler在sora目录中</pre> 
+<p>构建这样一个目录树：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0712/224328_TTAH_987833.png"></p>
+<p><br></p> 
+<p>步骤：</p> 
+<p>创建一个抽象类scheduler，新的plugin要继承scheduler并重写相关方法scheduler</p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#sora/scheduler/base.py
+import&nbsp;abc
+
+class&nbsp;scheduler(object):
+&nbsp;&nbsp;&nbsp;__metaclass__&nbsp;=&nbsp;abc.ABCMeta
+
+&nbsp;&nbsp;&nbsp;@abc.abstractmethod
+&nbsp;&nbsp;&nbsp;def&nbsp;scheduler(self,data):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass</pre> 
+<p><br></p> 
+<p>继承base类创建插件simple与memory</p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#sora/scheduler/memory.py
+import&nbsp;base
+class&nbsp;memoryscheduler(base.scheduler):
+&nbsp;&nbsp;def&nbsp;scheduler(self,data):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;=&nbsp;data[max(data['memory'])]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;id</pre> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#sora/scheduler/simple.py
+import&nbsp;base
+import&nbsp;random
+class&nbsp;simplescheduler(base.scheduler):
+&nbsp;&nbsp;def&nbsp;scheduler(self,data):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;=&nbsp;data[random.choice(data['memory'])]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;id</pre> 
+<p>simple插件是随机选择一个节点id，而memory则选择内存剩余最多的节点id</p> 
+<p><br></p> 
+<p>编写setup.py</p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">#sora/setup.py
+from&nbsp;setuptools&nbsp;import&nbsp;setup,&nbsp;find_packages
+setup(
+&nbsp;&nbsp;&nbsp;&nbsp;name='sora-scheduler',
+&nbsp;&nbsp;&nbsp;&nbsp;version='1.0',
+&nbsp;&nbsp;&nbsp;&nbsp;description='sora.scheduler',
+&nbsp;&nbsp;&nbsp;&nbsp;author='hochikong',
+&nbsp;&nbsp;&nbsp;&nbsp;author_email='hochikong',
+&nbsp;&nbsp;&nbsp;&nbsp;platforms=['Any'],
+&nbsp;&nbsp;&nbsp;&nbsp;scripts=[],
+&nbsp;&nbsp;&nbsp;#&nbsp;provides=['sora.scheduler',
+&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;],
+&nbsp;&nbsp;&nbsp;&nbsp;packages=find_packages(),
+&nbsp;&nbsp;&nbsp;&nbsp;include_package_data=True,
+&nbsp;&nbsp;&nbsp;&nbsp;entry_points={
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'sora.scheduler':&nbsp;[
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'memorybase&nbsp;=&nbsp;scheduler.memory:memoryscheduler',
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'randombase&nbsp;=&nbsp;scheduler.simple:simplescheduler',
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;],
+&nbsp;&nbsp;&nbsp;&nbsp;},
+&nbsp;&nbsp;&nbsp;&nbsp;zip_safe=False,
+)</pre> 
+<p><br></p> 
+<p>安装自己编写的包：</p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">root@workgroup1:~/sora#&nbsp;python&nbsp;setup.py&nbsp;install
+running&nbsp;install
+running&nbsp;bdist_egg
+running&nbsp;egg_info
+creating&nbsp;sora_scheduler.egg-info
+writing&nbsp;sora_scheduler.egg-info/PKG-INFO
+writing&nbsp;top-level&nbsp;names&nbsp;to&nbsp;sora_scheduler.egg-info/top_level.txt
+writing&nbsp;dependency_links&nbsp;to&nbsp;sora_scheduler.egg-info/dependency_links.txt
+writing&nbsp;entry&nbsp;points&nbsp;to&nbsp;sora_scheduler.egg-info/entry_points.txt
+writing&nbsp;manifest&nbsp;file&nbsp;'sora_scheduler.egg-info/SOURCES.txt'
+reading&nbsp;manifest&nbsp;file&nbsp;'sora_scheduler.egg-info/SOURCES.txt'
+writing&nbsp;manifest&nbsp;file&nbsp;'sora_scheduler.egg-info/SOURCES.txt'
+installing&nbsp;library&nbsp;code&nbsp;to&nbsp;build/bdist.linux-x86_64/egg
+running&nbsp;install_lib
+running&nbsp;build_py
+creating&nbsp;build
+creating&nbsp;build/lib.linux-x86_64-2.7
+creating&nbsp;build/lib.linux-x86_64-2.7/scheduler
+copying&nbsp;scheduler/__init__.py&nbsp;-&gt;&nbsp;build/lib.linux-x86_64-2.7/scheduler
+copying&nbsp;scheduler/base.py&nbsp;-&gt;&nbsp;build/lib.linux-x86_64-2.7/scheduler
+copying&nbsp;scheduler/memory.py&nbsp;-&gt;&nbsp;build/lib.linux-x86_64-2.7/scheduler
+copying&nbsp;scheduler/simple.py&nbsp;-&gt;&nbsp;build/lib.linux-x86_64-2.7/scheduler
+creating&nbsp;build/bdist.linux-x86_64
+creating&nbsp;build/bdist.linux-x86_64/egg
+creating&nbsp;build/bdist.linux-x86_64/egg/scheduler
+copying&nbsp;build/lib.linux-x86_64-2.7/scheduler/__init__.py&nbsp;-&gt;&nbsp;build/bdist.linux-x86_64/egg/scheduler
+copying&nbsp;build/lib.linux-x86_64-2.7/scheduler/base.py&nbsp;-&gt;&nbsp;build/bdist.linux-x86_64/egg/scheduler
+copying&nbsp;build/lib.linux-x86_64-2.7/scheduler/memory.py&nbsp;-&gt;&nbsp;build/bdist.linux-x86_64/egg/scheduler
+copying&nbsp;build/lib.linux-x86_64-2.7/scheduler/simple.py&nbsp;-&gt;&nbsp;build/bdist.linux-x86_64/egg/scheduler
+byte-compiling&nbsp;build/bdist.linux-x86_64/egg/scheduler/__init__.py&nbsp;to&nbsp;__init__.pyc
+byte-compiling&nbsp;build/bdist.linux-x86_64/egg/scheduler/base.py&nbsp;to&nbsp;base.pyc
+byte-compiling&nbsp;build/bdist.linux-x86_64/egg/scheduler/memory.py&nbsp;to&nbsp;memory.pyc
+byte-compiling&nbsp;build/bdist.linux-x86_64/egg/scheduler/simple.py&nbsp;to&nbsp;simple.pyc
+creating&nbsp;build/bdist.linux-x86_64/egg/EGG-INFO
+copying&nbsp;sora_scheduler.egg-info/PKG-INFO&nbsp;-&gt;&nbsp;build/bdist.linux-x86_64/egg/EGG-INFO
+copying&nbsp;sora_scheduler.egg-info/SOURCES.txt&nbsp;-&gt;&nbsp;build/bdist.linux-x86_64/egg/EGG-INFO
+copying&nbsp;sora_scheduler.egg-info/dependency_links.txt&nbsp;-&gt;&nbsp;build/bdist.linux-x86_64/egg/EGG-INFO
+copying&nbsp;sora_scheduler.egg-info/entry_points.txt&nbsp;-&gt;&nbsp;build/bdist.linux-x86_64/egg/EGG-INFO
+copying&nbsp;sora_scheduler.egg-info/not-zip-safe&nbsp;-&gt;&nbsp;build/bdist.linux-x86_64/egg/EGG-INFO
+copying&nbsp;sora_scheduler.egg-info/top_level.txt&nbsp;-&gt;&nbsp;build/bdist.linux-x86_64/egg/EGG-INFO
+creating&nbsp;dist
+creating&nbsp;'dist/sora_scheduler-1.0-py2.7.egg'&nbsp;and&nbsp;adding&nbsp;'build/bdist.linux-x86_64/egg'&nbsp;to&nbsp;it
+removing&nbsp;'build/bdist.linux-x86_64/egg'&nbsp;(and&nbsp;everything&nbsp;under&nbsp;it)
+Processing&nbsp;sora_scheduler-1.0-py2.7.egg
+creating&nbsp;/usr/local/lib/python2.7/dist-packages/sora_scheduler-1.0-py2.7.egg
+Extracting&nbsp;sora_scheduler-1.0-py2.7.egg&nbsp;to&nbsp;/usr/local/lib/python2.7/dist-packages
+Adding&nbsp;sora-scheduler&nbsp;1.0&nbsp;to&nbsp;easy-install.pth&nbsp;file
+
+Installed&nbsp;/usr/local/lib/python2.7/dist-packages/sora_scheduler-1.0-py2.7.egg
+Processing&nbsp;dependencies&nbsp;for&nbsp;sora-scheduler==1.0
+Finished&nbsp;processing&nbsp;dependencies&nbsp;for&nbsp;sora-scheduler==1.0</pre> 
+<p><br></p> 
+<p>尝试手动加载插件：</p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">root@workgroup1:~/sora#&nbsp;python
+Python&nbsp;2.7.6&nbsp;(default,&nbsp;Mar&nbsp;22&nbsp;2014,&nbsp;22:59:56)&nbsp;
+[GCC&nbsp;4.8.2]&nbsp;on&nbsp;linux2
+Type&nbsp;"help",&nbsp;"copyright",&nbsp;"credits"&nbsp;or&nbsp;"license"&nbsp;for&nbsp;more&nbsp;information.
+&gt;&gt;&gt;&nbsp;from&nbsp;scheduler.memory&nbsp;import&nbsp;memoryscheduler
+&gt;&gt;&gt;&nbsp;dt&nbsp;=&nbsp;{13:'id1',324:'id2',434:'id3','memory':[13,324,434]}
+&gt;&gt;&gt;&nbsp;driver&nbsp;=&nbsp;memoryscheduler()
+&gt;&gt;&gt;&nbsp;driver.scheduler(dt)
+'id3'
+&gt;&gt;&gt;</pre> 
+<p>不过手动加载并没有太大意义</p> 
+<p><br></p> 
+<p>使用stevedore的drivermanager：</p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">&gt;&gt;&gt;&nbsp;from&nbsp;stevedore&nbsp;import&nbsp;driver
+&gt;&gt;&gt;&nbsp;dt&nbsp;=&nbsp;{13:'id1',324:'id2',434:'id3','memory':[13,324,434]}
+&gt;&gt;&gt;&nbsp;mgr&nbsp;=&nbsp;driver.DriverManager(
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;namespace='sora.scheduler',
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name='randombase',
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invoke_on_load=True,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#设置为true，即载入后自动实例化插件类，如果是函数，则调用
+...&nbsp;)
+&gt;&gt;&gt;&nbsp;mgr.driver.scheduler(dt)
+'id3'
+&gt;&gt;&gt;&nbsp;mgr.driver.scheduler(dt)
+'id2'
+&gt;&gt;&gt;&nbsp;mgr.driver.scheduler(dt)
+'id3'
+&gt;&gt;&gt;&nbsp;mgr.driver.scheduler(dt)
+'id2'
+&gt;&gt;&gt;&nbsp;mgr.driver.scheduler(dt)
+'id1'
+&gt;&gt;&gt;</pre> 
+<p>这里我导入了randombase，怎样调用plugin里的方法很明显了<br></p> 
+<p><br></p> 
+<p>顺带检查下python中我的包的安装状况：</p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">root@workgroup1:~#&nbsp;cd&nbsp;/usr/local/lib/python2.7/dist-packages/
+root@workgroup1:/usr/local/lib/python2.7/dist-packages#&nbsp;ls
+amqp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OpenSSL
+amqp-1.4.6.dist-info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pbr
+anyjson&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pbr-1.3.0.dist-info
+anyjson-0.3.3.egg-info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pika
+backports&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pika-0.9.14.egg-info
+backports.ssl_match_hostname-3.4.0.2.egg-info&nbsp;&nbsp;psutil
+billiard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;psutil-2.2.1.egg-info
+billiard-3.3.0.19.egg-info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_psutil_linux.so
+_billiard.so&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_psutil_posix.so
+bottle-0.12.8.egg-info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pymongo
+bottle.py&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pymongo-2.8.egg-info
+bottle.pyc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pyOpenSSL-0.15.1.dist-info
+bson&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;python_etcd-0.3.3.egg-info
+celery&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pytz
+celery-3.1.17.dist-info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pytz-2015.2.dist-info
+docker&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;six-1.9.0.dist-info
+docker_py-1.0.0.egg-info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;six.py
+easy-install.pth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;six.pyc
+etcd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sora_scheduler-1.0-py2.7.egg
+eventlet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQLAlchemy-0.9.9-py2.7-linux-x86_64.egg
+eventlet-0.17.1.dist-info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stevedore
+funtests&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stevedore-1.6.0.dist-info
+glances&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tests
+Glances-2.3.egg-info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;virtualenv-12.0.7.dist-info
+greenlet-0.4.5.egg-info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;virtualenv.py
+greenlet.so&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;virtualenv.pyc
+gridfs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;virtualenv_support
+kombu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;websocket
+kombu-3.0.24.dist-info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;websocket_client-0.25.0.egg-info</pre> 
+<p><br></p> 
+<p>可以看到里面有个sora_scheduler-1.0-py2.7.egg目录，查看一下：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0712/230609_Jj4L_987833.png"></p>
+<p>我不太清楚为什么python在导入scheduler模块时，并不需要指明sora_scheduler-1.0-py2.7.egg，可能与egg有关，执行import scheduler时，导入的是sora_scheduler-1.0-py2.7.egg目录下</p> 
+<p>的scheduler包，同样的还有SQLAlchemy，有一个SQLAlchemy-0.9.9-py2.7-linux-x86_64.egg,导入时只需执行import sqlalchemy</p> 
+<p><br></p> 
+<p>疑问：</p> 
+<p>可能有人会问，如果我想添加新的插件要怎么办，我想，最好的方法就是修改setup.py，更新安装一次该包即可</p> 
+<p><br></p> 
+<p>参考：</p> 
+<p><a href="http://docs.openstack.org/developer/stevedore/" rel="nofollow">http://docs.openstack.org/developer/stevedore/</a> </p> 
+<p><a href="http://www.360doc.com/content/14/0306/11/13084517_358166737.shtml" rel="nofollow">http://www.360doc.com/content/14/0306/11/13084517_358166737.shtml</a> </p> 
+<p><a href="http://www.360doc.com/content/14/0429/19/9482_373285413.shtml" rel="nofollow">http://www.360doc.com/content/14/0429/19/9482_373285413.shtml</a> </p> 
+<p><br></p>]]></body>
+		<author><![CDATA[Hochikong]]></author>
+		<authorid>987833</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-12 23:15:40</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

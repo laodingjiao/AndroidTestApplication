@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>471859</id>
+		<title><![CDATA[打造一个全命令行的Android构建系统]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2285044/blog/471859]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>10</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">IDE都是给小白<a target="_blank" href="http://t.cn/zQ6JvmN" rel="nofollow">程序员</a>的，大牛级别的程序员一定是命令行控，终端控，你看大牛都是使用vim,emacs 就一切搞定”</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">这话说的虽然有些绝对，但是也不无道理，做开发这行要想效率高，自动化还真是缺少不了命令行工具，因为只有命令行才是最佳的人机交互工具。其实IDE也是底层也是调用命令行工具而已，只不过给普通开发者呈现一个更友好的开发界面。这里可不是宣扬让大家放弃IDE都改命令行，只是每种事物都有他存在的理由，无论是编程语言还是工具都是一个原则 “没有最好的，只有最合适的”。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">前一段时间做一个人产品，发布产品的时候为了统计各渠道流量免不了要构建不通的渠道包，你懂得国内渠道上百个，靠IDE编译打包非吐血不可。这些重复劳动最适合交个程序来做，很多程序员想不明白这个问题，宁愿把大量的精力时间花在业务上，却不知道用工具<a target="_blank" href="http://blog.csdn.net/lz201234/article/details/41800455" rel="nofollow">提高工作效率</a>。在这里写一篇简单的教程，告诉大家怎么脱离IDE环境完成一个android项目的编译构建，有了这基础开发什么自动化构建工具都不是什么难事了, 前一阵子做的一个打包html5应用的在线工具</span><a target="_blank" href="http://xbrowser.me/appbuilder" rel="nofollow"><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">AppBuilder</span></a><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">就是基于命令行构建完成的。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">说到命令行自然是不需要图形界面，所以Android SDK的安装下载自然都是在终端上进行。下面是本文中使用的一些SDK和基本环境。</span></p> 
+<ul> 
+ <li><p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">ubuntu server 14.04 (64位)</span></p></li> 
+ <li><p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">JDK 1.7</span></p></li> 
+ <li><p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">android-sdk_r24.0</span></p></li> 
+ <li><p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">gradle-2.2.1</span></p></li> 
+</ul> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">进入正题，接下来一步一步介绍如何安装配置一个命令行下的编译构建系统.</span></p> 
+<h2><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">step 1 安装 JDK 环境</span></h2> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">配合android的JDK最好选用JDK官方版本而不是Open JDK,下面是在unbuntu下安装JDK 1.7的方法。</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">sudo&nbsp;add-apt-repository&nbsp;ppa:webupd8team/java
+sudo&nbsp;apt-get&nbsp;update
+sudo&nbsp;apt-get&nbsp;install&nbsp;oracle-java7-installer</pre> 
+<h2><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">step 2 安装 Android SDK</span></h2> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">android sdk 工具包的一些命令行工具是基于32位系统的，在64为平台运行32程序必须安装 i386 的一些依赖库,方法如下：</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">sudo&nbsp;dpkg&nbsp;--add-architecture&nbsp;i386
+sudo&nbsp;apt-get&nbsp;update
+sudo&nbsp;apt-get&nbsp;install&nbsp;libc6:i386&nbsp;libncurses5:i386&nbsp;libstdc++6:i386&nbsp;lib32z1</pre> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">安装完成32位的依赖库后，我们使用wget 去官方下载最新的linux下android SDK包。</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">cd&nbsp;~
+wget&nbsp;http://dl.google.com/android/android-sdk_r24.0.1-linux.tgz
+tar&nbsp;xvzf&nbsp;android-sdk_r24.0.1-linux.tgz</pre> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">编辑 .profile 或者 .bash_profile 把下面的目录增加到 path的搜索路径中，确保android SDK的的一些命令工具可以直接在终端使用，比如 adb 命令。</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">ANDROID_HOME=$HOME/android-sdk-linux
+export&nbsp;PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+exprot&nbsp;ANDROID_HOME</pre> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">使环境变量生效</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">source&nbsp;~/.profile</pre> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">环境变量生效后，你可以使用android命令 列出sdk相关的列表，以便我们选择和自己项目匹配的SDK版本。(刚才只是安装了最基础的SDK，要完全满足你的开发环境需要还得从下面的列表中选择你需要的SDK和工具更新下载)</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">android&nbsp;list&nbsp;sdk&nbsp;--all</pre> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">输出如下所示：</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">1-&nbsp;Android&nbsp;SDK&nbsp;Tools,&nbsp;revision&nbsp;24.0.1
+&nbsp;&nbsp;&nbsp;2-&nbsp;Android&nbsp;SDK&nbsp;Platform-tools,&nbsp;revision&nbsp;21
+&nbsp;&nbsp;&nbsp;3-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;21.1.2
+&nbsp;&nbsp;&nbsp;4-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;21.1.1
+&nbsp;&nbsp;&nbsp;5-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;21.1
+&nbsp;&nbsp;&nbsp;6-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;21.0.2
+&nbsp;&nbsp;&nbsp;7-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;21.0.1
+&nbsp;&nbsp;&nbsp;8-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;21
+&nbsp;&nbsp;&nbsp;9-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;20
+&nbsp;&nbsp;10-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;19.1
+&nbsp;&nbsp;11-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;19.0.3
+&nbsp;&nbsp;12-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;19.0.2
+&nbsp;&nbsp;13-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;19.0.1
+&nbsp;&nbsp;14-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;19
+&nbsp;&nbsp;15-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;18.1.1
+&nbsp;&nbsp;16-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;18.1
+&nbsp;&nbsp;17-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;18.0.1
+&nbsp;&nbsp;18-&nbsp;Android&nbsp;SDK&nbsp;Build-tools,&nbsp;revision&nbsp;17
+&nbsp;&nbsp;19-&nbsp;Documentation&nbsp;for&nbsp;Android&nbsp;SDK,&nbsp;API&nbsp;21,&nbsp;revision&nbsp;1
+&nbsp;&nbsp;20-&nbsp;SDK&nbsp;Platform&nbsp;Android&nbsp;5.0.1,&nbsp;API&nbsp;21,&nbsp;revision&nbsp;2
+&nbsp;&nbsp;21-&nbsp;SDK&nbsp;Platform&nbsp;Android&nbsp;4.4W.2,&nbsp;API&nbsp;20,&nbsp;revision&nbsp;2
+&nbsp;&nbsp;22-&nbsp;SDK&nbsp;Platform&nbsp;Android&nbsp;4.4.2,&nbsp;API&nbsp;19,&nbsp;revision&nbsp;4
+&nbsp;&nbsp;23-&nbsp;SDK&nbsp;Platform&nbsp;Android&nbsp;4.3.1,&nbsp;API&nbsp;18,&nbsp;revision&nbsp;3
+&nbsp;&nbsp;24-&nbsp;SDK&nbsp;Platform&nbsp;Android&nbsp;4.2.2,&nbsp;API&nbsp;17,&nbsp;revision&nbsp;3
+&nbsp;&nbsp;....</pre> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">这里包括不同的Android API 版本和不同的构建工具，选择你想要安装项目的序号，这里我想安装 build tools 19.1 ,build tools 21 及 android 4.2.2以上的SDK所以选择序号 “1,2,3,20,21,22,23”</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">android&nbsp;update&nbsp;sdk&nbsp;-u&nbsp;-a&nbsp;-t&nbsp;&nbsp;1,2,3,10,20,21,22,23</pre> 
+<h2><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">step 3 安装gradle构建环境</span></h2> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">使用Ant构建项目已经是过去式了，这里我们选用更加强悍和方便的构建工具gradle 。</span></p> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">下载 grdle 二进制包</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">cd&nbsp;~
+wget&nbsp;https://services.gradle.org/distributions/gradle-2.2.1-bin.zip</pre> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">释放到本地Home目录,创建名字为”gradle”的符号链接，符号连接的好处是方便版本更新，有了新的版本直接修改符号链接即可。</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">unzip&nbsp;gradle-2.2.1-bin.zip&nbsp;
+&nbsp;ln&nbsp;-s&nbsp;gradle-2.2.1&nbsp;gradle</pre> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">配置gradle环境变量并使其生效,编辑 ~/.profje 文件增加下面内容</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">GRADLE_HOME=$HOME/gradle
+export&nbsp;PATH=$PATH:$GRADLE_HOME/bin</pre> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">保存后使环境变量使其生效</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">source&nbsp;~/.profile</pre> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">环境变量生效后你可以在终端敲入’gradle’命令并运行用以检测gradle是否安装成功。</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">gradle</pre> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">如果安装配置的没有问题将会提示类似下面的信息</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">:help
+
+Welcome&nbsp;to&nbsp;Gradle&nbsp;2.2.1
+
+To&nbsp;run&nbsp;a&nbsp;build,&nbsp;run&nbsp;gradle&nbsp;&lt;task&gt;&nbsp;...
+
+To&nbsp;see&nbsp;a&nbsp;list&nbsp;of&nbsp;available&nbsp;tasks,&nbsp;run&nbsp;gradle&nbsp;tasks
+
+To&nbsp;see&nbsp;a&nbsp;list&nbsp;of&nbsp;command-line&nbsp;options,&nbsp;run&nbsp;gradle&nbsp;--help
+
+BUILD&nbsp;SUCCESSFUL</pre> 
+<h2><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">验证是否可以编译android 应用</span></h2> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">完成以上的环境配置，我们的一个Android下的基础构建环境就全部配置好了，接下来做的事情就是尝试使用gradle 编译一个android 应用出来验证我的编译环境是否OK,下载我写的一个gadle demo 例子进行测试。</span></p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">git&nbsp;clone&nbsp;https://github.com/examplecode/gradle_demo
+cd&nbsp;gradle_demo/hello-apk-with-gradle
+gradle&nbsp;build</pre> 
+<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">一切顺利的话，编译完成后，你会在 “hello-apk-with-gradle/build/outputs/apk” 目录下找到编译好的apk包。至于如何整合到你自己的项目中去，只需要仿照例子给你的项目提供一个”gradle.build” 脚本即可。</span></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[拉偶有所依]]></author>
+		<authorid>2285044</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-29 11:02:05</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

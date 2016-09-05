@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>        <oschina>
+    <allCount>5</allCount>
+    <pagesize>5</pagesize>
+    <comments>
+                    												                                                <comment>
+                <id>6065226</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/58/117371_50.jpg?t=1384479270000</portrait>
+                <author><![CDATA[进击的代码]]></author>
+                <authorid>117371</authorid>
+                <content><![CDATA[@王爵 @叶秀兰 @Mr_K @aruis @小杨阿哥哥 #此处输入软件名#[呲牙]十分感谢大家的帮助，我这很久没看了都不知道log4j过时啦。。。]]></content>
+                <pubDate>2015-07-17 12:00:27</pubDate>
+                                    <appclient>0</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6064889</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/432/865233_50.jpg?t=1436794387000</portrait>
+                <author><![CDATA[叶秀兰]]></author>
+                <authorid>865233</authorid>
+                <content><![CDATA[#LOG4J# 说的是这个？]]></content>
+                <pubDate>2015-07-17 11:34:43</pubDate>
+                                    <appclient>0</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6064888</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/439/878361_50.jpg?t=1415692939000</portrait>
+                <author><![CDATA[Mr_K]]></author>
+                <authorid>878361</authorid>
+                <content><![CDATA[现在都用logback了···]]></content>
+                <pubDate>2015-07-17 11:34:29</pubDate>
+                                    <appclient>0</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6064879</id>
+                <portrait></portrait>
+                <author><![CDATA[aruis]]></author>
+                <authorid>130218</authorid>
+                <content><![CDATA[都用这个了 http://logback.qos.ch 参考地址 http://dreamhead.blogbus.com/logs/226738756.html]]></content>
+                <pubDate>2015-07-17 11:33:31</pubDate>
+                                    <appclient>0</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6064859</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1/2765_50.jpg?t=1347066616000</portrait>
+                <author><![CDATA[小杨阿哥哥]]></author>
+                <authorid>2765</authorid>
+                <content><![CDATA[log4j 2]]></content>
+                <pubDate>2015-07-17 11:32:09</pubDate>
+                                    <appclient>0</appclient>
+                                                            </comment>
+            </comments>
+    </oschina>

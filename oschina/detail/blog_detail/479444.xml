@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479444</id>
+		<title><![CDATA[Jenkins Pinned Plugins（Jenkins绑定插件）]]></title>
+		<url><![CDATA[http://my.oschina.net/donhui/blog/479444]]></url>
+		<where><![CDATA[jenkins]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><div>
+  在Jenkins上将Subversion Plugin由捆绑的1.54版本升级到目前（2015/07/15）最新版本2.5.1 
+</div> 
+<div>
+  在已安装的插件页面（http://my.jenkins.server/pluginManager/installed）发现在【绑定】这一列，Subversion插件多了【解除绑定】按钮 
+</div> 
+<div>
+  并且Jenkins捆绑的插件（如Subversion Plugin）在界面上都没有【卸载】按钮 
+</div> 
+<div> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/180350_3GgB_1588291.png" alt="">
+ <br> 
+</div> 
+<div>
+  点开上面图片的【？】按钮，进入到相应帮助界面，将其内容翻译如下： 
+</div> 
+<div>
+  绑定插件的概念适用于与Jenkins捆绑的插件，例如Matrix Authorization plugin。 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  如果你没有做什么特别的操作，当Jenkins插件升级的时候，它的捆绑插件将覆盖当前安装在JENKINS_HOME中任何版本的插件。 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  然而，当捆绑的插件被手动升级的时候，Jenkins将标记那个插件绑定到特定的版本。 
+</div> 
+<div>
+  在文件系统中，Jenkins将创建一个叫做$JENKINS_HOME/plugins/plugin_name.jpi.pinned的空文件来表明绑定。 
+</div> 
+<div>
+  在Jenkins启动的过程中，绑定插件将永远不会被捆绑插件覆盖。（如果一个绑定插件的版本比捆绑的插件版本低，新版本的Jenkins将会警告。） 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  通过插件更新中心更新一个捆绑插件到更新中心所提供的版本是安全的。这里常常需要挑选最新的特性和修复。捆绑的版本偶尔更新，但不固定。 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  Jenkins的插件管理允许插件显示地解除绑定。$JENKINS_HOME/plugins/plugin_name.jpi.pinned文件也能够被手动创建或删除来控制绑定行为。 
+</div> 
+<div>
+  如果它存在，Jenkins将使用用户指定的任何版本；如果没有，Jenkins在启动时将恢复默认插件版本。 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  以Subversion Plugin为例，$JENKINS_HOME/plugins/目录下与其相关的文件或目录如下图： 
+</div> 
+<div> 
+</div> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/180447_PAYm_1588291.png" alt=""> </p>
+<p> <span style="line-height:1.5;">$JENKINS_HOME/plugins/subversion.jpi.pinned表示Subversion Plugin当前被绑定。</span> </p> 
+<div>
+  subversion.bak是上一个安装的版本，subversion.jpi是当前使用的版本。 
+</div> 
+<div>
+  点击【解除绑定】按钮，Jenkins会删掉$JENKINS_HOME/plugins/subversion.jpi.pinned文件， 
+</div> 
+<div>
+  在Jenkins重新启动过程中将会恢复subversion插件的版本。 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  以Docker Commons Plugin为例，在$JENKINS_HOME/plugins/下创建空文件docker-commons.jpi.pinned，并重启Jenkins。 
+</div> 
+<div> 
+</div> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/180524_0Hq5_1588291.png" alt=""> </p>
+<p> $JENKINS_HOME/plugins/docker-commons.jpi.pinned表示Docker Commons Plugin当前被绑定。 </p> 
+<div> 
+ <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/180421_6MEL_1588291.png" alt="">
+ <span></span> 
+</div> 
+<div>
+  点击【解除绑定】按钮，Jenkins会删掉$JENKINS_HOME/plugins/subversion.jpi.pinned文件。 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  注：Jenkins的捆绑插件在jenkins.war中的WEB-INF/plugins目录下。 
+</div> 
+<div> 
+ <br> 
+</div> 
+<div>
+  参考： 
+</div> 
+<div> 
+ <a href="https://wiki.jenkins-ci.org/display/JENKINS/Pinned+Plugins" rel="nofollow">https://wiki.jenkins-ci.org/display/JENKINS/Pinned+Plugins</a> 
+</div>]]></body>
+		<author><![CDATA[donhui]]></author>
+		<authorid>1588291</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 18:05:36</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

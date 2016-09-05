@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>472432</id>
+		<title><![CDATA[Nodejs负载均衡：haproxy，slb以及node-slb]]></title>
+		<url><![CDATA[http://my.oschina.net/nodeonly/blog/472432]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>10</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>我的线上环境是阿里云，既然阿里云有SLB，比自己运维一个要省事儿的多，事实上，自己做也真不一定做得比它好，本文试图以haproxy来解释一下slb的原理</p> 
+<p>讲解haproxy的目的是介绍负载算法，便于理解SLB，最后给出node-slb解决方案</p> 
+<h2>目前比较流行的</h2> 
+<p>目前，在线上环境中应用较多的负载均衡器硬件有F5 BIG-IP,软件有LVS，Nginx及HAProxy,高可用软件有Heartbeat. Keepalived</p> 
+<p>成熟的架构有</p> 
+<ul> 
+ <li>LVS+Keepalived</li> 
+ <li>Nginx+Keepalived</li> 
+ <li>HAProxy+keepalived</li> 
+ <li>DRBD+Heartbeat</li> 
+</ul> 
+<h2>HAProxy</h2> 
+<p>优点</p> 
+<ol> 
+ <li>HAProxy是支持虚拟主机的，可以工作在4. 7层(支持多网段)；</li> 
+ <li>能够补充Nginx的一些缺点比如Session的保持，Cookie的引导等工作；</li> 
+ <li>支持url检测后端的服务器；</li> 
+ <li>它跟LVS一样，本身仅仅就只是一款负载均衡软件；单纯从效率上来讲HAProxy更会比Nginx有更出色的负载均衡速度，在并发处理上也是优于Nginx的；</li> 
+ <li>HAProxy可以对Mysql读进行负载均衡，对后端的MySQL节点进行检测和负载均衡，不过在后端的MySQL slaves数量超过10台时性能不如LVS；</li> 
+ <li>HAProxy的算法较多，达到8种；</li> 
+</ol> 
+<p>官网 <a href="http://www.haproxy.org/" rel="nofollow">http://www.haproxy.org/</a> (自备梯子)</p> 
+<ul> 
+ <li><a href="http://cbonte.github.io/haproxy-dconv/configuration-1.5.html" rel="nofollow">http://cbonte.github.io/haproxy-dconv/configuration-1.5.html</a></li> 
+ <li><a href="http://demo.haproxy.org/" rel="nofollow">http://demo.haproxy.org/</a></li> 
+</ul> 
+<p>我觉得它是所有负载软件里最简单最好用的。配置文件比nginx还简单，而且还有监控页面。</p> 
+<p>下载最新版软件 <a href="http://www.haproxy.org/download/1.5/src/haproxy-1.5.12.tar.gz" rel="nofollow">http://www.haproxy.org/download/1.5/src/haproxy-1.5.12.tar.gz</a></p> 
+<p>解压</p> 
+<pre><code>tar -zxvf haproxy-1.5.12.tar.gz
+</code></pre> 
+<p>切换到目录</p> 
+<pre><code>cd haproxy-1.5.12 
+</code></pre> 
+<p>打开readme看一下，如何安装</p> 
+<pre><code>make TARGET=linux26
+sudo make install
+</code></pre> 
+<h2>创建一个配置文件</h2> 
+<pre><code># Simple configuration for an HTTP proxy listening on port 80 on all
+# interfaces and forwarding requests to a single backend "servers" with a
+# single server "server1" listening on 127.0.0.1:8000
+global
+    daemon
+    maxconn 256
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend http-in
+    bind *:80
+    default_backend servers
+
+backend servers
+    server server1 127.0.0.1:8000 maxconn 32
+
+
+# The same configuration defined with a single listen block. Shorter but
+# less expressive, especially in HTTP mode.
+global
+    daemon
+    maxconn 256
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+listen http-in
+    bind *:80
+    server server1 127.0.0.1:8000 maxconn 32
+</code></pre> 
+<h2>启动</h2> 
+<pre><code>haproxy -f test.cfg
+</code></pre> 
+<h2>查看状态</h2> 
+<p>记得在配置文件里加上</p> 
+<pre><code>listen admin_stats
+    bind 0.0.0.0:8888
+    stats refresh 30s
+    stats uri /stats
+    stats realm Haproxy Manager
+    stats auth admin:admin
+    #stats hide-version
+</code></pre> 
+<p><a href="http://ip:8888/stats" rel="nofollow">http://ip:8888/stats</a></p> 
+<h2>负载均衡–调度算法</h2> 
+<p>HAProxy的算法有如下8种：</p> 
+<ul> 
+ <li>roundrobin，表示简单的轮询，这个不多说，这个是 负载均衡 基本都具备的；</li> 
+ <li>static-rr，表示根据权重，建议关注；</li> 
+ <li>leastconn，表示最少连接者先处理，建议关注；</li> 
+ <li>source，表示根据请求源IP，建议关注；</li> 
+ <li>uri，表示根据请求的URI；</li> 
+ <li>url_param，表示根据请求的URl参数’balance url_param’ requires an URL parameter name</li> 
+ <li>hdr(name)，表示根据HTTP请求头来锁定每一次HTTP请求；</li> 
+ <li>rdp-cookie(name)，表示根据据cookie(name)来锁定并哈希每一次TCP请求。</li> 
+</ul> 
+<h2>SLB是神马</h2> 
+<p>负载均衡（Server Load Balancer，简称SLB）是对多台云服务器进行流量分发的负载均衡服务。SLB可以通过流量分发扩展应用系统对外的服务能力，通过消除单点故障提升应用系统的可用性</p> 
+<h2>SLB是如何实现的</h2> 
+<p>使用tengine实现的。</p> 
+<p>Tengine是由淘宝网发起的Web服务器项目。它在Nginx的基础上，针对大访问量网站的需求，添加了很多高级功能和特性。</p> 
+<p>see <a href="http://tengine.taobao.org/" rel="nofollow">http://tengine.taobao.org/</a> </p> 
+<h2>SLB用法</h2> 
+<p>创建slb</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFtsMbDlyilG2itdha2dJNbb1YcSI" alt="1.png"></p>
+<p>点击管理按钮，进入实例详情</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFvkQ6j3WSuT2u_69XG-KjJB8M1Yb" alt="2.png"></p>
+<p>没啥需要改的，我们直接看服务监听功能，看看如何配置slb</p> 
+<ul> 
+ <li>配置端口</li> 
+ <li>转发规则</li> 
+ <li>带宽</li> 
+ <li>健康检查等</li> 
+</ul> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFsuvA67vcNLr5Rw7L5Aurx4LoNdO" alt="3.png"></p>
+<p>点击编辑按钮，此时可以看到具体配置页面</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFvIIlcf7QaPL8MWG97L8oRHFKnD_" alt="4.png"></p>
+<p>目前slb支持2种转发规则</p> 
+<ul> 
+ <li>轮询</li> 
+ <li>最小连接数</li> 
+</ul> 
+<p>轮询应该是和haproxy的roundrobin调度算法一样，表示简单的轮询</p> 
+<p>最小连接数SLB会自动判断 当前ECS 的established 来判断是否转发</p> 
+<p>配置完了slb server，下一步要设置具体slb把请求转发给哪台机器，这实际上才是最核心的的配置。</p> 
+<p>阿里云把这件事儿做的超级简单</p> 
+<p>假设我现在有一个ecs服务器为已填加</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFjsGTmA1fhEZRt52GUpTebWQ9uxD" alt="5.png"></p>
+<p>点击【未添加的服务器】，此时会列出未加入负载池的ecs服务器 </p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFg5bulgyHv3mZy9kPTz_eEvN_5H5" alt="6.png"></p>
+<p>选中一台服务器</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFjLo0dGzXxDbbxFaoOtIonsoFFfc" alt="7.png"></p>
+<p>点击批量添加</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFnsjDqnXco-vuGZ-Rhbiw9v3OX0_" alt="8.png"></p>
+<p>配置一下权重，如果机器性能一样就配置权重一样，性能越好，权重越大</p> 
+<p>可选值【0 – 100】</p> 
+<p>完成配置后，已添加服务器里就有了2台服务器</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFrPQGvf9XhZH-gNuZzvfXWaSy0WP" alt="9.png"></p>
+<p>保证你的服务器都启动，比如2台服务器的80端口都正常即可</p> 
+<p>此时你需要做的是把你的域名解析到slb服务器的ip地址上</p> 
+<h2>node-slb</h2> 
+<p>an expressjs middleware for aliyun slb</p> 
+<h3>缘起</h3> 
+<p><a href="http://bbs.aliyun.com/read/188736.html?page=1" rel="nofollow">http://bbs.aliyun.com/read/188736.html?page=1</a></p> 
+<p>2）请问健康检查发的什么请求？ head 还是 get？<br>head请求。 </p> 
+<p>如果express路由没有处理head请求的话，会触发其他路由，可能会出现请求重定向死循环</p> 
+<h2>原理</h2> 
+<pre><code>var debug = require('debug')('slb');
+
+module.exports = function (req, res, next) {
+  if(req.method.toLowerCase() == 'head'){    
+    debug('[ALIYUN.COM LOG]: SLB health checking....OK...');
+    return res.sendStatus(200);
+  }
+
+  next();
+};
+</code></pre> 
+<p>原理非常简单：以中间件的形式，处理一下req.method为head的适合，终止此请求即可</p> 
+<h3>安装</h3> 
+<pre><code>npm install --save node-slb
+</code></pre> 
+<h3>用法</h3> 
+<pre><code>var slb = require('node-slb');
+
+var app = express();
+app.user(slb);
+</code></pre> 
+<h3>测试</h3> 
+<p>首先启动demo的服务</p> 
+<pre><code>➜  node-slb git:(master) ✗ npm start
+
+&gt; node-slb@1.0.0 start /Users/sang/workspace/github/node-slb
+&gt; cd demo &amp;&amp; npm install &amp;&amp; npm start
+
+
+&gt; url@0.0.0 start /Users/sang/workspace/github/node-slb/demo
+&gt; node ./bin/www
+</code></pre> 
+<p>执行test命令，测试请求</p> 
+<pre><code>➜  node-slb git:(master) ✗ npm test
+
+&gt; node-slb@1.0.0 test /Users/sang/workspace/github/node-slb
+&gt; curl -i -X HEAD http://127.0.0.1:3000
+
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: text/plain; charset=utf-8
+Content-Length: 2
+ETag: W/"2-d736d92d"
+Date: Mon, 29 Jun 2015 03:46:49 GMT
+Connection: keep-alive
+</code></pre> 
+<p>此时，观察服务器日志</p> 
+<pre><code>➜  node-slb git:(master) ✗ npm start
+
+&gt; node-slb@1.0.0 start /Users/sang/workspace/github/node-slb
+&gt; cd demo &amp;&amp; npm install &amp;&amp; npm start
+
+
+&gt; url@0.0.0 start /Users/sang/workspace/github/node-slb/demo
+&gt; DEBUG=slb node ./bin/www
+
+[ALIYUN.COM LOG]: SLB health checking....OK...
+</code></pre> 
+<p>如果出现<code>[ALIYUN.COM LOG]: SLB health checking....OK...</code>说明正常。</p> 
+<p>如果想打印日志，可以DEBUG=slb，如果不想打印日志，默认即无。</p> 
+<h2>总结</h2> 
+<ul> 
+ <li>首先介绍了haproxy和负载均衡算法</li> 
+ <li>介绍了阿里云slb用法</li> 
+ <li>给出node-slb，一个express中间件</li> 
+</ul> 
+<p>全文完</p> 
+<p>欢迎关注我的公众号【node全栈】</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2Fdn-cnode.qbox.me%2FFtALxsauUkYDGdzcuA5y6BaIdUMC" alt="node全栈.png"></p>]]></body>
+		<author><![CDATA[i5ting]]></author>
+		<authorid>2269918</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-30 12:48:10</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

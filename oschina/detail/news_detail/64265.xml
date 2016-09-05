@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64265</id>
+      <title><![CDATA[RocksDB 3.12 发布，key-value 存储系统]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64265/rocksdb-3-12]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>此版本更新内容如下：</p> 
+<h3>新特性</h3> 
+<ul> 
+ <li><p>Added experimental support for optimistic transactions. <br></p></li> 
+ <li><p>Added a new way to report QPS from db_bench (check out --report_file and --report_interval_seconds)</p></li> 
+ <li><p>Added a cache for individual rows. See DBOptions::row_cache for more info.</p></li> 
+ <li><p>Several new features on EventListener (see include/rocksdb/listener.h):</p></li> 
+ <ul> 
+  <li><p>OnCompationCompleted() now returns per-compaciton job statistics, defined in include/rocksdb/compaction_job_stats.h.</p></li> 
+  <li><p>Added OnTableFileCreated() and OnTableFileDeleted().</p></li> 
+ </ul> 
+ <li><p>Add compaction_options_universal.enable_trivial_move to true</p></li> 
+</ul> 
+<h3>公共 API 改进<br></h3> 
+<ul> 
+ <li><p>EventListener::OnFlushCompleted() now passes FlushJobInfo instead of a list of parameters.</p></li> 
+ <li><p>DB::GetDbIdentity() is now a const function. &nbsp;If this function is overridden in your application, be sure to also make GetDbIdentity() const to avoid compile error.</p></li> 
+ <li><p>Move listeners from ColumnFamilyOptions to DBOptions.</p></li> 
+ <li><p>Add max_write_buffer_number_to_maintain option</p></li> 
+ <li><p>DB::CompactRange()'s parameter reduce_level is changed to change_level, to allow users to move levels to lower levels if allowed. It can be used to migrate a DB from options.level_compaction_dynamic_level_bytes=false to options.level_compaction_dynamic_level_bytes.true.</p></li> 
+ <li><p>Change default value for options.compaction_filter_factory and options.compaction_filter_factory_v2 to nullptr instead of DefaultCompactionFilterFactory and DefaultCompactionFilterFactoryV2.</p></li> 
+ <li><p>If CancelAllBackgroundWork is called without doing a flush after doing loads with WAL disabled, the changes which haven't been flushed before the call to CancelAllBackgroundWork will be lost.</p></li> 
+ <li><p>WBWIIterator::Entry() now returns WriteEntry instead of <code>const WriteEntry&amp;</code></p></li> 
+ <li><p>options.hard_rate_limit is deprecated.</p></li> 
+ <li><p>When options.soft_rate_limit or options.level0_slowdown_writes_trigger is triggered, the way to slow down writes is changed to: write rate to DB is limited to to options.delayed_write_rate.</p></li> 
+ <li><p>DB::GetApproximateSizes() adds a parameter to allow the estimation to include data in mem table, with default to be not to include. <br></p></li> 
+ <li><p>DB::CompactRange() now accept CompactRangeOptions instead of multiple paramters. <br></p></li> 
+ <li><p>CompactRange() will now skip bottommost level compaction for level based compaction if there is no compaction filter, bottommost_level_compaction is introduced in CompactRangeOptions to control when it's possbile to skip bottommost level compaction. <br></p></li> 
+ <li><p>Add Cache.GetPinnedUsage() to get the size of memory occupied by entries that are in use by the system.</p></li> 
+ <li><p>DB:Open() will fail if the compression specified in Options is not linked with the binary. <br></p></li> 
+ <li><p>We changed how we account for memory used in block cache. <br></p></li> 
+ <li><p>Add BackupEngineImpl.options_.max_background_operations to specify the maximum number of operations that may be performed in parallel.</p></li> 
+</ul> 
+<p>下载：<a href="https://github.com/facebook/rocksdb/archive/v3.12.zip" rel="nofollow">https://github.com/facebook/rocksdb/archive/v3.12.zip</a>。 <br></p> 
+<p>RocksDB 是一个来自 facebook 的可嵌入式的支持持久化的 key-value 存储系统，也可作为 C/S 模式下的存储数据库，但主要目的还是嵌入式。RocksDB 基于 <a href="http://www.oschina.net/p/leveldb" target="_blank" rel="nofollow">LevelDB</a> 构建。关于 RocksDB 的<a href="https://github.com/facebook/rocksdb/wiki/Performance-Benchmarks" target="_blank" rel="nofollow">性能说明</a>。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201311/16092850_bps2.png" alt="RocksDB"></p>]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-15 14:57:15</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/rocksdb]]></softwarelink>
+	  <softwarename><![CDATA[RocksDB]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Accumulo 1.5.3 发布，Key-Value 存储解决方案]]></rtitle>
+			<rurl>http://www.oschina.net/news/63726/accumulo-1-5-3</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RocksDB 3.11.2 发布，key-value 存储系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63319/rocksdb-3-11-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RocksDB 3.11.1 发布，key-value 存储系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63032/rocksdb-3-11-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RocksDB 3.11 发布，key-value 存储系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/62662/rocksdb-3-11</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache POI 3.12 发布，Java 的 Office 文档操作库]]></rtitle>
+			<rurl>http://www.oschina.net/news/62368/poi-3-12</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[KodExplorer 3.12 稳定版发布，Web 在线文件管理]]></rtitle>
+			<rurl>http://www.oschina.net/news/61721/kodexplorer-3-12-released</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RocksDB 3.10 发布，key-value 存储系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/60959/rocksdb-3-10</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[ForestDB —— 快速的 Key-Value 存储引擎]]></rtitle>
+			<rurl>http://www.oschina.net/p/forestdb</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache POI 3.12-beta1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/60061/poi-3-12-beta1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[RocksDB 3.9.1 发布，key-value 存储系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/59563/rocksdb-3-9-1</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

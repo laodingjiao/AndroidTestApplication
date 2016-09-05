@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+    <software>
+		                                	        	                        	                	        		        			        		        	                	                        			        		        		        								<id>19233</id>
+        <title><![CDATA[ActionBarSherlock]]></title>
+		<url><![CDATA[http://www.oschina.net/p/actionbarsherlock]]></url>
+        <extensionTitle><![CDATA[]]></extensionTitle>
+        <authorid>0</authorid>
+				        <recommended>4</recommended>
+        <license><![CDATA[Apache]]></license>
+        <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>ActionBarSherlock 是Android compatibility library 的一个扩展, 不知道什么原因 Android 兼容开发包没有包含ActionBar. 所以就有了ActionBarSherlock . 其使用方式和 兼容开发包类似.</p> 
+<p>ActionBarSherlock 被设计成通过一个API就能够很方便使用所有版本的Android操作栏的设计模式。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201112/27095841_C0fm.png" alt=""></p>
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201112/26235459_iujy.png" alt=""></p>]]></body>
+        <homepage><![CDATA[http://www.oschina.net/action/project/go?id=19233&p=home]]></homepage>
+        <document><![CDATA[http://www.oschina.net/action/project/go?id=19233&p=doc]]></document>
+        <download><![CDATA[http://www.oschina.net/action/project/go?id=19233&p=download]]></download>
+        <logo><![CDATA[http://www.oschina.net/img/logo/default.gif?t=1399607809000]]></logo>
+        <language><![CDATA[Java]]></language>
+        <os><![CDATA[Android]]></os>
+		<recordtime><![CDATA[2011年12月26日]]></recordtime>
+	    <favorite>0</favorite>
+        <tweetCount>3</tweetCount>
+		    </software>
+</oschina>

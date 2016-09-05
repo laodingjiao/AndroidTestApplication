@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479368</id>
+		<title><![CDATA[坑爹的MongoDB]]></title>
+		<url><![CDATA[http://my.oschina.net/u/699015/blog/479368]]></url>
+		<where><![CDATA[NoSQL]]></where>
+		<commentCount>1</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h1> 无法远程连接？！认证失败？！ </h1> 
+<p> &nbsp; &nbsp; 为了提高远程访问的安全性，按照MongoDB官网的说明，增加了用户认证，本地测试均通过，然而远程访问死活通不过，无论是spring-data-mongo，还是MongoVUE客户端，还是ubuntu下的mongo-clients，均报auth failed，难道是我的人品有问题？<br> &nbsp; &nbsp; 这里回顾一下软件环境：<br> &nbsp; &nbsp;&nbsp;1、MongoDB是3.0.3版本，号称<span></span>性能提升95%不只提升7到10倍的写入效率以及增加80%的数据压缩率,还能减少95%的运维成本。<br> &nbsp; &nbsp; 2、由于spring用的3.2，spring-data-mongo使用的1.5.5版本，对于mongo-java-driver为2.12.5<br> &nbsp; &nbsp; 3、windows客户端用的是MongoVUE-1.6.9<br> &nbsp; &nbsp; 4、ubuntu下简单测试是通过apt-get安装的mongo-clients，版本2.4.9<br> &nbsp; &nbsp; 在未开启auth之前，一切都是正常的，数据能正常读写，开启auth后，也只是报auth failed，所有的Built-In Roles都加上了，还是不行。中间的各种折腾就略过了，最后我原样在另外一台机器上部署了同样一个版本的mongodb，再同mongo命令远程连接，居然通了！！！居然不向下兼容！<br> &nbsp; &nbsp; 我勒个去，由于mongo-java-driver版本间也不兼容，要升级意味着<span>spring-data-mongo要1.7以上版本，spring</span>版本要升至4.0，想想还是算了<br> <br> <br> <span></span> </p> 
+<p> <br> </p> 
+<br>]]></body>
+		<author><![CDATA[空心大白菜]]></author>
+		<authorid>699015</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 16:25:31</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

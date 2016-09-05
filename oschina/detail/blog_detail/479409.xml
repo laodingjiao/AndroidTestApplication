@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479409</id>
+		<title><![CDATA[面向 Java 开发与测试人员的远程执行 Linux/UNIX 系统上任务的框架 -- sshxcu]]></title>
+		<url><![CDATA[http://my.oschina.net/u/1866821/blog/479409]]></url>
+		<where><![CDATA[java]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="color: rgb(51, 51, 51); font-family: HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial; font-size: 15.199999809265137px; line-height: 19.75px;">软件开发与测试人员常常会在远程 Linux/UNIX 系统上执行命令或脚本，有时还会有批量执行任务的需求。常见的办法是通过本地工具（例如 Putty）连接远程计算机，输入命令执行，但是当遇到需要集成这些任务到代码或者开发、测试框架中时，往往就没有很好的解决方案了。sshxcute 就是这样一个框架工具集，它基于 JSCH 构建，允许工程师利用 Java 代码通过 SSH 连接远程批量执行 Linux/UNIX 系统上的命令或者脚本，同时加入了判断成功与否，取回输出等多种实用功能。sshxcute 不管是针对软件开发、测试还是系统部署，都简化了自动化流程与系统环境部署的步骤。</span></p> 
+<p><br></p> 
+<h2>通常的使用场景</h2> 
+<p>随着现代企业内信息的迅速增长，更多的企业建立了数据中心甚至云计算网络，对于软件开发测试行业人员来说，需要更多的依赖于远程主机，从部署环境到远程执行都需要利用客户端工具连接。对于开发人员，当部署环境需要输入很多命令时，每次等待命令执行完毕才能输入下一个命令，另一种常用的解决方法是把所有命令写在一个脚本里，但这也需要通过客户端工具（例如 Putty）远程登录后才能执行，但开发人员的利器毕竟是集成开发环境（IDE），这些环境部署工作既费时又费力。对于测试人员，当本地已经做好了一个自动化测试框架或者程序时，需要先在被测系统上部署环境，如何集成进已有的程序或者框架是件必须考虑的事情，如果在每次运行自动化测试前均手动登录远程主机部署环境，这也降低了测试人员的工作效率。图 1 展示了针对上述技术人员的通常使用场景。</p> 
+<h5>图 1. 针对技术人员的通常使用场景</h5> 
+<p><img alt="图 1. 针对技术人员的通常使用场景" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16172402_N1hO.jpg"></p>
+<p><a href="http://www.ibm.com/developerworks/cn/opensource/os-sshxcute/#ibm-pcon" rel="nofollow">回页首</a></p> 
+<h2>上述场景中的问题与解决方案</h2> 
+<p>分析上述场景，对于软件开发与测试人员一个典型困惑就是，没有一个允许自动化的、批量的、带有检查命令成功与否的远程执行工具或者框架，如果存在一个基于 Java 的远程执行类库，开发人员可以在自己的集成开发环境（IDE）中通过运行一个 Java 类就可以部署环境，测试人员可以集成该类库到自己的自动化程序或者同样适用 IDE 来，就可以远程执行命令或者脚本。</p> 
+<p>上述分析可以参考图 2。</p> 
+<h5>图 2. 解决方案</h5> 
+<p><img alt="图 2. 解决方案" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16172402_P8CN.jpg"></p>
+<p>目前 JSch 正是这样一个满足上述基本需求的类库，JSch 是 SSH2 的一个纯 Java 实现。它可以连接到一个 sshd 服务器，使用端口转发，X11 转发，文件传输等等。但是这个类库毕竟偏向底层，上手与实际运行起来不太方便，sshxcute 框架正是基于 JSch 封装的，提供了更为便捷的 API 借口，更加灵活实用的功能，从而可以让开发与测试人员更加得心应手的使用。sshxcute 是一个框架，它允许工程师利用 Java 代码通过 SSH 连接远程执行 Linux/UNIX 系统上的命令或者脚本，这种方式不管是针对软件测试还是系统部署，都简化了自动化测试与系统环境部署的步骤。</p> 
+<p>SSHXCUTE 的设计旨在：</p> 
+<ul> 
+ <li><p>最小的系统需求 – 仅仅开启 SSH 连接即可。</p></li> 
+ <li><p>易用性 – 工程师利用 Java 代码执行命令或脚本。</p></li> 
+ <li><p>内置命令 / 脚本任务执行功能。</p></li> 
+ <li><p>易扩展 – 用户可以自定义任务类型并集成于 sshxcute 框架。</p></li> 
+</ul> 
+<p>下面的章节分别介绍了如何使用 sshxcute 框架，如何配置它的运行时参数选项以及如何利用该框架的 Java API 进行扩展从而从容应用到自己的项目中。</p> 
+<p><a href="http://www.ibm.com/developerworks/cn/opensource/os-sshxcute/#ibm-pcon" rel="nofollow">回页首</a></p> 
+<h2>sshxcute 框架使用指南</h2> 
+<h3>配置</h3> 
+<p>首先，必须确保 JDK 版本在 5.0 以上，然后需要确认 sshxcute.jar 已经在环境变量中的 $CLASSPATH 中，然后才可以开始。如果是用集成开发环境（IDE）下，必须将 sshxcute.jar 加入项目构建路径下，接下来展示的是如何在 Eclipse IDE 中配置 Java Build Path。右键单击项目 &gt; 属性 &gt; Java 构建路径。更多的配置步骤请在互联网上搜索。</p> 
+<h5>图 1. Eclipse 中配置 Java 构建路径步骤</h5> 
+<p><img alt="图 1. Eclipse 中配置 Java 构建路径步骤" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16172403_jYh3.jpg"></p>
+<h3>初始化准备工作</h3> 
+<p>通常通过 SSH 协议在远程 Linux/UNIX 系统上执行命令时，以下是必须的步骤：</p> 
+<ol> 
+ <li><p>打开 SSH 连接客户端（例如 Putty，SSHClient 等）</p></li> 
+ <li><p>输入 IP</p></li> 
+ <li><p>输入用户名、密码登录</p></li> 
+ <li><p>登录成功后输入执行命令</p></li> 
+ <li><p>断开登录</p></li> 
+</ol> 
+<p>前三个步骤可以通过 sshxcute 的 Java API 模拟实现：</p> 
+<h5>清单 1. 登录远程主机</h5> 
+<pre class="displaycode">&nbsp;//&nbsp;新建一个&nbsp;ConnBean&nbsp;对象，三个参数依次是&nbsp;ip&nbsp;地址、用户名、密码
+&nbsp;ConnBean&nbsp;cb&nbsp;=&nbsp;new&nbsp;ConnBean("ip&nbsp;",&nbsp;"username","password");&nbsp;
+&nbsp;//&nbsp;将上面新建的&nbsp;ConnBean&nbsp;作为参数传递给&nbsp;SSHExec&nbsp;的静态单例方法，得到一个&nbsp;SSHExec&nbsp;的实例
+&nbsp;ssh&nbsp;=&nbsp;SSHExec.getInstance(cb);&nbsp;
+&nbsp;//&nbsp;利用上面得到的&nbsp;SSHExec&nbsp;实例连接主机
+&nbsp;ssh.connect();</pre> 
+<p>第五步断开登录的实现如下：</p> 
+<h5>清单 2. 断开远程主机</h5> 
+<pre class="displaycode">&nbsp;ssh.disconnect();</pre> 
+<p>第四步是 sshxcute 框架的核心所在——自动执行命令或者脚本。接下来的部分将主要介绍这个主题。</p> 
+<h3>远程执行命令</h3> 
+<p>这是 sshxcute 框架内自带的任务类型，接下来 3.4 小节讲到的远程执行 shell 脚本也是自带的任务类型。先来看一段代码再来详细解释。如果读者已经具备了面向对象编程经验，那么下面的内容将会被发现如此熟悉与简单。</p> 
+<h5>清单 3. 远程执行命令</h5> 
+<pre class="displaycode">&nbsp;CustomTask&nbsp;sampleTask&nbsp;=&nbsp;new&nbsp;ExecCommand("echo&nbsp;123");&nbsp;
+&nbsp;ssh.exec(sampleTask);</pre> 
+<p>ExecCommand 类继承了 CustomTask 类，我们新建一个 ExecCommand 对象，他的引用类型是 CustomTask。下图展示了 ExecCommand、ExecShellScript 和 CustomTask 的类图，从中可以看出他们的关系，ExecCommand、ExecShellScript 是 CustomTask 的子类。</p> 
+<h5>图 2. sshxcute 框架类图</h5> 
+<p><img alt="图 2. sshxcute 框架类图" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/16172403_yxaa.jpg"></p>
+<p>ExecCommand 的构造函数只接收一个字符串类型变量。注意 ExecCommand 可以执行多个命令，只需要用分隔符“,”分隔各个命令即可。例如：</p> 
+<h5>清单 4. 远程顺序执行多个命令</h5> 
+<pre class="displaycode">&nbsp;CustomTask&nbsp;sampleTask&nbsp;=&nbsp;new&nbsp;ExecCommand("echo&nbsp;123",&nbsp;"echo&nbsp;456,&nbsp;"echo&nbsp;789");</pre> 
+<p>ExecCommand 的构造函数是：</p> 
+<p>public ExecCommand(String...args)</p> 
+<p>把 ExecCommand 对象作为参数传入 SSHExec.exec(CustomTask) 方法，这样就可以直接运行命令了。</p> 
+<h3>远程执行 shell 脚本</h3> 
+<p>远程执行 shell 脚本几乎与 3.3 小节的远程执行命令一致。例如，如果想执行 /home/tsadmin 路径下的 sshxcute_test.sh 脚本，并且带两个参数“hello world”，可以这样调用：</p> 
+<h5>清单 5. 远程执行 shell 脚本</h5> 
+<pre class="displaycode">&nbsp;CustomTask&nbsp;ct1&nbsp;=&nbsp;\&nbsp;
+&nbsp;new&nbsp;ExecShellScript("/home/tsadmin","./sshxcute_test.sh","hello&nbsp;world");&nbsp;
+&nbsp;ssh.exec(ct1);</pre> 
+<p>ExecShellScript 的构造函数是：</p> 
+<p>public ExecShellScript(String workingDir, String shellPath, String args)</p> 
+<p>public ExecShellScript(String shellPath, String args)</p> 
+<p>public ExecShellScript(String shellPath)</p> 
+<p>其中 workingDir 代表执行前先切换到路径，shellPath 代表脚本执行路径，args 代表参数列表。</p> 
+<h3>上传文件到远程主机</h3> 
+<p>通常会遇到一种情况，要执行的脚本是存在于本地的，必须先把其上传到远程的主机上。这项工作 sshxcute 同样可以为完成，例如，想要把 c:/data2/data 目录下的所有文件上传到远程机器上的 /home/tsadmin 目录下，可以</p> 
+<h5>清单 6. 上传文件夹下全部文件到远程主机</h5> 
+<pre class="displaycode">&nbsp;ssh.uploadAllDataToServer("c:/data2/data",&nbsp;"/home/tsadmin");</pre> 
+<p>如果想只上传单一文件，例如只上传路径下的 c:/data/sshxcute_test.sh 到 /home/tsadmin，可以这样</p> 
+<h5>清单 7. 上传单一文件到远程主机</h5> 
+<pre class="displaycode">&nbsp;ssh.uploadSingleDataToServer("c:/data/sshxcute_test.sh","/home/tsadmin");</pre> 
+<p>这里要注意下，必须把顺序搞清楚，上传的步骤必须在执行前，连接成功后。例如：</p> 
+<h5>清单 8. 执行顺序注意，上传脚本后才能执行成功</h5> 
+<pre class="displaycode">CustomTask&nbsp;ct1&nbsp;=&nbsp;new&nbsp;ExecShellScript("/home/tsadmin","./sshxcute_test.sh","hello&nbsp;world");
+&nbsp;ssh.connect();&nbsp;&nbsp;//&nbsp;连接成功后
+&nbsp;ssh.uploadSingleDataToServer("data/sshxcute_test.sh",&nbsp;"/home/tsadmin");&nbsp;
+&nbsp;ssh.exec(ct1);&nbsp;&nbsp;//&nbsp;执行前</pre> 
+<p>当然这里不仅仅限于必须执行脚本，如果你只想上传文件可以单独执行 uploadSingleDataToServer() 或者 uploadSingleDataToServer() 方法。</p> 
+<h3>结果对象</h3> 
+<p>所有的任务类型，包括上面已经讲解过的 ExecCommand、ExecShellScript 还有接下来会说明的自定义类任务，在执行完毕后，都会返回一个结果对象（Result）。这个结果对象包含了命令或者脚本的返回代码（return code）、标准输入、错误输出。还有它会提供一个布尔类型的 isSuccess 变量供程序员判断是否任务执行成功，在 4.1 章节判定任务成功与否的过滤关键字，将会详细介绍 sshxcute 是如何判断任务执行成功与否的，这个判断的条件也是可以配置的。</p> 
+<p>例如，SSHExec.exec(CustomTask) 总会返回一个结果对象，可以利用自己的逻辑代码打印一些有用的信息。代码相见清单 9</p> 
+<h5>清单 9. 根据结果对象打印输出或者错误信息</h5> 
+<pre class="displaycode">&nbsp;Result&nbsp;res&nbsp;=&nbsp;ssh.exec(task);&nbsp;
+&nbsp;if&nbsp;(res.isSuccess)&nbsp;
+&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Return&nbsp;code:&nbsp;"&nbsp;+&nbsp;res.rc);&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("sysout:&nbsp;"&nbsp;+&nbsp;res.sysout);&nbsp;
+&nbsp;}&nbsp;
+&nbsp;else&nbsp;
+&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Return&nbsp;code:&nbsp;"&nbsp;+&nbsp;res.rc);&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("error&nbsp;message:&nbsp;"&nbsp;+&nbsp;res.error_msg);&nbsp;
+&nbsp;}</pre> 
+<h3>小结</h3> 
+<p>下面的例子囊括上面所有的技术话题，做个小结。假设需求是在远程的 Linux 服务器（ip 是 9.125.71.115）上执行一个 shell 脚本—— sshxcute_test.sh。它的内容见清单 10。</p> 
+<h5>清单 10. sshxcute_test.sh 脚本内容</h5> 
+<pre class="displaycode">&nbsp;#!/bin/bash&nbsp;
+&nbsp;if&nbsp;[&nbsp;$#&nbsp;-ne&nbsp;2&nbsp;];then&nbsp;
+&nbsp;echo&nbsp;"usage:&nbsp;sshxcute_test.sh&nbsp;username&nbsp;password"
+&nbsp;exit&nbsp;1&nbsp;
+&nbsp;fi&nbsp;
+&nbsp;export&nbsp;USERNAME=$1&nbsp;
+&nbsp;export&nbsp;PASSWORD=$2&nbsp;
+&nbsp;if&nbsp;[&nbsp;"$USERNAME"&nbsp;=&nbsp;"hello"&nbsp;-a&nbsp;"$PASSWORD"&nbsp;=&nbsp;"world"&nbsp;];then&nbsp;
+&nbsp;echo&nbsp;"Login&nbsp;success"
+&nbsp;exit&nbsp;0&nbsp;
+&nbsp;fi&nbsp;
+&nbsp;echo&nbsp;"Login&nbsp;falied"
+&nbsp;exit&nbsp;2</pre> 
+<p>实现代码见清单 11。</p> 
+<h5>清单 11. 一个具体实例的实现代码</h5> 
+<pre class="displaycode">&nbsp;//&nbsp;新建一个&nbsp;SSHExec&nbsp;引用
+&nbsp;SSHExec&nbsp;ssh&nbsp;=&nbsp;null;&nbsp;
+&nbsp;//&nbsp;下面所有的代码都放在&nbsp;try-catch&nbsp;块中
+&nbsp;try&nbsp;{&nbsp;
+&nbsp;//&nbsp;实例化一个&nbsp;ConnBean&nbsp;对象，参数依次是&nbsp;IP&nbsp;地址、用户名和密码
+&nbsp;ConnBean&nbsp;cb&nbsp;=&nbsp;new&nbsp;ConnBean("9.125.71.115",&nbsp;"username","password");&nbsp;
+&nbsp;//&nbsp;将刚刚实例化的&nbsp;ConnBean&nbsp;对象作为参数传递给&nbsp;SSHExec&nbsp;的单例方法得到一个&nbsp;SSHExec&nbsp;对象
+&nbsp;ssh&nbsp;=&nbsp;SSHExec.getInstance(cb);&nbsp;
+&nbsp;//&nbsp;新建一个&nbsp;ExecCommand&nbsp;对象，引用必须是其继承的&nbsp;CustomTask&nbsp;类
+&nbsp;CustomTask&nbsp;ct1&nbsp;=&nbsp;new&nbsp;ExecCommand("chmod&nbsp;755&nbsp;/home/tsadmin/sshxcute_test.sh");&nbsp;
+&nbsp;//&nbsp;新建一个&nbsp;ExecShellScript&nbsp;对象，引用必须是其继承的&nbsp;CustomTask&nbsp;类
+&nbsp;CustomTask&nbsp;ct2&nbsp;=&nbsp;new&nbsp;ExecShellScript("/home/tsadmin","./sshxcute_test.sh"
+&nbsp;,"hello&nbsp;world");&nbsp;
+&nbsp;//&nbsp;连接服务器
+&nbsp;ssh.connect();&nbsp;
+&nbsp;//&nbsp;上传&nbsp;shell&nbsp;脚本到&nbsp;/home/tsadmin&nbsp;目录
+&nbsp;ssh.uploadSingleDataToServer("data/sshxcute_test.sh",&nbsp;"/home/tsadmin");&nbsp;
+&nbsp;//&nbsp;执行命令
+&nbsp;ssh.exec(ct1);&nbsp;
+&nbsp;//&nbsp;执行脚本并且返回一个&nbsp;Result&nbsp;对象
+&nbsp;Result&nbsp;res&nbsp;=&nbsp;ssh.exec(ct2);&nbsp;
+&nbsp;//&nbsp;检查执行结果，如果执行成功打印输出，如果执行失败，打印错误信息
+&nbsp;if&nbsp;(res.isSuccess)&nbsp;
+&nbsp;{&nbsp;
+&nbsp;System.out.println("Return&nbsp;code:&nbsp;"&nbsp;+&nbsp;res.rc);&nbsp;
+&nbsp;System.out.println("sysout:&nbsp;"&nbsp;+&nbsp;res.sysout);&nbsp;
+&nbsp;}&nbsp;
+&nbsp;else&nbsp;
+&nbsp;{&nbsp;
+&nbsp;System.out.println("Return&nbsp;code:&nbsp;"&nbsp;+&nbsp;res.rc);&nbsp;
+&nbsp;System.out.println("error&nbsp;message:&nbsp;"&nbsp;+&nbsp;res.error_msg);&nbsp;
+&nbsp;}&nbsp;
+&nbsp;}&nbsp;
+&nbsp;catch&nbsp;(TaskExecFailException&nbsp;e)&nbsp;
+&nbsp;{&nbsp;
+&nbsp;System.out.println(e.getMessage());&nbsp;
+&nbsp;e.printStackTrace();&nbsp;
+&nbsp;}&nbsp;
+&nbsp;catch&nbsp;(Exception&nbsp;e)&nbsp;
+&nbsp;{&nbsp;
+&nbsp;System.out.println(e.getMessage());&nbsp;
+&nbsp;e.printStackTrace();&nbsp;
+&nbsp;}&nbsp;
+&nbsp;finally&nbsp;
+&nbsp;{&nbsp;
+&nbsp;ssh.disconnect();&nbsp;	
+&nbsp;}</pre> 
+<h3>日志</h3> 
+<p>所有的输出与日志都将保存在执行 sshxcute 的路径下，日志的名称为 sshxcute.log。如果你把 sshxcute.jar 导入到你的 Eclipse 项目中，它将保存在项目的根目录下。</p> 
+<p><a href="http://www.ibm.com/developerworks/cn/opensource/os-sshxcute/#ibm-pcon" rel="nofollow">回页首</a></p> 
+<h2>sshxcute 的高级配置选项</h2> 
+<p>Sshxcute 框架允许配置很多参数，具体的 API 调用格式为：</p> 
+<p>SSHExec.setOption(String optionName, String/int/long value);</p> 
+<p>这个语句声明必须放在任何任务执行前面，配置才生效。</p> 
+<p>下面的小节具体讲解各个参数的使用方法。</p> 
+<h3>判定任务成功与否的过滤关键字</h3> 
+<p>回顾一下 3.5 小节结果对象所讲的，每当执行 SSHExec.exec(CustomTask) 后，都会返回一个包含了结果信息的 Result 对象。这个对象有个布尔变量—— isSuccess，用来判定任务是否执行成功。那么 SSHXCUTE 是如何判定命令或者脚本成功与否的，它依赖于什么？</p> 
+<p>默认地，有两个条件判定任务是否执行成功。第一是命令或者脚本的返回码（return code），它必须是 0；第二是打印输入的信息，如果不包含以下字符串，则可以判定成功。</p> 
+<ul> 
+ <li><p>usage</p></li> 
+ <li><p>usage</p></li> 
+ <li><p>not found</p></li> 
+ <li><p>fail</p></li> 
+ <li><p>Fail</p></li> 
+ <li><p>error</p></li> 
+ <li><p>Error</p></li> 
+ <li><p>exception</p></li> 
+ <li><p>Exception</p></li> 
+ <li><p>not a valid</p></li> 
+</ul> 
+<p>返回码是不可配置的，它必须是 0，这个是默认不可更改的，因为在 Linux/UNIX 系统中执行命令或脚本成功返回值即为 0。</p> 
+<p>错误信息过滤条件是可以配置的，如果你想这样假定：如果标准输出包含“error”，“fail”，“exception”字符串则判定任务执行失败。可以参考清单 12 的代码。</p> 
+<h5>清单 12. 修改 sshxcute 默认判定任务成功失败与否的方法</h5> 
+<pre class="displaycode">&nbsp;String[]&nbsp;reset_keyword&nbsp;=&nbsp;{&nbsp;"error",”fail”,”exception”&nbsp;};&nbsp;
+&nbsp;CustomTask&nbsp;ct1&nbsp;=&nbsp;new&nbsp;ExecCommand("exit&nbsp;0");&nbsp;
+&nbsp;ct1.resetErrSysoutKeyword(reset_keyword);</pre> 
+<p>这里要注意 resetErrSysoutKeyword 方法参数的数组不支持正则表达式，需要罗列出所有的判定为错误的字符串。</p> 
+<h3>多任务执行时遇到任务失败是继续还是停止</h3> 
+<p>当有多个任务执行的时候，并不是所有的任务都会成功。如果遇到失败，不想继续下面的任务的时候，可以关闭 HALT_ON_FAILURE 开关：</p> 
+<h5>清单 13. 遇到失败时停止执行接下来的任务</h5> 
+<pre class="displaycode">&nbsp;SSHExec.setOption(IOptionName.HALT_ON_FAILURE,&nbsp;false);</pre> 
+<p>如果遇到失败，仍然想继续执行剩下的任务，可以打开 HALT_ON_FAILURE 开关：</p> 
+<h5>清单 14. 遇到失败时继续执行接下来的任务</h5> 
+<pre class="displaycode">&nbsp;SSHExec.setOption(IOptionName.HALT_ON_FAILURE,&nbsp;true);</pre> 
+<p>默认 HALT_ON_FAILURE 是设为 false 的。</p> 
+<p>例如，我们要依次执行“pwd” &gt; “ABCD” &gt;“echo $HOME”，其中显而易见第二个命令是错误的，任务执行应当在此失败，如果你想忽略这个错误的任务，继续执行剩下的“echo $HOME”命令任务，你可以关闭 HALT_ON_FAILURE 开关，要么干脆不改变默认值。请看下面的代码：</p> 
+<h5>清单 15. 遇到失败时继续执行接下来的任务</h5> 
+<pre class="displaycode">&nbsp;SSHExec.setOption(IOptionName.HALT_ON_FAILURE,&nbsp;false);&nbsp;
+&nbsp;ConnBean&nbsp;cb&nbsp;=&nbsp;new&nbsp;ConnBean("rfidic-1.svl.ibm.com",&nbsp;"tsadmin","u7i8o9p0");&nbsp;
+&nbsp;ssh&nbsp;=&nbsp;SSHExec.getInstance(cb);&nbsp;
+&nbsp;CustomTask&nbsp;ct1&nbsp;=&nbsp;new&nbsp;ExecCommand("pwd");&nbsp;
+&nbsp;CustomTask&nbsp;ct2&nbsp;=&nbsp;new&nbsp;ExecCommand("ABCD");&nbsp;
+&nbsp;CustomTask&nbsp;ct3&nbsp;=&nbsp;new&nbsp;ExecCommand("echo&nbsp;$HOME");&nbsp;
+&nbsp;ssh.connect();&nbsp;
+&nbsp;Result&nbsp;r1&nbsp;=&nbsp;ssh.exec(ct1);&nbsp;
+&nbsp;Result&nbsp;r2&nbsp;=&nbsp;ssh.exec(ct2);&nbsp;
+&nbsp;Result&nbsp;r3&nbsp;=&nbsp;ssh.exec(ct3);&nbsp;//&nbsp;此句仍然执行</pre> 
+<h3>SSH 端口设置</h3> 
+<p>默认的 SSH 连接端口是 22，如果你的远程主机用的不是这个端口而是 18，你可以这样设置：</p> 
+<h5>清单 16. 修改 SSH 连接端口为 18</h5> 
+<pre class="displaycode">&nbsp;SSHExec.setOption(IOptionName.SSH_PORT_NUMBER,&nbsp;18);</pre> 
+<h3>错误输入临时存放文件路径</h3> 
+<p>SSHXCUTE 会把命令或者脚本的错误输出临时存放在一个本地文件中。这仅仅是内部需要，用户不必改变这个文件的路径。默认的的存储路径是 $USERHOME/sshxcute_err.msg。</p> 
+<p>例如：</p> 
+<ul> 
+ <li><p>C:\Documents and Settings\Administrator\sshxcute_err.msg 对于 Windows</p></li> 
+ <li><p>/home/user/sshxcute_err.msg 对于 Linux/UNIX</p></li> 
+</ul> 
+<p>如果想改变错误临时文件路径请这样做：</p> 
+<h5>清单 17. 修改错误输入临时存放文件路径</h5> 
+<pre class="displaycode">&nbsp;SSHExec.setOption(IOptionName.ERROR_MSG_BUFFER_TEMP_FILE_PATH,&nbsp;"c:\\123.err");</pre> 
+<h3>不同任务之间的间隔时间</h3> 
+<p>当多任务依次执行时，可以设置它们之间的间隔时间。这意味着当前一个任务执行结束后，要睡眠（sleep）也就是等待一段时间再继续执行下一个任务。这在一种情形下极其有用，比如前一个任务执行需要很长时间，后一个任务要完全等它结束后才能开始。参考下面代码：</p> 
+<h5>清单 18. 修改不同任务之间的间隔时间</h5> 
+<pre class="displaycode">&nbsp;SSHExec.setOption(IOptionName.INTEVAL_TIME_BETWEEN_TASKS,&nbsp;5000l);</pre> 
+<p>注意这个参数的类型必须是长整形，所以别忘记加“l”。</p> 
+<h3>超时</h3> 
+<p>每个任务都要在一定时间内完成，如果超过这个时间，程序会自动退出。这个时间就叫做超时（TIMOUT）。你可以这样设置 timeout 参数：</p> 
+<h5>清单 19. 修改不同任务之间的间隔时间</h5> 
+<pre class="displaycode">&nbsp;SSHExec.setOption(IOptionName.TIMEOUT,&nbsp;36000l);</pre> 
+<p>注意这个参数的类型必须是长整形，所以别忘记加“l”。</p> 
+<h3>打印所有参数</h3> 
+<p>要打印出所有参数设置选项，参考下面代码：</p> 
+<h5>清单 20. 打印所有参数</h5> 
+<pre class="displaycode">&nbsp;SSHExec.showEnvConfig();&nbsp;
+
+&nbsp;//&nbsp;输出：
+&nbsp;******************************************************&nbsp;
+&nbsp;The&nbsp;list&nbsp;below&nbsp;shows&nbsp;sshxcute&nbsp;configuration&nbsp;parameter&nbsp;
+&nbsp;******************************************************&nbsp;
+&nbsp;TIMEOUT&nbsp;=&gt;&nbsp;36000&nbsp;
+&nbsp;HALT_ON_FAILURE&nbsp;=&gt;&nbsp;true&nbsp;
+&nbsp;INTEVAL_TIME_BETWEEN_TASKS&nbsp;=&gt;&nbsp;5000&nbsp;
+&nbsp;SSH_PORT_NUMBER&nbsp;=&gt;&nbsp;22&nbsp;
+&nbsp;ERROR_MSG_BUFFER_TEMP_FILE_PATH&nbsp;=&gt;&nbsp;c:\123.err</pre> 
+<p><a href="http://www.ibm.com/developerworks/cn/opensource/os-sshxcute/#ibm-pcon" rel="nofollow">回页首</a></p> 
+<h2>API 扩展</h2> 
+<p>这个章节是为想基于 sshxcute 框架做扩展的开发人员读的。开发者可以开发适用于自己项目的各种任务。所有的任务都必须继承 CustomTask 类。这个类包含以下抽象方法：</p> 
+<h5>清单 21. 所有任务的父类—— CustomTask 类中的方法</h5> 
+<pre class="displaycode">&nbsp;/**&nbsp;
+&nbsp;*&nbsp;通过命令或脚本的输出检查任务是否执行成功
+&nbsp;*&nbsp;
+&nbsp;*&nbsp;@param&nbsp;stdout&nbsp;
+&nbsp;*&nbsp;@return&nbsp;如果成功返回&nbsp;true，失败返回&nbsp;false&nbsp;
+&nbsp;*/&nbsp;
+&nbsp;protected&nbsp;abstract&nbsp;Boolean&nbsp;checkStdOut(String&nbsp;stdout);&nbsp;
+
+&nbsp;/**&nbsp;
+&nbsp;*&nbsp;通过返回代码检查任务是否执行成功
+&nbsp;*&nbsp;
+&nbsp;*&nbsp;@param&nbsp;exitCode&nbsp;
+&nbsp;*&nbsp;@return&nbsp;如果成功返回&nbsp;true，失败返回&nbsp;false&nbsp;
+&nbsp;*/&nbsp;
+&nbsp;protected&nbsp;abstract&nbsp;Boolean&nbsp;checkExitCode(int&nbsp;exitCode);&nbsp;
+
+&nbsp;/**&nbsp;
+&nbsp;*&nbsp;返回要在远程机器上执行的命令
+&nbsp;*&nbsp;
+&nbsp;*&nbsp;@return&nbsp;命令行字符串
+&nbsp;*/&nbsp;
+&nbsp;public&nbsp;abstract&nbsp;String&nbsp;getCommand();&nbsp;
+
+&nbsp;/**&nbsp;
+&nbsp;*&nbsp;任务的描述信息
+&nbsp;*&nbsp;
+&nbsp;*&nbsp;@return&nbsp;任务描述信息字符串
+&nbsp;*/&nbsp;
+&nbsp;public&nbsp;abstract&nbsp;String&nbsp;getInfo();</pre> 
+<p>如果想新建一种任务类型，只要覆盖 CustomTask 中的这些方法即可。下面是一个实际的场景来展示如何扩展并适用自定义类型的任务。</p> 
+<h3>需求</h3> 
+<p>产品 A 有一个 deployMetadata.sh 的 shell 脚本。开发组不想使用 ExecShellScript 类，而想使用自定义类型的任务。DeployMetadata.sh 的使用方法见清单 22</p> 
+<h5>清单 22. 产品小组 A 的需求，执行 deployMetadata.sh 脚本的命令格式</h5> 
+<pre class="displaycode">&nbsp;/opt/ProductA/bin/deployMetadata.sh&nbsp;–&nbsp;dba_user=system&nbsp;–&nbsp;dba_password=pw4dba</pre> 
+<h3>实现</h3> 
+<p>实现代码如下：</p> 
+<h5>清单 23. deployMetadata.sh 的任务模型代码</h5> 
+<pre class="displaycode">&nbsp;public&nbsp;class&nbsp;DeployMetadata&nbsp;extends&nbsp;CustomTask{&nbsp;
+&nbsp;protected&nbsp;String&nbsp;dba_user&nbsp;=&nbsp;"";&nbsp;
+&nbsp;protected&nbsp;String&nbsp;dba_password&nbsp;=&nbsp;"";&nbsp;
+
+&nbsp;public&nbsp;DeployMetadata(String&nbsp;dba_user,&nbsp;String&nbsp;dba_password){&nbsp;
+&nbsp;this.dba_user&nbsp;=&nbsp;dba_user;&nbsp;
+&nbsp;this.dba_password&nbsp;=&nbsp;dba_password;&nbsp;
+&nbsp;}&nbsp;
+
+&nbsp;public&nbsp;Boolean&nbsp;checkStdOut(String&nbsp;stdout){&nbsp;
+&nbsp;Iterator&lt;String&gt;&nbsp;iter&nbsp;=&nbsp;err_sysout_keyword_list.iterator();&nbsp;
+&nbsp;while(iter.hasNext()){&nbsp;
+&nbsp;if&nbsp;(stdout.contains(iter.next()))&nbsp;
+&nbsp;{&nbsp;
+&nbsp;return&nbsp;false;&nbsp;
+&nbsp;}&nbsp;
+&nbsp;}&nbsp;
+&nbsp;return&nbsp;true;&nbsp;
+&nbsp;}&nbsp;
+
+&nbsp;public&nbsp;Boolean&nbsp;checkExitCode(int&nbsp;exitCode){&nbsp;
+&nbsp;if&nbsp;(exitCode&nbsp;==&nbsp;0)&nbsp;
+&nbsp;return&nbsp;true;&nbsp;
+&nbsp;else&nbsp;
+&nbsp;return&nbsp;false;&nbsp;
+&nbsp;}&nbsp;
+
+&nbsp;public&nbsp;String&nbsp;getCommand(){&nbsp;
+&nbsp;return&nbsp;"/opt/ProductA/bin/deployMetadata.sh"&nbsp;+&nbsp;"&nbsp;-dba_user="&nbsp;+&nbsp;dba_user&nbsp;+&nbsp;
+&nbsp;"&nbsp;-dba_password="&nbsp;+&nbsp;dba_password;&nbsp;
+&nbsp;}&nbsp;
+
+&nbsp;public&nbsp;String&nbsp;getInfo(){&nbsp;
+&nbsp;return&nbsp;"Deploy&nbsp;metadata&nbsp;";&nbsp;
+&nbsp;}&nbsp;
+&nbsp;}</pre> 
+<h3>使用方法</h3> 
+<h5>清单 24. deployMetadata.sh 的任务在 sshxcute 框架中的使用方法</h5> 
+<pre class="displaycode">&nbsp;CustomTask&nbsp;task1&nbsp;=&nbsp;new&nbsp;DeployMetadata&nbsp;("system","pw4dba");&nbsp;
+&nbsp;ssh.connect();&nbsp;
+&nbsp;ssh.exec(task1);</pre> 
+<h2>结束语</h2> 
+<p>软件开发与测试人员可以应用 sshxcute 框架通过 Java 自动化地远程执行 Linux/UNIX 系统上的命令或脚本，同事批量执行也是支持的，ssxhcute 提供的多种参数选项配置也非常实用，不管是针对软件开发、测试还是系统部署，都简化了自动化流程与系统环境部署的步骤。如果读者有兴趣也可以下载 sshxcute 源代码分析，定制适用于自己项目的远程执行自动化工具。</p> 
+<p><a href="http://pan.baidu.com/s/1jGGi4tS" target="_self" rel="nofollow"><span style="color: rgb(192, 0, 0); font-size: 16px;"><strong>sshxcute jar包下载</strong></span></a></p>]]></body>
+		<author><![CDATA[Carl_]]></author>
+		<authorid>1866821</authorid>
+		<documentType>0</documentType>
+        <pubDate>2015-07-16 17:24:02</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

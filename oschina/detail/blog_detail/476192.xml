@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>476192</id>
+		<title><![CDATA[spark1.4 Windows local调试环境搭建总结]]></title>
+		<url><![CDATA[http://my.oschina.net/itnms/blog/476192]]></url>
+		<where><![CDATA[大数据]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>spark1.4 Windows local调试环境搭建总结</p> 
+<p>1.scala版本<br>scala-2.10.4 官方推荐<br>scala-2.11.7【不推荐，非sbt项目、需要后加载】</p> 
+<p>2.spark版本<br>spark-1.4.0-bin-hadoop2.6.tgz</p> 
+<p>3.hadoop<br>3.1版本<br>hadoop-2.6.0.tar.gz<br>3.2环境变量<br>HADOOP_HOME=E:/ysg.tools/spark/hadoop-2.6.0<br>或<br>System.setProperty(“hadoop.home.dir”, “E:\ysg.tools\spark\hadoop-2.6.0”);<br>3.3winutils.exe<br> </p> 
+<pre><code><br>winutils.exe拷贝至spark/hadoop-2.6.0/bin
+</code></pre> 
+<br>文件下载地址 
+<br> 
+<a href="http://files.cnblogs.com/files/yjmyzz/hadoop2.6%28x64%29V0.2.zip" rel="nofollow">http://files.cnblogs.com/files/yjmyzz/hadoop2.6%28x64%29V0.2.zip</a> 
+<p></p> 
+<p>4.idea<br>新建 NO-SBT项目<br> </p> 
+<pre><code><br>libraties 增加 scala sdk 
+spark-1.4.0-bin-hadoop2.6\lib\spark-assembly-1.4.0-hadoop2.6.0.jar
+</code></pre> 
+<p></p> 
+<p>spark.test.iml<br>先加载 spark-assembly-1.4.0-hadoop2.6.0<br>再加载 scala-sdk-2.11.7<br> </p> 
+<pre><code><br>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;module type="JAVA_MODULE" version="4"&gt;
+  &lt;component name="NewModuleRootManager" inherit-compiler-output="true"&gt;
+    &lt;exclude-output /&gt;
+    &lt;content url="file://$MODULE_DIR$"&gt;
+      &lt;sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" /&gt;
+    &lt;/content&gt;
+    &lt;orderEntry type="inheritedJdk" /&gt;
+    &lt;orderEntry type="sourceFolder" forTests="false" /&gt;
+    &lt;orderEntry type="library" name="spark-assembly-1.4.0-hadoop2.6.0" level="project" /&gt;
+
+    &lt;orderEntry type="library" name="scala-sdk-2.11.7" level="project" /&gt;
+  &lt;/component&gt;
+&lt;/module&gt;
+</code></pre> 
+<p></p>]]></body>
+		<author><![CDATA[北京起航]]></author>
+		<authorid>914149</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-08 15:39:22</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

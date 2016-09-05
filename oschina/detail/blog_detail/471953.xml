@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>471953</id>
+		<title><![CDATA[React-Native入门指南（六）——JSX在React-Native中的应用]]></title>
+		<url><![CDATA[http://my.oschina.net/vczero/blog/471953]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h1>React-Native入门指南</h1> 
+<h2><span style="color: #3366ff;">github:<a href="https://github.com/vczero/react-native-lession" target="_blank" rel="nofollow"><span style="color: #3366ff;">https://github.com/vczero/react-native-lession</span></a></span></h2> 
+<p><span style="color: #3366ff;"><strong>React-Native:用JavaScript开发你的原生应用，释放Native的UI体验，体验 Hybird开发效率。</strong></span></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/201506/29131037_fXY0.png" alt=""></p>
+<p>最近一个星期写的文章如下，链接是github page的，其实也可以在系列博客找到相应文章：</p> 
+<ul> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC1%E7%AF%87hello%20react-native.html" rel="nofollow">Lession1: Hello React-Native</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC2%E7%AF%87%E8%AE%A4%E8%AF%86%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84.html" rel="nofollow">Lession2: 认识代码结构</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC3%E7%AF%87css%E5%92%8C%E5%B8%83%E5%B1%80.html" rel="nofollow">Lession3: css和布局</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC4%E7%AF%87%E5%AD%A6%E4%BC%9Areact-native%E5%B8%83%E5%B1%80.html" rel="nofollow">Lession4: 学会React-Native布局（一）</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC4%E7%AF%87react-native%E5%B8%83%E5%B1%80%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%8C%EF%BC%89.html" rel="nofollow">Lession5: 学会React-Native布局(二)</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC5%E7%AF%87ui%E7%BB%84%E4%BB%B6.html" rel="nofollow">Lession6: UI组件</a></li> 
+ <li><a href="http://vczero.github.io/react_native/%E7%AC%AC6%E7%AF%87jsx%E5%9C%A8react-native%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8.html" rel="nofollow">Lession7: JSX在React-Native中的应用</a></li> 
+</ul> 
+<p>还有几篇会时刻更新：</p> 
+<ul> 
+ <li><a href="https://github.com/vczero/react-native-lession/blob/master" rel="nofollow">Lession8: 自己动手写组件</a></li> 
+ <li><a href="https://github.com/vczero/react-native-lession/blob/master" rel="nofollow">Lession9: 模块化开发</a></li> 
+ <li><a href="https://github.com/vczero/react-native-lession/blob/master" rel="nofollow">Lession10: 搭建项目架构</a></li> 
+ <li><a href="https://github.com/vczero/react-native-lession/blob/master" rel="nofollow">Lession11: 源码分析</a></li> 
+</ul> 
+<h2>第六篇JSX在React-Native中的应用</h2> 
+<h3>一、JSX概述</h3> 
+<pre><code>你一定疑问为什么要用JSX？其实这不是必需，而是建议。只是因为React是作为MVC中的V,是为UI而生，所以，React-Native使用JSX更能像HTML样表达树形结构，其实HTML的超类就是XML,React-Native将这个带到了解放前，不可否认的是JSX相比节省了很多的代码。JSX不是什么新奇的东西，JSX只是对JavaScript进行了拓展，仅此而已。
+</code></pre> 
+<h3>二、语法介绍</h3> 
+<pre><code>1、类XML UI组件表达，在React-Native中表现为：</code></pre> 
+<div class="cnblogs_code"> 
+ <pre>render: <span style="color: #0000ff;">function</span><span style="color: #000000;">() {
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> (
+        </span>&lt;View style={styles.container}&gt;
+            &lt;Text style={styles.welcome}&gt;<span style="color: #000000;">
+                Welcome to React Native</span>!
+            &lt;/Text&gt;
+        &lt;/View&gt;
+<span style="color: #000000;">    );
+}</span></pre> 
+</div> 
+<pre><code>
+2、js表达式
+在JSX中，表达式需要｛｝包裹，例如：</code></pre> 
+<div class="cnblogs_code"> 
+ <pre>render: <span style="color: #0000ff;">function</span><span style="color: #000000;">() {
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> (
+        </span>&lt;View style={styles.container}&gt;
+            &lt;Text style={styles.welcome}&gt;<span style="color: #000000;">
+                {</span>0? '第一段': '第二段'<span style="color: #000000;">}
+            </span>&lt;/Text&gt;
+        &lt;/View&gt;
+<span style="color: #000000;">    );
+}</span></pre> 
+</div> 
+<pre><code>
+上面的代码我们可以看出，style＝｛｝是一个表达式；{0? '第一段': '第二段'}是表达式，最后显示的应该是“第二段”。
+
+3、属性</code></pre> 
+<div class="cnblogs_code"> 
+ <pre>在HTML中，属性可以是任何值，例如：&lt;div tagid="00_1"&gt;&lt;/div&gt;,tagid就是属性；同样，在组件上可以使用属性。
+<span style="color: #000000;">建议使用以下方式：
+</span><span style="color: #0000ff;">var</span> props =<span style="color: #000000;"> {
+    tagid: </span>'GGFSJGFFATQ'<span style="color: #000000;">,
+    poiname: </span>'东方明珠'<span style="color: #000000;">
+};
+</span><span style="color: #0000ff;">return</span> (&lt;View {...props}&gt;&lt;/View&gt;);</pre> 
+</div> 
+<pre><code>
+4、如果需要在调用组件的时候动态增加或者覆盖属性，又该如何呢？
+很简单：&lt;View {...props} poiname={'虹桥机场'}&gt;&lt;/View&gt;
+
+5、关于样式</code></pre> 
+<div class="cnblogs_code"> 
+ <pre>（1<span style="color: #000000;">）普通内联样式:{{}},第一层｛｝是表达式，第二层｛｝是js对象；
+</span>&lt;View style={{fontSize:40, width:80,}}&gt; &lt;/View&gt;
+（2<span style="color: #000000;">）调用样式表:{样式类.属性}
+</span>&lt;View style={styles.container}&gt;&lt;/View&gt;
+（3<span style="color: #000000;">）样式表和内联样式共存:{[]}
+</span>&lt;View style={[styles.container, {fontSize:40, width:80}]}&gt;<span style="color: #000000;">
+（</span>4<span style="color: #000000;">）多个样式表:{[样式类1， 样式类2]}
+</span>&lt;View style={[styles.container, styles.color]}&gt;</pre> 
+</div> 
+<pre><code>
+6、属性校验
+为了实现强类型语言的效果，我们可以使用propTypes来声明数据属性的合法性校验。例如：</code></pre> 
+<div class="cnblogs_code"> 
+ <pre><span style="color: #000000;">React.createClass({
+    porpTypes:{
+        username: React.PropTypes.string,
+        age: React.propTypes.number,
+    }
+});</span></pre> 
+</div> 
+<pre><code>7、设定默认属性</code></pre> 
+<div class="cnblogs_code"> 
+ <pre><span style="color: #000000;">React.createClass({
+    getDefaultProps: </span><span style="color: #0000ff;">function</span><span style="color: #000000;">(){
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> {
+            sign: </span>'这个家伙很懒，什么都没留下'<span style="color: #000000;">
+        };
+    }
+});</span></pre> 
+</div> 
+<pre><code>8、组件的生命周期
+componentWillMount：组件创建之前
+getInitialState：初始化状态
+render：渲染视图
+componentDidMount：渲染视图完成后
+componentWillUnmount：组件被卸载之前
+</code></pre> 
+<h3>三、了解虚拟DOM</h3> 
+<pre><code>React进行了虚拟DOM的封装，所有的视图的更新都是虚拟DOM做了一个校验（diff）后最小更新。为什么这么做，因为现在机器的内存已经足以支撑这样视图UI的diff计算，用内存计算换取UI渲染效率。
+
+1、我们需要获取组件中真实的dom
+React.findDOMNode(component)
+
+2、第二节已经简单说了组件的生命周期（will, did）
+组件的生命周期分为3个部分：
+Mounting：正在装载组件；
+Updating：重新计算渲染组件；
+Unmounting：卸载组件</code></pre>]]></body>
+		<author><![CDATA[vczero]]></author>
+		<authorid>2401036</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-06-29 13:10:37</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

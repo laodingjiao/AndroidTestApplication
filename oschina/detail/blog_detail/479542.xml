@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479542</id>
+		<title><![CDATA[走进Python世界（二）搭建Python环境]]></title>
+		<url><![CDATA[http://my.oschina.net/u/1041012/blog/479542]]></url>
+		<where><![CDATA[[4]Python]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h1>Python 的环境配置</h1> 
+<p>TODO<br></p> 
+<h1>Python 的执行模式</h1> 
+<ul> 
+ <li><p>命令行交互模式： 搭建好python环境时，在命令行输入python 时 会进入交互模式，直接输入一些命令就可以得到执行结果啦</p></li> 
+</ul> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/232344_Bweh_1041012.png"></p>
+<ul> 
+ <li><p>文件执行模式：搭建好python环境时， python代码存放在python文件里面，通过 命令 python {文件名}，即可执行python程序了。</p></li> 
+</ul> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/232644_Kz8j_1041012.png"></p>
+<h1>Python 文件类型</h1> 
+<ul> 
+ <li><p>源代码： Python源代码的文件以“py”为扩展名，由python解释器解释运行</p></li> 
+ <li><p>字节代码：Python源文件经过编译后生成的扩展名为 “pyc”的文件</p><p>编译方法: import py_compile</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; py_compile.compile("hello.py")</p></li> 
+ <li><p>优化代码： 经过优化的源文件， 扩展名“pyo”</p><p>优化方法：&nbsp; python -o -m py_compile hello.py</p></li> 
+</ul> 
+<p>以上三种类型均可直接运行<br></p>]]></body>
+		<author><![CDATA[Marco_Fu]]></author>
+		<authorid>1041012</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 23:27:27</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

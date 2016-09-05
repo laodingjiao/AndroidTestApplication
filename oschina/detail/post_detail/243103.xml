@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>243103</id>
+      <title><![CDATA[OSC 第 83 期高手问答 — Docker 开发实践]]></title>
+      <url><![CDATA[http://www.oschina.net/question/865233_243103]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/432/865233_50.jpg?t=1436794387000</portrait>
+      <event>
+			  </event>
+      <body>
+		<![CDATA[
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+					</style>
+				<p> OSCHINA 本期高手问答 ( 7月14日- 7月20日 ) 我们请来了《Docker开发实践》的作者<a target="_blank" href="http://my.oschina.net/u/2406944" rel="nofollow">@zengjinlong</a>（<strong><strong>曾金龙</strong></strong>）为大家解答关于&nbsp;Docker 开发实践方面的问题。 </p> 
+<p> <strong>曾金龙</strong>，计算机硕士，中山大学毕业，就职于迅雷网络，国内覆盖面最广的“迅雷P2P引擎”核心研发成员。研究方向为P2P网络、音视频传输和CEP<span style="font-family:微软雅黑;">系统。对</span>Docker技术有着深入的理解，是国内较早将Docker引入到实际软件开发、测试和部署中的人。 </p> 
+<p> 本书详细介绍高级容器引擎Docker的各方面技术，从概念介绍到实战，讨论docker的内容，包含基础概念如：镜像，容器，仓库；从实战中讲解 docker的数据管理，网络管理，安全管理；最后，探讨docker的底层相关技术和基于docker的最新技术。本书出自一线互联网研发人员之手，它 是实战的结晶，所涉案例都是互联网公司的真实应用，对Docker的应用都不是浅尝辄止，而是带你登堂入室。 </p> 
+<p> <strong>Docker 普及活动正在进行中，各种 Dockerfile 示例请看：</strong><a target="_blank" href="http://www.oschina.net/news/64013/git-osc-docker-image-maker" rel="nofollow">http://www.oschina.net/news/64013/git-osc-docker-image-maker</a> </p> 
+<p> <strong>为了鼓励踊跃提问，<a href="http://my.oschina.net/turingbook" target="_blank" rel="nofollow">@图灵教育</a> 会在问答结束后从提问者中抽取<span style="color:#C00000;"> 5 </span>名幸运会员赠予《<span style="color:#0070C0;">Docker 开发实践</span>》一书。</strong> </p> 
+<p> <span style="color:#C00000;"><strong>第二章试读：</strong></span> </p> 
+<p> <strong>DOC：</strong><a target="_blank" href="http://www.oschina.net/doc/14223" rel="nofollow">http://www.oschina.net/doc/14223</a>&nbsp;&nbsp; </p> 
+<p> <strong>PDF：</strong><a target="_blank" href="http://www.oschina.net/doc/14224" rel="nofollow">http://www.oschina.net/doc/14224</a>&nbsp; </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0701/161058_jZtX_865233.jpg"> </p>
+<p> <span style="color:#C00000;"><strong>购买链接：<a target="_blank" href="http://item.jd.com/11717902.html" rel="nofollow">http://item.jd.com/11717902.html</a>&nbsp; </strong></span> </p> 
+<p> <span style="color:#E53333;">OSChina 高手问答一贯的风格，不欢迎任何与主题无关的讨论和喷子。</span> </p> 
+<p> 下面欢迎大家就&nbsp; <strong>Docker 开发实践</strong> 开发方面问题向 <a href="http://my.oschina.net/u/2406944" target="_blank" rel="nofollow">@zengjinlong</a> （<strong>曾金龙</strong>）提问，请直接回帖提问。 </p>						]]>
+	  </body>
+      <author><![CDATA[OSCReims]]></author>
+      <authorid>865233</authorid>
+      <answerCount>60</answerCount>
+      <viewCount>4550</viewCount>
+      <pubDate>2015-07-14 08:45:32</pubDate>
+	  <favorite>0</favorite>
+	  		<tags>
+		            <tag><![CDATA[Docker]]></tag>
+		            <tag><![CDATA[高手问答]]></tag>
+		        </tags>
+	    </post>
+</oschina>

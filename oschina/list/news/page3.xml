@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <catalog>1</catalog>
+  <newsCount>0</newsCount>
+  <pagesize>20</pagesize>
+  <newslist>
+						    <news>
+      	  	        <id>64267</id>
+      <title><![CDATA[Docker 1.7.1 正式发布下载]]></title>
+	        <body><![CDATA[Docker 1.7.1 正式发布下载，此版本更新内容如下： 运行期 Fix default ...]]></body>
+      <commentCount>7</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 15:11:27</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64266</id>
+      <title><![CDATA[Apache Subversion 1.9.0-rc3 发布]]></title>
+	        <body><![CDATA[Apache Subversion 1.9.0-rc3 发布，此版本现已提供下载： http://subve...]]></body>
+      <commentCount>5</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 15:04:57</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64265</id>
+      <title><![CDATA[RocksDB 3.12 发布，key-value 存储系统]]></title>
+	        <body><![CDATA[此版本更新内容如下： 新特性 Added experimental support for optimis...]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 14:57:15</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64264</id>
+      <title><![CDATA[苹果向开发者发布 OS X 10.10.5 第一个测试版]]></title>
+	        <body><![CDATA[苹果今天向开发者发布了 OS X 10.10.5 第一个测试版，距离 OS X 10.10.4...]]></body>
+      <commentCount>5</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 14:50:16</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64263</id>
+      <title><![CDATA[苹果向开发者发布 iOS 8.4.1 第一个测试版]]></title>
+	        <body><![CDATA[苹果今天向注册的开发者发布了 iOS 8.4.1 第一个测试版，距离 iOS 8.4 ...]]></body>
+      <commentCount>4</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 14:49:39</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64262</id>
+      <title><![CDATA[Ember v1.13.4 发布]]></title>
+	        <body><![CDATA[Ember v1.13.4 发布此版本主要是 bug 修复： #11651 [BUGFIX] Ensure c...]]></body>
+      <commentCount>4</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 14:46:24</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64261</id>
+      <title><![CDATA[Google Chrome v43.0.2357.134 正式版发布]]></title>
+	        <body><![CDATA[谷歌浏览器 Chrome Stable 稳定版迎来例行升级，新版本号为 v43.0.2357...]]></body>
+      <commentCount>24</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 14:44:29</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64260</id>
+      <title><![CDATA[Adminers 1.1.1 正式发布，MySQL 管理客户端]]></title>
+	        <body><![CDATA[Adminers 是二次开发轻便式数据库管理工具，目前支持 sqlite， mysql 两...]]></body>
+      <commentCount>12</commentCount>
+      <author><![CDATA[Tuesday]]></author>
+	  <authorid>998019</authorid>
+      <pubDate>2015-07-15 11:49:34</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>998019</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64259</id>
+      <title><![CDATA[Angular.js 1.4.3 发布，HTML 的 Web 框架]]></title>
+	        <body><![CDATA[Angular.js 1.4.3 发布，这一版本有多项 bug 修复，还增加了一些特性，提...]]></body>
+      <commentCount>11</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 10:44:38</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64258</id>
+      <title><![CDATA[Uncode-Schedule 0.3.0 发布，分布式任务调度组件]]></title>
+	        <body><![CDATA[Uncode-Schedule 是基于 zookeeper+quartz/spring task 的分布式任务调...]]></body>
+      <commentCount>10</commentCount>
+      <author><![CDATA[uncode]]></author>
+	  <authorid>99241</authorid>
+      <pubDate>2015-07-15 08:59:42</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>99241</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+									    <news>
+      	        
+      	        
+	        <id>64257</id>
+      <title><![CDATA[OSC 第 83 期高手问答 — Docker 开发实践]]></title>
+	        <body><![CDATA[OSCHINA 本期高手问答 ( 7月14日- 7月20日 ) 我们请来了《Docker开发实践...]]></body>
+      <commentCount>52</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 08:23:36</pubDate>
+      <url>http://www.oschina.net/question/865233_243103</url>
+	  <newstype>
+	    <type>2</type>
+	    <attachment>243103</attachment>		<authoruid2>865233</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+											    <news>
+      	  	        <id>64256</id>
+      <title><![CDATA[Dexposed —— 来自阿里无侵入式运行期 AOP 框架]]></title>
+	        <body><![CDATA[Dexposed 是阿里巴巴无线事业部第一个重量级 Andorid 开源软件，基于 RO...]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 08:22:01</pubDate>
+      <url>http://www.oschina.net/p/dexposed</url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+											    <news>
+      	  	        <id>64255</id>
+      <title><![CDATA[Git@OSC 项目推荐 —— Android 企业通讯录]]></title>
+	        <body><![CDATA[企业通讯录的实现，对本地通讯录的一个补充，使得咱们可以非常便捷的沟通...]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 08:20:27</pubDate>
+      <url>https://git.oschina.net/yso/SmartCall</url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+									    <news>
+      	  	        <id>10002935</id>
+      <title><![CDATA[MongoDB 3.2 先睹为快，服务器端大幅改进]]></title>
+	        <body><![CDATA[MongoDB 3.2 预计在2015年底在 MongoDB World 里向大家介绍，我们认为这...]]></body>
+      <commentCount>27</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 08:19:19</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+									    <news>
+      	              <id>64253</id>
+      <title><![CDATA[OSChina 周三乱弹 —— 热成泥是种怎样的体验]]></title>
+	        <body><![CDATA[7月15日，星期三，各位 OSCer 大家壕，我是天天早起到感动自己的小小编，...]]></body>
+      <commentCount>18</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 08:11:49</pubDate>
+      <url>http://my.oschina.net/xxiaobian/blog/478651</url>
+	  <newstype>
+	    <type>3</type>
+	    <attachment>478651</attachment>		<authoruid2>1428332</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64252</id>
+      <title><![CDATA[GNOME 桌面为什么这么好？]]></title>
+	        <body><![CDATA[Phoronix 用户 Eric Griffith 发表了长达5页的长篇社评，对比 LINUX 桌面...]]></body>
+      <commentCount>76</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 08:10:07</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64251</id>
+      <title><![CDATA[Pholcus 0.4.8 发布，Go 爬虫软件]]></title>
+	        <body><![CDATA[Pholcus 0.4.8 发布，这个版本添加页码下载成功数与失败数监控。 更多内...]]></body>
+      <commentCount>7</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 08:09:36</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+									    <news>
+      	              <id>64250</id>
+      <title><![CDATA[【每日一博】HBase RowKey 设计的那些事]]></title>
+	        <body><![CDATA[在说rowkey设计之前，先回答一下大家配置HBase时可能有的疑问，关于HBa...]]></body>
+      <commentCount>8</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 08:01:12</pubDate>
+      <url>http://my.oschina.net/lanzp/blog/477732</url>
+	  <newstype>
+	    <type>3</type>
+	    <attachment>477732</attachment>		<authoruid2>580695</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64249</id>
+      <title><![CDATA[Facebook 首席安全官建议对 Flash 设定死亡日期 ]]></title>
+	        <body><![CDATA[刚刚被任命为 Facebook 首席安全官的 Alex Stamos 建议 Adobe 公司对 Fl...]]></body>
+      <commentCount>39</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 07:59:24</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+							    <news>
+      	  	        <id>64248</id>
+      <title><![CDATA[PureScript 0.7.1 发布，静态类型语言]]></title>
+	        <body><![CDATA[PureScript 0.7.1 发布，更新内容如下： 对 0.7.0 的一些修复: @hdgarr...]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+	  <authorid>1</authorid>
+      <pubDate>2015-07-15 07:55:46</pubDate>
+      <url></url>
+	  <newstype>
+	    <type>0</type>
+	    		<authoruid2>1</authoruid2>
+				<eventurl></eventurl>
+			  </newstype>
+    </news>
+		  </newslist>	
+</oschina>

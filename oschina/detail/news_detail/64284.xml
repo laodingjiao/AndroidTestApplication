@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64284</id>
+      <title><![CDATA[为什么 Perl 6 花了如此长时间开发]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64284/perl-6]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Perl 6 用了15年时间开发，它计划在今年底正式发布。Perl 作者 Larry Wall<a target="_blank" href="http://www.linuxvoice.com/interview-larry-wall/" rel="nofollow"><span style="text-decoration:underline;"> 接受了《Linux Voice》的采访</span></a>， 谈论了管理一个项目的难处，他的语言学背景如何影响 Perl 的设计，Perl 6 为什么花了如此长时间的设计和开发。Larry Wall 说，Perl 6一开始有很多绝妙点子，但你必须在其中有所取舍，否则只会变得一团糟。他承认Perl 6的开发伊始存在大量问题，早期版本看起来像是面向对象的汇编语言，唐凤（发起了Perl 6实现Pugs项目）因此提议使用Haskell去理清底层的语言模型。Perl 6有多个实现项目，除了 Pugs 外，还有 Parrot VM，基于 .NET 的 Niecza，以及 Rakudo 和 MoarVM。 Larry Wall 称，今年的剩余时间需要将精力集中在 MoarVM 上。<br></p>]]></body>
+      <commentCount>20</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 08:09:35</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/perl]]></softwarelink>
+	  <softwarename><![CDATA[Perl]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[mod_perl 2.0.9 发布，Apache 的 Perl 模块]]></rtitle>
+			<rurl>http://www.oschina.net/news/63564/mod_perl-2-0-9</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— 新浪微博的 Perl SDK]]></rtitle>
+			<rurl>http://git.oschina.net/sjdy521/Mojo-SinaWeibo</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Perl 5.22.0 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63016/perl-5-22-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— Perl 微信客户端框架]]></rtitle>
+			<rurl>https://git.oschina.net/sjdy521/Weixin-Client</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— Perl 编写的 webqq 客户端]]></rtitle>
+			<rurl>http://git.oschina.net/sjdy521/Webqq-Client</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Perl 5.20.2 发布下载]]></rtitle>
+			<rurl>http://www.oschina.net/news/59712/perl-5-20-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Perl6 1.0 版本将会在今年圣诞节发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/59322/perl6-1-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[超过 78% 的 PHP 网站存在漏洞 Perl 最安全]]></rtitle>
+			<rurl>http://www.oschina.net/news/58412/php-install-statistics</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[2015 将是 Perl 6 之年]]></rtitle>
+			<rurl>http://www.oschina.net/news/56869/2015-year-of-perl-6</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Perl 5.20.1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/55289/perl-5-20-1</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

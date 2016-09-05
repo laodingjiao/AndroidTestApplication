@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>241823</id>
+      <title><![CDATA[MPD软件工作坊 (上海)]]></title>
+      <url><![CDATA[http://www.oschina.net/question/1032619_241823]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/516/1032619_50.jpg?t=1425560092000</portrait>
+      <event>
+					<id>241823</id>
+    		<cover><![CDATA[http://192.168.79.254:8080/oschina/images/uploads/cover/shanghai_1032619_241823_RqVuD_bi.jpg]]></cover>
+    		<title><![CDATA[MPD软件工作坊 (上海)]]></title>
+    		<category>4</category>
+    		<url><![CDATA[http://mpd.org.cn/shanghai/agenda.php]]></url>
+            <startTime>2015-07-25 09:00:00</startTime>>
+    		<endTime>2015-07-26 17:00:00</endTime>>
+            <createTime>2015-07-02 15:47:14</createTime>
+            <spot>国际会议中心</spot>
+    		<actor_count>0</actor_count>
+			<location>121.503749,31.245578</location>
+			<city>浦东</city>
+			        		 													<status>2</status>									<applyStatus>-1</applyStatus>						  </event>
+      <body>
+		<![CDATA[
+						<span style="font-weight:bold;">活动名称</span>：MPD软件工作坊 (上海)<br>
+		<span style="font-weight:bold;">活动时间</span>：2015-07-25 09:00<br>
+		<span style="font-weight:bold;">活动地点</span>：浦东 国际会议中心<br>
+		<span style="font-weight:bold;">活动费用</span>：免费<br>
+		<span style="font-weight:bold;">活动类型</span>：站外活动<br>
+        <span style="font-weight:bold;">引用标识</span>：<a href="javascript:alert('引用标识：用来在动弹中通过#sh823#方式引用当前活动，同时该动弹附带的图片将上传为活动图片。');">sh823</a><br>
+		<span style="font-weight:bold;">活动介绍</span>：<br>
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+						@charset "utf-8";
+/*markdown 显示内容样式*/
+.markdown-content{
+	font-size:14px;
+}
+.markdown-content h1,.markdown-content  h2,.markdown-content  h3,.markdown-content  h4,.markdown-content  h5,.markdown-content  h6
+	{
+	margin: 10px 0;
+	font-weight: bold;
+}
+
+.markdown-content h1 {
+	color: #000000;
+	font-size: 28px;
+}
+
+.markdown-content h2 {
+	color: #000000;
+	font-size: 24px;
+}
+
+.markdown-content h3 {
+	font-size: 18px;
+}
+
+.markdown-content h4 {
+	font-size: 16px;
+}
+
+.markdown-content h5 {
+	font-size: 14px;
+}
+
+.markdown-content h6 {
+	color: #777777;
+	background-color: inherit;
+	font-size: 14px;
+}
+
+.markdown-content hr {
+	height: 0.2em;
+	border: 0;
+	color: #CCCCCC;
+	background-color: #CCCCCC;
+}
+
+.markdown-content strong{
+	font-weight:bold;
+}
+
+.markdown-content p,.markdown-content blockquote,.markdown-content ul,.markdown-content ol,.markdown-content dl,.markdown-content li,.markdown-content table,.markdown-content pre
+	{
+	margin: 10px 0;
+	font-size: 10.5pt;
+}
+
+.markdown-content em {
+	font-style: italic;
+}
+
+.markdown-content pre {
+	line-height: 18px;
+	margin: 10px 0;
+	font-size: 9pt;
+	font-family: Courier New, Arial;
+	border: 1px solid rgb(221, 221, 221);
+	border-left: 5px solid rgb(108, 226, 108);
+	background: rgb(246, 246, 246);
+	padding: 5px;
+	white-space: pre-wrap;
+}
+
+.markdown-content pre code {
+	background-color: #F8F8F8;
+	border: none;
+	padding: 0;
+}
+
+.markdown-content code {
+	font-family: Consolas, Monaco, Andale Mono, monospace;
+	background-color: #F8F8F8;
+	border: 1px solid #CCCCCC;
+	border-radius: 3px;
+	padding: 0 0.2em;
+	line-height: 23px;
+}
+
+.markdown-content pre>code {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.markdown-content a:focus {
+	outline: thin dotted;
+}
+
+.markdown-content a:hover,.markdown-content a:active {
+	outline: 0;
+}
+
+.markdown-content blockquote {
+	color: #060;
+	margin: 0;
+	padding-left: 3em;
+	border-left: 0.5em #EEE solid;
+}
+
+.markdown-content ul,.markdown-content ol {
+	margin: 1em 0;
+	list-style-position: inside;
+	margin: 20px 0 20px 10px;
+	line-height: 20px;
+}
+
+.markdown-content ul {
+	list-style-type: circle;
+}
+
+.markdown-content ol {
+	list-style-type: decimal;
+}
+
+.markdown-content li p:last-child {
+	margin: 0
+}
+
+.markdown-content dd {
+	margin: 0 0 0 2em;
+}
+
+.markdown-content img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+	vertical-align: middle;
+	max-width: 100%;
+}
+
+.markdown-content table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.markdown-content td {
+	vertical-align: top;
+}					</style>
+				<div class="markdown-content"><h2>7月上海MPD软件工作坊等你来！</h2> 
+<p>继MPD软件工作坊6月在北京如火如荼的举办后，上海站的筹备工作也在紧锣密鼓的进行当中。北京和上海的听众对议题的关注度不同，但工作坊整体向“互联网+”靠拢，25场专题精心筹备，</p> 
+<h3>活动日程：</h3> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0703/162421_Deo8_1032619.png" alt="在此输入图片描述"> <br><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0703/162432_C9wY_1032619.png" alt="在此输入图片描述"> <br><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0703/162444_bAQx_1032619.png" alt="在此输入图片描述"> <br><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0703/162456_VEL6_1032619.png" alt="在此输入图片描述"></p>
+<p>除了精彩的议程之外，主办方还在会议现场安排了技术展览、签名售书、“发在朋友圈”等各种异彩纷呈的活动，这些都帮助参会者更加直接地接触软件技术的最新技术实践和动态。 <br>心动不如行动，更多详细日程及讲师介绍请移步官网： <a href="http://www.mpd.org.cn/shanghai/agenda.php" rel="nofollow">http://www.mpd.org.cn/shanghai/agenda.php</a> <br>目前大会售票已进入倒计时，欢迎电话垂询报名事宜， <br>报名咨询: 400-1818-020 <br>MPD软件工作坊上海站：7月25-26日 <br>MPD软件工作坊深圳站：9月19-20日</p></div>				    		<span style="font-weight:bold;">活动相册</span>：<br>
+        	    		    			还未上传任何活动照片，在动弹中引用  #sh823# 并添加图片即可上传~
+    		    		</table>
+				]]>
+	  </body>
+      <author><![CDATA[文洁洁洁]]></author>
+      <authorid>1032619</authorid>
+      <answerCount>0</answerCount>
+      <viewCount>144</viewCount>
+      <pubDate>2015-07-02 15:47:13</pubDate>
+	  <favorite>0</favorite>
+	    </post>
+</oschina>

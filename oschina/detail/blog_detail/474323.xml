@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>474323</id>
+		<title><![CDATA[我是如何设计文件系统 LFS 的]]></title>
+		<url><![CDATA[http://my.oschina.net/courage/blog/474323]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>6</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="font-size:14px;">&nbsp; &nbsp; LFS 超快的文件系统，可以同时存储海量大文件和小文件。并且不单单是一个文件系统，我还用作了数据库。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;我的测试数据是：和 C 直接读写文件速度几乎一样。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;项目地址：</span><a href="https://github.com/ikCourage/LFS" target="_self" rel="nofollow"><span style="font-size:14px;">github</span></a><span style="font-size:14px;"> &nbsp;</span><a href="http://git.oschina.net/ikCourage/LFS_FREE" target="_self" rel="nofollow"><span style="font-size:14px;">git@osc</span></a></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;注：这是一个开源项目，你可以自由使用，但对于开发者，我们需要审核，确认是否能承担开发工作。所以，需要 @ME.</span></p> 
+<p><br></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;在设计之前，需要明确两个目标：高并发，超快读写。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;为了实现高并发，那么必须将每个并发进行分离，各自做自己的工作，互不影响。意味着 A 和 B 可以同时读相同的或者不同的文件，或者写不同的文件，但是，不能写同一个文件。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;为了实现超快读写，在高并发的前提下已经可以很快的进行文件的操作了，并且对文件的定位也非常重要，事实上，我是基于对文件定位的设计来实现的高并发。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;那么我的工作就变得清晰简单了，我需要实现一个非常棒的文件定位就好了。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;为了更快的速度，我没有使用文件名的方案（在应用场景，这根本就不必用到），而是将文件名设计为一个文件 ID。我使用一个 int 来实现，意味着最大可以提供 2^32 -1 个文件，这已经很大了，几乎可以存储一个大型服务的所有文件了。（事实上，为了实现海量存储，实现分布式，我们可以非常简单的组织这个文件 ID，来实现一个宇宙唯一的文件 ID，为何这么说？因为文件 ID 是自增长的，所以虽然有 int 的限制，但我们可以无视它，就是说文件 ID 也可以是变长的。）</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;文件 ID 是自增长的，所以对于上层应用来讲，文件名是由文件系统生成的。这样的好处是，文件名足够小，并且因为是设计好的，所以文件系统知道该怎么分配一个文件 ID 给上层应用。并且可以根据这个文件 ID，实现理想的文件定位策略。在我的实现中，这个文件 ID 没有任何神秘之处，所以不需要任何算法来计算出这个文件 ID，它只是自增长的而已，只不过它自己增长的非常恰到好处。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;暂时忘记文件 ID，先 Mark 一下，稍后再讲，我们先来看一下如何能快速定位到文件内容。最好的方式莫过于能直接知道文件内容的存储位置了（起始位置和结束位置），ok，那么我们就用两个 int 来存储这两个信息，然后我们就可以直接根据这个存储位置找到实际的文件内容了。嗯，没错，这种方法不错。那么问题来了，我们有许多许多的文件，每个都需要记录有位置信息才行，所以我们得弄一个文件出来，专门存储这个位置信息来对应文件的实际内容。因此我做一个索引文件出来，用来记录文件内容的存储位置（人们称之为元数据，但我不这么理解，在 LFS 中，它就是一个索引文件 Index，稍后你也会理解为何如此命名）。这样一来我可以用这个索引文件记录许多个文件的位置信息了，在索引文件里查一下，就能知道存储位置在什么地方，很简单。不过，当文件变得多起来的时候，和索引文件对应的存储实际内容的文件会增长的比索引文件快得多，当其增长到一定上限时，我们无法对其写入新的内容（受限于操作系统的文件格式，我们可能无法对一个单一文件写入大量内容，并且由于我们前面使用两个 int 来记录位置信息，这就决定了，文件内容不能大于 4G）。所以我们得对存储实际内容的文件进行分块，用许多许多的块文件来存储超过容量限制的内容，在 LFS 里称之为 Block。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;这样一来我们可以存储许多数据了，但是 Index 和 Block 的对应关系被破坏掉了（事实上，我很乐意看到如此情况，因为由此，才可以进入高并发的第一步）。为何这么说，如果依然保留这种对应关系也是可以的，就是说每个 Index 都有一个 Block 与之对应。但是这样一来，Index 会有许多个，并且如果一个 Block 只存储一个文件的话，那么 Index 会变得非常小（只有 8 字节），这会造成 Index 的严重碎片化，而一旦 Index 变得碎片化了，那么我们根据其进行定位文件内容也相应变得更复杂了。所以，我们打破 Index 和 Block 的对应关系，使用另外一种方式，令 Block 对应到 Index。使 Index 中记录每个文件对应的 Block ID，来实现新的对应关系，这就增加了一个 int 来记录 Block ID。这样，Index 就可以记录许多个 Block 了，并且也不会产生碎片化，可以平稳的进行增长了。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;这样一来，我们就可以实现一种并发了。因为每个文件都会记录自己的 Block ID，那么当对不同文件进行操作时，意味着，是对不同 Block 进行操作，因为每个 Block 具有独立性，所以，只要同一时刻，处理的不是同一个 Block，那么许多个 Block 可以自由的进行处理，互不影响。至此，我们已经可以实现部分并发了。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;对于 Index 来讲，已经记录的位置信息也是可以进行并发处理的。因为已经记录过的内容不会再次发生改变，所以读取索引时，可以实现高并发，从而实现读取的高并发。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;不过，这里有一个问题，被前文忽略了，就是 Index 是怎么写的呢？</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;当 LFS 收到写文件请求时，需要找到一个空闲的 Block，并且将 Block ID 和该 Block 内的位置信息记录到 Index 中，即 Index 中的每个记录有 12 个字节。单线程处理时没有任何问题，不停的对这个 Index 进行追加写。但是当并发产生时，我们就遇到了麻烦，Index 的内容会被哪个线程进行写操作呢？可能会被写乱。所以，我们的要求高并发之路，在这里被挡了下来，这里会变成单线程操作。不过，幸运的是，Index 写的内容很少，每次只有 12 个字节，所以会很快，从而降低了对并发的影响。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;恰好，和 Block 类似，我们也可以用许多个 Index 来实现高并发。就是说，每一个 Index 只有一个线程在写，这样一来，高并发又提高了一个量级。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;至此，我们来描述下 Index 的格式：BlockID:int, start:int, end:int，共 12 个字节。每一个文件都有这 12 个字节。但是？额……我们的文件 ID 在哪里呢？</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;答案是：没有文件 ID。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;接下来讲一下，我们前面 Mark 的文件 ID。如我所说，没有文件 ID 会存储，那么是如何找到对应的文件内容的呢，就是说如何找到 Index 内的位置信息呢？</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;事实上，我很讨厌文件 ID 这个东西，所以有意避开它了，因为确实没有必要来存储这个文件 ID，如果是文件名的话，那就不得不存储了，但是幸好在 LFS 设计之初，就使用的是文件 ID。并且我为什么要浪费字节来存储文件 ID 呢？所以，由于我们之前的设计，我们可以不用存储文件 ID 了，这就是说，LFS 内不会有任何的查找过程，即使是 Index 内也不会。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;LFS 使用的方案是通过计算找到具体内容，并且只有计算。由于 Index 内每个文件都是相同的 12 个字节的记录，所以，LFS 通过应用层传来的文件 ID 乘以 12 个字节，就得到了，该文件 ID 在 Index 内的位置，然后取出这 12 个字节就能到对应的 Block 进行操作了。索引一定需要哈希或者排序？看样子不是。所以这也是我称之为索引的原因，因为 Index 发挥的索引的作用比元数据的作用高得多。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;不过，因为 Index 文件也有多个，那么首先我们得知道文件 ID，所在的 Index 才行。幸好，每个 Index 的额定大小是相同的，即每个 Index 都可以记录相同数量的文件位置信息。并且每个 Index 都是有编号的，即我们理解为：编号为 0 的 Index 存储文件 ID [0 - 99] 的位置信息，编号为 1 的 Index 存储文件 ID [100 - 199] 的位置信息；现在需要读取文件 ID 为 109 的内容，那么使用 Math.floor(109 / 100)，得到 1 即为编号为 1 的 Index；然后我们还需要获得在该 Index 内的文件 ID，即：109 - (1 * 100) = 9；最后，因为每个文件记录 12 个字节的信息，所以：9 * 12 = 108，即为索引内的偏移，然后取出后面的 12 个字节，就是对应 Block 的信息了。从而根据读取到的 Block 信息对 Block 进行操作。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;因为文件 ID 与 Index 是隐式关联的，所以，在并发时分配空闲 Index 时，即意味着，分配了一个恰到好处的文件 ID，这样就实现了文件 ID 的自增长，并且确实恰到好处。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;这就是 LFS 的核心原理。&nbsp;有什么理由会不快呢？</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;核心原理，看似简单，但是，LFS 实现的更多，支持更新和删除，尤其是更新，实现起来确实复杂。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;LFS 会像其他的文件系统一样在更新时使用扩展块吗？不会，为什么需要呢？我们已经有了 Block，那么直接用 Block 进行更新就好了。LFS 为更新提供了多种操作方式，暂且以实现起来最简单，并且描述起来也最简单的方式来做一个说明：</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;操作方式之一是，先删除旧的内容，然后重新写文件。即重新进行一次写文件的流程，只不过，此时，文件 ID 不需要增长，直接向指定的文件 ID 覆盖写入内容即可。这也就意味着，即使是在第一次写文件的时候（LFS 还没有自增到该文件 ID），也可以使用指定的文件 ID 来写入内容，并不是一定要 LFS 先生成该文件 ID，然后才能进行写入（但是我个人不建议这么做）。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;其他的操作方式是在原数据上进行修改（处理方式不同），不删除旧的内容。如果新内容大于原来的内容的话，会分配一个新的 Block 用来写入溢出的内容。这个过程可能会产生数据迁移，幸好，LFS 的多种更新方式中存在避免数据迁移的方式，并且也提供分配更少 Block 的方式来使更新效率最大化。（我很喜欢这些处理方式，非常符合我的工作需求，对于更新频繁，或者不断增长的内容，非常棒。）</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;由于更新方式有多种以应对各种需求，所以更新的功能实现起来很复杂，但对外 API 依然很简单。事实上，LFS 没有更新的 API，写文件的 API 同时实现了更新，这样对外层应用来讲会更简单（为什么非要弄一个更新 API 呢？NO!）。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;LFS 把许多文件都进行分块处理，就是说，几乎每个部分都是并发的。每个文件的大小默认是 64M（为什么？不是因为流行，而是我认为 64M 可以非常快的一次性载入内存，即使是配置不怎么样的机器。事实上，如你所见，几乎没有多少 CPU 计算，所以，LFS 更适合部署在成本低但 IO 优秀的机器上，从而减少成本。成本也是 LFS 的要求之一，我希望任何人都能用得起 LFS。），可以用来存储海量大文件和小文件，由于前面介绍的原理，这意味着，可以同时存储海量大文件和小文件。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;并且，我不单把 LFS 只作为一个文件系统来用，事实上，我个人也使用它的数据库特性，相信这一点大家都能理解。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;另外，LFS 在计划中，提供碎片整理，用来将碎片进行合并处理等，希望有意向的伙伴可以加入进来。事实上，我已经通过一种方式，来将这种操作变得更简单，但还有部分尚未实现，因为目前为止我尚不需要。但其他人可能会需要，对吧。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;并且，如我在前面所说，LFS 可以非常简单的实现分布式扩展，已经部分实现，也希望有意向的伙伴可以加入进来。并且，在当前情况下，也可以通过封装方式来实现分布式，不过希望能原生实现分布式，因为我早就预留了设计，在设计之初，就是为了分布式，希望有伙伴可以承担这个工作。</span></p> 
+<p><br></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;希望有更多的人使用 LFS。</span></p> 
+<p><span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Thanks.</span></p>]]></body>
+		<author><![CDATA[Courage]]></author>
+		<authorid>85589</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-03 19:28:43</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

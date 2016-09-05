@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>473832</id>
+		<title><![CDATA[MariaDB Galera Cluster 部署（如何快速部署MariaDB集群）]]></title>
+		<url><![CDATA[http://my.oschina.net/oneapmofficial/blog/473832]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>9</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>MariaDB作为Mysql的一个分支，在开源项目中已经广泛使用，例如大热的openstack，所以，为了保证服务的高可用性，同时提高系统的负载能力，集群部署是必不可少的。</p> 
+<h2>MariaDB Galera Cluster 介绍</h2> 
+<p>MariaDB集群是MariaDB同步多主机集群。它仅支持XtraDB/ InnoDB存储引擎（虽然有对MyISAM实验支持 - 看wsrep_replicate_myisam系统变量）。</p> 
+<p>主要功能:</p> 
+<ul> 
+ <li>同步复制</li> 
+ <li>真正的multi-master，即所有节点可以同时读写数据库</li> 
+ <li>自动的节点成员控制，失效节点自动被清除</li> 
+ <li>新节点加入数据自动复制</li> 
+ <li>真正的并行复制，行级</li> 
+ <li>用户可以直接连接集群，使用感受上与MySQL完全一致</li> 
+</ul> 
+<p>优势:</p> 
+<ul> 
+ <li>因为是多主，所以不存在Slavelag(延迟)</li> 
+ <li>不存在丢失事务的情况</li> 
+ <li>同时具有读和写的扩展能力</li> 
+ <li>更小的客户端延迟</li> 
+ <li>节点间数据是同步的,而Master/Slave模式是异步的,不同slave上的binlog可能是不同的</li> 
+</ul> 
+<p>技术:</p> 
+<p>Galera集群的复制功能基于Galeralibrary实现,为了让MySQL与Galera library通讯，特别针对MySQL开发了wsrep API。</p> 
+<p>Galera插件保证集群同步数据，保持数据的一致性，靠的就是可认证的复制，工作原理如下图： </p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2F7xk2is.com1.z0.glb.clouddn.com%2Fmariadb-galera-cluster.png" alt="q"></p>
+<p>当客户端发出一个commit的指令，在事务被提交之前，所有对数据库的更改都会被<code>write-set</code>收集起来,并且将 <code>write-set</code> 纪录的内容发送给其他节点。</p> 
+<p><code>write-set</code> 将在每个节点进行认证测试，测试结果决定着节点是否应用<code>write-set</code>更改数据。</p> 
+<p>如果认证测试失败，节点将丢弃 write-set ；如果认证测试成功，则事务提交。</p> 
+<h3>1.安装环境准备</h3> 
+<p>安装MariaDB集群至少需要3台服务器（如果只有两台的话需要特殊配置，请参照官方文档）</p> 
+<p>在这里，我列出试验机器的配置：</p> 
+<p>操作系统版本：centos7</p> 
+<p>node4:10.128.20.16 node5:10.128.20.17 node6:10.128.20.18</p> 
+<p>以第一行为例，node4为 <code>hostname</code> ，10.128.20.16为 <code>ip</code> ，在三台机器修改 <code>/etc/hosts</code>文件，我的文件如下：</p> 
+<pre><code>10.128.20.16 node4
+10.128.20.17 node5
+10.128.20.18 node6
+</code></pre> 
+<p>为了保证节点间相互通信，需要禁用防火墙设置（如果需要防火墙，则参照官方网站增加防火墙信息设置）</p> 
+<p>在三个节点分别执行命令：</p> 
+<pre><code>systemctl stop firewalld
+</code></pre> 
+<p>然后将<code>/etc/sysconfig/selinux</code> 的 <code>selinux</code> 设置成 <code>disabled</code> ,这样初始化环境就完成了。</p> 
+<h3>2.安装 MariaDB Galera Cluster</h3> 
+<pre><code>[root@node4 ~]# yum install -y mariadb mariadb-galera-server mariadb-galera-common galera rsync
+</code></pre> 
+<pre><code>[root@node5 ~]# yum install -y mariadb mariadb-galera-server mariadb-galera-common galera rsync
+</code></pre> 
+<pre><code>[root@node6 ~]# yum install -y mariadb mariadb-galera-server mariadb-galera-common galera rsync
+</code></pre> 
+<h3>3.配置 MariaDB Galera Cluster</h3> 
+<p>初始化数据库服务，只在一个节点进行<br> </p> 
+<pre><code><br>[root@node4 mariadb]# systemctl start mariadb
+[root@node4 mariadb]# mysql_secure_installation
+
+NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MariaDB to secure it, we'll need the current
+password for the root user.  If you've just installed MariaDB, and
+you haven't set the root password yet, the password will be blank,
+so you should just press enter here.
+
+Enter current password for root (enter for none):
+OK, successfully used password, moving on...
+
+Setting the root password ensures that nobody can log into the MariaDB
+root user without the proper authorisation.
+
+Set root password? [Y/n]
+New password:
+Re-enter new password:
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+By default, a MariaDB installation has an anonymous user, allowing anyone
+to log into MariaDB without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] n
+ ... skipping.
+
+Normally, root should only be allowed to connect from 'localhost'.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] y
+ ... Success!
+
+By default, MariaDB comes with a database named 'test' that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n] n
+ ... skipping.
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n] y
+ ... Success!
+
+Cleaning up...
+
+All done!  If you've completed all of the above steps, your MariaDB
+installation should now be secure.
+
+Thanks for using MariaDB!
+</code></pre> 
+<p></p> 
+<p>关闭数据库，修改 <code>/etc/my.cnf.d/galera.cnf</code></p> 
+<pre><code>[root@node4 mariadb]# systemctl stop mariadb
+[root@node4 ~]# vim /etc/my.cnf.d/galera.cnf
+</code></pre> 
+<p>修改以下内容：</p> 
+<pre><code>[mysqld]
+......
+wsrep_provider = /usr/lib64/galera/libgalera_smm.so
+wsrep_cluster_address = "gcomm://node4,node5,node6"
+wsrep_node_name = node4
+wsrep_node_address=10.128.20.16
+#wsrep_provider_options="socket.ssl_key=/etc/pki/galera/galera.key; socket.ssl_cert=/etc/pki/galera/galera.crt;"
+</code></pre> 
+<p>提示：如果不用ssl的方式认证的话，请把<code>wsrep_provider_options</code> 注释掉。</p> 
+<p>将此文件复制到node5、node6，注意要把 <code>wsrep_node_name</code>和 <code>wsrep_node_address</code>改成相应节点的 <code>hostname</code>和<code>ip</code>。</p> 
+<h3>4.启动 MariaDB Galera Cluster 服务</h3> 
+<pre><code>[root@node4 ~]# /usr/libexec/mysqld --wsrep-new-cluster --user=root &amp;
+</code></pre> 
+<p>观察日志：</p> 
+<pre><code>[root@node4 ~]# tail -f /var/log/mariadb/mariadb.log
+
+150701 19:54:17 [Note] WSREP: wsrep_load(): loading provider library 'none'
+150701 19:54:17 [Note] /usr/libexec/mysqld: ready for connections.
+Version: '5.5.40-MariaDB-wsrep'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  MariaDB Server, wsrep_25.11.r4026
+</code></pre> 
+<p>出现 <code>ready for connections</code> ,证明我们启动成功，继续启动其他节点：</p> 
+<pre><code>[root@node5 ~]# systemctl start mariadb
+[root@node6 ~]# systemctl start mariadb
+</code></pre> 
+<p>可以查看<code>/var/log/mariadb/mariadb.log</code>，在日志可以看到节点均加入了集群中。</p> 
+<p>警告⚠：<code>--wsrep-new-cluster</code> 这个参数只能在初始化集群使用，且只能在一个节点使用。</p> 
+<h3>5.查看集群状态</h3> 
+<p><img src="http://192.168.79.254:8080/oschina/images/action/blog/img_proxy?url=http%3A%2F%2F7xk2is.com1.z0.glb.clouddn.com%2Fgalera-status.png" alt="q"></p>
+<p>我们可以关注几个关键的参数：</p> 
+<p><code>wsrep_connected = on</code> 链接已开启</p> 
+<p><code>wsrep_local_index = 1</code>在集群中的索引值</p> 
+<p><code>wsrep_cluster_size =3</code>集群中节点的数量</p> 
+<p><code>wsrep_incoming_addresses = 10.128.20.17:3306,10.128.20.16:3306,10.128.20.18:3306</code> 集群中节点的访问地址</p> 
+<h3>6.验证数据同步</h3> 
+<p>我们在<code>node4</code>上新建数据库 <code>galera_test</code> ,然后在<code>node5</code> 和<code>node6</code> 上查询，如果可以查询到 <code>galera_test</code> 这个库，说明数据同步成功，集群运行正常。<br> </p> 
+<pre><code><br>[root@node4 ~]# mysql  -uroot  -proot  -e  "create database galera_test"
+</code></pre> 
+<br> 
+<pre><code><br>[root@node5 ~]# mysql  -uroot  -proot  -e  "show databases"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| galera_test        |
+| mysql              |
+| performance_schema |
++--------------------+
+</code></pre> 
+<br> 
+<pre><code><br>[root@node6 ~]# mysql  -uroot  -proot  -e  "show databases"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| galera_test        |
+| mysql              |
+| performance_schema |
++--------------------+
+</code></pre> 
+<p></p> 
+<p>至此，我们的 MariaDB Galera Cluster 已经成功部署。</p> 
+<p>参考文章：<br>[1]<a href="http://galeracluster.com/documentation-webpages/" rel="nofollow">http://galeracluster.com/documentation-webpages/</a><br>[2]<a href="https://mariadb.com/kb/en/mariadb/getting-started-with-mariadb-galera-cluster/" rel="nofollow">https://mariadb.com/kb/en/mariadb/getting-started-with-mariadb-galera-cluster/</a></p> 
+<p><strong>本文系<a href="http://oneapm.com/index.html?utm_source=Common&amp;utm_medium=Articles&amp;utm_campaign=TechnicalArticles&amp;from=matefiseco" rel="nofollow">OneAPM</a>工程师原创文章。OneAPM是中国基础软件领域的新兴领军企业，能帮助企业用户和开发者轻松实现：缓慢的程序代码和SQL语句的实时抓取。想阅读更多技术文章，请访问OneAPM<a href="http://code.oneapm.com/?hmsr=media&amp;hmmd=&amp;hmpl=&amp;hmkw=&amp;hmci=" rel="nofollow">官方技术博客</a>。</strong></p>]]></body>
+		<author><![CDATA[OneAPM蓝海讯通]]></author>
+		<authorid>2365986</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-03 00:53:20</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

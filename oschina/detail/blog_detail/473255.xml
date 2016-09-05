@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>473255</id>
+		<title><![CDATA[MyBatis笔记（一）——带你入门带你飞]]></title>
+		<url><![CDATA[http://my.oschina.net/happyBKs/blog/473255]]></url>
+		<where><![CDATA[Mybatis/Hibernate]]></where>
+		<commentCount>4</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><span style="font-size: 18px;"><strong>MyBatis(原名是ibatis)简介</strong></span></p> 
+<p>MyBatis是支持普通SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis消除了几乎所有的JDBC代码和参数的手工设置以及对结果集的检索封装。MyBatis可以使用<span style="color: rgb(255, 0, 0);">简单的XML</span>或<span style="color: rgb(255, 0, 0);">注解</span>用于配置和原始映射，将接口和Java的POJO（Plain Old Java Objects，普通的Java对象）映射成数据库中的记录.</p> 
+<p>与数据库进行交互，有很多种方法或者框架：由简到繁可以排列为：</p> 
+<p>JDBC-&gt;dbutils-&gt;MyBatis-&gt;Hibernate</p> 
+<p>JDBC不用多说，最基本的Java数据库交互手段。</p> 
+<p>dbutils相对于JDBC的优势在于，它能够自动封装查询结果集，不需要操作statement或resualtset。但是，它的CRUD操作还是需要写SQL语句的。</p> 
+<p>Hibernate则完全是与对象打交道了，存一个对象的数据只需要save(object)就可以了。</p> 
+<p>而Mybaits是介于<span style="line-height: 23px;">dbutils与Hibernate之间的东西。Mybatis需要写SQL语句，但是不是存放在Java代码中，而是存放在xml文件中，相当于一个中间件一样，当Java代码需要与数据库进行交互，就调用这个xml中大的SQL语句。另外，与xml并行的是，还可以使用注解来完成这个操作。</span></p> 
+<p>那么，既然有了Hibernate，为什么还需要Mybatis呢？很多情况下是为了避免浪费，比如一些查询，我们可以控制在我们希望的范围内。相比于dbutils，Mybatis的优势呢？Mybatis虽然不像Hibernate那样是完全围绕对象的，但是Mybatis在Java代码中操作的仍然是对象，只是需要xml中的SQL与数据库交互；而dbutils的Java代码仍然需要操作SQL。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0701/210209_BpG4_1156339.jpg"></p>
+<p>那么接下来，我们来用一个例子梳理构建一个Mybatis应用的一般步骤：</p> 
+<p>我们希望做这样一件事情：我们在数据库中构造一个users表，在代码模块中构建一个User类，users表的字段与User的属性是完全一一对应的。现在，我们希望通过输入一个id字段或者属性值，将相应的users表中的记录行查询出来并自动封装成User对象。那么，现在的问题就是如何形成这种代码区的对象与数据库表的映射，以及如何在此基础上构建一个我们需要的查询服务。这就需要我们的Mybatis。</p> 
+<p><span style="color: rgb(255, 255, 255);">（本文出自：http://my.oschina.net/happyBKs/blog/473255）</span></p> 
+<p><span style="font-size: 18px;"><strong>环境与项目的搭建：</strong></span><br></p> 
+<p>为了方便，我使用的IDE是STS，项目用的是Maven的quickstart项目。</p> 
+<p>首先，我们需要导入相应的jar。包括mybatis的和mysql driver。</p> 
+<p>pom.xml如下：</p> 
+<pre class="brush:xml;toolbar: true; auto-links: false;">&lt;project&nbsp;xmlns="http://maven.apache.org/POM/4.0.0"&nbsp;xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+&nbsp;&nbsp;xsi:schemaLocation="http://maven.apache.org/POM/4.0.0&nbsp;http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+&nbsp;&nbsp;&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+&nbsp;&nbsp;&lt;groupId&gt;com.happyBKs.mybatis&lt;/groupId&gt;
+&nbsp;&nbsp;&lt;artifactId&gt;C1&lt;/artifactId&gt;
+&nbsp;&nbsp;&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+&nbsp;&nbsp;&lt;packaging&gt;jar&lt;/packaging&gt;
+
+&nbsp;&nbsp;&lt;name&gt;C1&lt;/name&gt;
+&nbsp;&nbsp;&lt;url&gt;http://maven.apache.org&lt;/url&gt;
+
+&nbsp;&nbsp;&lt;properties&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+&nbsp;&nbsp;&lt;/properties&gt;
+
+&nbsp;&nbsp;&lt;dependencies&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;dependency&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;groupId&gt;junit&lt;/groupId&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId&gt;junit&lt;/artifactId&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;version&gt;4.10&lt;/version&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;scope&gt;test&lt;/scope&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/dependency&gt;
+
+	&lt;dependency&gt;
+		&lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+		&lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+		&lt;version&gt;3.3.0&lt;/version&gt;
+	&lt;/dependency&gt;
+
+
+	&lt;dependency&gt;
+		&lt;groupId&gt;mysql&lt;/groupId&gt;
+		&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+		&lt;version&gt;5.1.35&lt;/version&gt;
+	&lt;/dependency&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&lt;/dependencies&gt;
+&lt;/project&gt;</pre> 
+<p>然后，加入一个源文件文件夹，命名为src/main/resources，为的是以后存放项目中的各种配置文件和资源文件。</p> 
+<p>最后，我们把数据库搭建好。我用的是mysql-5.6.25，用bin下的mysqld命令登录。</p> 
+<pre class="brush:shell;toolbar: true; auto-links: false;">bin&gt;&nbsp;mysqld&nbsp;-u&nbsp;root</pre> 
+<p>这里我是默认的设置，用户名root，密码为空。</p> 
+<p><br></p> 
+<p><span style="font-size: 18px;"><strong>构建Mybatis程序的基本步骤：</strong></span></p> 
+<p>1.数据库建表users，并插入数据。</p> 
+<pre class="brush:sql;toolbar: true; auto-links: false;">create&nbsp;database&nbsp;mybatis;
+use&nbsp;mybatis;
+CREATE&nbsp;TABLE&nbsp;users(id&nbsp;INT&nbsp;PRIMARY&nbsp;KEY&nbsp;AUTO_INCREMENT,&nbsp;NAME&nbsp;VARCHAR(20),&nbsp;age&nbsp;INT);
+INSERT&nbsp;INTO&nbsp;users(NAME,&nbsp;age)&nbsp;VALUES('Tom',&nbsp;12);
+INSERT&nbsp;INTO&nbsp;users(NAME,&nbsp;age)&nbsp;VALUES('Jack',&nbsp;11);</pre> 
+<p>happyBKs很希望根红苗正的mysql workbench。在那里操作吧。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0702/101540_SEaQ_1156339.jpg"></p>
+<p><br></p> 
+<p>2.&nbsp;添加Mybatis的配置文件config.xml</p> 
+<p>这个文件是mybatis的核心配置文件，包含了数据库配置信息，如driver名称、数据库url、用户名和密码等；还包含了我们刚才提到的映射的构建，也是在这里把所有的映射文件罗列出来。</p> 
+<p>在实际使用时，我们需要先行加载这里文件，所以可谓是整个，Mybatis的项目配置文件的树干部分。</p> 
+<p>在这个项目中，我将config.xml放到了src/main/resources文件夹下。</p> 
+<p>这里，我们先只进行数据库配置，映射配置等会儿再说。</p> 
+<pre class="brush:xml;toolbar: true; auto-links: false;">&lt;?xml&nbsp;version="1.0"&nbsp;encoding="UTF-8"?&gt;
+&lt;!DOCTYPE&nbsp;configuration&nbsp;PUBLIC&nbsp;"-//mybatis.org//DTD&nbsp;Config&nbsp;3.0//EN"&nbsp;"http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;
+&lt;configuration&gt;
+&lt;!--&nbsp;
+development:&nbsp;开发模式
+work:&nbsp;工作模式
+&nbsp;--&gt;
+	&lt;environments&nbsp;default="development"&gt;
+		&lt;environment&nbsp;id="development"&gt;
+			&lt;transactionManager&nbsp;type="JDBC"&nbsp;/&gt;
+			&lt;dataSource&nbsp;type="POOLED"&gt;
+				&lt;property&nbsp;name="driver"&nbsp;value="com.mysql.jdbc.Driver"&nbsp;/&gt;
+				&lt;property&nbsp;name="url"&nbsp;value="jdbc:mysql://localhost:3306/mybatis"&nbsp;/&gt;
+				&lt;property&nbsp;name="username"&nbsp;value="root"&nbsp;/&gt;
+				&lt;property&nbsp;name="password"&nbsp;value=""&nbsp;/&gt;
+			&lt;/dataSource&gt;
+		&lt;/environment&gt;
+	&lt;/environments&gt;
+&lt;/configuration&gt;</pre> 
+<p>值得一提的是，这里的evironments或environment可以有两种模式：</p> 
+<p>development: 开发模式</p> 
+<p>work: 工作模式</p> 
+<p>区别这里不说，影响不大。但是请注意，无论你选择哪一种模式，请让<span style="line-height: 23px;">evironments或environment的模式保持统一，否则要出问题的哦。</span></p> 
+<p><span style="line-height: 23px;"><br></span></p> 
+<p>3.&nbsp;定义表所对应的实体类</p> 
+<p>这里我们构建一个与users表对应的类User。</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">package&nbsp;com.happyBKs.mybatis.C1;
+
+public&nbsp;class&nbsp;User&nbsp;{
+	private&nbsp;int&nbsp;id;
+	private&nbsp;String&nbsp;name;
+	private&nbsp;int&nbsp;age;
+	public&nbsp;int&nbsp;getId()&nbsp;{
+		return&nbsp;id;
+	}
+	public&nbsp;void&nbsp;setId(int&nbsp;id)&nbsp;{
+		this.id&nbsp;=&nbsp;id;
+	}
+	public&nbsp;String&nbsp;getName()&nbsp;{
+		return&nbsp;name;
+	}
+	public&nbsp;void&nbsp;setName(String&nbsp;name)&nbsp;{
+		this.name&nbsp;=&nbsp;name;
+	}
+	public&nbsp;int&nbsp;getAge()&nbsp;{
+		return&nbsp;age;
+	}
+	public&nbsp;void&nbsp;setAge(int&nbsp;age)&nbsp;{
+		this.age&nbsp;=&nbsp;age;
+	}
+	public&nbsp;User(int&nbsp;id,&nbsp;String&nbsp;name,&nbsp;int&nbsp;age)&nbsp;{
+		super();
+		this.id&nbsp;=&nbsp;id;
+		this.name&nbsp;=&nbsp;name;
+		this.age&nbsp;=&nbsp;age;
+	}
+	public&nbsp;User()&nbsp;{
+		super();
+	}
+	@Override
+	public&nbsp;String&nbsp;toString()&nbsp;{
+		return&nbsp;"User&nbsp;[id="&nbsp;+&nbsp;id&nbsp;+&nbsp;",&nbsp;name="&nbsp;+&nbsp;name&nbsp;+&nbsp;",&nbsp;age="&nbsp;+&nbsp;age&nbsp;+&nbsp;"]";
+	}
+
+}
+//shift+alt+s，&nbsp;谁用谁知道</pre> 
+<p>这里差一个题外话，为了给初学者们一个提醒，高手们是如何写bean类定义的，果断shift+alt+s。</p> 
+<p><span style="line-height: 23px;"><br></span></p> 
+<p>4.&nbsp;定义操作users表的sql映射文件userMapper.xml</p> 
+<p>这里应该是最核心的部分了，怎么把类与表关联；如何写一个服务，如按id查询。<br></p> 
+<pre class="brush:xml;toolbar: true; auto-links: false;">&lt;?xml&nbsp;version="1.0"&nbsp;encoding="UTF-8"&nbsp;?&gt;
+&lt;!DOCTYPE&nbsp;mapper&nbsp;PUBLIC&nbsp;"-//mybatis.org//DTD&nbsp;Mapper&nbsp;3.0//EN"&nbsp;"http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;&nbsp;
+&lt;mapper&nbsp;namespace="com.happyBKs.mybatis.C1.userMapper"&gt;&nbsp;
+	&lt;!--&nbsp;根据id查询对象&nbsp;--&gt;
+	&lt;select&nbsp;id="getUser"&nbsp;parameterType="int"&nbsp;resultType="com.happyBKs.mybatis.C1.User"&gt;
+		select&nbsp;*&nbsp;from&nbsp;users&nbsp;where&nbsp;id=#{id}
+	&lt;/select&gt;
+&lt;/mapper&gt;</pre> 
+<p>构建一个映射，就是要构建一个mapper节点并配置。mapper需要一个唯一性的标识，就是namespace属性，这里给出一种比较常用的命名规范，用User类的包名 + 这个映射文件的文件名。这里文件名的命名规范是，类名首字母小写+Mapper。当然这只是一种习惯或者规范，你当然也可以命名成其他形式，只要能保证其唯一性。</p> 
+<p>然后，如何把类与表关联起来呢？Mybatis没有像Hibernate那样，在配置文件中将数据库名和类名、数据库字段和类属性直接对应着配置建立映射。Mybatis是直接在构建服务的过程中将类名和表包含其中：构建一个查询服务，要用到select节点，User类名在select的resultType中被指定；表明这是在select<span style="font-size: 12.5px;">节点内容的SQL查询语句中被写明。所以，Mybatis与Hibernate相比，并不能是一种映射结构清楚、映射程度完全的解决方案，但是Mybatis也的确很灵活和方便，我们可以自己定制SQL语句，并且也完成了类与表在服务上的映射关系。</span></p> 
+<p>好吧，我们还是看看这个服务吧。</p> 
+<p>select标签中我们指定了三个属性。服务的id，这个和users表中的id字段没有任何关系。select的id是用来标识这个服务的名称，我们在后面调用服务的时候会用到，当然它要求命名唯一。parameterType标识输入参数的类型，这里我们是按users的id字段进行查询，所以这里的参数类型指的就是users的id字段类型。在select节点的SQL语句中，我们用通配符来标识这个参数#{id}。resultType用来标识服务的返回结果的类型，是一个User类的对象。</p> 
+<p><br></p> 
+<p>5.&nbsp;在config.xml文件中注册userMapper.xml文件</p> 
+<p>所有的映射文件需要统一在mybatis的配置文件config.xml中注册。方法就是构建一个mappers节点，然后为每个映射文件构建一个mapper节点。</p> 
+<pre class="brush:xml;toolbar: true; auto-links: false;">&lt;?xml&nbsp;version="1.0"&nbsp;encoding="UTF-8"?&gt;
+&lt;!DOCTYPE&nbsp;configuration&nbsp;PUBLIC&nbsp;"-//mybatis.org//DTD&nbsp;Config&nbsp;3.0//EN"&nbsp;"http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;
+&lt;configuration&gt;
+&lt;!--&nbsp;
+development:&nbsp;开发模式
+work:&nbsp;工作模式
+&nbsp;--&gt;
+	&lt;environments&nbsp;default="development"&gt;
+		&lt;environment&nbsp;id="development"&gt;
+			&lt;transactionManager&nbsp;type="JDBC"&nbsp;/&gt;
+			&lt;dataSource&nbsp;type="POOLED"&gt;
+				&lt;property&nbsp;name="driver"&nbsp;value="com.mysql.jdbc.Driver"&nbsp;/&gt;
+				&lt;property&nbsp;name="url"&nbsp;value="jdbc:mysql://localhost:3306/mybatis"&nbsp;/&gt;
+				&lt;property&nbsp;name="username"&nbsp;value="root"&nbsp;/&gt;
+				&lt;property&nbsp;name="password"&nbsp;value=""&nbsp;/&gt;
+			&lt;/dataSource&gt;
+		&lt;/environment&gt;
+	&lt;/environments&gt;
+	
+	&lt;!--&nbsp;在conf.xml文件中注册userMapper.xml文件&nbsp;--&gt;
+	&lt;mappers&gt;
+		&lt;mapper&nbsp;resource="com/happyBKs/mybatis/C1/userMapper.xml"/&gt;
+	&lt;/mappers&gt;
+
+&lt;/configuration&gt;</pre> 
+<p><br></p> 
+<p><br></p> 
+<p>6. 测试程序：</p> 
+<p>好吧，我们来调用看看吧。</p> 
+<p>这里我给出两段测试代码，功能一样。第二个比较推荐，因为家在配置文件config.xml时使用了类加载器。</p> 
+<p>大致思路是：</p> 
+<p>我需要一个Session，它接收一个statement和一个参数来完成查询。</p> 
+<p>statement如何是描述服务的，怎么描述呢。就是要用到我们刚才usrMapper.xml映射文件中定义的命名空间 + select服务标签的id内容，这样就标记出来了唯一性的服务，他可是包含了SQL语句和类与表映射关系的哦。</p> 
+<p>那么，session从哪来，用SqlSessionFactory对象造出来。</p> 
+<p>那么，SqlSessionFactory从哪来，用SqlSessionFactoryBuilder来build出来。好吧，这里构造一个<span style="line-height: 23px;">SqlSessionFactory对象，需要指定数据库配置等信息，那么很自然的需要在build方法中提供mybaitis的config.xml配置文件的内容。这里提供配置文件config.xml内容的方式是传入一个InputStream。</span></p> 
+<p>所以一开始就需要构建一个config.xml的InputStream对象。</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">package&nbsp;com.happyBKs.mybatis.C1;
+
+import&nbsp;java.io.IOException;
+import&nbsp;java.io.InputStream;
+import&nbsp;java.io.Reader;
+
+import&nbsp;org.apache.ibatis.io.Resources;
+import&nbsp;org.apache.ibatis.session.SqlSession;
+import&nbsp;org.apache.ibatis.session.SqlSessionFactory;
+import&nbsp;org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+
+public&nbsp;class&nbsp;App&nbsp;
+{
+&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;void&nbsp;main(&nbsp;String[]&nbsp;args&nbsp;)
+&nbsp;&nbsp;&nbsp;&nbsp;{
+		test2();
+
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+	private&nbsp;static&nbsp;void&nbsp;test1()&nbsp;throws&nbsp;IOException&nbsp;{
+		String&nbsp;resource&nbsp;=&nbsp;"config.xml";&nbsp;
+		//加载mybatis的配置文件（它也加载关联的映射文件）
+		Reader&nbsp;reader&nbsp;=&nbsp;Resources.getResourceAsReader(resource);&nbsp;
+		//构建sqlSession的工厂
+		SqlSessionFactory&nbsp;sessionFactory&nbsp;=&nbsp;new&nbsp;SqlSessionFactoryBuilder().build(reader);
+		//创建能执行映射文件中sql的sqlSession
+		SqlSession&nbsp;session&nbsp;=&nbsp;sessionFactory.openSession();
+		//映射sql的标识字符串
+		String&nbsp;statement&nbsp;=&nbsp;"com.happyBKs.mybatis.C1.userMapper"+".getUser";//先找映射文件，后找标签
+		//执行查询返回一个唯一user对象的sql
+		User&nbsp;user&nbsp;=&nbsp;session.selectOne(statement,&nbsp;1);
+		System.out.println(user);
+	}
+	
+	private&nbsp;static&nbsp;void&nbsp;test2()
+	{
+		String&nbsp;resource&nbsp;=&nbsp;"config.xml";&nbsp;
+		//用类加载器加载mybatis的配置文件
+		
+		InputStream&nbsp;inputStream=App.class.getClassLoader().getResourceAsStream(resource);
+		
+		SqlSessionFactory&nbsp;factory=new&nbsp;SqlSessionFactoryBuilder().build(inputStream);
+		SqlSession&nbsp;session&nbsp;=&nbsp;factory.openSession();
+		
+		String&nbsp;statement&nbsp;=&nbsp;"com.happyBKs.mybatis.C1.userMapper"+".getUser";//先找映射文件，后找标签
+		User&nbsp;user&nbsp;=&nbsp;session.selectOne(statement,2);//根据id查，这里id为2
+		//类型不需要强转，强大吧
+		System.out.println(user);
+	}
+}</pre> 
+<p><br></p> 
+<p>好吧，最后看看结果。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0702/111006_RqBW_1156339.jpg"></p>
+<p><br></p>]]></body>
+		<author><![CDATA[HappyBKs]]></author>
+		<authorid>1156339</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-02 11:12:00</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

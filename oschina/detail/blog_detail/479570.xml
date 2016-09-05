@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479570</id>
+		<title><![CDATA[stm32 获取有效字符串]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2252538/blog/479570]]></url>
+		<where><![CDATA[STM32]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><pre class="brush:cpp;toolbar: true; auto-links: false;">void&nbsp;USART2_IRQHandler()&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(USART_GetITStatus(USART2,USART_IT_RXNE)&nbsp;!=&nbsp;RESET)&nbsp;//中断产生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USART_ClearITPendingBit(USART2,USART_IT_RXNE);&nbsp;//清除中断标志&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uart2_Buffer[Uart2_Rx]&nbsp;=&nbsp;USART_ReceiveData(USART2);&nbsp;//把数据存储到缓冲数组&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uart2_Rx++;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uart2_Rx&nbsp;&amp;=&nbsp;0xFF;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(Uart2_Buffer[Uart2_Rx-1]&nbsp;==&nbsp;0x5A)&nbsp;//如果收到的是&nbsp;0x5A&nbsp;则下面就是有效数据&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uart2_Tx&nbsp;=&nbsp;Uart2_Rx-1;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if((Uart2_Buffer[Uart2_Tx]&nbsp;==&nbsp;0x5A)&amp;&amp;(Uart2_Buffer[Uart2_Rx-1]&nbsp;==&nbsp;0xA5))&nbsp;//检测到头的情况下检测到尾&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uart2_Len&nbsp;=&nbsp;Uart2_Rx-1-&nbsp;Uart2_Tx;&nbsp;//长度&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uart2_Sta=1;&nbsp;//标志位&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(USART_GetFlagStatus(USART2,USART_FLAG_ORE)&nbsp;==&nbsp;SET)&nbsp;//溢出&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USART_ClearFlag(USART2,USART_FLAG_ORE);&nbsp;//读SR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USART_ReceiveData(USART2);&nbsp;//读DR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;
+}&nbsp;
+
+main.c###################################################################
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(&nbsp;Uart2_Sta&nbsp;)//数据帧接收完毕
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(tx2=0;tx2&nbsp;&lt;=&nbsp;Uart2_Len;tx2++,Uart2_Tx++)&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USART2_SendByte(Uart2_Buffer[Uart2_Tx]);&nbsp;//发送数据&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uart2_Rx&nbsp;=&nbsp;0;&nbsp;//初始化&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uart2_Tx&nbsp;=&nbsp;0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uart2_Sta&nbsp;=&nbsp;0;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}	
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+比如数据帧为&nbsp;&nbsp;5A&nbsp;00&nbsp;11&nbsp;65&nbsp;33&nbsp;22&nbsp;23&nbsp;43&nbsp;A5&nbsp;&nbsp;&nbsp;&nbsp;此为一帧</pre> 
+<p></p> 
+<p><br></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[青春无极限]]></author>
+		<authorid>2252538</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-17 09:04:31</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479179</id>
+		<title><![CDATA[Eclipse中做Android开发LogCat的使用]]></title>
+		<url><![CDATA[http://my.oschina.net/xuleo/blog/479179]]></url>
+		<where><![CDATA[Android]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h2> 介绍 </h2> LogCat是Eclipse里面做Android开发的工具包ADT中的一个工具，用来查看和过滤Android日志系统的输出。 
+<br> 
+<h2> 打开LogCat </h2> 
+<p> 进入Eclipse，选择Window菜单，然后选择Show View子菜单，最后再选则other子菜单，在打开的Show View对话框中选择Android分组中的LogCat，双击它或者点击OK，就能打开LogCat面板。 </p> 
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/104222_ZuOt_233834.png" alt=""> </p>
+<p> <img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0716/104234_VeL2_233834.png" alt=""> </p>
+<p> <br> </p> 
+<p> <span style="line-height:1.5;"><span></span></span> </p> 
+<p> <br> </p> 
+<h2> 连上真机后LogCat不显示日志的问题 </h2> 有时候在Eclipse打开后，将真实的Android设备通过USB线连接到电脑，并不会在LogCat中看到有日志输入。 
+<br> 这可能是因为电脑中还安装了其它手机工具程序，占用了运行ADB（Android 调试桥）服务所需的端口，导致不能通过ADB连接到Android设备，进而导致没有日志输出。 
+<br> 可以用下面的步骤解决该问题： 
+<br> 1.关闭Eclipse； 
+<br> 2.打开操作系统命令行工具，使用cd命令切换到Android SDK的bin目录，输入adb nodaemon server，查看adb服务所使用的接口是否被占用，如果占用，给出的提示会显示占用的端口，一般是 5037； 
+<br> 3.继续在命令行工具中输入命令 netstat -ano | findstr 5037， 查看占用了该端口的进程信息，假设得到占用该端口的进程号为 xxx； 
+<br> 4.继续在命令行工具中输入命令 taskkill /F /PID xxx，杀掉这个进程； 
+<br> 5.重新启动Eclipse。 
+<br> 
+<h2> 备注 </h2> Android调试桥（ADB）是一个客户端-服务器应用程序，可以通过它来连接到任何Android设备（真实设备或者虚拟机）。 
+<br>]]></body>
+		<author><![CDATA[leoxu]]></author>
+		<authorid>233834</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 10:43:25</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

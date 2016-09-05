@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479559</id>
+		<title><![CDATA[判断js和css是否加载完成]]></title>
+		<url><![CDATA[http://my.oschina.net/diqye/blog/479559]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><ul> 
+ <li> 
+  <emoji data-name="fa-bell" data-emoji="emoji fa-bell" class="fa fa-bell" align="absmiddle"></emoji>发现在OSC上面用MD写代码比较爽 忍不住试啦一下</li> 
+ <li>判断CSS是否加载完成</li> 
+</ul> 
+<ol> 
+ <li>在head标签内插入 引入css的link标签</li> 
+ <li>如果是ie浏览器直接使用<code>onload</code>事件 其它浏览器用<code>setTimeout</code>循环轮询判断下面属性</li> 
+ <li>如果是<code>webkit</code>内核判断 link节点上的<code>sheet</code>属性</li> 
+ <li>其它浏览器判断借点上的<code>sheet.cssRules</code>属性 
+  <emoji data-name="fa-linkedin-square" data-emoji="emoji fa-linkedin-square" class="fa fa-linkedin-square" align="absmiddle"></emoji></li> 
+</ol> 
+<p>以下是完整代码<br> </p> 
+<pre><code><br> function loadCss(src,fn){
+	    	var node=document.createElement('link');
+	    	node.rel='stylesheet';
+	    	node.href=src;
+	    	document.head.insertBefore(node,document.head.firstChild);
+	    	if(node.attachEvent){
+	    		node.attachEvent('onload', function(){fn(null,node)});
+	    	}else{
+			   setTimeout(function() {
+		         poll(node, fn);
+		       }, 0); // for cache
+	    	}
+	    	function poll(node,callback){
+			    var isLoaded = false;
+			    if(/webkit/i.test(navigator.userAgent)) {//webkit
+		        	if (node['sheet']) {
+		        		isLoaded = true;
+		      		}
+			    }else if(node['sheet']){// for Firefox
+			    	try{
+			        	if (node['sheet'].cssRules) {
+			          		isLoaded = true;
+			        	}
+			      	}catch(ex){
+			        	// NS_ERROR_DOM_SECURITY_ERR
+				        if (ex.code === 1000) {
+				         	isLoaded = true;
+				        }
+				    }
+			    }
+			    if(isLoaded){
+			    	setTimeout(function(){
+			    		callback(null,node);
+			    	},1);
+			    }else{
+			    	setTimeout(function(){
+			    		poll(node,callback);
+			    	},10);
+			    }
+	    	}
+	    	node.onLoad=function(){
+	    		fn(null,node);
+	    	}
+	    }
+</code></pre> 
+<br>- 判断javascript是否加载完成 
+<br> 1. 如果支持 
+<code>onload</code>事件使用 
+<code>onload</code>事件 否则使用 
+<code>onreadystatechange</code>事件 
+<br> 2. 
+<code>onreadystatechange</code>事件回调很不稳定 有时候出现一次 有时候两次 
+<p></p> 
+<pre><code> function loadScript(src,fn){
+	    	var node = document.createElement("script");
+	    	node.setAttribute('async','async');
+			var timeID
+			var supportLoad = "onload" in node
+			var onEvent = supportLoad ? "onload" : "onreadystatechange"
+			node[onEvent] = function onLoad() {
+			    if (!supportLoad &amp;&amp; !timeID &amp;&amp; /complete|loaded/.test(node.readyState)) {
+			        timeID = setTimeout(onLoad)
+			        return
+			    }
+			    if (supportLoad || timeID) {
+			        clearTimeout(timeID)
+			        fn(null,node);
+			    }
+			}
+			document.head.insertBefore(node, document.head.firstChild);
+			node.src=src;
+			node.onerror=function(e){
+				fn(e);
+			}
+	    }
+</code></pre> 
+<blockquote> 
+ <p>上面两种判断是否加载完成的方法 一种引用sea.js的做法 一种是司徒正美的做法</p> 
+</blockquote> 
+<p><a href="https://git.oschina.net/diqye/ipt.js" rel="nofollow">动态加载js,css</a></p>]]></body>
+		<author><![CDATA[diqye]]></author>
+		<authorid>590489</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-17 07:45:42</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

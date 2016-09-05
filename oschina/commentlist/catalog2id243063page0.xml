@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+    <allCount>6</allCount>
+    <pagesize>6</pagesize>
+    <comments>
+                                                                    <comment>
+                <id>980523</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/349/699232_50.png?t=1407329714000</portrait>
+                <author><![CDATA[黑狗]]></author>
+                <authorid>699232</authorid>
+                <content><![CDATA[需要适配的才适配 osc这种类型的客户端 大多不用做w和h的适配 做v14，v11，v19的样式适配倒是可能]]></content>
+                <pubDate>2015-07-13 21:53:24</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>980517</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/510/1021353_50.png?t=1384169895000</portrait>
+                <author><![CDATA[亓斌哥哥]]></author>
+                <authorid>1021353</authorid>
+                <content><![CDATA[图片提供一种常用的尺寸，其他的让android去缩放]]></content>
+                <pubDate>2015-07-13 21:32:51</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>980513</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/50/100896_50.jpg?t=1392454244000</portrait>
+                <author><![CDATA[loyal]]></author>
+                <authorid>100896</authorid>
+                <content><![CDATA[osc这样的应用的没必要.只要你是dp,sp和良好的布局.就没什么大问题了. 别说说适配指的是大量的图片的那种.因为考虑到cpu处理图片可能会卡,耗电等问题,所有的图片都是固化好的大小等.有些是在不同分辨率下有不同效果的那种.这类的应用才需要适配.]]></content>
+                <pubDate>2015-07-13 21:23:52</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>980512</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/126/253900_50.jpeg?t=1422505979000</portrait>
+                <author><![CDATA[火蚁]]></author>
+                <authorid>253900</authorid>
+                <content><![CDATA[没有使用不同的布局进行适配喔，也只能适配一部分，有些大屏幕看起来还是比较难受的]]></content>
+                <pubDate>2015-07-13 21:23:48</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>980476</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/470/941147_50.jpg?t=1393080808000</portrait>
+                <author><![CDATA[kass]]></author>
+                <authorid>941147</authorid>
+                <content><![CDATA[dp sp就能适配个7788了 …]]></content>
+                <pubDate>2015-07-13 19:49:57</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>980450</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/432/865233_50.jpg?t=1436794387000</portrait>
+                <author><![CDATA[OSCReims]]></author>
+                <authorid>865233</authorid>
+                <content><![CDATA[@火蚁]]></content>
+                <pubDate>2015-07-13 18:28:19</pubDate>
+                                    <appclient>0</appclient>
+                                                    <replies>
+                                            </replies>
+                                                                                            <refers>
+                                            </refers>
+                            </comment>
+            </comments>
+    </oschina>

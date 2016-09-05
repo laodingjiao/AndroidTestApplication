@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>         <oschina>
+    <allCount>14</allCount>
+    <pagesize>14</pagesize>
+    <comments>
+                                                                    <comment>
+                <id>287420217</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/406/813166_50.jpg?t=1378173159000</portrait>
+                <author><![CDATA[haitaosoft]]></author>
+                <authorid>813166</authorid>
+                <content><![CDATA[apache支持isapi，nginx还不能直接支持。。。。]]></content>
+                <pubDate>2015-07-17 10:44:49</pubDate>
+                                    <appclient>0</appclient>
+                                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287405022</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/734/1469403_50.gif?t=1397188420000</portrait>
+                <author><![CDATA[阿cat]]></author>
+                <authorid>1469403</authorid>
+                <content><![CDATA[已被我抛弃了、已经用nginx代替 [呲牙]]]></content>
+                <pubDate>2015-07-16 13:38:32</pubDate>
+                                    <appclient>4</appclient>
+                                                                                                            <refers>
+                                                                                    <refer>
+                                    <refertitle><![CDATA[引用来自“冰力”的评论]]></refertitle>
+                                    <referbody><![CDATA[比 nginx 强多了。。]]></referbody>
+                                </refer>
+                                                                        </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287403650</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/59/118197_50.JPG?t=1402367476000</portrait>
+                <author><![CDATA[冰力]]></author>
+                <authorid>118197</authorid>
+                <content><![CDATA[比 nginx 强多了。。]]></content>
+                <pubDate>2015-07-16 11:44:11</pubDate>
+                                    <appclient>0</appclient>
+                                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287395626</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/389/779295_50.jpg?t=1347792603000</portrait>
+                <author><![CDATA[magicoding]]></author>
+                <authorid>779295</authorid>
+                <content><![CDATA[python3 -m http.server]]></content>
+                <pubDate>2015-07-16 00:35:29</pubDate>
+                                    <appclient>0</appclient>
+                                                                                                            <refers>
+                                                                                    <refer>
+                                    <refertitle><![CDATA[引用来自“CodeCaker”的评论]]></refertitle>
+                                    <referbody><![CDATA[这个板凳必须占。作为一个非web应用的码弄，表示只用httpd。]]></referbody>
+                                </refer>
+                                                                                                                <refer>
+                                    <refertitle><![CDATA[引用来自“攻伤菊菊长”的评论]]></refertitle>
+                                    <referbody><![CDATA[python -m SimpleHTTPServer]]></referbody>
+                                </refer>
+                                                                        </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287395065</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/630/1261643_50.png?t=1378514110000</portrait>
+                <author><![CDATA[__Untitled]]></author>
+                <authorid>1261643</authorid>
+                <content><![CDATA[Nginx发来贺电。]]></content>
+                <pubDate>2015-07-15 23:48:46</pubDate>
+                                    <appclient>0</appclient>
+                                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287394270</id>
+                <portrait></portrait>
+                <author><![CDATA[屌丝爱明天]]></author>
+                <authorid>2410227</authorid>
+                <content><![CDATA[httpd是啥？]]></content>
+                <pubDate>2015-07-15 22:42:29</pubDate>
+                                    <appclient>3</appclient>
+                                                                                                            <refers>
+                                                                                    <refer>
+                                    <refertitle><![CDATA[引用来自“CodeCaker”的评论]]></refertitle>
+                                    <referbody><![CDATA[这个板凳必须占。作为一个非web应用的码弄，表示只用httpd。]]></referbody>
+                                </refer>
+                                                                        </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287394022</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/363/726879_50.jpg?t=1436787574000</portrait>
+                <author><![CDATA[小潘pfl]]></author>
+                <authorid>726879</authorid>
+                <content><![CDATA[还在用Tengine 2.1.0]]></content>
+                <pubDate>2015-07-15 22:21:49</pubDate>
+                                    <appclient>0</appclient>
+                                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287393620</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/432/865233_50.jpg?t=1436794387000</portrait>
+                <author><![CDATA[OSCReims]]></author>
+                <authorid>865233</authorid>
+                <content><![CDATA[我弄的，回去改]]></content>
+                <pubDate>2015-07-15 21:48:21</pubDate>
+                                    <appclient>4</appclient>
+                                                                                                            <refers>
+                                                                                    <refer>
+                                    <refertitle><![CDATA[引用来自“红薯”的评论]]></refertitle>
+                                    <referbody><![CDATA[新闻标题差评 @孔小菜 @叶秀兰]]></referbody>
+                                </refer>
+                                                                        </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287393531</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/0/12_50.jpg?t=1421200584000</portrait>
+                <author><![CDATA[红薯]]></author>
+                <authorid>12</authorid>
+                <content><![CDATA[新闻标题差评 @孔小菜 @叶秀兰]]></content>
+                <pubDate>2015-07-15 21:40:58</pubDate>
+                                    <appclient>4</appclient>
+                                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287393233</id>
+                <portrait></portrait>
+                <author><![CDATA[攻伤菊菊长]]></author>
+                <authorid>1157747</authorid>
+                <content><![CDATA[python -m SimpleHTTPServer]]></content>
+                <pubDate>2015-07-15 21:16:05</pubDate>
+                                    <appclient>0</appclient>
+                                                                                                            <refers>
+                                                                                    <refer>
+                                    <refertitle><![CDATA[引用来自“CodeCaker”的评论]]></refertitle>
+                                    <referbody><![CDATA[这个板凳必须占。作为一个非web应用的码弄，表示只用httpd。]]></referbody>
+                                </refer>
+                                                                        </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287392423</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/287/574387_50.png?t=1435244405000</portrait>
+                <author><![CDATA[首席撸一脸]]></author>
+                <authorid>574387</authorid>
+                <content><![CDATA[新版本没啥亮点]]></content>
+                <pubDate>2015-07-15 20:08:37</pubDate>
+                                    <appclient>0</appclient>
+                                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287392042</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/58/116913_50.jpg?t=1399950167000</portrait>
+                <author><![CDATA[乌龟壳]]></author>
+                <authorid>116913</authorid>
+                <content><![CDATA[啥叫非web应用？]]></content>
+                <pubDate>2015-07-15 19:36:52</pubDate>
+                                    <appclient>3</appclient>
+                                                                                                            <refers>
+                                                                                    <refer>
+                                    <refertitle><![CDATA[引用来自“CodeCaker”的评论]]></refertitle>
+                                    <referbody><![CDATA[这个板凳必须占。作为一个非web应用的码弄，表示只用httpd。]]></referbody>
+                                </refer>
+                                                                        </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287391392</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/435/871142_50.jpg?t=1434884284000</portrait>
+                <author><![CDATA[开源中国观众]]></author>
+                <authorid>871142</authorid>
+                <content><![CDATA[6666]]></content>
+                <pubDate>2015-07-15 18:42:40</pubDate>
+                                    <appclient>0</appclient>
+                                                                                                            <refers>
+                                            </refers>
+                            </comment>
+                                                                    <comment>
+                <id>287391381</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/888/1777453_50.png?t=1400682261000</portrait>
+                <author><![CDATA[CodeCaker]]></author>
+                <authorid>1777453</authorid>
+                <content><![CDATA[这个板凳必须占。作为一个非web应用的码弄，表示只用httpd。]]></content>
+                <pubDate>2015-07-15 18:41:48</pubDate>
+                                    <appclient>0</appclient>
+                                                                                                            <refers>
+                                            </refers>
+                            </comment>
+            </comments>
+    </oschina>

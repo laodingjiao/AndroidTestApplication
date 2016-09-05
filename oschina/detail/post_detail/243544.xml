@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>243544</id>
+      <title><![CDATA[秒速APP北京之夏-2015年应用开发者交流活动]]></title>
+      <url><![CDATA[http://www.oschina.net/question/1032619_243544]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/516/1032619_50.jpg?t=1425560092000</portrait>
+      <event>
+					<id>243544</id>
+    		<cover><![CDATA[http://192.168.79.254:8080/oschina/images/uploads/cover/beijing_1032619_243544_sAqGp_bi.png]]></cover>
+    		<title><![CDATA[秒速APP北京之夏-2015年应用开发者交流活动]]></title>
+    		<category>4</category>
+    		<url><![CDATA[http://meeting.9miao.com/meeting?m=NQ==]]></url>
+            <startTime>2015-07-22 14:00:00</startTime>>
+    		<endTime>2015-07-22 17:00:00</endTime>>
+            <createTime>2015-07-17 15:02:37</createTime>
+            <spot>国际会议中心凯迪克北京格兰云天大酒店1号会议室</spot>
+    		<actor_count>0</actor_count>
+			<location>116.406955,39.999171</location>
+			<city>朝阳</city>
+			        		 													<status>2</status>									<applyStatus>-1</applyStatus>						  </event>
+      <body>
+		<![CDATA[
+						<span style="font-weight:bold;">活动名称</span>：秒速APP北京之夏-2015年应用开发者交流活动<br>
+		<span style="font-weight:bold;">活动时间</span>：2015-07-22 14:00<br>
+		<span style="font-weight:bold;">活动地点</span>：朝阳 国际会议中心凯迪克北京格兰云天大酒店1号会议室<br>
+		<span style="font-weight:bold;">活动费用</span>：免费<br>
+		<span style="font-weight:bold;">活动类型</span>：站外活动<br>
+        <span style="font-weight:bold;">引用标识</span>：<a href="javascript:alert('引用标识：用来在动弹中通过#bj544#方式引用当前活动，同时该动弹附带的图片将上传为活动图片。');">bj544</a><br>
+		<span style="font-weight:bold;">活动介绍</span>：<br>
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+						@charset "utf-8";
+/*markdown 显示内容样式*/
+.markdown-content{
+	font-size:14px;
+}
+.markdown-content h1,.markdown-content  h2,.markdown-content  h3,.markdown-content  h4,.markdown-content  h5,.markdown-content  h6
+	{
+	margin: 10px 0;
+	font-weight: bold;
+}
+
+.markdown-content h1 {
+	color: #000000;
+	font-size: 28px;
+}
+
+.markdown-content h2 {
+	color: #000000;
+	font-size: 24px;
+}
+
+.markdown-content h3 {
+	font-size: 18px;
+}
+
+.markdown-content h4 {
+	font-size: 16px;
+}
+
+.markdown-content h5 {
+	font-size: 14px;
+}
+
+.markdown-content h6 {
+	color: #777777;
+	background-color: inherit;
+	font-size: 14px;
+}
+
+.markdown-content hr {
+	height: 0.2em;
+	border: 0;
+	color: #CCCCCC;
+	background-color: #CCCCCC;
+}
+
+.markdown-content strong{
+	font-weight:bold;
+}
+
+.markdown-content p,.markdown-content blockquote,.markdown-content ul,.markdown-content ol,.markdown-content dl,.markdown-content li,.markdown-content table,.markdown-content pre
+	{
+	margin: 10px 0;
+	font-size: 10.5pt;
+}
+
+.markdown-content em {
+	font-style: italic;
+}
+
+.markdown-content pre {
+	line-height: 18px;
+	margin: 10px 0;
+	font-size: 9pt;
+	font-family: Courier New, Arial;
+	border: 1px solid rgb(221, 221, 221);
+	border-left: 5px solid rgb(108, 226, 108);
+	background: rgb(246, 246, 246);
+	padding: 5px;
+	white-space: pre-wrap;
+}
+
+.markdown-content pre code {
+	background-color: #F8F8F8;
+	border: none;
+	padding: 0;
+}
+
+.markdown-content code {
+	font-family: Consolas, Monaco, Andale Mono, monospace;
+	background-color: #F8F8F8;
+	border: 1px solid #CCCCCC;
+	border-radius: 3px;
+	padding: 0 0.2em;
+	line-height: 23px;
+}
+
+.markdown-content pre>code {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.markdown-content a:focus {
+	outline: thin dotted;
+}
+
+.markdown-content a:hover,.markdown-content a:active {
+	outline: 0;
+}
+
+.markdown-content blockquote {
+	color: #060;
+	margin: 0;
+	padding-left: 3em;
+	border-left: 0.5em #EEE solid;
+}
+
+.markdown-content ul,.markdown-content ol {
+	margin: 1em 0;
+	list-style-position: inside;
+	margin: 20px 0 20px 10px;
+	line-height: 20px;
+}
+
+.markdown-content ul {
+	list-style-type: circle;
+}
+
+.markdown-content ol {
+	list-style-type: decimal;
+}
+
+.markdown-content li p:last-child {
+	margin: 0
+}
+
+.markdown-content dd {
+	margin: 0 0 0 2em;
+}
+
+.markdown-content img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+	vertical-align: middle;
+	max-width: 100%;
+}
+
+.markdown-content table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.markdown-content td {
+	vertical-align: top;
+}					</style>
+				<div class="markdown-content"><p>为了帮助开发者了解和掌握跨平台开发的精髓和技巧，2015年第十四届中国互联网大会期间9秒开发者俱乐部联合数字应用开发资源交易平台4秒商城联合举办“秒速App北京之夏” 2015年应用开发交流活动，活动主要面向移动应用和游戏开发者免费开放，欢迎报名注册！</p> 
+<p></p> 
+<h3>活动详情</h3> 
+<p>活动名称:秒速APP北京之夏——-2015年应用开发者交流活动 <br>会议主题:应用开发者交流活动</p> 
+<p></p> 
+<p>国内领先的移动开发平台和最大的开源游戏开发者社区9秒联合数字应用开发资源交易平台4秒商城将在互联网大会期间同期举办“秒速App北京之夏” 应用开发者交流研讨活动。</p> 
+<p></p> 
+<p>活动分为变现之路、解决之道和答疑讨论三个部分。在“变现之路”部分，将主要为开发者介绍开发成果的变现途径。在“解决之道”部分，则将邀请来自跨平台应用引擎的核心技术负责人及跨平台应用的开发工程师从技术角度讲解跨平台应用开发的解决方案及开发案例。</p> 
+<p></p> 
+<p>活动规模：120人</p> 
+<p></p> 
+<h3>活动日程</h3> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0717/150111_cCVT_1032619.png" alt="在此输入图片描述"></p></div>				    		<span style="font-weight:bold;">活动相册</span>：<br>
+        	    		    			还未上传任何活动照片，在动弹中引用  #bj544# 并添加图片即可上传~
+    		    		</table>
+				]]>
+	  </body>
+      <author><![CDATA[文洁洁洁]]></author>
+      <authorid>1032619</authorid>
+      <answerCount>0</answerCount>
+      <viewCount>75</viewCount>
+      <pubDate>2015-07-17 15:02:36</pubDate>
+	  <favorite>0</favorite>
+	    </post>
+</oschina>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <pagesize>20</pagesize>
+  <blogs>
+  					<blog>
+		<id>479315</id>
+		<title><![CDATA[mfs分布式文件系统的配置]]></title>
+        <body><![CDATA[mfs分布式文件系统，所需主机： 管理服务器 managing server (master  ...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2368504/blog/479315]]></url>
+        <pubDate>2015-07-16 14:46:19</pubDate>
+        <authoruid>2368504</authoruid>
+        <authorname><![CDATA[benberba]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479169</id>
+		<title><![CDATA[员工激励]]></title>
+        <body><![CDATA[员工激励机制 俗话说 “水不激不扬，人不激不奋” 是我国古代典型的激励...]]></body>
+		<url><![CDATA[http://my.oschina.net/neochen/blog/479169]]></url>
+        <pubDate>2015-07-16 10:27:14</pubDate>
+        <authoruid>725072</authoruid>
+        <authorname><![CDATA[neo-chen]]></authorname>
+        <commentCount>21</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>479095</id>
+		<title><![CDATA[使用netty4.x 编写UDP服务器遇到的狗血问题]]></title>
+        <body><![CDATA[项目需要,需要编写协议转发服务器,和机顶盒通讯使用udp协议 流程: 接收协...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/261246/blog/479095]]></url>
+        <pubDate>2015-07-16 02:29:23</pubDate>
+        <authoruid>261246</authoruid>
+        <authorname><![CDATA[铂金蛋蛋]]></authorname>
+        <commentCount>9</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>478840</id>
+		<title><![CDATA[如何使用 Docker 组件开发 Django 项目？]]></title>
+        <body><![CDATA[Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖...]]></body>
+		<url><![CDATA[http://my.oschina.net/oneapmofficial/blog/478840]]></url>
+        <pubDate>2015-07-15 15:01:23</pubDate>
+        <authoruid>2365986</authoruid>
+        <authorname><![CDATA[OneAPM蓝海讯通]]></authorname>
+        <commentCount>2</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>478162</id>
+		<title><![CDATA[InnoDB脏页刷新机制Checkpoint]]></title>
+        <body><![CDATA[我们知道InnoDB采用Write Ahead Log策略来防止宕机数据丢失，即事务提交...]]></body>
+		<url><![CDATA[http://my.oschina.net/jockchou/blog/478162]]></url>
+        <pubDate>2015-07-14 01:59:05</pubDate>
+        <authoruid>946034</authoruid>
+        <authorname><![CDATA[jockchou]]></authorname>
+        <commentCount>3</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477894</id>
+		<title><![CDATA[在Eclipse集成开发平台中利用XFire框架发布Webservice]]></title>
+        <body><![CDATA[一、正所谓“工欲善其事，必先利其器”，下面就先来配置运行环境吧！ 下...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2356125/blog/477894]]></url>
+        <pubDate>2015-07-13 14:36:06</pubDate>
+        <authoruid>2356125</authoruid>
+        <authorname><![CDATA[lingyunspace]]></authorname>
+        <commentCount>15</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477732</id>
+		<title><![CDATA[HBase RowKey设计的那些事]]></title>
+        <body><![CDATA[         在说rowkey设计之前，先回答一下大家配置HBase时可能有的...]]></body>
+		<url><![CDATA[http://my.oschina.net/lanzp/blog/477732]]></url>
+        <pubDate>2015-07-13 10:07:42</pubDate>
+        <authoruid>580695</authoruid>
+        <authorname><![CDATA[loki_lan]]></authorname>
+        <commentCount>8</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477690</id>
+		<title><![CDATA[用mappedbytebuffer实现一个持久化队列]]></title>
+        <body><![CDATA[    自从前段时间的一个事故让队列里缓存的大量关键数据丢失后，一直...]]></body>
+		<url><![CDATA[http://my.oschina.net/xnkl/blog/477690]]></url>
+        <pubDate>2015-07-13 00:53:44</pubDate>
+        <authoruid>582242</authoruid>
+        <authorname><![CDATA[huamingweiwen]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477665</id>
+		<title><![CDATA[#Sora#openstack基础库stevedore试用总结]]></title>
+        <body><![CDATA[什么是stevedore？ stevedore是建立在setuptools的entry point的功能上的...]]></body>
+		<url><![CDATA[http://my.oschina.net/hochikong/blog/477665]]></url>
+        <pubDate>2015-07-12 23:15:40</pubDate>
+        <authoruid>987833</authoruid>
+        <authorname><![CDATA[Hochikong]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477663</id>
+		<title><![CDATA[HT for Web列表和3D拓扑组件的拖拽应用]]></title>
+        <body><![CDATA[很多可视化编辑器都或多或少有一些拖拽功能，比如从一个List列表中拖拽一...]]></body>
+		<url><![CDATA[http://my.oschina.net/xhload3d/blog/477663]]></url>
+        <pubDate>2015-07-12 23:05:43</pubDate>
+        <authoruid>1423144</authoruid>
+        <authorname><![CDATA[xhload3d]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477658</id>
+		<title><![CDATA[linux下播放器的设计和开发]]></title>
+        <body><![CDATA[本文根据DawnLightPlayer的开发经验写成。DawnLithtPlayer是今天3月份开...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2408025/blog/477658]]></url>
+        <pubDate>2015-07-12 22:54:21</pubDate>
+        <authoruid>2408025</authoruid>
+        <authorname><![CDATA[学习环境]]></authorname>
+        <commentCount>1</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477609</id>
+		<title><![CDATA[IOS拦截重定向请求(302)的几种方式]]></title>
+        <body><![CDATA[前言 在多数情况下，我们做的网络请求是返回200状态码的，但也有返回302...]]></body>
+		<url><![CDATA[http://my.oschina.net/lijialong/blog/477609]]></url>
+        <pubDate>2015-07-12 20:06:32</pubDate>
+        <authoruid>108780</authoruid>
+        <authorname><![CDATA[DragonFK]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477596</id>
+		<title><![CDATA[Learn Gradle - CH 2  基本的构建脚本介绍]]></title>
+        <body><![CDATA[1、项目和任务 Gradle 构建脚本包括两个最基本的概念，就是项目（proje...]]></body>
+		<url><![CDATA[http://my.oschina.net/hassan/blog/477596]]></url>
+        <pubDate>2015-07-12 18:50:18</pubDate>
+        <authoruid>869170</authoruid>
+        <authorname><![CDATA[Hassan]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477575</id>
+		<title><![CDATA[tomcat 性能优化]]></title>
+        <body><![CDATA[tomcat默认参数是为开发环境制定，而非适合生产环境，尤其是内存和线程的...]]></body>
+		<url><![CDATA[http://my.oschina.net/biezhi/blog/477575]]></url>
+        <pubDate>2015-07-12 17:16:56</pubDate>
+        <authoruid>1767531</authoruid>
+        <authorname><![CDATA[王爵]]></authorname>
+        <commentCount>7</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477574</id>
+		<title><![CDATA[数据库事务与并发]]></title>
+        <body><![CDATA[多事务运行时的并发问题 第一类丢失更新：撤销一个事务时，把其他事务已...]]></body>
+		<url><![CDATA[http://my.oschina.net/biezhi/blog/477574]]></url>
+        <pubDate>2015-07-12 17:15:58</pubDate>
+        <authoruid>1767531</authoruid>
+        <authorname><![CDATA[王爵]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477570</id>
+		<title><![CDATA[zookeeper集群的安装配置]]></title>
+        <body><![CDATA[zookeeper介绍 ZooKeeper是一个分布式的，开放源码的分布式应用程序协调...]]></body>
+		<url><![CDATA[http://my.oschina.net/iroot/blog/477570]]></url>
+        <pubDate>2015-07-12 17:05:43</pubDate>
+        <authoruid>1583390</authoruid>
+        <authorname><![CDATA[wIw]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477569</id>
+		<title><![CDATA[tornado 源码分析 之 异步io的实现方式]]></title>
+        <body><![CDATA[前言 本文将尝试详细的带大家一步步走完一个异步操作,从而了解tornado是...]]></body>
+		<url><![CDATA[http://my.oschina.net/abc2001x/blog/477569]]></url>
+        <pubDate>2015-07-12 17:05:23</pubDate>
+        <authoruid>874613</authoruid>
+        <authorname><![CDATA[国夫君]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477563</id>
+		<title><![CDATA[将Vim打造成Python快速开发环境（一）]]></title>
+        <body><![CDATA[一直以来博主都是用阳春版的Vim来撸Python的，vimrc里只有些配色、键位、...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2413670/blog/477563]]></url>
+        <pubDate>2015-07-12 16:42:54</pubDate>
+        <authoruid>2413670</authoruid>
+        <authorname><![CDATA[from0toinfinity]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477557</id>
+		<title><![CDATA[Spring框架笔记（三）——Spring容器、属性注入和构造器注入详解]]></title>
+        <body><![CDATA[Spring 容器 在 Spring IOC 容器读取 Bean 配置创建 Bean 实例之前, 必须...]]></body>
+		<url><![CDATA[http://my.oschina.net/happyBKs/blog/477557]]></url>
+        <pubDate>2015-07-12 15:31:55</pubDate>
+        <authoruid>1156339</authoruid>
+        <authorname><![CDATA[HappyBKs]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>477535</id>
+		<title><![CDATA[JavaEE 要懂的小事：三、图解Session（会话）]]></title>
+        <body><![CDATA[Writer      ：BYSocket（泥沙砖瓦浆木匠） 微         博...]]></body>
+		<url><![CDATA[http://my.oschina.net/jeffli1993/blog/477535]]></url>
+        <pubDate>2015-07-12 13:27:09</pubDate>
+        <authoruid>1391482</authoruid>
+        <authorname><![CDATA[泥沙砖瓦浆木匠]]></authorname>
+        <commentCount>27</commentCount>
+		<documentType>1</documentType>
+	</blog>
+		    </blogs>
+</oschina>	

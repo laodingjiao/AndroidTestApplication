@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>242042</id>
+      <title><![CDATA[30天，O2O速成攻略【7.19深圳站】]]></title>
+      <url><![CDATA[http://www.oschina.net/question/2005457_242042]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1002/2005457_50.png?t=1409993836000</portrait>
+      <event>
+					<id>242042</id>
+    		<cover><![CDATA[http://192.168.79.254:8080/oschina/images/uploads/cover/shenzhen_2005457_242042_NxYGf_bi.jpg]]></cover>
+    		<title><![CDATA[30天，O2O速成攻略【7.19深圳站】]]></title>
+    		<category>2</category>
+    		<url><![CDATA[http://city.oschina.net/shenzhen/event/242042]]></url>
+            <startTime>2015-07-19 13:30:00</startTime>>
+    		<endTime>2015-07-19 16:30:00</endTime>>
+            <createTime>2015-07-04 16:56:31</createTime>
+            <spot>深圳腾讯大厦（南山区科技园科技中一路）2楼多功能厅</spot>
+    		<actor_count>0</actor_count>
+			<location>114.066112,22.548515</location>
+			<city>深圳</city>
+			        		         											<status>3</status>									<applyStatus>-1</applyStatus>						  </event>
+      <body>
+		<![CDATA[
+						<span style="font-weight:bold;">活动名称</span>：30天，O2O速成攻略【7.19深圳站】<br>
+		<span style="font-weight:bold;">活动时间</span>：2015-07-19 13:30<br>
+		<span style="font-weight:bold;">活动地点</span>：深圳 深圳腾讯大厦（南山区科技园科技中一路）2楼多功能厅<br>
+		<span style="font-weight:bold;">活动费用</span>：免费<br>
+		<span style="font-weight:bold;">活动类型</span>：技术交流<br>
+        <span style="font-weight:bold;">引用标识</span>：<a href="javascript:alert('引用标识：用来在动弹中通过#sz042#方式引用当前活动，同时该动弹附带的图片将上传为活动图片。');">sz042</a><br>
+		<span style="font-weight:bold;">活动介绍</span>：<br>
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+						@charset "utf-8";
+/*markdown 显示内容样式*/
+.markdown-content{
+	font-size:14px;
+}
+.markdown-content h1,.markdown-content  h2,.markdown-content  h3,.markdown-content  h4,.markdown-content  h5,.markdown-content  h6
+	{
+	margin: 10px 0;
+	font-weight: bold;
+}
+
+.markdown-content h1 {
+	color: #000000;
+	font-size: 28px;
+}
+
+.markdown-content h2 {
+	color: #000000;
+	font-size: 24px;
+}
+
+.markdown-content h3 {
+	font-size: 18px;
+}
+
+.markdown-content h4 {
+	font-size: 16px;
+}
+
+.markdown-content h5 {
+	font-size: 14px;
+}
+
+.markdown-content h6 {
+	color: #777777;
+	background-color: inherit;
+	font-size: 14px;
+}
+
+.markdown-content hr {
+	height: 0.2em;
+	border: 0;
+	color: #CCCCCC;
+	background-color: #CCCCCC;
+}
+
+.markdown-content strong{
+	font-weight:bold;
+}
+
+.markdown-content p,.markdown-content blockquote,.markdown-content ul,.markdown-content ol,.markdown-content dl,.markdown-content li,.markdown-content table,.markdown-content pre
+	{
+	margin: 10px 0;
+	font-size: 10.5pt;
+}
+
+.markdown-content em {
+	font-style: italic;
+}
+
+.markdown-content pre {
+	line-height: 18px;
+	margin: 10px 0;
+	font-size: 9pt;
+	font-family: Courier New, Arial;
+	border: 1px solid rgb(221, 221, 221);
+	border-left: 5px solid rgb(108, 226, 108);
+	background: rgb(246, 246, 246);
+	padding: 5px;
+	white-space: pre-wrap;
+}
+
+.markdown-content pre code {
+	background-color: #F8F8F8;
+	border: none;
+	padding: 0;
+}
+
+.markdown-content code {
+	font-family: Consolas, Monaco, Andale Mono, monospace;
+	background-color: #F8F8F8;
+	border: 1px solid #CCCCCC;
+	border-radius: 3px;
+	padding: 0 0.2em;
+	line-height: 23px;
+}
+
+.markdown-content pre>code {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.markdown-content a:focus {
+	outline: thin dotted;
+}
+
+.markdown-content a:hover,.markdown-content a:active {
+	outline: 0;
+}
+
+.markdown-content blockquote {
+	color: #060;
+	margin: 0;
+	padding-left: 3em;
+	border-left: 0.5em #EEE solid;
+}
+
+.markdown-content ul,.markdown-content ol {
+	margin: 1em 0;
+	list-style-position: inside;
+	margin: 20px 0 20px 10px;
+	line-height: 20px;
+}
+
+.markdown-content ul {
+	list-style-type: circle;
+}
+
+.markdown-content ol {
+	list-style-type: decimal;
+}
+
+.markdown-content li p:last-child {
+	margin: 0
+}
+
+.markdown-content dd {
+	margin: 0 0 0 2em;
+}
+
+.markdown-content img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+	vertical-align: middle;
+	max-width: 100%;
+}
+
+.markdown-content table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.markdown-content td {
+	vertical-align: top;
+}					</style>
+				<div class="markdown-content"><p><strong>活动概况</strong> <br>时间：2015年07月19日13:30-16:30 <br>地点：深圳腾讯大厦（南山区科技园科技中一路）2楼多功能厅 <br>主办：APICloud、OneAPM、连接科技 <br>网址：www.apicloud.com <br>费用：免费</p> 
+<p><strong>活动背景</strong> <br>移动互联网时代的降临掀起了一股App创业潮。其中，最热的创业领域非O2O莫属。面对井喷式的O2O App创业，快人一步才是制胜的王道。在本次活动上，APICloud将会给大家介绍一种快速、高效的移动应用开发模式，帮助创业者降低开发成本、缩短上市时间，快速实现移动O2O项目，占领市场！</p> 
+<p>2015年，最热的创业领域非O2O莫属，对于广大O2O应用开发者来说，想打造一款成功的五星级APP，需要经历漫长的过程，开发、测试以及发布APP都只是走向成功的第一步。除此之外，建议开发者一定要重点关注APP的性能指标。在此活动中，OneAPM将分享移动开发过程中面对应用的性能瓶颈问题，以及解决的方案。</p> 
+<p>O2O创业，唯快不破。团队组建，是创业的第一步。在此活动中，连接科技将分享在O2O创业过程中组建技术团队遇到的问题，以及解决方案方案。</p> 
+<p><strong>议程</strong> <br>13:30-14:00 签到（可领小礼品） <br>14:00-15:00 APICloud：30天，O2O速成攻略 <br>15:00-15:15 休息 <br>15:15-15:45 OneAPM：O2O行业火爆背后的移动应用性能瓶颈与解决方案 <br>15:45-16:15 连接科技：O2O精益创业之技术团队组建 <br>16:15-16:35 圆桌讨论 <br>16:35 活动结束</p> 
+<p><strong>精美礼品</strong> <br><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/165528_xQ0g_2005457.png" alt="在此输入图片描述"></p>
+<p><strong>主讲嘉宾</strong> <br>APICloud创始人兼CEO 刘鑫 <br>刘鑫，APICloud移动应用云服务创始人兼CEO，见证了中国移动互联网从SP梦网到智能机时代的全过程。专注于国内外移动应用开发平台领域的研究，系统的阐述过WebApp的挑战与Hybrid App的发展。并且凭借APICloud.com移动应用云服务成功拿到北极光领投的500万美金A轮融资。</p> 
+<p>OneAPM华南区技术总监 余祥臣 <br>OneAPM华南区技术总监和资深技术专家，专注于应用性能管理和移动应用性能解决方案的设计和制定。10年IT运维管理技术经验，对国内外数据中心运营管理方式拥有非常深刻的理解和丰富的实践经验。</p> 
+<p>连接科技CEO温文超 <br>温文超，1992年出生于广东茂名，毕业于广东科技学院，连接科技创始人兼CEO。90后创业者。</p> 
+<p><strong>地图</strong> <br><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/165545_Vr9u_2005457.png" alt="在此输入图片描述"></p>
+<p><strong>活动组织</strong> <br><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0704/165600_BKvX_2005457.png" alt="在此输入图片描述"></p></div>				    		<span style="font-weight:bold;">活动相册</span>：<br>
+        	    		    			还未上传任何活动照片，在动弹中引用  #sz042# 并添加图片即可上传~
+    		    		</table>
+				]]>
+	  </body>
+      <author><![CDATA[API_Cloud]]></author>
+      <authorid>2005457</authorid>
+      <answerCount>5</answerCount>
+      <viewCount>753</viewCount>
+      <pubDate>2015-07-04 16:56:30</pubDate>
+	  <favorite>0</favorite>
+	    </post>
+</oschina>

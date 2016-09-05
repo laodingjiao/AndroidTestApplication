@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>        <oschina>
+    <allCount>7</allCount>
+    <pagesize>7</pagesize>
+    <comments>
+                    												                                                <comment>
+                <id>6067210</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/464/929818_50.jpg?t=1434643102000</portrait>
+                <author><![CDATA[首席撸脱臼]]></author>
+                <authorid>929818</authorid>
+                <content><![CDATA[java程序运行于虚拟机之上，不同平台jvm不同，虚拟机为你屏蔽掉了系统细节，就是说虚拟机为java程序提供了一个相同的允许环境]]></content>
+                <pubDate>2015-07-17 14:54:15</pubDate>
+                                    <appclient>4</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6066363</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/279/558397_50.jpg</portrait>
+                <author><![CDATA[LC]]></author>
+                <authorid>558397</authorid>
+                <content><![CDATA[回复 @木兰宿莽 : jvm跨平台啊[擦汗]]]></content>
+                <pubDate>2015-07-17 14:03:37</pubDate>
+                                    <appclient>0</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6066025</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1154/2309100_50.jpg?t=1421760388000</portrait>
+                <author><![CDATA[木兰宿莽]]></author>
+                <authorid>2309100</authorid>
+                <content><![CDATA[回复 @首席撸脱臼 : 那再问一下，我们所说的跨平台，一定是指源码吗？java不是号称一次编译到处运行？]]></content>
+                <pubDate>2015-07-17 13:33:52</pubDate>
+                                    <appclient>0</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6065996</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1154/2309100_50.jpg?t=1421760388000</portrait>
+                <author><![CDATA[木兰宿莽]]></author>
+                <authorid>2309100</authorid>
+                <content><![CDATA[@首席撸脱臼 谢谢啦，已关注]]></content>
+                <pubDate>2015-07-17 13:31:58</pubDate>
+                                    <appclient>0</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6065991</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1154/2309100_50.jpg?t=1421760388000</portrait>
+                <author><![CDATA[木兰宿莽]]></author>
+                <authorid>2309100</authorid>
+                <content><![CDATA[@ranran__90 哈哈，谢谢啦]]></content>
+                <pubDate>2015-07-17 13:31:31</pubDate>
+                                    <appclient>0</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6065940</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/464/929818_50.jpg?t=1434643102000</portrait>
+                <author><![CDATA[首席撸脱臼]]></author>
+                <authorid>929818</authorid>
+                <content><![CDATA[跨平台说的是源码，不需要改动，但各个平台编译器不同，所以要在不同平台上重新编译]]></content>
+                <pubDate>2015-07-17 13:26:49</pubDate>
+                                    <appclient>4</appclient>
+                                                            </comment>
+                    												                                                <comment>
+                <id>6065924</id>
+                <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1172/2344629_50.jpg?t=1428541059000</portrait>
+                <author><![CDATA[ranran__90]]></author>
+                <authorid>2344629</authorid>
+                <content><![CDATA[晕死 要重新编译 成对应平台的才能用的]]></content>
+                <pubDate>2015-07-17 13:25:28</pubDate>
+                                    <appclient>3</appclient>
+                                                            </comment>
+            </comments>
+    </oschina>

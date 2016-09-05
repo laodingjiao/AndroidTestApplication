@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479499</id>
+		<title><![CDATA[单例模式]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2346786/blog/479499]]></url>
+		<where><![CDATA[iOS 实战]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h1>一 单例模式--基本实现<br></h1> 
+<p>作用：可以保证在程序运行过程，一个类只有一个实例，而且该实例易于外界访问</p> 
+<pre class="brush:cpp;toolbar: true; auto-links: false;">#import&nbsp;"MusicTool.h"
+@interface&nbsp;HMMusicTool&nbsp;()
+@property&nbsp;(strong,&nbsp;nonatomic)&nbsp;NSMutableArray&nbsp;*music;&nbsp;//.h
+@end
+@implementation&nbsp;MusicTool
+
+-(NSArray&nbsp;*)music
+{
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(_music&nbsp;==&nbsp;nil)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_music&nbsp;=&nbsp;[NSMutableArray&nbsp;array];
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;_music;
+}
+id&nbsp;_musicTool;
++&nbsp;(id)allocWithZone:(struct&nbsp;_NSZone&nbsp;*)zone
+{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@synchronized(self)&nbsp;{&nbsp;//加锁，避免多次加载
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(_musicTool&nbsp;==&nbsp;nil)&nbsp;{&nbsp;//&nbsp;防止创建多次
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_musicTool&nbsp;=&nbsp;[super&nbsp;allocWithZone:zone];
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;_musicTool;
+}
++(instancetype)shareMusiclTool
+{
+&nbsp;&nbsp;&nbsp;&nbsp;@synchronized(self){
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(_musicTool&nbsp;==&nbsp;nil)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_musicTool&nbsp;=&nbsp;[[self&nbsp;alloc]&nbsp;init];
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;_musicTool;
+}
+
+-&nbsp;(id)copyWithZone:(NSZone&nbsp;*)zone
+{
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;_musicTool;
+}
+
+#import&nbsp;"ViewController.h"
+@interface&nbsp;ViewController&nbsp;()
+@end
+@implementation&nbsp;ViewController
+
+-&nbsp;(void)viewDidLoad&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;[super&nbsp;viewDidLoad];
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;MusicTool&nbsp;*tool&nbsp;=&nbsp;[[MusicTool&nbsp;alloc]&nbsp;init];
+&nbsp;&nbsp;&nbsp;&nbsp;MusicTool&nbsp;*tool1&nbsp;=&nbsp;[[MusicTool&nbsp;alloc]&nbsp;init];
+&nbsp;&nbsp;&nbsp;&nbsp;MusicTool&nbsp;*tool2&nbsp;=&nbsp;[MusicTool&nbsp;shareMusiclTool];
+&nbsp;&nbsp;&nbsp;&nbsp;MusicTool&nbsp;*tool3&nbsp;=&nbsp;[tool1&nbsp;copy];
+&nbsp;&nbsp;&nbsp;&nbsp;NSLog(@"%p&nbsp;%p&nbsp;%p&nbsp;%p",tool.music,tool1.music,tool2.music,tool3.music);
+&nbsp;&nbsp;&nbsp;&nbsp;//返回的结果都是相同的指针，所有只有一个实例
+&nbsp;}</pre> 
+<p><br></p>]]></body>
+		<author><![CDATA[Ethan-GOGO]]></author>
+		<authorid>2346786</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 21:00:46</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

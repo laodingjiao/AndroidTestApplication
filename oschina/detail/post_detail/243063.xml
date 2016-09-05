@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>243063</id>
+      <title><![CDATA[oschina  Android 客户端是怎么做适配的？？？]]></title>
+      <url><![CDATA[http://www.oschina.net/question/1433975_243063]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/716/1433975_50.jpg?t=1388925093000</portrait>
+      <event>
+			  </event>
+      <body>
+		<![CDATA[
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+					</style>
+				开源中国的 &nbsp;Android 客户端是怎么做适配的？？？我看了源代码也没找到不同分辨率的布局啊。。。？求大神告知下						]]>
+	  </body>
+      <author><![CDATA[ym_]]></author>
+      <authorid>1433975</authorid>
+      <answerCount>6</answerCount>
+      <viewCount>157</viewCount>
+      <pubDate>2015-07-13 16:53:35</pubDate>
+	  <favorite>0</favorite>
+	    </post>
+</oschina>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <post>
+      <id>243280</id>
+      <title><![CDATA[30天，O2O速成攻略【7.25北京站】]]></title>
+      <url><![CDATA[http://www.oschina.net/question/2005457_243280]]></url>
+      <portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1002/2005457_50.png?t=1409993836000</portrait>
+      <event>
+					<id>243280</id>
+    		<cover><![CDATA[http://192.168.79.254:8080/oschina/images/uploads/cover/beijing_2005457_243280_XWLEk_bi.jpg]]></cover>
+    		<title><![CDATA[30天，O2O速成攻略【7.25北京站】]]></title>
+    		<category>2</category>
+    		<url><![CDATA[http://city.oschina.net/beijing/event/243280]]></url>
+            <startTime>2015-07-25 13:30:00</startTime>>
+    		<endTime>2015-07-25 16:30:00</endTime>>
+            <createTime>2015-07-15 14:38:01</createTime>
+            <spot>车库咖啡（北京市海淀西大街48号鑫鼎宾馆二层）</spot>
+    		<actor_count>0</actor_count>
+			<location>116.313417,39.989954</location>
+			<city>海淀</city>
+			        		 													<status>2</status>									<applyStatus>-1</applyStatus>						  </event>
+      <body>
+		<![CDATA[
+						<span style="font-weight:bold;">活动名称</span>：30天，O2O速成攻略【7.25北京站】<br>
+		<span style="font-weight:bold;">活动时间</span>：2015-07-25 13:30<br>
+		<span style="font-weight:bold;">活动地点</span>：海淀 车库咖啡（北京市海淀西大街48号鑫鼎宾馆二层）<br>
+		<span style="font-weight:bold;">活动费用</span>：免费<br>
+		<span style="font-weight:bold;">活动类型</span>：技术交流<br>
+        <span style="font-weight:bold;">引用标识</span>：<a href="javascript:alert('引用标识：用来在动弹中通过#bj280#方式引用当前活动，同时该动弹附带的图片将上传为活动图片。');">bj280</a><br>
+		<span style="font-weight:bold;">活动介绍</span>：<br>
+			    <style type='text/css'>
+			pre {white-space:pre-wrap;word-wrap:break-word;}
+						@charset "utf-8";
+/*markdown 显示内容样式*/
+.markdown-content{
+	font-size:14px;
+}
+.markdown-content h1,.markdown-content  h2,.markdown-content  h3,.markdown-content  h4,.markdown-content  h5,.markdown-content  h6
+	{
+	margin: 10px 0;
+	font-weight: bold;
+}
+
+.markdown-content h1 {
+	color: #000000;
+	font-size: 28px;
+}
+
+.markdown-content h2 {
+	color: #000000;
+	font-size: 24px;
+}
+
+.markdown-content h3 {
+	font-size: 18px;
+}
+
+.markdown-content h4 {
+	font-size: 16px;
+}
+
+.markdown-content h5 {
+	font-size: 14px;
+}
+
+.markdown-content h6 {
+	color: #777777;
+	background-color: inherit;
+	font-size: 14px;
+}
+
+.markdown-content hr {
+	height: 0.2em;
+	border: 0;
+	color: #CCCCCC;
+	background-color: #CCCCCC;
+}
+
+.markdown-content strong{
+	font-weight:bold;
+}
+
+.markdown-content p,.markdown-content blockquote,.markdown-content ul,.markdown-content ol,.markdown-content dl,.markdown-content li,.markdown-content table,.markdown-content pre
+	{
+	margin: 10px 0;
+	font-size: 10.5pt;
+}
+
+.markdown-content em {
+	font-style: italic;
+}
+
+.markdown-content pre {
+	line-height: 18px;
+	margin: 10px 0;
+	font-size: 9pt;
+	font-family: Courier New, Arial;
+	border: 1px solid rgb(221, 221, 221);
+	border-left: 5px solid rgb(108, 226, 108);
+	background: rgb(246, 246, 246);
+	padding: 5px;
+	white-space: pre-wrap;
+}
+
+.markdown-content pre code {
+	background-color: #F8F8F8;
+	border: none;
+	padding: 0;
+}
+
+.markdown-content code {
+	font-family: Consolas, Monaco, Andale Mono, monospace;
+	background-color: #F8F8F8;
+	border: 1px solid #CCCCCC;
+	border-radius: 3px;
+	padding: 0 0.2em;
+	line-height: 23px;
+}
+
+.markdown-content pre>code {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.markdown-content a:focus {
+	outline: thin dotted;
+}
+
+.markdown-content a:hover,.markdown-content a:active {
+	outline: 0;
+}
+
+.markdown-content blockquote {
+	color: #060;
+	margin: 0;
+	padding-left: 3em;
+	border-left: 0.5em #EEE solid;
+}
+
+.markdown-content ul,.markdown-content ol {
+	margin: 1em 0;
+	list-style-position: inside;
+	margin: 20px 0 20px 10px;
+	line-height: 20px;
+}
+
+.markdown-content ul {
+	list-style-type: circle;
+}
+
+.markdown-content ol {
+	list-style-type: decimal;
+}
+
+.markdown-content li p:last-child {
+	margin: 0
+}
+
+.markdown-content dd {
+	margin: 0 0 0 2em;
+}
+
+.markdown-content img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+	vertical-align: middle;
+	max-width: 100%;
+}
+
+.markdown-content table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.markdown-content td {
+	vertical-align: top;
+}					</style>
+				<div class="markdown-content"><p><strong>活动概况</strong> <br>时间：2015年7月25日13:30-16:30 <br>地点：车库咖啡（北京市海淀西大街48号鑫鼎宾馆二层） <br>主办：APICloud、领通科技、快易行 <br>网址：www.apicloud.com <br>费用：免费</p> 
+<p><strong>活动背景</strong> <br>移动互联网时代的降临掀起了一股App创业潮。其中，最热的创业领域非O2O莫属。面对井喷式的O2O App创业，快人一步才是制胜的王道。在本次活动上，APICloud将会给大家介绍一种快速、高效的移动应用开发模式，帮助创业者降低开发成本、缩短上市时间，快速实现移动O2O项目，占领市场！</p> 
+<p>随着互联网上本地化电子商务的发展，信息和实物之间、线上与线下之间的联系变得更加紧密。O2O让电子商务网站进入新的一个阶段。在O2O为线上及线下的商店提供实时连接与一站式的管理过程中遇到问题时，传统的解决方式大多有两种方式，电话求助和现场求助。领通科技将给大家带来一套既有电话服务的便捷、低成本，又有现场服务的高效性的移动服务解决方案，为您的O2O保驾护航。</p> 
+<p>本次活动中，快易行将以其明星产品优站良品为例，与大家分享O2O产品中的一些经验，为大家的O2O App创业之路指点迷经！</p> 
+<p><strong>议程</strong> <br>13:30-14:00 签到（可领小礼品） <br>14:00-15:00 APICloud：30天，O2O速成攻略 <br>15:00-15:15 休息 <br>15:15-15:45 领通科技：待定 <br>15:45-16:15 快易行：O2O实战解析 <br>16:15-16:35 圆桌讨论 <br>16:35 活动结束</p> 
+<p><strong>精美礼品</strong> <br><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0715/143731_8RYR_2005457.png" alt="在此输入图片描述"></p>
+<p><strong>主讲嘉宾</strong> <br>APICloud技术负责人 李德兴 <br>APICloud技术负责人，APICloud终端引擎及相关核心模块的技术实现者。一直从事浏览器、JavaScript引擎及相关中间件技术，参与过多个基于浏览器的移动中间件引擎的开发工作。资深码农，精通Android操作系统，熟悉iOS，WindowsPhone等移动平台系统架构，有丰富的app架构及开发经验。热爱新技术，熟悉HTML5及W3C规范，对HTML5及浏览器技术的实际应用有深入研究并付诸大量实践。</p> 
+<p>领通科技创始人&amp;CEO 郭子华 <br>郭子华博士先后就职于微软、联想集团从事无线通信和网络研究13年，是联想智能手机和平板电脑软件走向自主研发的核心创始人，SoC芯片研发的创始人。他曾研发出业界尖端USB多媒体芯片，成功的用于Thinkpad 等业界顶级的多个创新产品上，并成为联想全球仅有的几个“首席工程师”之一，创造了上亿元的经济效益。2013年底郭子华创立北京领通科技，带领研发精英用了几乎一年的时间，使得一套完整的前后台面向移动终端的“CChelper远程云桌面系统”成功上线。</p> 
+<p>快易行技术负责人 张辉</p> 
+<p><strong>地图</strong> <br><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0715/143653_Sk6D_2005457.png" alt="在此输入图片描述"> <br>地铁4号线：中关村站A1出口，向西（往左方向）步行10分钟至海淀图书城步行街，步行街往里50米，从鑫鼎宾馆上二层； <br>地铁10号线：至苏州街站，往海淀桥方向走，步行10分钟左右； <br>附近公交站：海淀桥东、海淀桥北、中关村西、北京市地震局站。</p>
+<p><strong>活动组织</strong> <br><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0715/143715_BZa1_2005457.png" alt="在此输入图片描述"></p></div>				    		<span style="font-weight:bold;">活动相册</span>：<br>
+        	    		    			还未上传任何活动照片，在动弹中引用  #bj280# 并添加图片即可上传~
+    		    		</table>
+				]]>
+	  </body>
+      <author><![CDATA[API_Cloud]]></author>
+      <authorid>2005457</authorid>
+      <answerCount>0</answerCount>
+      <viewCount>124</viewCount>
+      <pubDate>2015-07-15 14:38:00</pubDate>
+	  <favorite>0</favorite>
+	    </post>
+</oschina>

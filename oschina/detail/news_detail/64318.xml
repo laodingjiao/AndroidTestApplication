@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64318</id>
+      <title><![CDATA[Zabbix 2.2.10 rc1 发布，分布式系统监视]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64318/zabbix-2-2-10rc1-released]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Zabbix 2.2.10 rc1 发布，该版本修复了 2.2.x 系列已知的一些问题，并且引入一些小的特性。因为这是个候选版本，所以请不要在生产环境使用它。主要更新内容如下：</p> 
+<ul> 
+ <li><p>:: Support of timeout for Java gateway</p></li> 
+ <li><p>:: Support of UDP for NTP check</p></li> 
+ <li><p>:: Updated translations</p></li> 
+</ul> 
+<p>详细更新内容请查看：<a target="_blank" href="http://www.zabbix.com/rn2.2.10rc1.php" rel="nofollow">发行日志</a>。</p> 
+<p><br></p> 
+<p>zabbix是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/200809/16105847_1cc0.png" alt=""></p>
+<p>zabbix能监视各种网络参数，保证服务器系统的安全运营；并提供柔软的通知机制以让系统管理员快速定位/解决存在的各种问题。<br><br><strong>zabbix</strong>由2部分构成，<strong>zabbix server</strong>与可选组件zabbix agent。<br><strong>zabbix server</strong>可以通过SNMP，<strong>zabbix agent</strong>，ping，端口监视等方法提供对远程服务器/网络状态的监视，数据收集等功能，它可以运行在Linux, Solaris, HP-UX, AIX, Free BSD, Open BSD, OS X等平台之上。<br><strong>zabbix agent</strong>需要安装在被监视的目标服务器上，它主要完成对硬件信息或与操作系统有关的内存，CPU等信息的收集。<strong>zabbix agent</strong>可以运行在Linux ,Solaris, HP-UX, AIX, Free BSD, Open BSD, OS X, Tru64/OSF1, Windows NT4.0, Windows 2000/2003/XP/Vista)等系统之上。<br><br><strong>zabbix server</strong>可以单独监视远程服务器的服务状态；同时也可以与<strong>zabbix agent</strong>配合，可以轮询<strong>zabbix agent</strong>主动接收监视数据（trapping方式），同时还可被动接收<strong>zabbix agent</strong>发送的数据（trapping方式）。<br>另外<strong>zabbix server</strong>还支持SNMP (v1,v2)，可以与SNMP软件(例如：net-snmp)等配合使用。</p>]]></body>
+      <commentCount>2</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 08:10:22</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/zabbix]]></softwarelink>
+	  <softwarename><![CDATA[zabbix]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Linux Kernel 4.2 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63970/linux-kernel-4-2-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git 2.5.0 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63865/git-2-5-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Lua 5.3.1 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63051/lua-5-3-1-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring XD 1.2 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63007/spring-xd-1-2-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Spring Framework 4.2 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/62768/spring-4-2rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[TurnKey Linux 14.0 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/62388/turnkey-linux-14-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Linux Kernel 4.1 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/61932/linux-kernel-4-1-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[AngularJS 1.4.0 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/61858/angularjs-1-4-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Qubes OS 3.0 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/61856/qubes-os-3-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Zabbix 2.4.5 发布，分布式系统监视]]></rtitle>
+			<rurl>http://www.oschina.net/news/61774/zabbix-2-4-5-released</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

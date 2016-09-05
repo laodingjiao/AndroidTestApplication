@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479210</id>
+		<title><![CDATA[struts2 跳转方式，请求分派，重定向]]></title>
+		<url><![CDATA[http://my.oschina.net/sniperLi/blog/479210]]></url>
+		<where><![CDATA[struts]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><a href="http://localhost:8080/s2_05_HCM_05/hcm/employee/helloworld" rel="nofollow">http://localhost:8080/s2_05_HCM_05/hcm/employee/helloworld</a><br>1、action 成员中的信息默认会保存在request 范围中.注意属性应该保证有set方法.<br>2、默认的转发方式是请求分派</p> 
+<p>3、<a href="http://localhost:8080/s2_05_HCM_05/hcm/employee/message" rel="nofollow">http://localhost:8080/s2_05_HCM_05/hcm/employee/message</a><br>&lt;!-- 如果没有找到指定result，会到继承的base package中找 --&gt;</p> 
+<p>4、测试重定向&nbsp;重定向的时候，不能定向到WEB-INF下的jsp页面，<br>这个路径下只有服务器可以访问，客户端是不能通过浏览器访问到的，<br>除非通过action跳转到该页面</p> 
+<p>重定向：直接定向到JSP页面&nbsp;&nbsp;type="redirect"<br><a href="http://localhost:8080/s2_05_HCM_05/hcm/employee/redirect" rel="nofollow">http://localhost:8080/s2_05_HCM_05/hcm/employee/redirect</a></p> 
+<p>重定向：通过action做跳转&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type="redirectAction"<br><a href="http://localhost:8080/s2_05_HCM_05/hcm/employee/redirectAction" rel="nofollow">http://localhost:8080/s2_05_HCM_05/hcm/employee/redirectAction</a></p> 
+<p>重定向：从一个包重定向到其他的包</p> 
+<p>5、查看文件源码，可以指定以什么编码读取文件<br><a href="http://localhost:8080/s2_05_HCM_05/hcm/employee/testCode" rel="nofollow">http://localhost:8080/s2_05_HCM_05/hcm/employee/testCode</a></p> 
+<pre class="brush:xml;toolbar: true; auto-links: false;">&lt;?xml&nbsp;version="1.0"&nbsp;encoding="UTF-8"&nbsp;?&gt;
+&lt;!DOCTYPE&nbsp;struts&nbsp;PUBLIC
+&nbsp;&nbsp;&nbsp;&nbsp;"-//Apache&nbsp;Software&nbsp;Foundation//DTD&nbsp;Struts&nbsp;Configuration&nbsp;2.0//EN"
+&nbsp;&nbsp;&nbsp;&nbsp;"http://struts.apache.org/dtds/struts-2.0.dtd"&gt;
+&lt;struts&gt;
+&nbsp;
+&nbsp;&lt;package&nbsp;name="base"&nbsp;extends="struts-default"&gt;
+&nbsp;&nbsp;&lt;global-results&gt;
+&nbsp;&nbsp;&nbsp;&lt;result&nbsp;name="message"&gt;/WEB-INF/page/message.jsp&lt;/result&gt;
+&nbsp;&nbsp;&lt;/global-results&gt;
+&nbsp;&lt;/package&gt;
+&nbsp;
+&nbsp;&lt;!--&nbsp;package&nbsp;namespace&nbsp;+&nbsp;action&nbsp;name&nbsp;&nbsp;唯一确定页面的跳转&nbsp;--&gt;&nbsp;
+&nbsp;&lt;package&nbsp;name="itcast"&nbsp;namespace="/hcm/employee"&nbsp;extends="base"&gt;
+&nbsp;&nbsp;&lt;!--&nbsp;用${username}可以取到作用域中的属性名称对应值&nbsp;--&gt;
+&nbsp;&nbsp;&lt;!--&nbsp;默认作用域是request&nbsp;--&gt;
+&nbsp;&nbsp;&lt;action&nbsp;name="helloworld"&nbsp;class="cn.itcast.action.HelloWorldAction"&nbsp;method="{1}"&gt;
+&nbsp;&nbsp;&nbsp;&lt;result&nbsp;name="success"&gt;/WEB-INF/page/hello.jsp?username=${username}&lt;/result&gt;
+&nbsp;&nbsp;&nbsp;&lt;result&nbsp;name="message"&gt;/WEB-INF/page/message.jsp&lt;/result&gt;
+&nbsp;&nbsp;&lt;/action&gt;
+&nbsp;&nbsp;
+&nbsp;&nbsp;&lt;action&nbsp;name="testCode"&gt;
+&nbsp;&nbsp;&nbsp;&lt;result&nbsp;type="plainText"&gt;index.jsp&lt;/result&gt;
+&nbsp;&nbsp;&lt;/action&gt;
+&nbsp;&nbsp;
+&nbsp;&nbsp;&lt;action&nbsp;name="testCode2"&gt;
+&nbsp;&nbsp;&nbsp;&lt;result&nbsp;type="plainText"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;param&nbsp;name="location"&gt;/index2.jsp&lt;/param&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;param&nbsp;name="charSet"&gt;UTF-8&lt;/param&gt;&lt;!--&nbsp;以什么编码读取文件&nbsp;--&gt;
+&nbsp;&nbsp;&nbsp;&lt;/result&gt;
+&nbsp;&nbsp;&lt;/action&gt;
+&nbsp;&nbsp;
+&nbsp;&nbsp;&lt;!--&nbsp;如果没有找到指定result，会到继承的base&nbsp;package中找&nbsp;--&gt;
+&nbsp;&nbsp;&lt;action&nbsp;name="message"&nbsp;class="cn.itcast.action.HelloWorldAction"&nbsp;method="add"&gt;
+&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&lt;result&nbsp;name="message"&gt;/WEB-INF/page/hello.jsp&lt;/result&gt;
+&nbsp;&nbsp;&nbsp;--&gt;
+&nbsp;&nbsp;&lt;/action&gt;
+&nbsp;&nbsp;
+&nbsp;&nbsp;&lt;!--&nbsp;测试重定向，注意：重定向不能定向到WEB-INF路径下的jsp页面，除非通过action跳转&nbsp;--&gt;
+&nbsp;&nbsp;&lt;action&nbsp;name="redirect"&gt;
+&nbsp;&nbsp;&nbsp;&lt;result&nbsp;type="redirect"&gt;/hello.jsp&lt;/result&gt;
+&nbsp;&nbsp;&lt;/action&gt;
+&nbsp;&nbsp;&lt;!--&nbsp;重定向，经过action跳转&nbsp;&nbsp;&nbsp;本包&nbsp;--&gt;
+&nbsp;&nbsp;&lt;action&nbsp;name="redirectAction"&gt;
+&nbsp;&nbsp;&nbsp;&lt;result&nbsp;type="redirectAction"&gt;helloworld!add&lt;/result&gt;
+&nbsp;&nbsp;&lt;/action&gt;
+&nbsp;&nbsp;
+&nbsp;&nbsp;&lt;!--&nbsp;重定向到其他的包&nbsp;--&gt;
+&nbsp;&nbsp;&lt;action&nbsp;name="redirectAction2"&gt;
+&nbsp;&nbsp;&nbsp;&lt;result&nbsp;type="redirectAction"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;param&nbsp;name="actionName"&gt;helloworld&lt;/param&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;param&nbsp;name="namespace"&gt;/hcm/redirect&lt;/param&gt;
+&nbsp;&nbsp;&nbsp;&lt;/result&gt;
+&nbsp;&nbsp;&lt;/action&gt;
+&nbsp;&lt;/package&gt;
+&nbsp;
+&nbsp;&lt;package&nbsp;name="testDirect"&nbsp;namespace="/hcm/redirect"&nbsp;extends="base"&gt;
+&nbsp;&nbsp;&lt;action&nbsp;name="helloworld"&nbsp;class="cn.itcast.action.HelloWorldAction"&nbsp;method="execute"&gt;
+&nbsp;&nbsp;&nbsp;&lt;result&nbsp;name="success"&gt;/WEB-INF/page/employeeAdd.jsp&lt;/result&gt;
+&nbsp;&nbsp;&lt;/action&gt;
+&nbsp;&lt;/package&gt;
+&nbsp;
+&lt;/struts&gt;</pre> 
+<p></p>]]></body>
+		<author><![CDATA[Zero零_度]]></author>
+		<authorid>2004245</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 11:05:58</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

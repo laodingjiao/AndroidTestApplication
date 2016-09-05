@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6039737</id>
+	<body><![CDATA[
+		你们说，如果不考虑工作纯考虑兴趣的话，你会喜欢什么专业？        	]]></body>
+    <author><![CDATA[空腔]]></author>
+	<authorid>1274847</authorid>
+    <appclient>1</appclient>
+    <commentCount>53</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/637/1274847_50.jpg?t=1436876443000</portrait>
+    <pubDate>2015-07-14 19:40:16</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>2</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[松子玉米烙]]></name>
+				<uid>725743</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/362/725743_50.jpg?t=1417361059000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[weiqo]]></name>
+				<uid>1783012</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/891/1783012_50.jpg?t=1436339883000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

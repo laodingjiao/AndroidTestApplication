@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64295</id>
+      <title><![CDATA[Git 2.4.6 发布，版本控制系统]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64295/git-2-4-6]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>Git 2.4.6 发布，更新内容如下：</p> 
+<p>&nbsp;* "git fetch --depth=&lt;depth&gt;" and "git clone --depth=&lt;depth&gt;" issued<br>&nbsp;&nbsp; a shallow transfer request even to an upload-pack that does not<br>&nbsp;&nbsp; support the capability.<br><br>&nbsp;* "git fsck" used to ignore missing or invalid objects recorded in reflog.<br><br>&nbsp;* The tcsh completion writes a bash scriptlet but that would have<br>&nbsp;&nbsp; failed for users with noclobber set.<br><br>&nbsp;* Recent Mac OS X updates breaks the logic to detect that the machine<br>&nbsp;&nbsp; is on the AC power in the sample pre-auto-gc script.<br><br>&nbsp;* "git format-patch --ignore-if-upstream A..B" did not like to be fed<br>&nbsp;&nbsp; tags as boundary commits.</p> 
+<p>此外还有一些常规修复，文档更新和代码清理。</p> 
+<p>下载：<a href="https://github.com/git/git/archive/v2.4.6.zip" rel="nofollow">https://github.com/git/git/archive/v2.4.6.zip</a>。</p> 
+<p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。</p> 
+<p><span style="color:#ff0000;"><strong>开源中国 Git 代码托管平台</strong></span>：<a href="http://git.oschina.net/" target="_blank" rel="nofollow">http://git.oschina.net/</a></p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2014/0303/154859_BSrH_12.png"></p>]]></body>
+      <commentCount>5</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 13:11:55</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/git]]></softwarelink>
+	  <softwarename><![CDATA[Git]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[SmartGit 7 preview 12 发布，Git 客户端]]></rtitle>
+			<rurl>http://www.oschina.net/news/64291/smartgit-7-preview-12</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Gitlab 7.13.0 RC2 发布，Git 版本控制系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/64275/gitlab-7-13-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— Android 企业通讯录]]></rtitle>
+			<rurl>https://git.oschina.net/yso/SmartCall</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Gitlab 7.13.0 RC1 发布，Git 版本控制系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/64239/gitlab-7-3-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— web 开发框架 Pond ]]></rtitle>
+			<rurl>http://git.oschina.net/edwinyxc/pond</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git 2.5.0 RC2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64215/git-2-5-0-rc2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC项目推荐 —— 简单的 PaaS 系统 Sdp]]></rtitle>
+			<rurl>https://git.oschina.net/staugur/Sdp</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Pygit2 0.22.1 发布，Python 的 Git 开发包]]></rtitle>
+			<rurl>http://www.oschina.net/news/64181/pygit2-0-22-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— 简洁的 web 框架 blade ]]></rtitle>
+			<rurl>https://git.oschina.net/biezhi/blade</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 项目推荐 —— 开源脚本编程语言 Def]]></rtitle>
+			<rurl>https://git.oschina.net/yangjiePro/Def</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

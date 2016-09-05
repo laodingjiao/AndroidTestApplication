@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479304</id>
+		<title><![CDATA[easyUI combotree 多选取值]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2259804/blog/479304]]></url>
+		<where><![CDATA[easyUI]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>1，直接获取：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单选：$("#id").combotree("getValue")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;多选：$("#id").combotree("getValues")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意：如果value中的值和所显示的文本不同，如需获取文本内容，则可以使用getText(),多选同样加s。<br>&nbsp;2，在选择事件中获取：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onSelect:function(node){</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node.text；或者&nbsp;node.id;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p> 
+<p>3，使用api中方式</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;var t = $("#id").combotree('tree'); // 得到树对象&nbsp;&nbsp;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;var n = t.tree('getSelected'); // 得到选择的节点&nbsp;&nbsp;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;alert(n.text);</p> 
+<p>4，也可以使用循环的方式获取</p> 
+<p><br></p>]]></body>
+		<author><![CDATA[hbear]]></author>
+		<authorid>2259804</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 14:34:30</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

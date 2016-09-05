@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479399</id>
+		<title><![CDATA[可动态添加数据的复选框]]></title>
+		<url><![CDATA[http://my.oschina.net/u/1460984/blog/479399]]></url>
+		<where><![CDATA[Java]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>&nbsp;&nbsp;&nbsp;&nbsp;变量如下所示：</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">/**
+&nbsp;&nbsp;*&nbsp;原始每行最多显示的个数
+&nbsp;&nbsp;*/
+&nbsp;private&nbsp;static&nbsp;final&nbsp;int&nbsp;INITIAL_MAX_COUNT&nbsp;=&nbsp;3;
+&nbsp;private&nbsp;Context&nbsp;mContext;
+&nbsp;/**
+&nbsp;&nbsp;*&nbsp;CheckBox&nbsp;列表
+&nbsp;&nbsp;*/
+&nbsp;private&nbsp;List&lt;CheckBox&gt;&nbsp;mCheckBoxs;
+&nbsp;/**
+&nbsp;&nbsp;*&nbsp;每一个CheckBox&nbsp;显示的内容
+&nbsp;&nbsp;*/
+&nbsp;private&nbsp;List&lt;String&gt;&nbsp;mSelectedBoxContents;</pre> 
+<p></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;控件继承自LinearLayout，构造函数中默认设置为水平排列：</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">public&nbsp;CustomCheckBox(Context&nbsp;context,&nbsp;AttributeSet&nbsp;attrs,&nbsp;int&nbsp;defStyle)&nbsp;{
+
+&nbsp;&nbsp;super(context,&nbsp;attrs,&nbsp;defStyle);
+
+&nbsp;&nbsp;this.mContext&nbsp;=&nbsp;context;
+
+&nbsp;&nbsp;this.setOrientation(VERTICAL);
+
+&nbsp;&nbsp;mCheckBoxs&nbsp;=&nbsp;new&nbsp;ArrayList&lt;CheckBox&gt;();
+
+&nbsp;&nbsp;mSelectedBoxContents&nbsp;=&nbsp;new&nbsp;ArrayList&lt;String&gt;();
+
+&nbsp;}</pre> 
+<p></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;初始化每一个CheckBox：</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">private&nbsp;void&nbsp;initCheckBox(LinearLayout&nbsp;linearLayout,&nbsp;String&nbsp;checkBoxText,
+
+&nbsp;&nbsp;&nbsp;int&nbsp;index)&nbsp;{
+
+&nbsp;&nbsp;CheckBox&nbsp;checkBox&nbsp;=&nbsp;new&nbsp;CheckBox(mContext);
+
+&nbsp;&nbsp;checkBox.setText(checkBoxText);
+
+&nbsp;&nbsp;checkBox.setTextSize(15.0f);
+
+&nbsp;&nbsp;checkBox.setTextColor(Color.parseColor("#88000000"));
+
+&nbsp;&nbsp;checkBox.setOnCheckedChangeListener(listener);
+
+&nbsp;&nbsp;checkBox.setTag(index);
+
+&nbsp;&nbsp;mCheckBoxs.add(checkBox);
+
+&nbsp;&nbsp;LinearLayout.LayoutParams&nbsp;checkBoxParams&nbsp;=&nbsp;new&nbsp;LayoutParams(
+
+&nbsp;&nbsp;&nbsp;&nbsp;LinearLayout.LayoutParams.WRAP_CONTENT,
+
+&nbsp;&nbsp;&nbsp;&nbsp;LinearLayout.LayoutParams.WRAP_CONTENT);
+
+&nbsp;&nbsp;checkBoxParams.gravity&nbsp;=&nbsp;Gravity.CENTER_VERTICAL;
+
+&nbsp;&nbsp;checkBoxParams.weight&nbsp;=&nbsp;1.0f;
+
+&nbsp;&nbsp;linearLayout.addView(checkBox,&nbsp;checkBoxParams);
+
+&nbsp;}</pre> 
+<p></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;根据显示的内容，动态生成每一个CheckBox，每行显示3个，超过一行的话每行再另外生成一个LinearLayout，再在每个LinearLayout里面填充CheckBox：</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">public&nbsp;void&nbsp;setCheckBoxs(List&lt;String&gt;&nbsp;checkBoxContents)&nbsp;{
+&nbsp;&nbsp;if&nbsp;(checkBoxContents&nbsp;==&nbsp;null&nbsp;||&nbsp;!mCheckBoxs.isEmpty())
+&nbsp;&nbsp;&nbsp;return;
+&nbsp;&nbsp;int&nbsp;checkBoxCount&nbsp;=&nbsp;checkBoxContents.size();
+&nbsp;&nbsp;if&nbsp;(checkBoxCount&nbsp;&gt;&nbsp;INITIAL_MAX_COUNT)&nbsp;{
+&nbsp;&nbsp;&nbsp;initOrientation(LinearLayout.VERTICAL);
+&nbsp;&nbsp;}&nbsp;else&nbsp;{
+&nbsp;&nbsp;&nbsp;initOrientation(LinearLayout.HORIZONTAL);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;if&nbsp;(this.getOrientation()&nbsp;==&nbsp;LinearLayout.VERTICAL)&nbsp;{//&nbsp;竖直显示
+&nbsp;&nbsp;&nbsp;int&nbsp;checkBoxLines&nbsp;=&nbsp;checkBoxCount&nbsp;%&nbsp;INITIAL_MAX_COUNT&nbsp;==&nbsp;0&nbsp;?&nbsp;checkBoxCount
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;INITIAL_MAX_COUNT
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;checkBoxCount&nbsp;/&nbsp;INITIAL_MAX_COUNT&nbsp;+&nbsp;1;
+&nbsp;&nbsp;&nbsp;for&nbsp;(int&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;checkBoxLines;&nbsp;i++)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;LinearLayout&nbsp;linearLayout&nbsp;=&nbsp;new&nbsp;LinearLayout(mContext);
+&nbsp;&nbsp;&nbsp;&nbsp;linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+&nbsp;&nbsp;&nbsp;&nbsp;LinearLayout.LayoutParams&nbsp;lyParams&nbsp;=&nbsp;new&nbsp;LayoutParams(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LinearLayout.LayoutParams.MATCH_PARENT,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LinearLayout.LayoutParams.WRAP_CONTENT);
+&nbsp;&nbsp;&nbsp;&nbsp;/**&nbsp;最后一行显示余下的个数，其余每行显示最大的显示数目&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;count&nbsp;=&nbsp;(i&nbsp;==&nbsp;(checkBoxLines&nbsp;-&nbsp;1)&nbsp;?&nbsp;checkBoxCount
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;INITIAL_MAX_COUNT&nbsp;:&nbsp;INITIAL_MAX_COUNT);
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(int&nbsp;j&nbsp;=&nbsp;0;&nbsp;j&nbsp;&lt;&nbsp;count;&nbsp;j++)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;checkBoxText&nbsp;=&nbsp;checkBoxContents.get(i
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;INITIAL_MAX_COUNT&nbsp;+&nbsp;j);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initCheckBox(linearLayout,&nbsp;checkBoxText,&nbsp;i
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;INITIAL_MAX_COUNT&nbsp;+&nbsp;j);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;this.addView(linearLayout,&nbsp;lyParams);
+&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;}&nbsp;else&nbsp;{//&nbsp;水平显示
+&nbsp;&nbsp;&nbsp;for&nbsp;(int&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;checkBoxCount;&nbsp;i++)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;checkBoxText&nbsp;=&nbsp;checkBoxContents.get(i);
+&nbsp;&nbsp;&nbsp;&nbsp;initCheckBox(this,&nbsp;checkBoxText,&nbsp;i);
+&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;}
+&nbsp;}</pre> 
+<p></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;贴码工作终于完成，其实只要有思路，代码还是蛮简单的。另外也可以用 RelativeLayout 来实现，具体就不再做撰述。希望对小伙伴们有用。</p> 
+<p>完整代码地址：<a href="http://www.oschina.net/code/snippet_1460984_49512" target="_blank" rel="nofollow">http://www.oschina.net/code/snippet_1460984_49512</a></p>]]></body>
+		<author><![CDATA[人生如歌]]></author>
+		<authorid>1460984</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-16 17:12:18</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479587</id>
+		<title><![CDATA[	DevExpress v15.1：DevExtreme控件升级（三）]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2317468/blog/479587]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h4><strong>1. HTML5/JS数据可视化</strong></h4> 
+<h5><strong>1.1 增强工具提示</strong></h5> 
+<p><strong>支持HTM</strong>L：现在您可以使用HTML标记<a href="http://js.devexpress.com/Documentation/ApiReference/Data_Visualization_Widgets/dxChart/Configuration/tooltip/?version=15_1#customizeTooltip" rel="nofollow">自定义提示</a>信息。</p> 
+<p><strong>改进定位</strong>：工具提示的定位不再只是依赖于图表容器的边界。现在可以以显示内侧点的方式来显示工具提示的边界点。</p> 
+<p><img alt="【DevExpress v15.1新版亮点】DevExtreme控件升级（三）" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/17093856_HIpi.jpg"></p>
+<h5><strong>1.2 HTML 5 RangeSelector</strong></h5> 
+<p><strong>新的轻量级类型</strong>：新版本包含了一个轻量级的Range Selector控件类型——更加紧凑、无需使用其背景中的图表图像。</p> 
+<p><strong>改进滑动标记定位</strong>：滑动标记不再移动到控件边界之外，这使得它能更容易地定位您的控件（尤其是当使用图表控件时）。</p> 
+<p><img alt="【DevExpress v15.1新版亮点】DevExtreme控件升级（三）" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/17093857_fzHJ.jpg"></p>
+<h5><strong>1.3 HTML 5 矢量地图</strong></h5> 
+<p>现在所有特定地图项目（面积或标记）的显示效果都已经更新，无需刷新。</p> 
+<h4><strong>2.HTML 5/JS SPA框架</strong></h4> 
+<h5><strong>2.1 外观、API和性能的改进</strong></h5> 
+<p>为提高最终用户的用户体验，我们在新版本中引入了很多新的功能。通过使用native-look UI的切换和动画，现在移动应用程序的UX更加接近于那些原生的应用程序。新版本中我们改进了DevExtreme的API，因此现在您可以为最终用户提供更多的互动的UX。</p> 
+<p><img alt="【DevExpress v15.1新版亮点】DevExtreme控件升级（三）" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/17093857_P1kH.jpg"></p>
+<h5><strong>2.2 自定义Theme Builder的布局</strong></h5> 
+<p>现在可以在DevExtreme Theme Builder中自定义特定的CSS<a href="http://js.devexpress.com/Documentation/Guide/SPA_Framework/Built-in_Layouts/?version=15_1" rel="nofollow">布局</a>。</p> 
+<p><img alt="【DevExpress v15.1新版亮点】DevExtreme控件升级（三）" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/17093857_4zbm.jpg"></p>
+<p><span style="color: rgb(51, 51, 51); font-family: 'Microsoft YaHei', Verdana, sans-serif, 宋体; letter-spacing: 0.5px; background-color: rgb(255, 255, 255);">具体更多内容，请查看原文：</span><a href="http://www.evget.com/article/2015/6/16/22409.html" target="_self" rel="nofollow">【DevExpress v15.1新版亮点】DevExtreme控件升级（三）</a></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[Miss_Hello_World]]></author>
+		<authorid>2317468</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-17 09:38:57</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

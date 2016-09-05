@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479552</id>
+		<title><![CDATA[byte[]数组和int之间的转换]]></title>
+		<url><![CDATA[http://my.oschina.net/u/261246/blog/479552]]></url>
+		<where><![CDATA[Java]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><pre class="brush:java;toolbar: true; auto-links: false;">unsigned&nbsp;char&nbsp;head[2];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//标识头&nbsp;&nbsp;&nbsp;&nbsp;0x64,0xa4
+unsigned&nbsp;char&nbsp;cmd;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//命令号，&nbsp;&nbsp;0x03
+unsigned&nbsp;char&nbsp;cmd_id;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//命令类型，0x00
+unsigned&nbsp;char&nbsp;serial[6];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//设备序列号，MAC&nbsp;地址
+unsigned&nbsp;char&nbsp;cmd_len[2];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//命令长度，低位在前
+unsigned&nbsp;char&nbsp;cmd_no[2];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//命令帧号，低位在前
+unsigned&nbsp;char&nbsp;dev_name[48];
+unsigned&nbsp;char&nbsp;tick[4];
+unsigned&nbsp;char&nbsp;dev_mac[8];
+unsigned&nbsp;char&nbsp;dev_ep[4];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//低字节，高字节为0
+unsigned&nbsp;char&nbsp;dev_value[4];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//报警值：</pre> 
+<p><span style="font-size: 12.5px;"></span><br></p> 
+<p><span style="font-size: 12.5px;">开发和硬件通讯的程序,关于变量类型转换,比较麻烦. 类型相互转换,一一对应</span><br></p> 
+<p>由于机顶盒的程序开发年代久远...数值一会儿用2个byte表示,一会儿用4个byte表示.</p> 
+<p>好在存储方式固定<span style="line-height: 22.5px;">基本都是(低位在前,高位在后)的方式,</span><span style="font-size: 12.5px;">Java后台统一用int来接收了.</span></p> 
+<p><span style="font-size: 12.5px;">网上逛了下,<span style="line-height: 22.5px;">有写好的现成的方法,偷了个懒就直接拿来用了.</span></span></p> 
+<p>贴个代码:</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">/**
+&nbsp;*&nbsp;将int数值转换为占四个字节的byte数组，本方法适用于(低位在前，高位在后)的顺序。&nbsp;和bytesToInt（）配套使用
+&nbsp;*&nbsp;@param&nbsp;value
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要转换的int值
+&nbsp;*&nbsp;@return&nbsp;byte数组
+&nbsp;*/
+public&nbsp;static&nbsp;byte[]&nbsp;intToBytes(int&nbsp;value&nbsp;)
+{
+&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;src&nbsp;=&nbsp;new&nbsp;byte[4];
+&nbsp;&nbsp;&nbsp;&nbsp;src[3]&nbsp;=&nbsp;&nbsp;(byte)&nbsp;((value&gt;&gt;24)&nbsp;&amp;&nbsp;0xFF);
+&nbsp;&nbsp;&nbsp;&nbsp;src[2]&nbsp;=&nbsp;&nbsp;(byte)&nbsp;((value&gt;&gt;16)&nbsp;&amp;&nbsp;0xFF);
+&nbsp;&nbsp;&nbsp;&nbsp;src[1]&nbsp;=&nbsp;&nbsp;(byte)&nbsp;((value&gt;&gt;8)&nbsp;&amp;&nbsp;0xFF);
+&nbsp;&nbsp;&nbsp;&nbsp;src[0]&nbsp;=&nbsp;&nbsp;(byte)&nbsp;(value&nbsp;&amp;&nbsp;0xFF);
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;src;
+}
+/**
+&nbsp;*&nbsp;byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序。
+&nbsp;*
+&nbsp;*&nbsp;@param&nbsp;ary
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte数组
+&nbsp;*&nbsp;@param&nbsp;offset
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从数组的第offset位开始
+&nbsp;*&nbsp;@return&nbsp;int数值
+&nbsp;*/
+public&nbsp;static&nbsp;int&nbsp;bytesToInt(byte[]&nbsp;ary,&nbsp;int&nbsp;offset)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;value;
+&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;=&nbsp;(int)&nbsp;((ary[offset]&amp;0xFF)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;((ary[offset+1]&lt;&lt;8)&nbsp;&amp;&nbsp;0xFF00)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;((ary[offset+2]&lt;&lt;16)&amp;&nbsp;0xFF0000)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;((ary[offset+3]&lt;&lt;24)&nbsp;&amp;&nbsp;0xFF000000));
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;value;
+}</pre> 
+<p><span style="font-size: 12.5px;"></span><br></p> 
+<p><br></p> 
+<p>还有(高位在前,低位在后)的转换方法的就不贴了</p> 
+<p><span style="font-size: 12.5px;">有需要的参考原来的文章,还是贴个地址把</span><br></p> 
+<p>http://blog.csdn.net/sunnyfans/article/details/8286906</p> 
+<p><br></p> 
+<p><br></p>]]></body>
+		<author><![CDATA[铂金蛋蛋]]></author>
+		<authorid>261246</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-17 02:17:14</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

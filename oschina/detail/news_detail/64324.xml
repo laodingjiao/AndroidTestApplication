@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64324</id>
+      <title><![CDATA[OpenELEC 6.0 Beta 3 发布，嵌入式操作系统]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64324/openelec-6-0-beta-3]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>OpenELEC 6.0 Beta 3 发布，主要更新内容如下：</p> 
+<ul> 
+ <li><p>update to dvb-firmware-0.0.48</p></li> 
+ <li><p>update to kodi-15.0-rc2-0aa930b</p></li> 
+ <li><p>update to bcm2835-bootloader-47d51d6</p></li> 
+ <li><p>update to bcm2835-driver-47d51d6</p></li> 
+ <li><p>update to mesa-10.6.2</p></li> 
+ <li><p>update to gettext-0.19.5</p></li> 
+ <li><p>update to linux-4.1.2</p></li> 
+ <li><p>update to nano-2.4.2</p></li> 
+ <li><p>update to libevdev-1.4.3</p></li> 
+ <li><p>update to libshairplay-0f41ade</p></li> 
+ <li><p>update to libinput-0.19.0</p></li> 
+ <li><p>update to xproto-7.0.28</p></li> 
+ <li><p>update to openssh-6.9p1</p></li> 
+ <li><p>update to xproto-7.0.28</p></li> 
+ <li><p>update to openssh-6.9p1</p></li> 
+ <li><p>update to libva-1.6.0</p></li> 
+ <li><p>update to libva-intel-driver-1.6.0</p></li> 
+ <li><p>update to platform-1.0.10</p></li> 
+ <li><p>update to libdrm-2.4.62</p></li> 
+ <li><p>update to gcc-4.9.3</p></li> 
+ <li><p>update to curl-7.43.0</p></li> 
+ <li><p>update to mpfr-3.1.3</p></li> 
+ <li><p>update to xorg-server-1.17.2</p></li> 
+ <li><p>update to xf86-video-nvidia-352.21</p></li> 
+ <li><p>update to RTL8812AU-3f015f0</p></li> 
+ <li><p>projects/RPi*/linux: enable CONFIG_BCM_VC_SM, needed to show HW Cursor</p></li> 
+ <li><p>projects/RPi2/patches/linux: update RPi support patches</p></li> 
+ <li><p>projects/RPi2/patches/kodi: update RPi support patches</p></li> 
+ <li><p>projects/imx6/linux: enable CONFIG_SND_SOC_IMX_AC97_VT1613</p></li> 
+ <li><p>Fix 16bpp patch which doesn't use stride consistently - see #4221</p></li> 
+ <li><p>kodi: enhance english kb layout a bit.</p></li> 
+ <li><p>linux: add patch for Hauppauge HVR-2205/2215/2255 support</p></li> 
+ <li><p>linux: fix TechnoTrend S2-4600 DVB-S received</p></li> 
+ <li><p>Configure RPi/RPi2 platform with optimal CPU and IO settings</p></li> 
+ <li><p>projects/WeTek_Play/initramfs: Init framebuffer according to HDMI resolution from kernel command line</p></li> 
+ <li><p>projects/WeTek_Play/patches/kodi: Make ugly IEC958 workaround less ulgy</p></li> 
+</ul> 
+<p>详细更新内容请查看<a target="_blank" href="https://github.com/OpenELEC/OpenELEC.tv/compare/5.95.2...5.95.3" rel="nofollow">更新日志</a>。</p> 
+<p>下载地址请点：<a target="_blank" href="http://openelec.tv/get-openelec" rel="nofollow">download</a>。</p> 
+<p>OpenELEC 是一个附带家庭影院的 Linux 发行版本，使用基于 <a href="http://www.oschina.net/p/xbmc" rel="nofollow">XBMC</a> 的软件。提供包括家庭影院 PC 所需的各类软件，包括 DVD 播放器、远程控制等。</p> 
+<p>主要特点：</p> 
+<ul> 
+ <li><p>完全免费</p></li> 
+ <li><p>完全安装只需 80-125MB</p></li> 
+ <li><p>对硬件要求很低</p></li> 
+ <li><p>支持直接安装在 HDD, SSD, Compact Flash, SD card, pen drive etc</p></li> 
+ <li><p>优化对 Atom, ION, Intel, Fusion 的支持</p></li> 
+ <li><p>通过 XBMC 进行简单配置</p></li> 
+ <li><p>即插即用外部存储</p></li> 
+ <li><p>文件分享</p></li> 
+</ul>]]></body>
+      <commentCount>0</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-17 08:23:50</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/openelec]]></softwarelink>
+	  <softwarename><![CDATA[OpenELEC]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[OpenELEC 6.0 Beta 2 发布，嵌入式操作系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63389/openelec-6-0-beta-2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[REMnux 6.0 发布，基于 Ubuntu 的 Linux 发行]]></rtitle>
+			<rurl>http://www.oschina.net/news/63196/remnux-6-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Apache Tomcat 6.0.x 即将结束生命周期]]></rtitle>
+			<rurl>http://www.oschina.net/news/63033/apache-tomcat-6-end-of-life</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Android 6.0 内部代号确定 Macadamia Nut Cookie]]></rtitle>
+			<rurl>http://www.oschina.net/news/62727/android-6-0-macadamia-nut-cookie</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OpenELEC 6.0 Beta 1 发布，嵌入式操作系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/62244/openelec-6-0-beta1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Toutou Linux 6.0 &quot;SlaXen RCX&quot; 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/61516/toutou-linux-6-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Mono 发布 4.0 的发行说明，支持 C# 6.0]]></rtitle>
+			<rurl>http://www.oschina.net/news/61224/mono-4-0-release-notes</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OpenELEC 5.0.7 发布，嵌入式操作系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/61012/openelec-5-0-7</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OpenELEC 5.0.6 发布，嵌入式操作系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/60534/openelec-5-0-6</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[OSChina 技术周刊第 24 期 —— C# 6.0 的新特性]]></rtitle>
+			<rurl>http://www.oschina.net/question/2012764_227185</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

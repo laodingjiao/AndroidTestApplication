@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <tweet>
+    <id>6064419</id>
+	<body><![CDATA[
+		今天老板都没来诶，感觉可以撒欢了！        	]]></body>
+    <author><![CDATA[大菲]]></author>
+	<authorid>1991026</authorid>
+    <appclient>1</appclient>
+    <commentCount>25</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/995/1991026_50.jpg?t=1416931477000</portrait>
+    <pubDate>2015-07-17 11:05:08</pubDate>
+	<imgSmall></imgSmall>
+	<imgBig></imgBig>
+    <attach></attach>
+    
+    	<likeCount>5</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[英强]]></name>
+				<uid>156558</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/78/156558_50.jpg?t=1390214661000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[bblzjp]]></name>
+				<uid>1764411</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/882/1764411_50.jpg?t=1399122443000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[唐家V]]></name>
+				<uid>554333</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/277/554333_50.png?t=1419503449000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[doge酱]]></name>
+				<uid>2319782</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/1159/2319782_50.jpg?t=1433763484000</portrait>
+			</user>
+					<user>
+				<name><![CDATA[小檀]]></name>
+				<uid>593105</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/296/593105_50.png?t=1432967103000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

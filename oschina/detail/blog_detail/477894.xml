@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>477894</id>
+		<title><![CDATA[在Eclipse集成开发平台中利用XFire框架发布Webservice]]></title>
+		<url><![CDATA[http://my.oschina.net/u/2356125/blog/477894]]></url>
+		<where><![CDATA[工作日志]]></where>
+		<commentCount>15</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>一、正所谓“工欲善其事，必先利其器”，下面就先来配置运行环境吧！</p> 
+<ol> 
+ <li><p>下载xfire-distribution-1.2.6.zip压缩包到本地，解压后将xfire-all-1.2.6.jar和lib文件夹里面的jar放到同一个文件夹xfirejars中。</p></li> 
+ <li><p>下载安装tomcat并关联的Eclipse工程中，这个就认为大家都懂，不多说了。</p></li> 
+ <li><p>打开eclipse，点击File-&gt;New-&gt;Dynamic Web Project,新建工程FirstWebService</p><p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0713/134312_R53m_2356125.jpg"></p></li>
+ <li><p>鼠标在FirstWebService上右键设置BuildPath-&gt;Configure Build Path设置编译文件classes的存储位置，具体存储位置<strong>FirstWebService/WebContent/WEB-INF/classes。</strong></p><p><strong><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0713/134742_VEYq_2356125.jpg"></strong></p></li>
+ <li><p><strong>web.xml文件配置，具体代码如下：</strong></p></li> 
+</ol> 
+<pre class="brush:java;toolbar: true; auto-links: false;">&lt;?xml&nbsp;version="1.0"&nbsp;encoding="UTF-8"?&gt;
+&lt;web-app&nbsp;xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&nbsp;xmlns="http://java.sun.com/xml/ns/javaee"&nbsp;xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"&nbsp;xsi:schemaLocation="http://java.sun.com/xml/ns/javaee&nbsp;http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"&nbsp;id="WebApp_ID"&nbsp;version="2.5"&gt;
+&nbsp;&nbsp;&lt;display-name&gt;FirstWebService&lt;/display-name&gt;
+&nbsp;&nbsp;&lt;welcome-file-list&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;welcome-file&gt;index.html&lt;/welcome-file&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;welcome-file&gt;index.htm&lt;/welcome-file&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;welcome-file&gt;default.html&lt;/welcome-file&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;welcome-file&gt;default.htm&lt;/welcome-file&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;
+&nbsp;&nbsp;&lt;/welcome-file-list&gt;
+&nbsp;&nbsp;&nbsp;&lt;servlet&gt;
+&nbsp;&lt;servlet-name&gt;calculateServlet&lt;/servlet-name&gt;
+&nbsp;&lt;servlet-class&gt;org.codehaus.xfire.transport.http.XFireConfigurableServlet&lt;/servlet-class&gt;
+&nbsp;&lt;/servlet&gt;
+&nbsp;&lt;servlet-mapping&gt;
+&nbsp;&lt;servlet-name&gt;calculateServlet&lt;/servlet-name&gt;
+&nbsp;&lt;url-pattern&gt;/services/*&lt;/url-pattern&gt;
+&nbsp;&lt;/servlet-mapping&gt;
+&lt;/web-app&gt;</pre> 
+<p>主要是设置&lt;servlet&gt;&lt;/servlet&gt;标签中和&lt;servlet-mapping&gt;&lt;/servlet-mapping&gt;中的代码。</p> 
+<p>6.把前面我们下载的xfire压缩包中复制出来的jar包文件全部复制到<strong>FirstWebService/WebContent/WEB-INF/lib文件夹中。</strong></p> 
+<p></p> 
+<p>7.接着在FirstWebService/Java Resources/src文件夹中建立包com.calculation.services，其中建立接口类Calculation.java<br>和接口实现类CalculationImpl.java。</p> 
+<p>具体代码如下：</p> 
+<p>Calculation.java</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">package&nbsp;com.calculation.services;
+public&nbsp;interface&nbsp;Calculation&nbsp;{
+&nbsp;public&nbsp;int&nbsp;add(int&nbsp;a,int&nbsp;b);
+&nbsp;public&nbsp;int&nbsp;sub(int&nbsp;a,int&nbsp;b);
+&nbsp;public&nbsp;int&nbsp;div(int&nbsp;a,int&nbsp;b);
+&nbsp;public&nbsp;int&nbsp;puls(int&nbsp;a,int&nbsp;b);
+}</pre> 
+<p>CalculationImpl.java</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">package&nbsp;com.calculation.services;
+public&nbsp;class&nbsp;CalculationImpl&nbsp;implements&nbsp;Calculation&nbsp;{
+&nbsp;public&nbsp;int&nbsp;add(int&nbsp;a&nbsp;,int&nbsp;b){
+&nbsp;&nbsp;return&nbsp;a+b;
+&nbsp;}
+&nbsp;
+&nbsp;public&nbsp;int&nbsp;sub(int&nbsp;a,int&nbsp;b){
+&nbsp;&nbsp;return&nbsp;a*b;
+&nbsp;}
+&nbsp;
+&nbsp;public&nbsp;int&nbsp;puls(int&nbsp;a,int&nbsp;b){
+&nbsp;&nbsp;return&nbsp;a-b;
+&nbsp;}
+&nbsp;
+&nbsp;public&nbsp;int&nbsp;div(int&nbsp;a,int&nbsp;b)&nbsp;{
+&nbsp;&nbsp;return&nbsp;a/b;
+&nbsp;}
+}</pre> 
+<p>&nbsp;</p> 
+<p>8.配置services.xml文件。</p> 
+<p>在FirstWebService/WebContent/META-INF文件夹下建立xfire文件，再在xfire中建立services.xml文件。最后将整个META-INF文件全部剪切到WEB-INF下的classes文件夹中。</p> 
+<p>services.xml代码如下：</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">&lt;?xml&nbsp;version="1.0"&nbsp;encoding="UTF-8"?&gt;
+&lt;beans&nbsp;xmlns="http://xfire.codehaus.org/config/1.0"&gt;
+&nbsp;&nbsp;&lt;service&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;name&gt;Calculation&lt;/name&gt;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;namespace&gt;http://com.calculation.services.Calculation&lt;/namespace&gt;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;serviceClass&gt;com.calculation.services.Calculation&lt;/serviceClass&gt;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;implementationClass&gt;com.calculation.services.CalculationImpl&lt;/implementationClass&gt;
+&nbsp;&nbsp;&lt;/service&gt;
+&lt;/beans&gt;</pre> 
+<p>至此，服务端的配置已经完成，具体的文件图结构如下：</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0713/141701_c0F6_2356125.jpg"></p>
+<p>然后点击项目，Run As-》Run On Server</p> 
+<p>最后在自己的浏览器中输入<a href="http://localhost:8080/FirstWebService/services/Calculation?wsdl" rel="nofollow">http://localhost:8080/FirstWebService/services/Calculation?wsdl</a>如果有下面的效果怎么服务端OK！</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/space/2015/0713/142650_slXC_2356125.jpg"></p>
+<p>二、客户端编写，建立FirstWebService/Java Resources/src/<strong>com.calculation.services.client</strong>包</p> 
+<p>客户端CalculationClient.java代码：</p> 
+<pre class="brush:java;toolbar: true; auto-links: false;">package&nbsp;com.calculation.services.client;
+
+import&nbsp;java.net.MalformedURLException;
+import&nbsp;org.codehaus.xfire.XFireFactory;
+import&nbsp;org.codehaus.xfire.client.XFireProxyFactory;
+import&nbsp;org.codehaus.xfire.service.Service;
+import&nbsp;org.codehaus.xfire.service.binding.ObjectServiceFactory;
+import&nbsp;com.calculation.services.*;
+public&nbsp;class&nbsp;CalculationClient&nbsp;{
+&nbsp;public&nbsp;&nbsp;static&nbsp;Calculation&nbsp;calc;
+&nbsp;public&nbsp;&nbsp;CalculationClient(){};
+&nbsp;
+&nbsp;public&nbsp;static&nbsp;&nbsp;Calculation&nbsp;getCalculate(String&nbsp;url)&nbsp;throws&nbsp;MalformedURLException&nbsp;{
+&nbsp;&nbsp;if(calc==null)&nbsp;{
+&nbsp;&nbsp;&nbsp;Service&nbsp;srvcModel&nbsp;=&nbsp;new&nbsp;ObjectServiceFactory().create(Calculation.class);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//创建XFire对象
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;XFireProxyFactory&nbsp;factory&nbsp;=&nbsp;new&nbsp;XFireProxyFactory(XFireFactory.newInstance().getXFire());
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//调用Web服务
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;calc&nbsp;=&nbsp;(Calculation)&nbsp;factory.create(srvcModel,&nbsp;url);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;return&nbsp;calc;
+&nbsp;}
+&nbsp;
+&nbsp;public&nbsp;static&nbsp;void&nbsp;main(String[]&nbsp;args)&nbsp;throws&nbsp;MalformedURLException&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;Calculation&nbsp;service&nbsp;=&nbsp;CalculationClient.getCalculate("http://localhost:8080/FirstWebService/services/Calculation");
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;result=service.add(2,&nbsp;3);
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;result2=service.div(10,&nbsp;2);
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(result);
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(result2);
+&nbsp;}
+&nbsp;
+&nbsp;
+&nbsp;
+}</pre> 
+<p>运行程序，总体完成！！！！</p>]]></body>
+		<author><![CDATA[lingyunspace]]></author>
+		<authorid>2356125</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-13 14:36:06</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

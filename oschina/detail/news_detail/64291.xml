@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+  <news>
+      <id>64291</id>
+      <title><![CDATA[SmartGit 7 preview 12 发布，Git 客户端]]></title>
+      <url><![CDATA[http://www.oschina.net/news/64291/smartgit-7-preview-12]]></url>
+      <body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p>SmartGit 7 preview 12 发布，此版本更新内容如下：</p> 
+<pre>新特性和改进
+--------------------------
+-&nbsp;Git:
+&nbsp;&nbsp;-&nbsp;Blame:&nbsp;follows&nbsp;merge&nbsp;source&nbsp;(instead&nbsp;of&nbsp;primary&nbsp;parent)&nbsp;if&nbsp;creation&nbsp;was&nbsp;in
+&nbsp;&nbsp;&nbsp;&nbsp;merge&nbsp;source
+&nbsp;&nbsp;-&nbsp;Commit:&nbsp;performance&nbsp;improvement&nbsp;(detecting&nbsp;pushed&nbsp;commits)
+&nbsp;&nbsp;-&nbsp;Reset:&nbsp;one&nbsp;global&nbsp;option&nbsp;for&nbsp;the&nbsp;reset&nbsp;type&nbsp;(hard,&nbsp;mixed,&nbsp;soft)&nbsp;instead&nbsp;of
+&nbsp;&nbsp;&nbsp;&nbsp;repository&nbsp;specific
+-&nbsp;Hg:
+&nbsp;&nbsp;-&nbsp;Push:&nbsp;if&nbsp;bookmark&nbsp;is&nbsp;checked&nbsp;out,&nbsp;it's&nbsp;been&nbsp;preselected&nbsp;for&nbsp;pushing
+&nbsp;&nbsp;-&nbsp;Repository&nbsp;root:&nbsp;show&nbsp;checked&nbsp;out&nbsp;bookmark&nbsp;instead&nbsp;of&nbsp;belonging&nbsp;branch
+
+Bugs&nbsp;修复
+----------
+-&nbsp;Git
+&nbsp;&nbsp;-&nbsp;Compare&nbsp;two&nbsp;files&nbsp;with&nbsp;each&nbsp;other:&nbsp;keeps&nbsp;repository&nbsp;in&nbsp;locked&nbsp;state
+&nbsp;&nbsp;-&nbsp;Log:
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;when&nbsp;logging&nbsp;a&nbsp;renamed&nbsp;file&nbsp;in&nbsp;an&nbsp;older,&nbsp;checked&nbsp;out&nbsp;branch,&nbsp;history
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;might&nbsp;end&nbsp;prematurely
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;Reveal:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;possible&nbsp;internal&nbsp;error
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;does&nbsp;not&nbsp;work&nbsp;if&nbsp;graph&nbsp;is&nbsp;empty
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;after&nbsp;failed&nbsp;reveal,&nbsp;e.g.&nbsp;because&nbsp;Graph&nbsp;was&nbsp;empty,&nbsp;context&nbsp;menu&nbsp;was
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shown&nbsp;incorrectly&nbsp;without&nbsp;new&nbsp;selection
+&nbsp;&nbsp;-&nbsp;Reset&nbsp;hard:&nbsp;complained&nbsp;about&nbsp;overwriting&nbsp;Index&nbsp;or&nbsp;working&nbsp;tree&nbsp;changes
+&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;a&nbsp;submodule&nbsp;has&nbsp;checked&nbsp;out&nbsp;a&nbsp;different&nbsp;commit
+-&nbsp;Hg:
+&nbsp;&nbsp;-&nbsp;Branches&nbsp;view:&nbsp;after&nbsp;"hg&nbsp;update&nbsp;-C"&nbsp;the&nbsp;bookmark&nbsp;was&nbsp;shown&nbsp;as&nbsp;"current"
+&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;it&nbsp;just&nbsp;was&nbsp;"active"
+&nbsp;&nbsp;-&nbsp;Discard&nbsp;Cherry-Pick/Merge:&nbsp;after&nbsp;execution&nbsp;checked&nbsp;out&nbsp;bookmark&nbsp;was&nbsp;not
+&nbsp;&nbsp;&nbsp;&nbsp;checked&nbsp;out&nbsp;any&nbsp;more
+&nbsp;&nbsp;-&nbsp;Merge&nbsp;two&nbsp;heads:&nbsp;failed&nbsp;if&nbsp;bookmark&nbsp;was&nbsp;checked&nbsp;out
+&nbsp;&nbsp;-&nbsp;Outgoing:&nbsp;merge&nbsp;commits&nbsp;were&nbsp;not&nbsp;detected&nbsp;and&nbsp;displayed&nbsp;correctly
+-&nbsp;GUI:
+&nbsp;&nbsp;-&nbsp;fixed&nbsp;tab&nbsp;order&nbsp;and&nbsp;layout&nbsp;in&nbsp;several&nbsp;dialogs
+-&nbsp;Other:
+&nbsp;&nbsp;-&nbsp;launching&nbsp;2nd&nbsp;SmartGit&nbsp;instead&nbsp;did&nbsp;not&nbsp;open&nbsp;window&nbsp;in&nbsp;1st&nbsp;SmartGit&nbsp;instance
+&nbsp;&nbsp;-&nbsp;Linux:&nbsp;if&nbsp;no&nbsp;local&nbsp;port&nbsp;could&nbsp;be&nbsp;created&nbsp;after&nbsp;Linux&nbsp;update,&nbsp;show&nbsp;error
+&nbsp;&nbsp;&nbsp;&nbsp;instead&nbsp;of&nbsp;bug&nbsp;dialog</pre> 
+<p>下载：<a target="_blank" href="http://www.syntevo.com/smartgit/early-access" rel="nofollow">http://www.syntevo.com/smartgit/early-access</a><br></p> 
+<p>SmartGit 是一个 <a href="http://www.oschina.net/p/git" rel="nofollow">Git</a> 版本控制系统的图形化客户端程序。</p> 
+<p><img src="http://192.168.79.254:8080/oschina/images/uploads/img/200910/23084130_aUKy.png" alt="">&nbsp; <br></p>]]></body>
+      <commentCount>1</commentCount>
+      <author><![CDATA[oschina]]></author>
+      <authorid>1</authorid>
+      <pubDate>2015-07-16 13:01:12</pubDate>
+	  <softwarelink><![CDATA[http://www.oschina.net/p/smartgit]]></softwarelink>
+	  <softwarename><![CDATA[SmartGit]]></softwarename>
+	  <favorite>0</favorite>
+	  	  	  <relativies>
+    	     	 		 <relative>
+			<rtitle><![CDATA[Git 2.4.6 发布，版本控制系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/64295/git-2-4-6</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git 2.5.0 RC2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64215/git-2-5-0-rc2</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Pygit2 0.22.1 发布，Python 的 Git 开发包]]></rtitle>
+			<rurl>http://www.oschina.net/news/64181/pygit2-0-22-1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Android M Developer Preview 2 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/64112/android-m-developer-preview-update</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[SmartGit 7 preview 11 发布，Git 客户端]]></rtitle>
+			<rurl>http://www.oschina.net/news/64091/smartgit-7-preview-11</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git 2.5.0 RC1 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63865/git-2-5-0-rc1</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git@OSC 再次遭受攻击]]></rtitle>
+			<rurl>http://www.oschina.net/news/63796/git-osc-down-again</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[SteamOS 2.0 Preview 发布，游戏操作系统]]></rtitle>
+			<rurl>http://www.oschina.net/news/63709/steamos-2-0-preview</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[Git 2.4.5/2.5.0 RC0 发布]]></rtitle>
+			<rurl>http://www.oschina.net/news/63664/git-2-4-5-and-2-5-0</rurl>
+		 </relative>
+		 		     	 		 <relative>
+			<rtitle><![CDATA[SmartGit 7 Preview 10/6.5.9 发布，Git 客户端]]></rtitle>
+			<rurl>http://www.oschina.net/news/63525/smartgit-6-5-9-and-7-preview-10</rurl>
+		 </relative>
+		 		 	   </relativies>
+	    </news>
+</oschina>

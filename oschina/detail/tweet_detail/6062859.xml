@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>	
+		  <tweet>
+    <id>6062859</id>
+	<body><![CDATA[
+		下雨天挺舒服的        	]]></body>
+    <author><![CDATA[火蚁]]></author>
+	<authorid>253900</authorid>
+    <appclient>3</appclient>
+    <commentCount>0</commentCount>
+	<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/126/253900_50.jpeg?t=1422505979000</portrait>
+    <pubDate>2015-07-17 09:19:48</pubDate>
+	<imgSmall>http://192.168.79.254:8080/oschina/images/uploads/space/2015/0717/091948_U25o_253900_thumb.jpg</imgSmall>
+	<imgBig>http://192.168.79.254:8080/oschina/images/uploads/space/2015/0717/091948_U25o_253900.jpg</imgBig>
+    <attach></attach>
+    
+    	<likeCount>1</likeCount>
+	<isLike>0</isLike>
+	<likeList>
+							<user>
+				<name><![CDATA[北_木]]></name>
+				<uid>1417325</uid>
+				<portrait>http://192.168.79.254:8080/oschina/images/uploads/user/708/1417325_50.png?t=1436861572000</portrait>
+			</user>
+			</likeList>
+  </tweet>
+</oschina>	

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>479553</id>
+		<title><![CDATA[Redis 与网络流量整形]]></title>
+		<url><![CDATA[http://my.oschina.net/leejun2005/blog/479553]]></url>
+		<where><![CDATA[python]]></where>
+		<commentCount>1</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><h1><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(255, 255, 0);">1、需求背景</span></h1> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">我们希望服务器能在请求流量的控制上有一定的自动控制能力；本文通过简介令牌桶算法和讨论算法的 redis 实现给出流量整形(traffic shaping)的示例，来介绍网络流量整形。</span></p> 
+<h1><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(255, 255, 0);">2、具体原理与实现</span></h1> 
+<h2><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(0, 176, 240);">2.1&nbsp;令牌桶算法</span></h2> 
+<p><a href="http://baike.baidu.com/link?url=NP_yYC5SnzB2Z9vkfdx-8WRLlAR5I3YO47qzWOpVbamsQdmwd3vwacofBGxK3lpcUvmaV9AMufBS7rBrcHt77a" target="_blank" rel="nofollow"><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">令牌桶算法</span></a><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">(token bucket) 并不是网络流量整形中的奇技淫巧，而是非常常用的算法，从百度百科上已经可以对它有一个概括的了解。对此算法的深入读者可自行查阅研究，这里我通俗化的来解释一下这个算法。</span></p> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">在令牌桶算法中，每一个访客都拥有一个独立的“令牌桶”，在这个“令牌桶”里放了一些“令牌”，访客每次来访都会消耗“令牌桶”中的“令牌”，如果“令牌桶”空了，将会对访客做特殊处理（如拒绝其继续访问以达到限流的目的）。</span></p> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">问题一：访客来访是一个持续的过程，如果最初的“令牌”数目固定，“令牌桶”中的令牌会慢慢被消耗殆尽，这样正常的访客也将无法访问—-所以我们需要以一个恒定的速率来向“令牌桶”中添加一定数量的“令牌”， 这样就可以让访客持续的访问。</span></p> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">问题二：我们以一个恒定速率向“令牌桶”中添加“令牌”， 那么如果访客一直没来访他的“令牌桶”岂不会累积大量“令牌”么？—-所以，我们设定“令牌桶”中“令牌”的最大数量，“令牌桶”满了就不需要再去添加了。这解决了“令牌”累积的问题，也使它更像一个“桶”。</span></p> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">如此，“令牌桶算法”中的重要的参数有：1. 给“令牌桶”添加“令牌”的速率（如果访客以这个速率消耗令牌，将一直不会被限流）； 2. “令牌桶”的容量（如果消耗令牌的速率大于添加令牌的速率，将消耗桶中的存货，如果消耗速率过大，令牌会被消耗殆尽，访客将被限流）。注意：一般情况下“令牌桶”最初的状态是满的。</span></p> 
+<h2><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(0, 176, 240);"><strong>2.2 Redis</strong></span></h2> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">作为优秀的内存数据库，redis 可以帮助我们在应用层次快速响应。本文不过多赘述 redis 的优劣，你可以用 redis 做很多事情，在网络流量整形方面，它是很好的实现方案， 下面我们来解析这样一个方案。</span></p> 
+<h2><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(0, 176, 240);"><strong>2.3 Show you the &nbsp;code</strong></span></h2> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">说明：这是一段 Python 代码，这段代码来自 GitHub 用户&nbsp;</span><a href="https://gist.github.com/justinfay/3403846" rel="nofollow"><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">justinfay</span></a><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">。为了使逻辑更清楚，我修改了代码的部分内容和注释，以下是修改后的代码，我们用这段代码来看令牌桶算法的 redis 实现。</span></p> 
+<pre class="brush:python;toolbar: true; auto-links: false;">import&nbsp;redis
+from&nbsp;redis&nbsp;import&nbsp;WatchError
+import&nbsp;time
+&nbsp;
+#&nbsp;向令牌桶中添加令牌的速率
+RATE&nbsp;=&nbsp;0.1&nbsp;
+#&nbsp;令牌桶的最大容量&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+DEFAULT&nbsp;=&nbsp;100
+#&nbsp;redis&nbsp;key&nbsp;的过期时间
+TIMEOUT&nbsp;=&nbsp;60&nbsp;*&nbsp;60
+&nbsp;
+r&nbsp;=&nbsp;redis.Redis()
+&nbsp;
+def&nbsp;token_bucket(tokens,&nbsp;key):
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;pipe&nbsp;=&nbsp;r.pipeline()
+&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;1:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipe.watch('%s:available'&nbsp;%&nbsp;key)&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipe.watch('%s:ts'&nbsp;%&nbsp;key)&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_ts&nbsp;=&nbsp;time.time()
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;获取令牌桶中剩余令牌
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;old_tokens&nbsp;=&nbsp;pipe.get('%s:available'&nbsp;%&nbsp;key)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;old_tokens&nbsp;is&nbsp;None:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_tokens&nbsp;=&nbsp;DEFAULT
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;old_ts&nbsp;=&nbsp;pipe.get('%s:ts'&nbsp;%&nbsp;key)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;通过时间戳计算这段时间内应该添加多少令牌，如果桶满，令牌数取桶满数。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_tokens&nbsp;=&nbsp;float(old_tokens)&nbsp;+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;min(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(current_ts&nbsp;-&nbsp;float(old_ts))&nbsp;*&nbsp;RATE,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT&nbsp;-&nbsp;float(old_tokens)&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;判断剩余令牌是否足够
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;0&nbsp;&lt;=&nbsp;tokens&nbsp;&lt;=&nbsp;current_tokens:&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_tokens&nbsp;-=&nbsp;tokens&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;consumes&nbsp;=&nbsp;True
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;consumes&nbsp;=&nbsp;False
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;以下动作为更新&nbsp;redis&nbsp;中key的值，并跳出循环返回结果。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipe.multi()&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipe.set('%s:available'&nbsp;%&nbsp;key,&nbsp;current_tokens)&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipe.expire('%s:available'&nbsp;%&nbsp;key,&nbsp;TIMEOUT)&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipe.set('%s:ts'&nbsp;%&nbsp;key,&nbsp;current_ts)&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipe.expire('%s:ts'&nbsp;%&nbsp;key,&nbsp;TIMEOUT)&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipe.execute()&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;except&nbsp;WatchError:&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;finally:&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pipe.reset()&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;consumes&nbsp;
+&nbsp;
+if&nbsp;__name__&nbsp;==&nbsp;"__main__":&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;tokens&nbsp;=&nbsp;5
+&nbsp;&nbsp;&nbsp;&nbsp;key&nbsp;=&nbsp;'192.168.1.1'
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;token_bucket(tokens,&nbsp;key):&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;'haz&nbsp;tokens'
+&nbsp;&nbsp;&nbsp;&nbsp;else:&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;'cant&nbsp;haz&nbsp;tokens'</pre> 
+<h1><span style="font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 16px; background-color: rgb(255, 255, 0);">3、几点需要说明的</span></h1> 
+<h2><span style="border: 0px; margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(0, 176, 240);">3.1 这段代码在网络流量整形策略中起到什么作用？</span></h2> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">对访客的一次访问，我们通过以上代码可以来判断此次访问是否超过了我们的限制，通过返回的判断结果，我们将对此次访问选择正确的处理策略，比如你可以拒绝消耗完令牌的访客进行访问，从而控制他的访问速率，从而达到网络流量整形的目的。</span></p> 
+<h2><span style="border: 0px; margin: 0px; padding: 0px; line-height: 15px; font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(0, 176, 240);">3.2 redis 在其中如何工作？</span></h2> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">对于每个独立的访客，redis 会为他建立两个 key，一个 key 保存了剩余令牌的数量，另外一个 key 保存了最近一次访问的时间戳。其中，最近一次访问时间戳在新访问到来时候用于计算时间间隔，从而计算在此时间间隔内应该向令牌桶中添加多少令牌，进而获得当前令牌桶的剩余令牌数。</span></p> 
+<h2><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(0, 176, 240);">3.3 redis pipe 起到什么作用？</span></h2> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">我们看到代码中 while 循环，执行了 redis pipe 中的 watch 动作，这是对&nbsp;</span><a href="http://redisbook.readthedocs.org/en/latest/feature/transaction.html" rel="nofollow"><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">redis 事务</span></a><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">&nbsp;的使用。 这使这里的算法能处理并发的来访。在 redis 中，事务执行是对 redis key 的一个加锁的操作，一个事务没有执行完，别的动作将无法操作这个 key ，代码中循环执行 watch 动作，就是去检查当前 key 是否有未执行完毕的事务，只有所有事务都执行的时候才可能进入执行体，完成令牌判断或者消耗。 —— 这样避免了并发的访问在 set redis key 时候的混乱。</span></p> 
+<h2><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(0, 176, 240);">3.4 如何调参</span></h2> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">代码中 RATE 和 DEFAULT 为主要参数，分别代表每秒钟消耗令牌的速率，和令牌桶的容量。通过调整这两个参数来控制你想要的访问速率。</span></p> 
+<h2><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(0, 176, 240);">3.5 总结</span></h2> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">这是一个实用的方式来完成网络流量整形，可以有效控制一些爆发式的流量访问，使访问更加平滑容易控制。</span></p> 
+<h1><span style="font-family: 微软雅黑, 'Microsoft YaHei';"><span style="font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 16px; background-color: rgb(255, 255, 0);">4、流量整形？没那么容易！</span><span style="font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 16px;"><br></span></span></h1> 
+<h2><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(0, 176, 240);">4.1 上述 redis 令牌桶算法的缺陷</span></h2> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">令牌桶算法不能与另外一种常见算法“漏桶算法（Leaky Bucket）”相混淆。这两种算法的主要区别在于“漏桶算法”能够强行限制数据的传输速率，而“令牌桶算法”在能够限制数据的平均传输速率外，还允许某种程度的突发传输。在“令牌桶算法”中，只要令牌桶中存在令牌，那么就允许突发地传输数据直到达到用户配置的门限，因此它适合于具有突发特性的流量。</span></p> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';"></span></p> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">比如频率限制是 100次/分，前60秒第1-59秒访问了1次，第60秒访问了98次, 前面60秒访问了99次, 符合。</span></p> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">然而当访问第61秒访问了50次, 其实60-61秒就已经超过了，这里就需要注意不均匀的流量控制策略。</span></p> 
+<p><span style="font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 16px;">如果读者朋友们仔细思考下，文中前面提到的方案会面临如下的问题：<br></span></p> 
+<p><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei';">假如频率限制是 100次/60s。令牌桶原来的令牌数为100 ,按照(100/60)个/秒往令牌桶里面加令牌。有一段时间1-60s，其中第一秒就消费了100个,那么按照加令牌的速率,在第二秒就会又产生一个令牌。这就会造成,1-60秒这一分钟内请求的次数已经大于100了。</span> </p> 
+<h2><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(0, 176, 240);">4.2 另外的思路：</span></h2> 
+<p><span style="font-size: 16px; color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei'; line-height: 22.3999996185303px; background-color: rgb(255, 255, 255);">分别把当前秒调用的次数存入缓存。比如说,当前调用者调用次数为3,那么我就往缓存中加入KEY=SECRET_1,VALUE=3;然后调用者在第二秒调用的次数为4，那么就往缓存中加入KEY=SECRET_2,VALUE=3;如此循环,当循环到61秒的时候替换KEY=SECRET_1中得VAALUE,每次调用的时候计算SECRET_1~SECRET_60的值来判断调用次数,是否超过100次。(这里具体一秒钟调用几次,需要通过时间戳来算出是第几秒。这里以60秒为时间周期,并且以秒为一个时间单位,当然如果要求不是很准确的话,时间单位可以调大一点)<br></span></p> 
+<p><span style="font-size: 16px; color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei'; line-height: 22.3999996185303px;">或者我们不固定时间，来固定次数：对每个用户，我们使用一个列表类型的键来记录他最近100次访问博客的时间。一旦列表中的元素超过 100 个，就判断时间最早的元素距现在的时间是否小于1分钟。如果是则表示用户最近1分钟的访问次数超过了100次；如果不是就将现在的时间加入到列表中，同时把最早的元素删除。</span><span style="font-size: 14px; color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei'; line-height: 22.3999996185303px;"><br></span></p> 
+<p><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, 'Microsoft YaHei'; font-size: 16px; line-height: 22.3999996185303px;">不过这里的思路也有不少性能问题和缺陷，如果想要设计实现一个非常完美的频率限制功能，看来没那么容易，读者朋友们也可以自行思考下 :)</span></p> 
+<h1><span style="font-size: 16px; font-family: 微软雅黑, 'Microsoft YaHei'; background-color: rgb(255, 255, 0);">5、Refer：</span></h1> 
+<p><span style="font-family: 微软雅黑, 'Microsoft YaHei';">[1]&nbsp;Redis 与网络流量整形</span></p> 
+<p><a href="http://blog.jobbole.com/88064/" target="_blank" rel="nofollow"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">http://blog.jobbole.com/88064/</span></a><br></p> 
+<p><span style="font-family: 微软雅黑, 'Microsoft YaHei';">[2]&nbsp;怎么保证对外暴露接口的安全性(调用频率限制)</span></p> 
+<p><a href="http://segmentfault.com/q/1010000002938194?_ea=252390" target="_blank" rel="nofollow"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">http://segmentfault.com/q/1010000002938194?_ea=252390</span></a><br></p> 
+<p><span style="font-family: 微软雅黑, 'Microsoft YaHei';">[3]&nbsp;开放平台API接口调用频率控制系统设计浅谈</span></p> 
+<p><a href="http://my.oschina.net/feichexia/blog/312591" target="_blank" rel="nofollow"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">http://my.oschina.net/feichexia/blog/312591</span></a><br></p> 
+<p><span style="font-family: 微软雅黑, 'Microsoft YaHei';">[4]&nbsp;4.2.3　实现访问频率限制之二</span></p> 
+<p><a href="http://book.51cto.com/art/201305/395450.htm" target="_blank" rel="nofollow"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">http://book.51cto.com/art/201305/395450.htm</span></a><br></p> 
+<p><span style="font-family: 微软雅黑, 'Microsoft YaHei';">[5]&nbsp;redis token bucket</span></p> 
+<p><a href="https://gist.github.com/justinfay/3403846" target="_blank" rel="nofollow"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">https://gist.github.com/justinfay/3403846</span></a><br></p> 
+<p><span style="font-family: 微软雅黑, 'Microsoft YaHei';">[6] redis&nbsp;事务</span></p> 
+<p><a href="http://redisbook.readthedocs.org/en/latest/feature/transaction.html" target="_blank" rel="nofollow"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">http://redisbook.readthedocs.org/en/latest/feature/transaction.html</span></a><br></p>]]></body>
+		<author><![CDATA[xrzs]]></author>
+		<authorid>568818</authorid>
+		<documentType>0</documentType>
+        <pubDate>2015-07-17 02:33:55</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>

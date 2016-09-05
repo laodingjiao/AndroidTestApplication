@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+  <pagesize>20</pagesize>
+  <blogs>
+  					<blog>
+		<id>472105</id>
+		<title><![CDATA[Java操作office文件的选择]]></title>
+        <body><![CDATA[笔者在这里所述的信息均是从网上搜索聚合而来，有些是亲身做过验证的，有...]]></body>
+		<url><![CDATA[http://my.oschina.net/angerbaby/blog/472105]]></url>
+        <pubDate>2015-06-29 16:11:49</pubDate>
+        <authoruid>992498</authoruid>
+        <authorname><![CDATA[Angerbaby]]></authorname>
+        <commentCount>10</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471960</id>
+		<title><![CDATA[React-Native入门指南——第七篇动手写组件]]></title>
+        <body><![CDATA[React-Native入门指南 第七篇动手写组件 React-Native的核心思想就是组件...]]></body>
+		<url><![CDATA[http://my.oschina.net/vczero/blog/471960]]></url>
+        <pubDate>2015-06-29 13:15:52</pubDate>
+        <authoruid>2401036</authoruid>
+        <authorname><![CDATA[vczero]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471954</id>
+		<title><![CDATA[React-Native入门指南——第4篇react-native布局实战（二）]]></title>
+        <body><![CDATA[React-Native入门指南 github:https://github.com/vczero/react-native-...]]></body>
+		<url><![CDATA[http://my.oschina.net/vczero/blog/471954]]></url>
+        <pubDate>2015-06-29 13:10:41</pubDate>
+        <authoruid>2401036</authoruid>
+        <authorname><![CDATA[vczero]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471953</id>
+		<title><![CDATA[React-Native入门指南（六）——JSX在React-Native中的应用]]></title>
+        <body><![CDATA[React-Native入门指南 github:https://github.com/vczero/react-native-...]]></body>
+		<url><![CDATA[http://my.oschina.net/vczero/blog/471953]]></url>
+        <pubDate>2015-06-29 13:10:37</pubDate>
+        <authoruid>2401036</authoruid>
+        <authorname><![CDATA[vczero]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471952</id>
+		<title><![CDATA[React-Native入门指南（二）——代码结构]]></title>
+        <body><![CDATA[React-Native入门指南 github:https://github.com/vczero/react-native-...]]></body>
+		<url><![CDATA[http://my.oschina.net/vczero/blog/471952]]></url>
+        <pubDate>2015-06-29 13:10:36</pubDate>
+        <authoruid>2401036</authoruid>
+        <authorname><![CDATA[vczero]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471951</id>
+		<title><![CDATA[React-Native入门指南(四)——React-Native布局实战（一）]]></title>
+        <body><![CDATA[React-Native入门指南 github:https://github.com/vczero/react-native-...]]></body>
+		<url><![CDATA[http://my.oschina.net/vczero/blog/471951]]></url>
+        <pubDate>2015-06-29 13:10:26</pubDate>
+        <authoruid>2401036</authoruid>
+        <authorname><![CDATA[vczero]]></authorname>
+        <commentCount>2</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471950</id>
+		<title><![CDATA[React-Native入门指南（五）——UI组件]]></title>
+        <body><![CDATA[React-Native入门指南 github:https://github.com/vczero/react-native-...]]></body>
+		<url><![CDATA[http://my.oschina.net/vczero/blog/471950]]></url>
+        <pubDate>2015-06-29 13:10:15</pubDate>
+        <authoruid>2401036</authoruid>
+        <authorname><![CDATA[vczero]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471946</id>
+		<title><![CDATA[React-Native入门指南(三) ——CSS和UI布局]]></title>
+        <body><![CDATA[React-Native入门指南 github:https://github.com/vczero/react-native-...]]></body>
+		<url><![CDATA[http://my.oschina.net/vczero/blog/471946]]></url>
+        <pubDate>2015-06-29 13:10:03</pubDate>
+        <authoruid>2401036</authoruid>
+        <authorname><![CDATA[vczero]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471945</id>
+		<title><![CDATA[React-Native入门指南（一）——环境配置 & Hello World]]></title>
+        <body><![CDATA[React-Native入门指南 github:https://github.com/vczero/react-native-...]]></body>
+		<url><![CDATA[http://my.oschina.net/vczero/blog/471945]]></url>
+        <pubDate>2015-06-29 13:09:53</pubDate>
+        <authoruid>2401036</authoruid>
+        <authorname><![CDATA[vczero]]></authorname>
+        <commentCount>29</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471859</id>
+		<title><![CDATA[打造一个全命令行的Android构建系统]]></title>
+        <body><![CDATA[IDE都是给小白程序员的，大牛级别的程序员一定是命令行控，终端控，你看...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/2285044/blog/471859]]></url>
+        <pubDate>2015-06-29 11:02:05</pubDate>
+        <authoruid>2285044</authoruid>
+        <authorname><![CDATA[拉偶有所依]]></authorname>
+        <commentCount>10</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471834</id>
+		<title><![CDATA[mongodb运维之副本集实践]]></title>
+        <body><![CDATA[忽然发现芋头好鸡贼 正式环境，4台机器+一台定时任务的机器。
+服务器是阿...]]></body>
+		<url><![CDATA[http://my.oschina.net/nodeonly/blog/471834]]></url>
+        <pubDate>2015-06-29 10:33:22</pubDate>
+        <authoruid>2269918</authoruid>
+        <authorname><![CDATA[i5ting]]></authorname>
+        <commentCount>8</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471467</id>
+		<title><![CDATA[vmstat 中文命令参考]]></title>
+        <body><![CDATA[NAME 名字 vmstat - Report virtual memory statistics 报告虚拟内存的统...]]></body>
+		<url><![CDATA[http://my.oschina.net/u/1433482/blog/471467]]></url>
+        <pubDate>2015-06-27 14:21:29</pubDate>
+        <authoruid>1433482</authoruid>
+        <authorname><![CDATA[磁针石]]></authorname>
+        <commentCount>2</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471424</id>
+		<title><![CDATA[Nodejs开源项目里怎么样写测试、CI和代码测试覆盖率]]></title>
+        <body><![CDATA[wx 是一个不错的微信应用框架，接口和网站做的也不错，和wechat-api是类...]]></body>
+		<url><![CDATA[http://my.oschina.net/nodeonly/blog/471424]]></url>
+        <pubDate>2015-06-27 09:15:08</pubDate>
+        <authoruid>2269918</authoruid>
+        <authorname><![CDATA[i5ting]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471323</id>
+		<title><![CDATA[关于人才]]></title>
+        <body><![CDATA[关于人才 每个月我都会接到许多猎头的电话，有些猎头比较专业，但绝大多...]]></body>
+		<url><![CDATA[http://my.oschina.net/neochen/blog/471323]]></url>
+        <pubDate>2015-06-26 17:17:32</pubDate>
+        <authoruid>725072</authoruid>
+        <authorname><![CDATA[neo-chen]]></authorname>
+        <commentCount>16</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471271</id>
+		<title><![CDATA[聊聊实时 Node 应用性能监测的实现]]></title>
+        <body><![CDATA[近年来，由于 JavaScript 在服务端的兴起，使用 Node.js (以下简称 Node...]]></body>
+		<url><![CDATA[http://my.oschina.net/turingou/blog/471271]]></url>
+        <pubDate>2015-06-26 15:42:07</pubDate>
+        <authoruid>1040404</authoruid>
+        <authorname><![CDATA[郭宇GuoYu]]></authorname>
+        <commentCount>0</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471102</id>
+		<title><![CDATA[悠然乱弹：开源生态圈的生命力]]></title>
+        <body><![CDATA[在美国的硅谷，在中国的中关村，许多的技术先驱者怀揣梦想，用激情不懈地...]]></body>
+		<url><![CDATA[http://my.oschina.net/tinyframework/blog/471102]]></url>
+        <pubDate>2015-06-26 11:48:40</pubDate>
+        <authoruid>1245989</authoruid>
+        <authorname><![CDATA[悠悠然然]]></authorname>
+        <commentCount>19</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471082</id>
+		<title><![CDATA[linux进程间通信总结]]></title>
+        <body><![CDATA[1. 概览 本文记录经典的IPC：pipes, FIFOs, message queues, semaphore...]]></body>
+		<url><![CDATA[http://my.oschina.net/haomcu/blog/471082]]></url>
+        <pubDate>2015-06-26 11:18:09</pubDate>
+        <authoruid>80542</authoruid>
+        <authorname><![CDATA[HAOMCU]]></authorname>
+        <commentCount>2</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>471057</id>
+		<title><![CDATA[CentOS6.6下安装vim7.4]]></title>
+        <body><![CDATA[最近在学习linux，买了本vim实用技巧，边看边练习的过程中发现有些命令在...]]></body>
+		<url><![CDATA[http://my.oschina.net/zhmlvft/blog/471057]]></url>
+        <pubDate>2015-06-26 10:38:21</pubDate>
+        <authoruid>925404</authoruid>
+        <authorname><![CDATA[爱兔一生]]></authorname>
+        <commentCount>4</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>470948</id>
+		<title><![CDATA[深入理解文本在内存中的编码(2)——乱码探源(5)]]></title>
+        <body><![CDATA[在前面我们探讨了String是什么的问题，现在来看String从哪来的问题。 St...]]></body>
+		<url><![CDATA[http://my.oschina.net/goldenshaw/blog/470948]]></url>
+        <pubDate>2015-06-26 00:30:49</pubDate>
+        <authoruid>1772009</authoruid>
+        <authorname><![CDATA[国栋]]></authorname>
+        <commentCount>2</commentCount>
+		<documentType>1</documentType>
+	</blog>
+						<blog>
+		<id>470435</id>
+		<title><![CDATA[如何采用Yeoman + Grunt + Bower开发基于PhoneGap的Hybrid APP]]></title>
+        <body><![CDATA[  一直想开发手机应用，也跟着教程学做了两个iOS小应用，但开发思维上的...]]></body>
+		<url><![CDATA[http://my.oschina.net/zombiecat/blog/470435]]></url>
+        <pubDate>2015-06-24 23:14:18</pubDate>
+        <authoruid>859182</authoruid>
+        <authorname><![CDATA[僵尸猫]]></authorname>
+        <commentCount>6</commentCount>
+		<documentType>1</documentType>
+	</blog>
+		    </blogs>
+</oschina>	

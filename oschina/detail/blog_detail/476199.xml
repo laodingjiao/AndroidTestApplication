@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><oschina>
+	<blog>
+								<id>476199</id>
+		<title><![CDATA[CCBPM工作流引擎的消息机制与设计]]></title>
+		<url><![CDATA[http://my.oschina.net/ccflow/blog/476199]]></url>
+		<where><![CDATA[日常记录]]></where>
+		<commentCount>0</commentCount>
+		<body><![CDATA[<style type='text/css'>pre {white-space:pre-wrap;word-wrap:break-word;}</style><p><strong>CCBPM</strong><strong>工作流引擎的消息机制与设计</strong></p> 
+<p><strong>关键字：</strong>ccflow jflow 消息机制 流程引擎 自动发送短信 发送邮件 发送消息 流程引擎微信连接 消息接口</p> 
+<p><strong>关于ccbpm:</strong> 我们把ccflow jflow两个版本的工作流引擎统称为ccbpm.</p> 
+<p><strong>工作流引擎的消息产生：</strong>在发送、抄送、退回、转发、加签、删除等等操作过程中，需要对当时人进行提醒，并且在设置提醒的情况下，就会产生消息。</p> 
+<p><strong>Ccbpm</strong><strong>的消息删除机制：</strong>对于已经过期无意义的提示，ccbpm就会删除，比如：a节点发送到b节点有n (n&gt;=1)个人可以处理，这个时间如果设置了消息提醒在启动消息服务的情况下，就会提示给这N个人，如果一个人处理了发送到c点上去，那么ccbpm就会自动删除b节点的提示，防止重复提示。</p> 
+<p><strong>消息定义：</strong>消息是与系统与用户，用户与用户，用户与系统之间沟通的渠道，在一个mis系统的运行过程中会有很多类型的消息，这些消息通过一定的渠道来传递，这些渠道包括，短信、手机在线提示、邮件提示、即时通讯系统、微信推送。</p> 
+<p><strong>消息服务：</strong>ccbpm的消息，是通过ccbpm的服务来发送的，如下图ccflow的服务器。</p> 
+<p><a href="http://static.oschina.net/uploads/img/201507/08154840_TNE2.gif" rel="nofollow"><img title="clip_image001" alt="clip_image001" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/08154841_KDtf.gif"></a></p>
+<p>Ccflow的服务，能够把工作流引擎运行过程中的消息，发送出去。比如发送到下一步，有待办。</p> 
+<p><strong>Ccbpm</strong><strong>支持的消息传递渠道：</strong>如上图所示，ccbpm流程引擎的消息传递渠道有如上5中，下面分别介绍这五种消息推送渠道。</p> 
+<p><strong>第1</strong><strong>：向ccim</strong><strong>写入消息：</strong>必须使用ccim才有效，当然您也可以与其他的即时通讯集成，到网上搜索，ccbpm与其他即时消息集成的demo.</p> 
+<p><a href="http://static.oschina.net/uploads/img/201507/08154842_eyzD.jpg" rel="nofollow"><img title="clip_image003" alt="clip_image003" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/08154847_IkWE.jpg"></a></p>
+<p><strong>第2:</strong><strong>发送邮件：</strong>顾名思义，就是发送邮件给当事人，当事人必须在个人设置里设置email地址才可以。 &nbsp; &nbsp;<br><a href="http://static.oschina.net/uploads/img/201507/08154848_Gwfq.jpg" rel="nofollow"><img title="clip_image005" alt="clip_image005" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/08154850_FyFg.jpg"></a></p>
+<p><strong>第3:</strong><strong>发送sms</strong><strong>短信：</strong>需要连接短信猫才可以运行，短信猫是一个硬件设备，每个短信猫的型号不同，驱动也不同，但大体相同，如果你使用与我们一样型号的短信猫，就没有必要调试接口了。</p> 
+<p><strong>第4:</strong><strong>向app</strong><strong>手机写入消息：</strong>这个需要启动ccbpm的ios 与andriod的客户端才可以，系统就会自动推送消息到客户端上。</p> 
+<p><a href="http://static.oschina.net/uploads/img/201507/08154851_Q4AH.jpg" rel="nofollow"><img title="clip_image007" alt="clip_image007" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/08154851_8vdL.jpg"></a></p>
+<p><strong>第5: </strong><strong>向微信写入消息：</strong> ccbpm与微信集成，可以方便的通过微信的企业号，把产生的消息，免费的推送到指定用户的微信上。</p> 
+<p><a href="http://static.oschina.net/uploads/img/201507/08154852_s4vW.jpg" rel="nofollow"><img title="clip_image009" alt="clip_image009" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/08154852_aV5P.jpg"></a></p>
+<p><strong>CCBPM</strong><strong>的消息存储表：</strong>所有在ccbpm流程引擎产生的消息，都会记录到TA_SMS的表里，每次把消息推送出去以后，系统就会做一个标记，下面是表结构，信息。当然如果你愿意自己在这个表上去写接口，产生消息更新状态也未尝不可。</p> 
+<p><a href="http://static.oschina.net/uploads/img/201507/08154854_ZrCx.jpg" rel="nofollow"><img title="clip_image011" alt="clip_image011" src="http://192.168.79.254:8080/oschina/images/uploads/img/201507/08154854_MtQh.jpg"></a></p>
+<p>如果你要对该表进行二次开发，首先要了解好每个字段，在消息推送成功后，就把该字段修复成发送成功状态，请参考我们的ccbpm服务代码。</p> 
+<p><strong>===OVER===</strong></p>]]></body>
+		<author><![CDATA[ccflow]]></author>
+		<authorid>10897</authorid>
+		<documentType>1</documentType>
+        <pubDate>2015-07-08 15:48:54</pubDate>
+		<favorite>0</favorite>
+			</blog>
+</oschina>
